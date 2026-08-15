@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lesson 1.1 Organizing a Business — Self-Paced — Verde Tech</title>
+<meta name="theme-color" content="#2f6b3f">
+<!--
+  ABF Lesson 1.1 "Organizing a Business" — self-paced student module.
+  Built 2026-08-08 (night shift) from the CASE ABF curriculum Leo teaches in P2 Agribusiness.
+  Standalone file: no server, no login, works offline (videos/game need internet).
+  Student work saves in the browser (localStorage) and compiles into one text block to turn in.
+  The graded Lesson 1.1 Check for Understanding is NOT here — teacher distributes it (Day 5).
+  All practice questions in this file are original (no CASE answer-key content).
+-->
+<style>
+  :root{
+    --green:#2f6b3f; --green-d:#245231; --green-l:#eaf3ec;
+    --sun:#c8892b; --sun-l:#fdf3e2;
+    --ink:#1d2321; --dim:#5b6763; --faint:#8a9591;
+    --line:#dfe5e1; --bg:#f6f8f6; --card:#fff;
+    --ok:#2f7d4f; --no:#b23b3b; --no-l:#fbecec;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    padding:0 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 90px}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  h1,h2,h3{line-height:1.25;margin:0}
+  header{position:sticky;top:0;z-index:20;background:var(--green);color:#fff;
+    padding:calc(10px + env(safe-area-inset-top)) 16px 10px}
+  .hrow{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .htitle{font-size:16px;font-weight:700;letter-spacing:.2px;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hsub{font-size:12px;opacity:.78;font-weight:500;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .back{font-size:15px;font-weight:600;opacity:.92;padding:6px 4px;margin-left:-4px}
+  .who{font-size:12.5px;opacity:.85;padding:6px 8px;border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .btn{display:block;width:100%;background:var(--green);color:#fff;font-size:17px;font-weight:700;
+    padding:16px;border-radius:14px;text-align:center;margin-top:14px;transition:.12s transform}
+  .btn:active{transform:scale(.985)}
+  .btn.ghost{background:#fff;color:var(--green);border:2px solid var(--green)}
+  .btn.quiet{background:transparent;color:var(--dim);font-weight:600;font-size:15px;padding:12px;margin-top:4px}
+  .btn[disabled]{opacity:.4;pointer-events:none}
+  .muted{color:var(--dim);font-size:14.5px}
+  .tiny{color:var(--faint);font-size:12.5px}
+  .hide{display:none !important}
+  #gate .card{margin-top:28px;text-align:center}
+  #gate h2{font-size:22px;margin-bottom:6px}
+  #nameIn{width:100%;font-size:18px;padding:15px;border:2px solid var(--line);
+    border-radius:12px;margin-top:16px;text-align:center;background:#fff;color:var(--ink)}
+  #nameIn:focus{outline:none;border-color:var(--green)}
+  .progwrap{margin:18px 0 6px}
+  .progbar{height:10px;background:#e4eae5;border-radius:99px;overflow:hidden}
+  .progfill{height:100%;background:linear-gradient(90deg,var(--green),#57a06b);
+    border-radius:99px;transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .progtxt{display:flex;justify-content:space-between;margin-top:7px;font-size:13px;color:var(--dim)}
+  .progtxt b{color:var(--ink)}
+  .row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 15px;margin:9px 0;transition:.12s border-color,.12s transform}
+  .row:active{transform:scale(.99)}
+  .row.done{border-color:#bcdcc5;background:#f4faf5}
+  .row.locked{opacity:.5}
+  .row.next{border-color:var(--green);box-shadow:0 0 0 3px rgba(47,107,63,.09)}
+  .dot{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-size:14px;font-weight:800;background:var(--green-l);color:var(--green-d)}
+  .row.done .dot{background:var(--ok);color:#fff}
+  .row.locked .dot{background:#eceeed;color:var(--faint)}
+  .rtext{flex:1;min-width:0}
+  .rtext .nm{display:block;font-size:16px;font-weight:650;line-height:1.3}
+  .rtext .sc{display:block;font-size:12.5px;color:var(--dim);margin-top:3px}
+  .row.done .sc{color:var(--ok);font-weight:600}
+  .chev{color:var(--faint);font-size:19px;flex:none}
+  .secttl{font-size:12px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;
+    color:var(--faint);margin:24px 4px 4px}
+  .lesson h2{font-size:21px;margin:4px 0 10px}
+  .lesson h3{font-size:16.5px;margin:18px 0 8px;color:var(--green-d)}
+  .lesson p{margin:0 0 12px;font-size:16px;color:#2a3330}
+  .lesson ul{margin:0 0 12px;padding-left:22px}
+  .lesson li{margin:5px 0;font-size:15.5px}
+  .callout{background:var(--green-l);border:1px solid #cfe2d4;border-radius:12px;
+    padding:13px 15px;margin:12px 0;font-size:15px}
+  .callout.sun{background:var(--sun-l);border-color:#eedcb8}
+  .term{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+  .term b{color:var(--green-d)}
+  .term span{display:block;font-size:14.5px;color:var(--dim);margin-top:3px}
+  a.ext{display:block;background:#fff;border:2px solid var(--green);border-radius:14px;
+    padding:14px 16px;margin:12px 0;color:var(--green);font-weight:700;text-decoration:none;font-size:16px}
+  a.ext small{display:block;font-weight:500;color:var(--dim);font-size:13px;margin-top:2px}
+  textarea{width:100%;min-height:84px;font:15.5px/1.5 inherit;padding:12px;border:2px solid var(--line);
+    border-radius:12px;background:#fff;color:var(--ink);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--green)}
+  .qlabel{font-size:15px;font-weight:650;margin:16px 0 7px}
+  .qlabel .qn{color:var(--sun);font-weight:800}
+  /* sort game */
+  .sortitem{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:16px;font-weight:600;text-align:center}
+  .sortbtns{display:flex;gap:10px;margin-top:12px}
+  .sortbtns button{flex:1;padding:14px;border-radius:12px;font-weight:800;font-size:16px}
+  .sb-need{background:var(--green-l);color:var(--green-d);border:2px solid var(--green)}
+  .sb-want{background:var(--sun-l);color:#8a5a12;border:2px solid var(--sun)}
+  .sortfeed{text-align:center;font-weight:700;margin-top:10px;min-height:24px;font-size:15px}
+  .sortfeed.ok{color:var(--ok)} .sortfeed.no{color:var(--no)}
+  /* mcq */
+  .mcq-q{font-size:17px;font-weight:650;margin:6px 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);
+    border-radius:13px;padding:14px 15px;margin:9px 0;font-size:15.5px;transition:.12s}
+  .opt.picked-ok{border-color:var(--ok);background:#f0f9f2;font-weight:650}
+  .opt.picked-no{border-color:var(--no);background:var(--no-l)}
+  .opt.reveal{border-color:var(--ok)}
+  .mcq-feed{min-height:26px;font-weight:700;font-size:15px;margin-top:6px}
+  .mcq-feed.ok{color:var(--ok)} .mcq-feed.no{color:var(--no)}
+  .mcq-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim);margin-bottom:10px}
+  /* chain order game */
+  .chainpick{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:15.5px;font-weight:600;text-align:left}
+  .chainpick[disabled]{opacity:.35}
+  .chainslot{background:var(--green-l);border:1px solid #cfe2d4;border-radius:10px;
+    padding:9px 13px;margin:5px 0;font-size:14.5px;font-weight:650;color:var(--green-d)}
+  /* checklist */
+  .ck{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;
+    background:#fff;border:2px solid var(--line);border-radius:13px;padding:13px 15px;margin:8px 0}
+  .ck .box{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);flex:none;
+    display:grid;place-items:center;font-size:15px;color:#fff;margin-top:1px}
+  .ck.on{border-color:#bcdcc5;background:#f4faf5}
+  .ck.on .box{background:var(--ok);border-color:var(--ok)}
+  .ck .t{flex:1;font-size:15px}
+  /* structures reference cards */
+  .struct{border-left:4px solid var(--green);background:#fff;border-radius:0 12px 12px 0;
+    border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:12px 15px;margin:10px 0}
+  .struct b{font-size:16px}
+  .struct p{margin:5px 0 0;font-size:14.5px;color:var(--dim)}
+  /* finish */
+  .bigscore{text-align:center;font-size:44px;font-weight:800;color:var(--green);margin:10px 0 2px}
+  pre#compiled{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace;background:#f2f5f2;
+    border:1px solid var(--line);border-radius:12px;padding:14px;max-height:340px;overflow:auto}
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow">
+    <button class="back hide" id="backBtn" onclick="goMap()">‹ Map</button>
+    <div style="flex:1;min-width:0">
+      <div class="htitle">Lesson 1.1 · Organizing a Business</div>
+      <div class="hsub">Agribusiness Foundations · self-paced · Mr. Beltran</div>
+    </div>
+    <div class="who hide" id="whoChip"></div>
+  </div>
+</header>
+<div class="wrap">
+
+<!-- ══════════ NAME GATE ══════════ -->
+<section id="gate">
+  <div class="card">
+    <h2>🌱 Organizing a Business</h2>
+    <p class="muted">Work through this lesson at your own pace. Your answers save on this device as you go, and at the end you'll turn in everything with one tap.</p>
+    <input id="nameIn" placeholder="First and last name" autocomplete="off">
+    <button class="btn" onclick="startApp()">Start</button>
+    <p class="tiny" style="margin-top:14px">Use the same device each day so your saved work is here when you come back.</p>
+  </div>
+</section>
+
+<!-- ══════════ MAP ══════════ -->
+<section id="map" class="hide">
+  <div class="progwrap">
+    <div class="progbar"><div class="progfill" id="progFill" style="width:0%"></div></div>
+    <div class="progtxt"><span>Lesson progress</span><b id="progTxt">0 of 6</b></div>
+  </div>
+  <div class="secttl">Work in order — each part unlocks the next</div>
+  <div id="rows"></div>
+  <div class="secttl">Reference</div>
+  <button class="row" onclick="openStation('gloss')">
+    <div class="dot">📖</div>
+    <div class="rtext"><span class="nm">Key Terms Glossary</span>
+    <span class="sc">Every term for this lesson — open any time</span></div>
+    <div class="chev">›</div>
+  </button>
+  <p class="tiny" style="text-align:center;margin-top:20px">CASE Agribusiness Foundations · Unit 1 · Verde Tech / Mr. Beltran<br>
+  Questions? Ask in class or post in Google Classroom.</p>
+  <button class="btn quiet" onclick="resetAll()">Start over (erases saved work)</button>
+</section>
+
+<!-- ══════════ STATION CONTAINER ══════════ -->
+<section id="station" class="hide"><div id="stationBody" class="lesson"></div></section>
+
+</div>
+<script>
+'use strict';
+/* ───────── persistence ───────── */
+const KEY='abf-l11-v1';
+let S = load();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{} }catch(e){ return {} } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)) }catch(e){} }
+S.done   = S.done || {};      // station id -> true
+S.text   = S.text || {};      // answer id  -> typed text
+S.checks = S.checks || {};    // checklist id -> true
+S.scores = S.scores || {};    // quiz id -> best %
+
+/* ───────── stations ───────── */
+const STATIONS = [
+ {id:'overview', n:'1', nm:'Start Here — What This Lesson Is About',    sc:'Essential questions + what you\'ll be able to do'},
+ {id:'needs',    n:'2', nm:'Needs vs. Wants',                            sc:'Activity 1.1.1 · game + sorting + short answers'},
+ {id:'records',  n:'3', nm:'Your Notebook & Recordkeeping',              sc:'Activity 1.1.2 · set up your Agriscience Notebook'},
+ {id:'struct',   n:'4', nm:'The Five Business Structures',               sc:'Activity 1.1.3 · videos + scenario practice'},
+ {id:'chain',    n:'5', nm:'The Value Chain',                            sc:'Activity 1.1.4 · from R&D to your table'},
+ {id:'final',    n:'✓', nm:'Final Self-Check + Turn In',                 sc:'Quick quiz, then submit your work'},
+];
+function doneCount(){ return STATIONS.filter(s=>S.done[s.id]).length }
+function firstOpen(){ for(const s of STATIONS){ if(!S.done[s.id]) return s.id } return null }
+
+/* ───────── shell ───────── */
+function startApp(){
+  const v=document.getElementById('nameIn').value.trim();
+  if(!v){ document.getElementById('nameIn').focus(); return }
+  S.name=v; save(); boot();
+}
+function boot(){
+  document.getElementById('gate').classList.add('hide');
+  const chip=document.getElementById('whoChip');
+  chip.textContent=S.name; chip.classList.remove('hide');
+  goMap();
+}
+function goMap(){
+  document.getElementById('station').classList.add('hide');
+  document.getElementById('backBtn').classList.add('hide');
+  document.getElementById('map').classList.remove('hide');
+  renderMap(); window.scrollTo(0,0);
+}
+function renderMap(){
+  const open=firstOpen();
+  document.getElementById('rows').innerHTML = STATIONS.map((s,i)=>{
+    const done=!!S.done[s.id];
+    const locked=!done && s.id!==open;
+    const cls='row'+(done?' done':'')+(locked?' locked':'')+(s.id===open?' next':'');
+    const sc=done ? (s.id==='final' ? 'Done — tap to review / turn in again' : 'Done ✓  (tap to review)') : s.sc;
+    return `<button class="${cls}" ${locked?'disabled':''} onclick="openStation('${s.id}')">
+      <div class="dot">${done?'✓':s.n}</div>
+      <div class="rtext"><span class="nm">${s.nm}</span><span class="sc">${sc}</span></div>
+      <div class="chev">›</div></button>`;
+  }).join('');
+  const n=doneCount();
+  document.getElementById('progFill').style.width=(n/STATIONS.length*100)+'%';
+  document.getElementById('progTxt').textContent=`${n} of ${STATIONS.length}`;
+}
+function openStation(id){
+  document.getElementById('map').classList.add('hide');
+  document.getElementById('station').classList.remove('hide');
+  document.getElementById('backBtn').classList.remove('hide');
+  document.getElementById('stationBody').innerHTML = RENDER[id]();
+  if(AFTER[id]) AFTER[id]();
+  window.scrollTo(0,0);
+}
+function completeStation(id){ S.done[id]=true; save(); goMap(); }
+function resetAll(){ if(confirm('Erase ALL saved work and start over?')){ localStorage.removeItem(KEY); location.reload(); } }
+
+/* typed-answer helpers */
+function ta(id,ph){ return `<textarea id="ta-${id}" placeholder="${ph||'Type your answer…'}"
+  oninput="S.text['${id}']=this.value;save()">${esc(S.text[id]||'')}</textarea>` }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;') }
+function answered(ids){ return ids.every(i=>(S.text[i]||'').trim().length>=8) }
+function needAnswers(ids,btnId){
+  const b=document.getElementById(btnId); if(!b) return;
+  b.disabled=!answered(ids);
+}
+function wireAnswers(ids,btnId){
+  needAnswers(ids,btnId);
+  ids.forEach(i=>{ const el=document.getElementById('ta-'+i);
+    if(el) el.addEventListener('input',()=>needAnswers(ids,btnId)); });
+}
+
+/* ═════════ RENDERERS ═════════ */
+const RENDER={}, AFTER={};
+
+/* ── overview ── */
+RENDER.overview=()=>`
+  <h2>🌱 What this lesson is about</h2>
+  <p>A <b>business</b> supplies products or services in exchange for other products, services, or money. Before a business ever opens its doors, the owners have to make big decisions: <b>What need are we meeting? How will we be legally organized? Where do we fit in the chain that brings products to people? And how will we keep our records straight?</b></p>
+  <p>That's this lesson. Over the next few days you will:</p>
+  <ul>
+    <li>Sort <b>needs</b> from <b>wants</b> — and see why businesses exist to meet them (Activity 1.1.1)</li>
+    <li>Set up the <b>Agriscience Notebook + practice e-accounting records</b> you'll use all course (Activity 1.1.2)</li>
+    <li>Learn the <b>five legal business structures</b> used in agriculture (Activity 1.1.3)</li>
+    <li>Trace a food item through the <b>value chain</b> — from research all the way to the consumer (Activity 1.1.4)</li>
+  </ul>
+  <h3>Essential questions</h3>
+  <div class="callout">
+    1. How are wants and needs satisfied?<br>
+    2. How does recordkeeping contribute to the success of a business?<br>
+    3. What are the five legal business structures, and how are they different?<br>
+    4. What is the food value chain?<br>
+    5. What steps does a product go through before it reaches the consumer?
+  </div>
+  <p class="muted">Keep these in the back of your mind — by the end of the lesson you should be able to answer every one of them without looking.</p>
+  <h3>Words you'll meet</h3>
+  <p class="muted">Agribusiness · need · want · consumer · recordkeeping · e-accounting · sole proprietorship · partnership · LLC · cooperative · corporation · asset · liability · value chain · producer · processor · retailer … The full <b>📖 Glossary</b> is on the map screen any time you need it.</p>
+  <button class="btn" onclick="completeStation('overview')">Got it — start Activity 1</button>`;
+
+/* ── needs vs wants ── */
+const SORT_ITEMS=[
+  {t:'Water line to the chicken coop',need:true,  why:'Animals must have water — the business can\'t function without it.'},
+  {t:'Neon sign for the farm stand',  need:false, why:'Nice for attracting customers, but the stand still works without it.'},
+  {t:'Feed for the show goats',       need:true,  why:'No feed, no goats — essential to the operation.'},
+  {t:'Brand-new king-cab truck when the old truck runs fine', need:false, why:'An upgrade you\'d like — the old truck still does the job.'},
+  {t:'Fencing to keep livestock in',  need:true,  why:'Required to keep animals safe and contained.'},
+  {t:'Custom embroidered jackets for employees', need:false, why:'Fun for morale, not required to operate.'},
+  {t:'Seed for next season\'s crop',  need:true,  why:'Without seed there is no crop — essential input.'},
+  {t:'Drone with a 4K camera "because it looks cool"', need:false, why:'Could be useful someday, but bought for desire, not function.'},
+  {t:'A safe, dry place to store harvested grain', need:true, why:'Protecting the product is essential to selling it.'},
+  {t:'Espresso machine in the break room', need:false, why:'A comfort — the business runs without it.'},
+];
+RENDER.needs=()=>`
+  <h2>🥕 Activity 1.1.1 — Needs vs. Wants</h2>
+  <p><b>Economics</b> is the science of producing, distributing, and consuming goods and services. One place you use it every day: deciding how to spend limited money on <b>needs</b> and <b>wants</b>.</p>
+  <div class="callout">
+    <b>Need</b> — something you <i>must have</i> to live a safe and healthy life. In a business: essential to function — survival depends on it.<br><br>
+    <b>Want</b> — something you would <i>like to have</i> or enjoy. In a business: an improvement, not required to operate.
+  </div>
+  <p>Businesses exist because <b>consumers</b> — people and organizations that use products and services — have needs and wants that someone can meet. The difference between them is <b>what is required vs. what is desired</b>.</p>
+  <h3>Step 1 — Play the game</h3>
+  <a class="ext" href="https://www.myfloridacfo.com/mymoney/games/needs-vs-wants-game" target="_blank" rel="noopener">🎮 Needs vs. Wants game
+    <small>Opens in a new tab · read the instructions, play with sound if you have headphones</small></a>
+  <h3>Step 2 — Sort it yourself</h3>
+  <p class="muted">Now the agriculture version. For each item, decide: is it a <b>NEED</b> (the business can't function without it) or a <b>WANT</b> (nice to have)?</p>
+  <div class="card" id="sortCard">
+    <div class="tiny" id="sortCount"></div>
+    <div class="sortitem" id="sortItem"></div>
+    <div class="sortbtns">
+      <button class="sb-need" onclick="sortPick(true)">NEED</button>
+      <button class="sb-want" onclick="sortPick(false)">WANT</button>
+    </div>
+    <div class="sortfeed" id="sortFeed"></div>
+  </div>
+  <div id="sortDoneMsg" class="hide">
+    <h3>Step 3 — Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> What is the difference between a need and a want? Give one example of each from a farm or ranch business.</div>
+    ${ta('needs-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> What is a consumer, and how do businesses meet consumer needs and wants? </div>
+    ${ta('needs-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> In the game or the sort above, was there an item that could be a need for one business but a want for another? Explain your thinking.</div>
+    ${ta('needs-q3')}
+    <button class="btn" id="needsDone" onclick="completeStation('needs')">Finish Activity 1</button>
+    <p class="tiny" style="text-align:center">Answer all three (a sentence or two each) to unlock the button.</p>
+  </div>`;
+AFTER.needs=()=>{
+  let i=S.sortIdx||0, right=S.sortRight||0;
+  if(S.done.needs){ i=SORT_ITEMS.length } // reviewing: skip to questions
+  const item=document.getElementById('sortItem'), feed=document.getElementById('sortFeed'),
+        count=document.getElementById('sortCount');
+  function show(){
+    if(i>=SORT_ITEMS.length){
+      document.getElementById('sortCard').classList.add('hide');
+      document.getElementById('sortDoneMsg').classList.remove('hide');
+      wireAnswers(['needs-q1','needs-q2','needs-q3'],'needsDone');
+      return;
+    }
+    count.textContent=`Item ${i+1} of ${SORT_ITEMS.length}`;
+    item.textContent=SORT_ITEMS[i].t; feed.textContent=''; feed.className='sortfeed';
+  }
+  window.sortPick=(saidNeed)=>{
+    if(i>=SORT_ITEMS.length) return;
+    const it=SORT_ITEMS[i];
+    const ok=(saidNeed===it.need);
+    if(ok) right++;
+    feed.textContent=(ok?'✓ Right — ':'✗ Actually a '+(it.need?'NEED':'WANT')+' — ')+it.why;
+    feed.className='sortfeed '+(ok?'ok':'no');
+    i++; S.sortIdx=i; S.sortRight=right; save();
+    setTimeout(show, ok?1400:2600);
+  };
+  show();
+};
+
+/* ── records ── */
+const NB_CHECKS=[
+  ['nb1','Get a 2-inch three-ring binder (from Mr. Beltran if you need one)'],
+  ['nb2','Customize the cover page + spine label with your name (colored pencils)'],
+  ['nb3','Make labels for the 6 tab dividers: Records · 1–Start-Up · 2–Finances · 3–Risk · 4–Wrap-Up · Business Plan'],
+  ['nb4','Put the Table of Contents first, then the tab dividers behind it'],
+  ['nb5','File the FFA Activity Log, SAE Hours Log, SAE Income & Expense Sheet, and SAE Checksheet — keep them updated all year'],
+  ['nb6','Go to theAET.com → Resources → Practice AET → create your PRACTICE account (separate from any SAE account)'],
+  ['nb7','Write your Practice AET username + password on your Table of Contents page'],
+];
+RENDER.records=()=>`
+  <h2>🗂 Activity 1.1.2 — Your Notebook & Records</h2>
+  <p><b>Recordkeeping</b> means documenting and entering data in ledgers, journals, or files — and it's a skill that pays off your whole life. Good records need a <i>system</i>: it is much harder to sort a pile of random papers later than to file things right the first time.</p>
+  <p>Agribusinesses live and die by their records — they use them for every management decision. In this course you keep two record systems, just like a real business:</p>
+  <ul>
+    <li><b>Agriscience Notebook</b> — your paper filing system for notes and activities</li>
+    <li><b>Practice AET</b> (theAET.com) — an <b>e-accounting</b> system: online, electronic business accounting, like real agribusinesses use</li>
+  </ul>
+  <div class="callout sun"><b>Heads up:</b> your Practice AET account is <i>only</i> for this class's coursework — it is separate from any SAE records account. And when you create it: never reuse a password from another account. Pick a strong one and store it where your teacher directs.</div>
+  <h3>Set-up checklist</h3>
+  <p class="muted">Do these in class with the materials Mr. Beltran provides. Tap each one as you finish it.</p>
+  <div id="nbChecks"></div>
+  <h3>Answer in your own words</h3>
+  <div class="qlabel"><span class="qn">Q1.</span> How will keeping organized records help you in this course — and in adult life (college, a job, your own operation)?</div>
+  ${ta('records-q1')}
+  <div class="qlabel"><span class="qn">Q2.</span> Name one other place (outside this class) where you could use these filing and recordkeeping skills.</div>
+  ${ta('records-q2')}
+  <button class="btn" id="recordsDone" onclick="completeStation('records')">Finish Activity 2</button>
+  <p class="tiny" style="text-align:center">Check every box and answer both questions to unlock.</p>`;
+AFTER.records=()=>{
+  const wrap=document.getElementById('nbChecks');
+  function draw(){
+    wrap.innerHTML=NB_CHECKS.map(([id,t])=>`
+      <button class="ck ${S.checks[id]?'on':''}" onclick="toggleCk('${id}')">
+        <div class="box">${S.checks[id]?'✓':''}</div><div class="t">${t}</div></button>`).join('');
+    gate();
+  }
+  function gate(){
+    const all=NB_CHECKS.every(([id])=>S.checks[id]);
+    const b=document.getElementById('recordsDone');
+    b.disabled=!(all && answered(['records-q1','records-q2']));
+  }
+  window.toggleCk=(id)=>{ S.checks[id]=!S.checks[id]; save(); draw(); };
+  ['records-q1','records-q2'].forEach(i=>{
+    const el=document.getElementById('ta-'+i); if(el) el.addEventListener('input',gate);
+  });
+  draw();
+};
+
+/* ── structures ── */
+const SCENARIOS=[
+  {t:'Twelve pecan growers pool their orders to get bulk discounts on fertilizer and sell their crop together for better prices. Every member gets exactly one vote no matter their size, and year-end profits are paid back to members based on how much business each did with the group.',
+   a:'coop', hint:'One member = one vote, and profits returned by patronage — that combination belongs to exactly one structure.'},
+  {t:'A student buys a breeding doe with her own savings. She makes every decision herself, keeps all the profit from selling kids — and when the feed-store bill comes due, she alone is personally responsible for it.',
+   a:'sole', hint:'One owner, all the profit, all the personal risk.'},
+  {t:'Two sisters run a hay business together. They share the work and the decisions, split profits AND losses, keep a single joint bank account and one set of records — and each is personally on the hook for the business\'s debts.',
+   a:'part', hint:'Co-owners sharing profits, losses, and personal liability.'},
+  {t:'Three neighbors want to build a shared cold-storage facility, but none of them wants to risk losing their own farm if the venture fails. They file paperwork with the state to create a separate entity that protects their personal assets, and they split profits according to what each contributed.',
+   a:'llc',  hint:'Partnership-like sharing, but with limited personal financial liability.'},
+  {t:'A large seed company sells shares of stock to thousands of investors. The company itself — a separate legal entity — owns the buildings and equipment and borrows money in its own name. Shareholders elect a board to oversee management.',
+   a:'corp', hint:'Shares of stock and a separate legal entity that can own assets and borrow money.'},
+];
+const STRUCT_NAMES={sole:'Sole Proprietorship',part:'Partnership',llc:'LLC',coop:'Cooperative',corp:'Corporation'};
+RENDER.struct=()=>`
+  <h2>🏛 Activity 1.1.3 — The Five Business Structures</h2>
+  <p><b>Agribusiness</b> is the exchange of goods and services in agriculture, food, and natural resources. As a business operates, it gains <b>assets</b> (property with value), produces <b>income</b> (money received for goods or services), takes on <b>debt</b> (money owed), and manages <b>liabilities</b> (financial obligations that must be paid in time).</p>
+  <p>A <b>business structure</b> arranges how the owners share those assets, income, debts, and liabilities. There are five basic legal structures used in agriculture:</p>
+  <div class="struct"><b>1 · Sole Proprietorship</b><p>Simplest, oldest, most common. ONE owner gets all the benefits and takes all the risk — legally, there's no difference between the owner's money and the business's money.</p></div>
+  <div class="struct"><b>2 · Partnership</b><p>Two or more co-owners share management, profits, losses, assets — often one joint bank account and one set of records. Partners are personally liable for business debt.</p></div>
+  <div class="struct"><b>3 · Limited Liability Company (LLC)</b><p>Works like a partnership, but the company is a separate entity — owners' personal assets are protected from the business's debts ("limited liability").</p></div>
+  <div class="struct"><b>4 · Cooperative</b><p>Owned by its members. Every member gets ONE vote regardless of size, and profits are distributed back as patronage refunds — based on how much business each member did with the co-op.</p></div>
+  <div class="struct"><b>5 · Corporation</b><p>A separate legal entity that can own assets and borrow money in its own name. Ownership is divided into <b>shares</b> of stock; shareholders elect a board.</p></div>
+  <div class="callout"><b>The big divider:</b> in sole proprietorships and partnerships, the <i>owners personally</i> carry the debt (and keep all the profit). In LLCs, cooperatives, and corporations, the <i>company</i> carries the debt — and the structure defines how profits are shared.</div>
+  <h3>Watch — then practice</h3>
+  <a class="ext" href="https://www.youtube.com/watch?v=A-Up-JUkaj0" target="_blank" rel="noopener">▶️ Finding the Right Business Structure <small>John Deere · take notes as you watch</small></a>
+  <a class="ext" href="https://www.youtube.com/watch?v=4ih2PidDN8E" target="_blank" rel="noopener">▶️ Co-op 101: How Cooperatives Differ <small>Iowa Institute for Cooperatives</small></a>
+  <h3>Whose business is it? — practice scenarios</h3>
+  <p class="muted">Read each scenario and pick the structure it describes. Look for the telling phrases — who owns it, who decides, who carries the debt, how profit is shared.</p>
+  <div class="card" id="scCard"></div>
+  <div id="structQs" class="hide">
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> List one defining characteristic for EACH of the five business structures (one short line each).</div>
+    ${ta('struct-q1','Sole proprietorship: …\nPartnership: …\nLLC: …\nCooperative: …\nCorporation: …')}
+    <div class="qlabel"><span class="qn">Q2.</span> How does the choice of structure affect how a business is managed and who takes the risk?</div>
+    ${ta('struct-q2')}
+    <button class="btn" id="structDone" onclick="completeStation('struct')">Finish Activity 3</button>
+  </div>`;
+AFTER.struct=()=>{
+  let i=S.scIdx||0;
+  if(S.done.struct) i=SCENARIOS.length;
+  const card=document.getElementById('scCard');
+  function draw(){
+    if(i>=SCENARIOS.length){
+      card.classList.add('hide');
+      document.getElementById('structQs').classList.remove('hide');
+      wireAnswers(['struct-q1','struct-q2'],'structDone');
+      return;
+    }
+    const sc=SCENARIOS[i];
+    const opts=Object.keys(STRUCT_NAMES).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Scenario ${i+1} of ${SCENARIOS.length}</div>
+      <p style="font-size:15.5px">${sc.t}</p>
+      ${opts.map(k=>`<button class="opt" data-k="${k}" onclick="scPick('${k}',this)">${STRUCT_NAMES[k]}</button>`).join('')}
+      <div class="mcq-feed" id="scFeed"></div>`;
+  }
+  window.scPick=(k,el)=>{
+    const sc=SCENARIOS[i], feed=document.getElementById('scFeed');
+    if(k===sc.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ '+STRUCT_NAMES[sc.a]+' — exactly.'; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+      i++; S.scIdx=i; save(); setTimeout(draw,1500);
+    }else{
+      el.classList.add('picked-no'); feed.textContent='Not quite — hint: '+sc.hint; feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),900);
+    }
+  };
+  draw();
+};
+
+/* ── value chain ── */
+const CHAIN=[
+  ['Research & Development','New processes and products are invented — solving problems, following consumer trends.'],
+  ['Pre-Production','The inputs: seed, machinery, chemicals, data — everything needed before anything is grown.'],
+  ['Production','Raw materials are produced: crops grown, livestock raised.'],
+  ['Supply Chain / Processing','Raw materials are converted into consumer products — wheat into bread, cotton into clothing — and moved where they need to go.'],
+  ['End Product','The finished food, fuel, fiber, or lumber is stocked and ready for public use.'],
+  ['Sales, Service & Support','Advertising and marketing inform consumers of their options and lead them to stores.'],
+  ['Consumer','A person or organization uses the product — the FINAL step of the chain.'],
+];
+RENDER.chain=()=>`
+  <h2>🔗 Activity 1.1.4 — The Value Chain</h2>
+  <p>As a consumer, you depend on <b>producers, processors, transporters, marketers, and retailers</b> to bring products to you. The <b>value chain</b> is that whole collaboration — a multi-step process that <i>adds value</i> to a commodity, starting with research & development and ending with you, the consumer.</p>
+  <p>Every link might involve many businesses. Supplies and services feed into <i>every</i> step: chemicals, feed, machinery, veterinary and agronomy services, mechanical repair, loans…</p>
+  <h3>Put the chain in order</h3>
+  <p class="muted">Tap the steps in the order a product travels — from the very first idea to the person who finally uses it.</p>
+  <div class="card">
+    <div id="chainSlots"></div>
+    <div id="chainPicks"></div>
+    <div class="mcq-feed" id="chainFeed"></div>
+  </div>
+  <div id="chainSteps" class="hide">
+    <h3>What each step means</h3>
+    ${CHAIN.map(([t,d],idx)=>`<div class="term"><b>${idx+1}. ${t}</b><span>${d}</span></div>`).join('')}
+    <h3>Research a food item</h3>
+    <p class="muted">Pick ONE food you ate this week (bread, milk, a burger, an apple…). Use the internet to trace it through the chain.</p>
+    <div class="qlabel"><span class="qn">Q1.</span> Your food item — and what raw products were <b>produced</b> on a farm or ranch to make it?</div>
+    ${ta('chain-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> How did the raw product <b>change form</b> before it reached you? Who processed or transported it? (Name at least one real business for any step if you can.)</div>
+    ${ta('chain-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> How are the steps of the value chain <b>connected</b> — what happens to the rest of the chain if one step fails?</div>
+    ${ta('chain-q3')}
+    <button class="btn" id="chainDone" onclick="completeStation('chain')">Finish Activity 4</button>
+  </div>`;
+AFTER.chain=()=>{
+  let placed=S.chainPlaced||0;
+  if(S.done.chain) placed=CHAIN.length;
+  const slots=document.getElementById('chainSlots'), picks=document.getElementById('chainPicks'),
+        feed=document.getElementById('chainFeed');
+  let order=S.chainOrder;
+  if(!order || placed===0){ order=[...CHAIN.keys()].sort(()=>Math.random()-.5); S.chainOrder=order; save(); }
+  function draw(){
+    slots.innerHTML=[...Array(placed).keys()].map(k=>`<div class="chainslot">${k+1}. ${CHAIN[k][0]}</div>`).join('')
+      || '<div class="tiny">Chain so far: (empty — what comes first?)</div>';
+    if(placed>=CHAIN.length){
+      picks.innerHTML=''; feed.textContent='✓ Chain complete!'; feed.className='mcq-feed ok';
+      document.getElementById('chainSteps').classList.remove('hide');
+      wireAnswers(['chain-q1','chain-q2','chain-q3'],'chainDone');
+      return;
+    }
+    // steps must be tapped in true order 0,1,2…; the un-placed ones display shuffled
+    const remaining=order.filter(k=>k>=placed);
+    picks.innerHTML=remaining.map(k=>`<button class="chainpick" onclick="chainPick(${k},this)">${CHAIN[k][0]}</button>`).join('');
+  }
+  window.chainPick=(k,el)=>{
+    if(k===placed){
+      placed++; S.chainPlaced=placed; save();
+      feed.textContent='✓'; feed.className='mcq-feed ok'; draw();
+    }else{
+      feed.textContent='Not next — think: what has to happen before "'+CHAIN[k][0]+'" is possible?';
+      feed.className='mcq-feed no';
+      el.disabled=true; setTimeout(()=>{el.disabled=false},900);
+    }
+  };
+  draw();
+};
+
+/* ── final quiz + turn-in ── */
+const QUIZ=[
+  {q:'A need is best described as…',
+   o:['Something you would like to have or enjoy','Something you must have to live a safe and healthy life','Anything that costs money','Whatever a business advertises'],a:1},
+  {q:'A business exists to…',
+   o:['Supply products or services in exchange for products, services, or money','Collect taxes','Replace consumers','Avoid recordkeeping'],a:0},
+  {q:'Which structure has ONE owner who takes all the profit AND all the personal risk?',
+   o:['Cooperative','Corporation','Sole proprietorship','LLC'],a:2},
+  {q:'In a cooperative, profits are distributed…',
+   o:['To shareholders by number of shares','As patronage refunds based on member use, with one vote per member','Only to the founding member','To the government'],a:1},
+  {q:'The structure that works like a partnership BUT protects owners\' personal assets from business debt is…',
+   o:['Sole proprietorship','Corporation','Cooperative','Limited Liability Company (LLC)'],a:3},
+  {q:'A corporation is different because…',
+   o:['It can never borrow money','It is a separate legal entity whose owners hold shares','It always has one owner','It cannot own assets'],a:1},
+  {q:'Recordkeeping matters to an agribusiness because…',
+   o:['It is required for FFA membership only','Records are used when making management decisions','Paper filing is faster than computers','It replaces the need for income'],a:1},
+  {q:'E-accounting means…',
+   o:['Estimating your accounts','Online/electronic business accounting, similar to paper systems','Only paying bills in cash','Emailing receipts to your teacher'],a:1},
+  {q:'The value chain STARTS with ____ and ENDS with ____.',
+   o:['Production … retailers','Research & development … the consumer','Pre-production … processors','Marketing … producers'],a:1},
+  {q:'Processing wheat into bread is an example of which part of the chain?',
+   o:['The supply chain converting raw materials into consumer products','Research & development','Pre-production inputs','Consumer behavior'],a:0},
+  {q:'An individual or business that grows crops or raises livestock is a…',
+   o:['Processor','Retailer','Producer','Marketer'],a:2},
+  {q:'An asset is…',
+   o:['Money owed to another','Physical or financial property that has value and is owned','A type of tax','An advertising strategy'],a:1},
+];
+const PASS=80;
+RENDER.final=()=>`
+  <h2>✅ Final Self-Check</h2>
+  <p class="muted">10 questions from the whole lesson. You need <b>${PASS}%</b> to finish — you can retry as many times as you want, and the questions reshuffle. This is practice: the graded <b>Check for Understanding</b> comes from Mr. Beltran in class.</p>
+  <div class="card" id="quizCard"></div>
+  <div id="turnin" class="hide">
+    <div class="bigscore" id="scoreBig"></div>
+    <p class="muted" style="text-align:center" id="scoreMsg"></p>
+    <h3>📤 Turn in your work</h3>
+    <p class="muted">This gathers every answer you typed into one block. Copy it, then paste it into the <b>Google Classroom assignment</b> (private comment or the attached doc) — or show this screen to Mr. Beltran.</p>
+    <pre id="compiled"></pre>
+    <button class="btn" onclick="copyWork(this)">📋 Copy my work</button>
+    <button class="btn ghost" onclick="completeStation('final')">Done — back to map</button>
+  </div>`;
+AFTER.final=()=>{
+  let qs=[], qi=0, right=0;
+  const card=document.getElementById('quizCard');
+  function start(){
+    qs=[...QUIZ].sort(()=>Math.random()-.5).slice(0,10);
+    qi=0; right=0;
+    card.classList.remove('hide');
+    document.getElementById('turnin').classList.add('hide');
+    draw();
+  }
+  function draw(){
+    if(qi>=qs.length) return finish();
+    const q=qs[qi];
+    const idx=q.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="mcq-top"><span>Question ${qi+1} of ${qs.length}</span><span>Score: ${right}</span></div>
+      <div class="mcq-q">${q.q}</div>
+      ${idx.map(k=>`<button class="opt" onclick="qPick(${k},this)">${q.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="qFeed"></div>`;
+  }
+  window.qPick=(k,el)=>{
+    const q=qs[qi], feed=document.getElementById('qFeed');
+    card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+    if(k===q.a){ right++; el.classList.add('picked-ok'); feed.textContent='✓ Correct'; feed.className='mcq-feed ok'; }
+    else{
+      el.classList.add('picked-no');
+      card.querySelectorAll('.opt').forEach(o=>{ if(o.textContent===q.o[q.a]) o.classList.add('reveal'); });
+      feed.textContent='✗ The answer: '+q.o[q.a]; feed.className='mcq-feed no';
+    }
+    qi++; setTimeout(draw, k===q.a?900:2400);
+  };
+  function finish(){
+    const pct=Math.round(right/qs.length*100);
+    S.scores.final=Math.max(S.scores.final||0,pct); save();
+    if(pct<PASS){
+      card.innerHTML=`<div class="bigscore" style="color:var(--sun)">${pct}%</div>
+        <p class="muted" style="text-align:center">Almost — you need ${PASS}%. Skim the stations you're shaky on (they stay open on the map), then try again. New shuffle every time.</p>
+        <button class="btn" id="retryBtn">Try again</button>`;
+      document.getElementById('retryBtn').onclick=start;
+      return;
+    }
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=pct+'%';
+    document.getElementById('scoreMsg').textContent=pct===100?'Perfect score. Outstanding.':'Passed — nice work.';
+    document.getElementById('compiled').textContent=compile(pct);
+    window.scrollTo(0,0);
+  }
+  if(S.done.final && (S.scores.final||0)>=PASS){
+    // reviewing after completion: show turn-in immediately with best score
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=(S.scores.final||0)+'%';
+    document.getElementById('scoreMsg').textContent='Best score (already passed).';
+    document.getElementById('compiled').textContent=compile(S.scores.final||0);
+  } else start();
+};
+function compile(pct){
+  const L=[], A=(id)=> (S.text[id]||'—').trim();
+  L.push('ABF LESSON 1.1 — ORGANIZING A BUSINESS · SELF-PACED WORK');
+  L.push('Student: '+(S.name||'?'));
+  L.push('Date: '+new Date().toLocaleDateString());
+  L.push('Final self-check score: '+pct+'%');
+  L.push('');
+  L.push('— Activity 1.1.1 Needs & Wants —');
+  L.push('Q1 (need vs want + examples): '+A('needs-q1'));
+  L.push('Q2 (consumer): '+A('needs-q2'));
+  L.push('Q3 (need for one, want for another): '+A('needs-q3'));
+  L.push('');
+  L.push('— Activity 1.1.2 Notebook & Records —');
+  L.push('Notebook checklist: '+NB_CHECKS.filter(([id])=>S.checks[id]).length+' of '+NB_CHECKS.length+' steps done');
+  L.push('Q1 (how records help): '+A('records-q1'));
+  L.push('Q2 (where else to apply): '+A('records-q2'));
+  L.push('');
+  L.push('— Activity 1.1.3 Business Structures —');
+  L.push('Practice scenarios: all 5 matched correctly (required to advance)');
+  L.push('Q1 (one trait per structure): '+A('struct-q1'));
+  L.push('Q2 (structure vs management/risk): '+A('struct-q2'));
+  L.push('');
+  L.push('— Activity 1.1.4 Value Chain —');
+  L.push('Chain ordering: completed (7 steps in order)');
+  L.push('Q1 (food item + production): '+A('chain-q1'));
+  L.push('Q2 (form change / processors): '+A('chain-q2'));
+  L.push('Q3 (how steps connect): '+A('chain-q3'));
+  return L.join('\n');
+}
+function copyWork(btn){
+  const t=document.getElementById('compiled').textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+    .then(()=>{ btn.textContent='✓ Copied — paste it into Classroom'; })
+    .catch(()=>{ // fallback: select the block
+      const r=document.createRange(); r.selectNode(document.getElementById('compiled'));
+      getSelection().removeAllRanges(); getSelection().addRange(r);
+      btn.textContent='Select + copy the highlighted text above';
+    });
+}
+
+/* ── glossary ── */
+const GLOSS=[
+['Agribusiness','The exchange of goods and services in the agriculture, food, and natural resource system.'],
+['Asset','Physical or financial property that has value and is owned by a business or individual.'],
+['Business','A person, partnership, or corporation engaged in commerce, manufacturing, or a service; a profit-seeking enterprise.'],
+['Business structure','Arranges how owners share assets, income, debts, and liabilities across owners.'],
+['Capital','Wealth in the form of money or other assets, available for starting a company or investing.'],
+['Consumer','A person or organization that uses a commodity or service. The final step of the value chain.'],
+['Cooperative','Business organization in which profits are distributed as patronage refunds and all members have a single vote.'],
+['Corporation','A business organization in which owners have shares in a separate legal entity that itself can own assets and borrow money.'],
+['Debt','Something that is owed or that one is bound to pay or perform for another.'],
+['E-accounting','Online and electronic business accounting, similar to paper-based systems.'],
+['Economics','The science of the production, distribution, and consumption of goods and services.'],
+['End product','Value-chain step where finished food, fuel, fiber, lumber, or pharmaceuticals are stocked for public use.'],
+['Income','The monetary payment received for goods or services, or from rents or investments.'],
+['Input','Item purchased to carry out an operation: fertilizer, pesticides, seed, fuel, feed.'],
+['Liability','Financial obligation (debt) that must be paid at some future time.'],
+['Limited Liability Company (LLC)','Like a partnership, but owners have the advantage of limited financial liability.'],
+['Marketer','An individual or business that advertises, markets, and promotes a product or service.'],
+['Need','Things you must have to live a safe and healthy life.'],
+['Ownership','The property, items, and equipment owned.'],
+['Partnership','Two or more persons as co-owners of a profit-making business — sharing management, profits, losses, assets, one joint account, one set of records.'],
+['Pre-Production','Value-chain step: seed, machinery, data — the inputs needed to carry out the rest of the chain.'],
+['Processor','Changes the form of a commodity by mechanical or chemical methods to create increased value.'],
+['Producer','An individual or business that grows crops or raises livestock.'],
+['Product','An article or substance manufactured or refined for sale.'],
+['Production','Value-chain step where raw materials are produced: crops grown, livestock raised.'],
+['Recordkeeping','Documenting and entering data in ledgers, journals, or files — often financial transactions.'],
+['Research & Development (R&D)','Value-chain step: creating innovative new processes, products, and solutions after finding consumer trends.'],
+['Retailer','Sells goods to consumers and end users.'],
+['Sales, Service & Support','Value-chain step: advertising and marketing that inform consumers and lead them to stores.'],
+['Service','An intangible item traded — effort and talent, like mechanical work, consulting, logistics.'],
+['Shares','Units of stock traded by a corporation that show ownership.'],
+['Sole proprietorship','Simplest, oldest, most common ownership: one individual has all the benefits and risks; no legal distinction between the owner\'s and the business\'s assets and liabilities.'],
+['Supply chain','Channel of distribution from supplier of materials through manufacturing to the distributor.'],
+['Transporter','Moves goods from place to place: trucking, rail, boat, air.'],
+['Value chain','Multi-step process that adds value to a commodity, from R&D to the consumer.'],
+['Want','Something you would like to have or something that you enjoy.'],
+];
+RENDER.gloss=()=>`
+  <h2>📖 Lesson 1.1 Glossary</h2>
+  <p class="muted">Every key term for this lesson.</p>
+  ${GLOSS.map(([t,d])=>`<div class="term"><b>${t}</b><span>${d}</span></div>`).join('')}
+  <button class="btn ghost" onclick="goMap()">Back to map</button>`;
+
+/* ───────── boot ───────── */
+if(S.name) boot();
+</script>
+</body>
+</html>

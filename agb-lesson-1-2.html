@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lesson 1.2 Starting a Business — Self-Paced — Verde Tech</title>
+<meta name="theme-color" content="#2f6b3f">
+<!--
+  ABF Lesson 1.2 "Starting a Business" — self-paced student module.
+  Built 2026-08-10 (night shift) from the CASE ABF curriculum Leo teaches in P2 Agribusiness.
+  Same pattern as the greenlit Lesson 1.1 module (agribusiness-L1.1-selfpaced).
+  Standalone file: no server, no login, works offline (external links need internet).
+  Student work saves in the browser (localStorage) and compiles into one text block to turn in.
+  The graded Lesson 1.2 Check for Understanding is NOT here — teacher distributes it (Day 9).
+  All practice questions in this file are original (no CASE answer-key content).
+  Team steps (Business Plan Team) are kept: the module tells students which parts are
+  done WITH their team in class, and captures each student's own written contribution.
+-->
+<style>
+  :root{
+    --green:#2f6b3f; --green-d:#245231; --green-l:#eaf3ec;
+    --sun:#c8892b; --sun-l:#fdf3e2;
+    --ink:#1d2321; --dim:#5b6763; --faint:#8a9591;
+    --line:#dfe5e1; --bg:#f6f8f6; --card:#fff;
+    --ok:#2f7d4f; --no:#b23b3b; --no-l:#fbecec;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    padding:0 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 90px}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  h1,h2,h3{line-height:1.25;margin:0}
+  header{position:sticky;top:0;z-index:20;background:var(--green);color:#fff;
+    padding:calc(10px + env(safe-area-inset-top)) 16px 10px}
+  .hrow{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .htitle{font-size:16px;font-weight:700;letter-spacing:.2px;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hsub{font-size:12px;opacity:.78;font-weight:500;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .back{font-size:15px;font-weight:600;opacity:.92;padding:6px 4px;margin-left:-4px}
+  .who{font-size:12.5px;opacity:.85;padding:6px 8px;border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .btn{display:block;width:100%;background:var(--green);color:#fff;font-size:17px;font-weight:700;
+    padding:16px;border-radius:14px;text-align:center;margin-top:14px;transition:.12s transform}
+  .btn:active{transform:scale(.985)}
+  .btn.ghost{background:#fff;color:var(--green);border:2px solid var(--green)}
+  .btn.quiet{background:transparent;color:var(--dim);font-weight:600;font-size:15px;padding:12px;margin-top:4px}
+  .btn[disabled]{opacity:.4;pointer-events:none}
+  .muted{color:var(--dim);font-size:14.5px}
+  .tiny{color:var(--faint);font-size:12.5px}
+  .hide{display:none !important}
+  #gate .card{margin-top:28px;text-align:center}
+  #gate h2{font-size:22px;margin-bottom:6px}
+  #nameIn{width:100%;font-size:18px;padding:15px;border:2px solid var(--line);
+    border-radius:12px;margin-top:16px;text-align:center;background:#fff;color:var(--ink)}
+  #nameIn:focus{outline:none;border-color:var(--green)}
+  .progwrap{margin:18px 0 6px}
+  .progbar{height:10px;background:#e4eae5;border-radius:99px;overflow:hidden}
+  .progfill{height:100%;background:linear-gradient(90deg,var(--green),#57a06b);
+    border-radius:99px;transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .progtxt{display:flex;justify-content:space-between;margin-top:7px;font-size:13px;color:var(--dim)}
+  .progtxt b{color:var(--ink)}
+  .row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 15px;margin:9px 0;transition:.12s border-color,.12s transform}
+  .row:active{transform:scale(.99)}
+  .row.done{border-color:#bcdcc5;background:#f4faf5}
+  .row.locked{opacity:.5}
+  .row.next{border-color:var(--green);box-shadow:0 0 0 3px rgba(47,107,63,.09)}
+  .dot{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-size:14px;font-weight:800;background:var(--green-l);color:var(--green-d)}
+  .row.done .dot{background:var(--ok);color:#fff}
+  .row.locked .dot{background:#eceeed;color:var(--faint)}
+  .rtext{flex:1;min-width:0}
+  .rtext .nm{display:block;font-size:16px;font-weight:650;line-height:1.3}
+  .rtext .sc{display:block;font-size:12.5px;color:var(--dim);margin-top:3px}
+  .row.done .sc{color:var(--ok);font-weight:600}
+  .chev{color:var(--faint);font-size:19px;flex:none}
+  .secttl{font-size:12px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;
+    color:var(--faint);margin:24px 4px 4px}
+  .lesson h2{font-size:21px;margin:4px 0 10px}
+  .lesson h3{font-size:16.5px;margin:18px 0 8px;color:var(--green-d)}
+  .lesson p{margin:0 0 12px;font-size:16px;color:#2a3330}
+  .lesson ul{margin:0 0 12px;padding-left:22px}
+  .lesson li{margin:5px 0;font-size:15.5px}
+  .callout{background:var(--green-l);border:1px solid #cfe2d4;border-radius:12px;
+    padding:13px 15px;margin:12px 0;font-size:15px}
+  .callout.sun{background:var(--sun-l);border-color:#eedcb8}
+  .term{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+  .term b{color:var(--green-d)}
+  .term span{display:block;font-size:14.5px;color:var(--dim);margin-top:3px}
+  a.ext{display:block;background:#fff;border:2px solid var(--green);border-radius:14px;
+    padding:14px 16px;margin:12px 0;color:var(--green);font-weight:700;text-decoration:none;font-size:16px}
+  a.ext small{display:block;font-weight:500;color:var(--dim);font-size:13px;margin-top:2px}
+  textarea{width:100%;min-height:84px;font:15.5px/1.5 inherit;padding:12px;border:2px solid var(--line);
+    border-radius:12px;background:#fff;color:var(--ink);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--green)}
+  .qlabel{font-size:15px;font-weight:650;margin:16px 0 7px}
+  .qlabel .qn{color:var(--sun);font-weight:800}
+  /* binary sort game */
+  .sortitem{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:16px;font-weight:600;text-align:center}
+  .sortbtns{display:flex;gap:10px;margin-top:12px}
+  .sortbtns button{flex:1;padding:14px;border-radius:12px;font-weight:800;font-size:16px}
+  .sb-need{background:var(--green-l);color:var(--green-d);border:2px solid var(--green)}
+  .sb-want{background:var(--sun-l);color:#8a5a12;border:2px solid var(--sun)}
+  .sortfeed{text-align:center;font-weight:700;margin-top:10px;min-height:24px;font-size:15px}
+  .sortfeed.ok{color:var(--ok)} .sortfeed.no{color:var(--no)}
+  /* mcq */
+  .mcq-q{font-size:17px;font-weight:650;margin:6px 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);
+    border-radius:13px;padding:14px 15px;margin:9px 0;font-size:15.5px;transition:.12s}
+  .opt.picked-ok{border-color:var(--ok);background:#f0f9f2;font-weight:650}
+  .opt.picked-no{border-color:var(--no);background:var(--no-l)}
+  .opt.reveal{border-color:var(--ok)}
+  .mcq-feed{min-height:26px;font-weight:700;font-size:15px;margin-top:6px}
+  .mcq-feed.ok{color:var(--ok)} .mcq-feed.no{color:var(--no)}
+  .mcq-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim);margin-bottom:10px}
+  /* interest picker chips */
+  .chipgrid{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+  .chip{background:#fff;border:2px solid var(--line);border-radius:999px;
+    padding:9px 14px;font-size:14px;font-weight:600}
+  .chip.on{background:var(--green);border-color:var(--green);color:#fff}
+  /* number answer */
+  .numrow{display:flex;gap:10px;align-items:center;margin-top:10px}
+  .numrow input{flex:1;font-size:18px;padding:13px;border:2px solid var(--line);border-radius:12px;
+    text-align:center;background:#fff;color:var(--ink)}
+  .numrow input:focus{outline:none;border-color:var(--green)}
+  .numrow button{background:var(--green);color:#fff;font-weight:800;padding:13px 20px;border-radius:12px}
+  /* reference cards */
+  .struct{border-left:4px solid var(--green);background:#fff;border-radius:0 12px 12px 0;
+    border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:12px 15px;margin:10px 0}
+  .struct b{font-size:16px}
+  .struct p{margin:5px 0 0;font-size:14.5px;color:var(--dim)}
+  /* finish */
+  .bigscore{text-align:center;font-size:44px;font-weight:800;color:var(--green);margin:10px 0 2px}
+  pre#compiled,pre.preview{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace;background:#f2f5f2;
+    border:1px solid var(--line);border-radius:12px;padding:14px;max-height:340px;overflow:auto}
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow">
+    <button class="back hide" id="backBtn" onclick="goMap()">‹ Map</button>
+    <div style="flex:1;min-width:0">
+      <div class="htitle">Lesson 1.2 · Starting a Business</div>
+      <div class="hsub">Agribusiness Foundations · self-paced · Mr. Beltran</div>
+    </div>
+    <div class="who hide" id="whoChip"></div>
+  </div>
+</header>
+<div class="wrap">
+
+<!-- ══════════ NAME GATE ══════════ -->
+<section id="gate">
+  <div class="card">
+    <h2>🌾 Starting a Business</h2>
+    <p class="muted">Work through this lesson at your own pace. Your answers save on this device as you go, and at the end you'll turn in everything with one tap. Some parts you do with your Business Plan Team in class — this walks you through all of it.</p>
+    <input id="nameIn" placeholder="First and last name" autocomplete="off">
+    <button class="btn" onclick="startApp()">Start</button>
+    <p class="tiny" style="margin-top:14px">Use the same device each day so your saved work is here when you come back.</p>
+  </div>
+</section>
+
+<!-- ══════════ MAP ══════════ -->
+<section id="map" class="hide">
+  <div class="progwrap">
+    <div class="progbar"><div class="progfill" id="progFill" style="width:0%"></div></div>
+    <div class="progtxt"><span>Lesson progress</span><b id="progTxt">0 of 7</b></div>
+  </div>
+  <div class="secttl">Work in order — each part unlocks the next</div>
+  <div id="rows"></div>
+  <div class="secttl">Reference</div>
+  <button class="row" onclick="openStation('gloss')">
+    <div class="dot">📖</div>
+    <div class="rtext"><span class="nm">Key Terms Glossary</span>
+    <span class="sc">Every term for this lesson — open any time</span></div>
+    <div class="chev">›</div>
+  </button>
+  <p class="tiny" style="text-align:center;margin-top:20px">CASE Agribusiness Foundations · Unit 1 · Verde Tech / Mr. Beltran<br>
+  Questions? Ask in class or post in Google Classroom.</p>
+  <button class="btn quiet" onclick="resetAll()">Start over (erases saved work)</button>
+</section>
+
+<!-- ══════════ STATION CONTAINER ══════════ -->
+<section id="station" class="hide"><div id="stationBody" class="lesson"></div></section>
+
+</div>
+<script>
+'use strict';
+/* ───────── persistence ───────── */
+const KEY='abf-l12-v1';
+let S = load();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{} }catch(e){ return {} } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)) }catch(e){} }
+S.done   = S.done || {};      // station id -> true
+S.text   = S.text || {};      // answer id  -> typed text
+S.picks  = S.picks || [];     // interest areas chosen (max 2)
+S.scores = S.scores || {};    // quiz id -> best %
+
+/* ───────── stations ───────── */
+const STATIONS = [
+ {id:'overview', n:'1', nm:'Start Here — What This Lesson Is About',  sc:'Essential questions + where the business plan begins'},
+ {id:'community',n:'2', nm:'Our Community',                            sc:'Activity 1.2.1 · the 12 career areas + local scavenger hunt'},
+ {id:'survey',   n:'3', nm:'Design a Market Survey',                   sc:'Project 1.2.2 · business ideas + your 5 survey questions'},
+ {id:'charting', n:'4', nm:'Charting the Data',                        sc:'Activity 1.2.3 · spreadsheet skills + make real graphs'},
+ {id:'surveysays',n:'5',nm:'Survey Says — Analyze the Results',        sc:'Project 1.2.4 · percentages, trends, and the big pick'},
+ {id:'bizplan',  n:'6', nm:'Write Your Business Description',          sc:'Project 1.2.5 · the first page of your business plan'},
+ {id:'final',    n:'✓', nm:'Final Self-Check + Turn In',               sc:'Quick quiz, then submit your work'},
+];
+function doneCount(){ return STATIONS.filter(s=>S.done[s.id]).length }
+function firstOpen(){ for(const s of STATIONS){ if(!S.done[s.id]) return s.id } return null }
+
+/* ───────── shell ───────── */
+function startApp(){
+  const v=document.getElementById('nameIn').value.trim();
+  if(!v){ document.getElementById('nameIn').focus(); return }
+  S.name=v; save(); boot();
+}
+function boot(){
+  document.getElementById('gate').classList.add('hide');
+  const chip=document.getElementById('whoChip');
+  chip.textContent=S.name; chip.classList.remove('hide');
+  goMap();
+}
+function goMap(){
+  document.getElementById('station').classList.add('hide');
+  document.getElementById('backBtn').classList.add('hide');
+  document.getElementById('map').classList.remove('hide');
+  renderMap(); window.scrollTo(0,0);
+}
+function renderMap(){
+  const open=firstOpen();
+  document.getElementById('rows').innerHTML = STATIONS.map((s,i)=>{
+    const done=!!S.done[s.id];
+    const locked=!done && s.id!==open;
+    const cls='row'+(done?' done':'')+(locked?' locked':'')+(s.id===open?' next':'');
+    const sc=done ? (s.id==='final' ? 'Done — tap to review / turn in again' : 'Done ✓  (tap to review)') : s.sc;
+    return `<button class="${cls}" ${locked?'disabled':''} onclick="openStation('${s.id}')">
+      <div class="dot">${done?'✓':s.n}</div>
+      <div class="rtext"><span class="nm">${s.nm}</span><span class="sc">${sc}</span></div>
+      <div class="chev">›</div></button>`;
+  }).join('');
+  const n=doneCount();
+  document.getElementById('progFill').style.width=(n/STATIONS.length*100)+'%';
+  document.getElementById('progTxt').textContent=`${n} of ${STATIONS.length}`;
+}
+function openStation(id){
+  document.getElementById('map').classList.add('hide');
+  document.getElementById('station').classList.remove('hide');
+  document.getElementById('backBtn').classList.remove('hide');
+  document.getElementById('stationBody').innerHTML = RENDER[id]();
+  if(AFTER[id]) AFTER[id]();
+  window.scrollTo(0,0);
+}
+function completeStation(id){ S.done[id]=true; save(); goMap(); }
+function resetAll(){ if(confirm('Erase ALL saved work and start over?')){ localStorage.removeItem(KEY); location.reload(); } }
+
+/* typed-answer helpers */
+function ta(id,ph){ return `<textarea id="ta-${id}" placeholder="${ph||'Type your answer…'}"
+  oninput="S.text['${id}']=this.value;save()">${esc(S.text[id]||'')}</textarea>` }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;') }
+function answered(ids){ return ids.every(i=>(S.text[i]||'').trim().length>=8) }
+function needAnswers(ids,btnId){
+  const b=document.getElementById(btnId); if(!b) return;
+  b.disabled=!answered(ids);
+}
+function wireAnswers(ids,btnId){
+  needAnswers(ids,btnId);
+  ids.forEach(i=>{ const el=document.getElementById('ta-'+i);
+    if(el) el.addEventListener('input',()=>needAnswers(ids,btnId)); });
+}
+
+/* ═════════ RENDERERS ═════════ */
+const RENDER={}, AFTER={};
+
+/* ── overview ── */
+RENDER.overview=()=>`
+  <h2>🌾 What this lesson is about</h2>
+  <p>Last lesson you learned how a business is <b>organized</b>. This lesson is about how one gets <b>started</b> — and it kicks off the project that runs the rest of this course: <b>your team's business plan</b>.</p>
+  <p>Before a business opens, the owners have to answer: <b>What does our community need? Who would actually buy this? What does the data say?</b> Entrepreneurs don't guess — they research. Over the next days you will:</p>
+  <ul>
+    <li>Map the <b>agricultural business community</b> around you — all 12 AFNR career areas (Activity 1.2.1)</li>
+    <li>Draft a real <b>market survey</b> with your Business Plan Team (Project 1.2.2)</li>
+    <li>Turn data into <b>charts and graphs</b> with spreadsheet software (Activity 1.2.3)</li>
+    <li>Analyze your survey results and <b>find the trends</b> (Project 1.2.4)</li>
+    <li>Write your <b>business description</b> — the first page of the course-long business plan (Project 1.2.5)</li>
+  </ul>
+  <h3>Essential questions</h3>
+  <div class="callout">
+    1. What is the difference between a product and a service?<br>
+    2. How do entrepreneurs identify opportunities for new businesses?<br>
+    3. How is information graphed and communicated?<br>
+    4. How can agribusinesses use survey data to guide their decisions?<br>
+    5. What is the purpose of a business plan?<br>
+    6. What is the first step in developing a business plan?
+  </div>
+  <p class="muted">By the end of this lesson you should be able to answer every one of these without looking.</p>
+  <h3>Words you'll meet</h3>
+  <p class="muted">Entrepreneur · market analysis · market survey · e-commerce · outsource · quantitative data · qualitative data · trend · cell reference · bar chart · line chart · pie graph · business plan … The full <b>📖 Glossary</b> is on the map screen any time you need it.</p>
+  <button class="btn" onclick="completeStation('overview')">Got it — start Activity 1</button>`;
+
+/* ── community: 12 areas match game + interest picker + local hunt ── */
+const AREAS=['Agribusiness','Ag Education','Ag Technology','Animals','Biotechnology','Environmental Service',
+  'Food Products & Processing','Natural Resources','Plants','Power, Structures & Technology','Skilled Trades','Sustainability'];
+const AREA_MATCH=[
+  {t:'A veterinary clinic that treats horses, cattle, and the 4-H show animals',a:'Animals',
+   hint:'Working directly with animals or animal products.'},
+  {t:'A lab breeding drought-tolerant seed by working with plant genetics',a:'Biotechnology',
+   hint:'Scientists using genetic composition to enhance plants or animals.'},
+  {t:'A company writing drone software that maps crop health from the air',a:'Ag Technology',
+   hint:'Programming, data analysis, and technology development.'},
+  {t:'A recycling center that keeps used oil and chemicals out of the river',a:'Environmental Service',
+   hint:'Making the Earth cleaner and healthier — recycling, pollution control, waste.'},
+  {t:'A salsa kitchen turning local chiles and tomatoes into jarred salsa',a:'Food Products & Processing',
+   hint:'Using the makeup of foods to improve what humans eat.'},
+  {t:'A high-school ag program training students for every pathway',a:'Ag Education',
+   hint:'The pathway that provides foundational knowledge for all the others.'},
+  {t:'A welding shop building cattle trailers and repairing irrigation pumps',a:'Power, Structures & Technology',
+   hint:'Engineering, hydraulics, electronics, power, and structures applied to ag.'},
+  {t:'A nursery growing native trees and vegetable starts for local gardens',a:'Plants',
+   hint:'The pathway that studies plants and how they impact our world.'},
+  {t:'A forestry crew managing timber, watershed, and public land',a:'Natural Resources',
+   hint:'Developing and managing minerals, forests, water, and land.'},
+  {t:'A farm-loan and crop-insurance office serving local producers',a:'Agribusiness',
+   hint:'The pathway that connects the business world with agricultural production.'},
+];
+RENDER.community=()=>`
+  <h2>🏘 Activity 1.2.1 — Our Community</h2>
+  <p>A <b>business community</b> is a group of companies that work together to support the people and industries in an area — their buying and selling creates commerce. With <b>e-commerce</b> (buying and selling over the internet), business communities now reach far past city limits. When a community doesn't have a business it needs, it <b>outsources</b> — gets those goods or services from a supplier outside the area.</p>
+  <p>The agriculture, food, and natural resources (AFNR) industry has <b>12 career focus areas</b>. Some communities have businesses in every area; others outsource what's missing.</p>
+  <h3>Step 1 — Which area is it? (practice)</h3>
+  <p class="muted">For each real-world business, pick the AFNR career focus area it belongs to.</p>
+  <div class="card" id="amCard"></div>
+  <div id="commRest" class="hide">
+    <h3>Step 2 — Explore + pick YOUR two areas</h3>
+    <a class="ext" href="https://agexplorer.ffa.org/focus/" target="_blank" rel="noopener">🧭 AgExplorer — career focus areas
+      <small>Opens in a new tab · browse the 12 areas and the careers inside each</small></a>
+    <p class="muted">Tap the <b>two</b> areas that interest you most. (In class these go on your sticky note — they also decide your Business Plan Team.)</p>
+    <div class="chipgrid" id="areaChips"></div>
+    <div class="tiny" id="pickMsg" style="text-align:center;margin-top:2px"></div>
+    <h3>Step 3 — Community scavenger hunt</h3>
+    <p class="muted">With your partner (someone who picked a similar area), search the internet — maps, the Chamber of Commerce, business listings — for LOCAL businesses in your #1 area.</p>
+    <div class="qlabel"><span class="qn">Q1.</span> List at least <b>three real local businesses</b> that fit your #1 area (name each, and one line on what it does).</div>
+    ${ta('comm-biz','1. …\n2. …\n3. …')}
+    <div class="qlabel"><span class="qn">Q2.</span> How large an area did you count as "your community" (town? the whole Verde Valley? county?) — and why?</div>
+    ${ta('comm-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> Which AFNR area do you think has the MOST local businesses, and which the LEAST? Why do you think that is here?</div>
+    ${ta('comm-q3')}
+    <div class="qlabel"><span class="qn">Q4.</span> Why should an entrepreneur survey the community before starting a new business?</div>
+    ${ta('comm-q4')}
+    <button class="btn" id="commDone" onclick="completeStation('community')">Finish Activity 1</button>
+    <p class="tiny" style="text-align:center">Pick your 2 areas and answer all four to unlock.</p>
+  </div>`;
+AFTER.community=()=>{
+  let i=S.amIdx||0;
+  if(S.done.community) i=AREA_MATCH.length;
+  const card=document.getElementById('amCard');
+  function drawMatch(){
+    if(i>=AREA_MATCH.length){
+      card.classList.add('hide');
+      document.getElementById('commRest').classList.remove('hide');
+      drawChips(); wire();
+      return;
+    }
+    const m=AREA_MATCH[i];
+    const wrong=AREAS.filter(a=>a!==m.a).sort(()=>Math.random()-.5).slice(0,3);
+    const opts=[m.a,...wrong].sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Business ${i+1} of ${AREA_MATCH.length}</div>
+      <p style="font-size:15.5px">${m.t}</p>
+      ${opts.map(o=>`<button class="opt" onclick="amPick('${o.replace(/'/g,"\\'")}',this)">${o}</button>`).join('')}
+      <div class="mcq-feed" id="amFeed"></div>`;
+  }
+  window.amPick=(o,el)=>{
+    const m=AREA_MATCH[i], feed=document.getElementById('amFeed');
+    if(o===m.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ '+m.a+' — exactly.'; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(b=>b.onclick=null);
+      i++; S.amIdx=i; save(); setTimeout(drawMatch,1400);
+    }else{
+      el.classList.add('picked-no'); feed.textContent='Not quite — hint: '+m.hint; feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),900);
+    }
+  };
+  function drawChips(){
+    document.getElementById('areaChips').innerHTML=AREAS.map(a=>
+      `<button class="chip ${S.picks.includes(a)?'on':''}" onclick="pickArea('${a.replace(/'/g,"\\'")}')">${a}</button>`).join('');
+    const msg=document.getElementById('pickMsg');
+    msg.textContent=S.picks.length===2 ? '✓ Your areas: '+S.picks.join(' + ')
+      : 'Pick '+(2-S.picks.length)+' more';
+    gate();
+  }
+  window.pickArea=(a)=>{
+    if(S.picks.includes(a)) S.picks=S.picks.filter(x=>x!==a);
+    else{ if(S.picks.length>=2) S.picks.shift(); S.picks.push(a); }
+    save(); drawChips();
+  };
+  function gate(){
+    const b=document.getElementById('commDone'); if(!b) return;
+    b.disabled=!(S.picks.length===2 && answered(['comm-biz','comm-q2','comm-q3','comm-q4']));
+  }
+  function wire(){
+    ['comm-biz','comm-q2','comm-q3','comm-q4'].forEach(id=>{
+      const el=document.getElementById('ta-'+id); if(el) el.addEventListener('input',gate);
+    });
+    gate();
+  }
+  drawMatch();
+};
+
+/* ── survey: quant vs qual sorter + idea + 5 questions ── */
+const QQ_ITEMS=[
+  {t:'"How many times per month does your family buy fresh eggs?"',quant:true,
+   why:'A number you can count and graph — quantitative.'},
+  {t:'"What do you WISH our farmers market offered that it doesn\'t?"',quant:false,
+   why:'Open-ended written answer — qualitative. You read it for trends, not graphs.'},
+  {t:'"Which age group are you in? (under 18 / 18–30 / 31–50 / over 50)"',quant:true,
+   why:'Categorical choices you can tally — quantitative, and a key demographic.'},
+  {t:'"Describe your last experience buying a plant locally."',quant:false,
+   why:'A story in their own words — qualitative.'},
+  {t:'"How much would you pay for a dozen farm-fresh eggs? ($3 / $5 / $7)"',quant:true,
+   why:'Fixed choices → easy totals and percentages — quantitative.'},
+  {t:'"Why do you shop — or not shop — at local farm stands?"',quant:false,
+   why:'A "why" question with written reasons — qualitative.'},
+  {t:'"How many pets live in your household?"',quant:true,
+   why:'Count it, total it, graph it — quantitative.'},
+  {t:'"What would make you more likely to buy local beef?"',quant:false,
+   why:'Open suggestions in their own words — qualitative.'},
+];
+RENDER.survey=()=>`
+  <h2>📝 Project 1.2.2 — Design a Market Survey</h2>
+  <p>Before a start-up opens, entrepreneurs run a <b>market analysis</b> — figuring out whether the market is ready and able to support a new business: what competition exists, what's missing, and whether the community can afford another business. The main tool for hearing directly from the community is a <b>market survey</b>.</p>
+  <div class="callout">
+    <b>Quantitative data</b> — results in numbers and categorical choices. Easy to total, turn into percentages, and graph.<br><br>
+    <b>Qualitative data</b> — open-ended written responses. Not easily graphed — you read them looking for repeated ideas (<b>trends</b>).
+  </div>
+  <p>A good survey collects <b>both</b> — plus <b>key demographics</b> (age group, role, location) so you know WHO answered.</p>
+  <h3>Step 1 — Quant or Qual? (practice)</h3>
+  <p class="muted">For each survey question, decide which kind of data it collects.</p>
+  <div class="card" id="qqCard">
+    <div class="tiny" id="qqCount"></div>
+    <div class="sortitem" id="qqItem"></div>
+    <div class="sortbtns">
+      <button class="sb-need" onclick="qqPick(true)">QUANTITATIVE</button>
+      <button class="sb-want" onclick="qqPick(false)">QUALITATIVE</button>
+    </div>
+    <div class="sortfeed" id="qqFeed"></div>
+  </div>
+  <div id="survRest" class="hide">
+    <h3>Step 2 — Your team's business idea</h3>
+    <p class="muted">In class, Mr. Beltran assigns your <b>Business Plan Team</b> and its agricultural area. Brainstorm business / product / service ideas for that area — the SAE Idea Cards are full of starters.</p>
+    <a class="ext" href="https://ffa.app.box.com/v/saeideacards" target="_blank" rel="noopener">💡 SAE Idea Cards
+      <small>Opens in a new tab · browse ideas for your team's assigned area</small></a>
+    <div class="qlabel"><span class="qn">Q1.</span> Your team's area, at least <b>two ideas</b> you brainstormed, and which ONE idea the team circled to research.</div>
+    ${ta('surv-idea','Area: …\nIdea 1: …\nIdea 2: …\nWe circled: …')}
+    <h3>Step 3 — Draft your five survey questions</h3>
+    <p class="muted">Write the <b>5 questions</b> your team will ask the community about your circled idea. Include at least one demographic question, and a mix of quantitative and qualitative.</p>
+    ${ta('surv-q','1. …\n2. …\n3. …\n4. …\n5. …')}
+    <div class="qlabel"><span class="qn">Q2.</span> How will your team distribute the survey (paper at an event? online form? in person?) — and why will that method get you the best-quality data? Remember: you need at least 25 people — 5 students outside this class, 5 business owners/managers, 5 residents.</div>
+    ${ta('surv-dist')}
+    <div class="qlabel"><span class="qn">Q3.</span> When is a market survey useful in business planning?</div>
+    ${ta('surv-q3')}
+    <div class="callout sun"><b>Before you survey real people:</b> use your Business Communication Etiquette notes — introduce yourself, say why you're asking, thank them. You represent Verde Tech out there.</div>
+    <button class="btn" id="survDone" onclick="completeStation('survey')">Finish Project 1.2.2 draft</button>
+    <p class="tiny" style="text-align:center">Answer everything above to unlock. Your teacher reviews the survey before you use it.</p>
+  </div>`;
+AFTER.survey=()=>{
+  let i=S.qqIdx||0;
+  if(S.done.survey) i=QQ_ITEMS.length;
+  const item=document.getElementById('qqItem'), feed=document.getElementById('qqFeed'),
+        count=document.getElementById('qqCount');
+  function show(){
+    if(i>=QQ_ITEMS.length){
+      document.getElementById('qqCard').classList.add('hide');
+      document.getElementById('survRest').classList.remove('hide');
+      wireAnswers(['surv-idea','surv-q','surv-dist','surv-q3'],'survDone');
+      return;
+    }
+    count.textContent=`Question ${i+1} of ${QQ_ITEMS.length}`;
+    item.textContent=QQ_ITEMS[i].t; feed.textContent=''; feed.className='sortfeed';
+  }
+  window.qqPick=(saidQuant)=>{
+    if(i>=QQ_ITEMS.length) return;
+    const it=QQ_ITEMS[i];
+    const ok=(saidQuant===it.quant);
+    feed.textContent=(ok?'✓ Right — ':'✗ Actually '+(it.quant?'QUANTITATIVE':'QUALITATIVE')+' — ')+it.why;
+    feed.className='sortfeed '+(ok?'ok':'no');
+    i++; S.qqIdx=i; save();
+    setTimeout(show, ok?1500:2700);
+  };
+  show();
+};
+
+/* ── charting: spreadsheet drills + real graphing ── */
+const CHART_DRILL=[
+  {q:'On a spreadsheet, the cell in column B, row 4 is named…',
+   o:['4B','B4','Row B-4','Cell 24'],a:1,
+   hint:'Cell reference = column LETTER then row NUMBER.'},
+  {q:'Columns run ____ and are referenced by ____.',
+   o:['vertically … letters','horizontally … letters','vertically … numbers','horizontally … numbers'],a:0,
+   hint:'Columns stand up like fence posts; rows lie flat. Letters go with columns.'},
+  {q:'Every spreadsheet formula must START with…',
+   o:['a + sign','the word SUM','an = sign','parentheses'],a:2,
+   hint:'The symbol that tells the cell "this is a formula, not text."'},
+  {q:'To multiply the contents of A1 by A2, you type…',
+   o:['=A1*A2','=A1xA2','A1*A2','=A1+A2'],a:0,
+   hint:'Formulas start with = and multiplication uses the asterisk.'},
+  {q:'=C1-C2 will…',
+   o:['add C1 and C2','subtract C2 from C1','divide C1 by C2','name the cell C1C2'],a:1,
+   hint:'The minus sign works just like in math class.'},
+  {q:'You want to show what FRACTION of the whole class picked each career area. Best chart:',
+   o:['Line chart','Pie graph','Scatter plot','No chart — a paragraph'],a:1,
+   hint:'Which chart is a circle cut into wedges — parts of a whole?'},
+  {q:'You want to show how egg prices changed month by month over a year. Best chart:',
+   o:['Pie graph','Bar chart','Line chart','A single number'],a:2,
+   hint:'Data points connected by line segments show change over time.'},
+  {q:'You want to compare the COUNT of local businesses side-by-side across all 12 areas. Best chart:',
+   o:['Bar or column chart','Pie graph','Line chart','None of these'],a:0,
+   hint:'Bars and columns are made for side-by-side comparison.'},
+];
+RENDER.charting=()=>`
+  <h2>📊 Activity 1.2.3 — Charting the Data</h2>
+  <p>Business managers live in numbers — and <b>spreadsheet software</b> (Google Sheets™, Excel™) is how they keep the math honest and turn numbers into pictures. A good graph is clear and easy to read, with a title, a key, and colors that help the data instead of hiding it.</p>
+  <p>Spreadsheets are a grid: <b>columns</b> are vertical (letters), <b>rows</b> are horizontal (numbers), and every cell has a <b>cell reference</b> — column letter + row number, like <b>C3</b>. Six symbols do most of the work:</p>
+  <div class="callout">
+    <b>=</b> starts a formula &nbsp;·&nbsp; <b>( )</b> controls order of operations<br>
+    <b>+</b> add &nbsp;·&nbsp; <b>−</b> subtract &nbsp;·&nbsp; <b>*</b> multiply &nbsp;·&nbsp; <b>/</b> divide<br>
+    <span class="tiny">Example: =B2+B3 adds those two cells. Change B2 later and the answer updates itself.</span>
+  </div>
+  <h3>Step 1 — Spreadsheet skills check</h3>
+  <p class="muted">Answer each one — a wrong pick gets a hint, not the answer.</p>
+  <div class="card" id="cdCard"></div>
+  <div id="chartRest" class="hide">
+    <h3>Step 2 — Make the real graphs</h3>
+    <p class="muted">In class, your class tallies its data (first/second choice areas, where you've worked, where you've purchased). Enter that class data in a Google Sheet, then build:</p>
+    <ul>
+      <li>a <b>line chart</b> of first-choice interest</li>
+      <li>a <b>column chart</b> comparing first and second choices ("Class Interest Choices")</li>
+      <li>a <b>pie chart</b> of where students have worked</li>
+      <li>a <b>bar chart</b> of where students have purchased items</li>
+    </ul>
+    <a class="ext" href="https://drive.google.com" target="_blank" rel="noopener">📈 Open Google Drive → New → Google Sheets
+      <small>Name the file: Activity_1.2.3_Graphs_FirstInitialLastName · highlight the data → Insert → Chart → pick the type</small></a>
+    <h3>Step 3 — Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> Why does turning numbers into a graph help someone understand the data faster?</div>
+    ${ta('chart-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> Which chart you made represents its data BEST, and why? What did you title it, and why that title?</div>
+    ${ta('chart-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> Why are charts and graphs useful for MANAGING a business (not just presenting)?</div>
+    ${ta('chart-q3')}
+    <button class="btn" id="chartDone" onclick="completeStation('charting')">Finish Activity 1.2.3</button>
+    <p class="tiny" style="text-align:center">Submit the Sheet itself the way Mr. Beltran directs (share or turn in on Classroom).</p>
+  </div>`;
+AFTER.charting=()=>{
+  let i=S.cdIdx||0;
+  if(S.done.charting) i=CHART_DRILL.length;
+  const card=document.getElementById('cdCard');
+  function draw(){
+    if(i>=CHART_DRILL.length){
+      card.classList.add('hide');
+      document.getElementById('chartRest').classList.remove('hide');
+      wireAnswers(['chart-q1','chart-q2','chart-q3'],'chartDone');
+      return;
+    }
+    const q=CHART_DRILL[i];
+    const idx=q.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Skill ${i+1} of ${CHART_DRILL.length}</div>
+      <div class="mcq-q" style="font-size:16px">${q.q}</div>
+      ${idx.map(k=>`<button class="opt" onclick="cdPick(${k},this)">${q.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="cdFeed"></div>`;
+  }
+  window.cdPick=(k,el)=>{
+    const q=CHART_DRILL[i], feed=document.getElementById('cdFeed');
+    if(k===q.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ Correct'; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(b=>b.onclick=null);
+      i++; S.cdIdx=i; save(); setTimeout(draw,1100);
+    }else{
+      el.classList.add('picked-no'); feed.textContent='Not quite — hint: '+q.hint; feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),900);
+    }
+  };
+  draw();
+};
+
+/* ── survey says: percent practice + trends ── */
+RENDER.surveysays=()=>`
+  <h2>🔎 Project 1.2.4 — Survey Says</h2>
+  <p>Your team collected real responses. Now the survey pays off: the analysis tells you WHO your <b>target audience</b> is and WHAT they need and want. Two moves:</p>
+  <ul>
+    <li><b>Quantitative questions</b> → calculate totals and <b>percentages</b>, put them in tables and charts.</li>
+    <li><b>Qualitative questions</b> → read every response looking for repeated ideas. A repeated idea across multiple responses is a <b>trend</b>. Find at least three.</li>
+  </ul>
+  <div class="callout sun"><b>Survey fatigue is real:</b> too many questions (or too many surveys) and people stop giving honest answers. That's why your survey was short, targeted, and relevant.</div>
+  <h3>Step 1 — Percentage warm-up</h3>
+  <div class="card">
+    <p style="font-size:15.5px">Your team surveyed <b>25 people</b>. <b>15</b> said they would buy fresh eggs every week. What <b>percent</b> is that?</p>
+    <div class="numrow">
+      <input id="pctIn" inputmode="numeric" placeholder="?" maxlength="3">
+      <button onclick="pctCheck()">Check</button>
+    </div>
+    <div class="mcq-feed" id="pctFeed" style="text-align:center"></div>
+  </div>
+  <div id="ssRest" class="hide">
+    <h3>Step 2 — Your team's analysis</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> Your key demographics: WHO answered your survey (age groups, students/owners/residents, how many total)?</div>
+    ${ta('ss-demo')}
+    <div class="qlabel"><span class="qn">Q2.</span> The <b>three trends</b> your team found in the data (or, if responses are still coming in, the three trends you predict and what you'll look for).</div>
+    ${ta('ss-trends','Trend 1: …\nTrend 2: …\nTrend 3: …')}
+    <div class="qlabel"><span class="qn">Q3.</span> The ONE product or service your team picked to build the business plan around for the rest of the course — and what in the survey data supports that pick.</div>
+    ${ta('ss-pick')}
+    <div class="qlabel"><span class="qn">Q4.</span> What ADDITIONAL data (that your survey didn't collect) would help your team make better decisions?</div>
+    ${ta('ss-q4')}
+    <button class="btn" id="ssDone" onclick="completeStation('surveysays')">Finish Project 1.2.4</button>
+  </div>`;
+AFTER.surveysays=()=>{
+  if(S.done.surveysays || S.pctOk){
+    document.getElementById('ssRest').classList.remove('hide');
+    const f=document.getElementById('pctFeed'); f.textContent='✓ 60% — already solved'; f.className='mcq-feed ok';
+    wireAnswers(['ss-demo','ss-trends','ss-pick','ss-q4'],'ssDone');
+  }
+  window.pctCheck=()=>{
+    const v=parseInt(document.getElementById('pctIn').value,10);
+    const feed=document.getElementById('pctFeed');
+    if(v===60){
+      feed.textContent='✓ 60% — (15 ÷ 25) × 100. That\'s a strong majority.'; feed.className='mcq-feed ok';
+      S.pctOk=true; save();
+      document.getElementById('ssRest').classList.remove('hide');
+      wireAnswers(['ss-demo','ss-trends','ss-pick','ss-q4'],'ssDone');
+    }else{
+      feed.textContent='Not yet — divide 15 by 25, then multiply by 100.'; feed.className='mcq-feed no';
+    }
+  };
+};
+
+/* ── business description builder ── */
+const BP_FIELDS=[
+  ['bp-name','The Business — name + goal','Name of your business (or the enterprise added to an existing one), and a short statement of its goal(s).','Business name: …\nOur goal: …'],
+  ['bp-time','The Business — timeline + structure','How long you estimate until the business is operational, and which business structure you chose (sole proprietorship / partnership / LLC / cooperative / corporation) and WHY it fits — think back to Lesson 1.1.','Time to operational: …\nStructure + why: …'],
+  ['bp-prod','The Product or Service','Describe what you\'ll offer, how consumers will use it, and the value it has to them.',''],
+  ['bp-market','Market Analysis','Who (demographics or businesses) would buy it? Roughly how many local customers might be interested? Use your Survey Says data to back it up.',''],
+  ['bp-loc','Location','Where would most of the work happen (shop, office, greenhouse, kitchen, online…)? What tools and equipment does the business need?',''],
+  ['bp-comp','Competition','At least TWO existing businesses/products/services in your community related to yours — and the availability + cost of what they offer.','1. …\n2. …'],
+];
+RENDER.bizplan=()=>`
+  <h2>📋 Project 1.2.5 — Your Business Description</h2>
+  <p>A <b>business plan</b> sets the course for a new business — it helps set goals, understand the market, and even obtain loans. Its sections typically include a business description, financial statements, competitive analysis, a risk management plan, and a timeline.</p>
+  <p>The <b>business description comes first</b>. It answers <b>who, what, when, where, how, and why</b> — and it sets the tone for everything that follows. You'll build the rest of the plan all course long (finances in Units 2–3, risk in Unit 3, the full compilation in Unit 4). This page starts it.</p>
+  <p class="muted">Write each section with your Business Plan Team, but type YOUR OWN draft here — the preview below assembles it into a clean description you can paste into your team's document.</p>
+  ${BP_FIELDS.map(([id,t,d,ph])=>`
+    <h3>${t}</h3>
+    <p class="muted" style="margin-bottom:6px">${d}</p>
+    ${ta(id,ph||'Type this section…')}`).join('')}
+  <h3>Live preview — your assembled description</h3>
+  <pre class="preview" id="bpPreview"></pre>
+  <button class="btn ghost" onclick="copyText(bpCompile(),this)">📋 Copy the description</button>
+  <button class="btn" id="bpDone" onclick="completeStation('bizplan')">Finish Project 1.2.5 draft</button>
+  <p class="tiny" style="text-align:center">Fill every section to unlock. Mr. Beltran grades the final version with the rubric — file it behind the Business Plan tab of your Agriscience Notebook.</p>`;
+function bpCompile(){
+  const A=(id)=>(S.text[id]||'').trim()||'(not written yet)';
+  return ['BUSINESS DESCRIPTION — draft by '+(S.name||'?'),'',
+    '— The Business —', A('bp-name'), A('bp-time'),'',
+    '— The Product or Service —', A('bp-prod'),'',
+    '— Market Analysis —', A('bp-market'),'',
+    '— Location —', A('bp-loc'),'',
+    '— Competition —', A('bp-comp')].join('\n');
+}
+AFTER.bizplan=()=>{
+  const ids=BP_FIELDS.map(f=>f[0]);
+  function refresh(){
+    document.getElementById('bpPreview').textContent=bpCompile();
+    needAnswers(ids,'bpDone');
+  }
+  ids.forEach(i=>{ const el=document.getElementById('ta-'+i);
+    if(el) el.addEventListener('input',refresh); });
+  refresh();
+};
+
+/* ── final quiz + turn-in ── */
+const QUIZ=[
+  {q:'A PRODUCT differs from a SERVICE because a service is…',
+   o:['always more expensive','an intangible item — effort and talent, not something physically stored','only sold by corporations','anything sold online'],a:1},
+  {q:'An entrepreneur is best described as…',
+   o:['someone who organizes a business — a risk taker and profit seeker','any employee of a farm','a government inspector','someone who only invests in stocks'],a:0},
+  {q:'The PRIMARY goal of a market analysis is to…',
+   o:['advertise the new business','decide whether the market is ready and able to support a new business','set employee salaries','design a logo'],a:1},
+  {q:'E-commerce means…',
+   o:['emailing customers','electronic trade — buying and selling via the internet','estimating commerce','delivering by drone'],a:1},
+  {q:'When a community gets goods or services from a supplier OUTSIDE the area, that is called…',
+   o:['importing taxes','outsourcing','downsizing','e-accounting'],a:1},
+  {q:'Quantitative data is…',
+   o:['open-ended written responses','always wrong','numbers and categorical responses — easily graphed','opinions only'],a:2},
+  {q:'Qualitative survey responses are analyzed by…',
+   o:['averaging them','looking for repeated similar ideas, called trends','graphing them directly','ignoring them'],a:1},
+  {q:'Survey fatigue comes from…',
+   o:['too many questions or too many surveys — so keep surveys concise and relevant','surveys that are too short','asking demographics','using paper instead of online forms'],a:0},
+  {q:'On a spreadsheet, the cell reference C3 means…',
+   o:['column 3, row C','column C, row 3','the 33rd cell','a formula'],a:1},
+  {q:'Which chart best shows PARTS OF A WHOLE (like each area\'s share of class interest)?',
+   o:['Line chart','Bar chart','Pie graph','Table'],a:2},
+  {q:'Which chart best shows CHANGE OVER TIME?',
+   o:['Pie graph','Line chart','A single bar','A glossary'],a:1},
+  {q:'The FIRST step in developing a business plan is…',
+   o:['the financial statements','the risk management plan','the business description','the appendix'],a:2},
+  {q:'A business description should answer…',
+   o:['only how much money the owners will make','who, what, when, where, how, and why','trivia about agriculture','nothing — it\'s optional'],a:1},
+  {q:'Which of these is NOT one of the 12 AFNR career focus areas?',
+   o:['Animal systems','Plant systems','Aerospace systems','Skilled trades systems'],a:2},
+];
+const PASS=80;
+RENDER.final=()=>`
+  <h2>✅ Final Self-Check</h2>
+  <p class="muted">10 questions from the whole lesson. You need <b>${PASS}%</b> to finish — retry as many times as you want, and the questions reshuffle. This is practice: the graded <b>Check for Understanding</b> comes from Mr. Beltran in class.</p>
+  <div class="card" id="quizCard"></div>
+  <div id="turnin" class="hide">
+    <div class="bigscore" id="scoreBig"></div>
+    <p class="muted" style="text-align:center" id="scoreMsg"></p>
+    <h3>📤 Turn in your work</h3>
+    <p class="muted">This gathers every answer you typed into one block. Copy it, then paste it into the <b>Google Classroom assignment</b> (private comment or the attached doc) — or show this screen to Mr. Beltran.</p>
+    <pre id="compiled"></pre>
+    <button class="btn" onclick="copyText(document.getElementById('compiled').textContent,this)">📋 Copy my work</button>
+    <button class="btn ghost" onclick="completeStation('final')">Done — back to map</button>
+  </div>`;
+AFTER.final=()=>{
+  let qs=[], qi=0, right=0;
+  const card=document.getElementById('quizCard');
+  function start(){
+    qs=[...QUIZ].sort(()=>Math.random()-.5).slice(0,10);
+    qi=0; right=0;
+    card.classList.remove('hide');
+    document.getElementById('turnin').classList.add('hide');
+    draw();
+  }
+  function draw(){
+    if(qi>=qs.length) return finish();
+    const q=qs[qi];
+    const idx=q.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="mcq-top"><span>Question ${qi+1} of ${qs.length}</span><span>Score: ${right}</span></div>
+      <div class="mcq-q">${q.q}</div>
+      ${idx.map(k=>`<button class="opt" onclick="qPick(${k},this)">${q.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="qFeed"></div>`;
+  }
+  window.qPick=(k,el)=>{
+    const q=qs[qi], feed=document.getElementById('qFeed');
+    card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+    if(k===q.a){ right++; el.classList.add('picked-ok'); feed.textContent='✓ Correct'; feed.className='mcq-feed ok'; }
+    else{
+      el.classList.add('picked-no');
+      card.querySelectorAll('.opt').forEach(o=>{ if(o.textContent===q.o[q.a]) o.classList.add('reveal'); });
+      feed.textContent='✗ The answer: '+q.o[q.a]; feed.className='mcq-feed no';
+    }
+    qi++; setTimeout(draw, k===q.a?900:2400);
+  };
+  function finish(){
+    const pct=Math.round(right/qs.length*100);
+    S.scores.final=Math.max(S.scores.final||0,pct); save();
+    if(pct<PASS){
+      card.innerHTML=`<div class="bigscore" style="color:var(--sun)">${pct}%</div>
+        <p class="muted" style="text-align:center">Almost — you need ${PASS}%. Skim the stations you're shaky on (they stay open on the map), then try again. New shuffle every time.</p>
+        <button class="btn" id="retryBtn">Try again</button>`;
+      document.getElementById('retryBtn').onclick=start;
+      return;
+    }
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=pct+'%';
+    document.getElementById('scoreMsg').textContent=pct===100?'Perfect score. Outstanding.':'Passed — nice work.';
+    document.getElementById('compiled').textContent=compile(pct);
+    window.scrollTo(0,0);
+  }
+  if(S.done.final && (S.scores.final||0)>=PASS){
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=(S.scores.final||0)+'%';
+    document.getElementById('scoreMsg').textContent='Best score (already passed).';
+    document.getElementById('compiled').textContent=compile(S.scores.final||0);
+  } else start();
+};
+function compile(pct){
+  const L=[], A=(id)=> (S.text[id]||'—').trim();
+  L.push('ABF LESSON 1.2 — STARTING A BUSINESS · SELF-PACED WORK');
+  L.push('Student: '+(S.name||'?'));
+  L.push('Date: '+new Date().toLocaleDateString());
+  L.push('Final self-check score: '+pct+'%');
+  L.push('');
+  L.push('— Activity 1.2.1 Our Community —');
+  L.push('My two interest areas: '+(S.picks.join(' + ')||'—'));
+  L.push('Local businesses in my #1 area: '+A('comm-biz'));
+  L.push('Q2 (how large is "my community"): '+A('comm-q2'));
+  L.push('Q3 (most/least local businesses + why): '+A('comm-q3'));
+  L.push('Q4 (why survey the community): '+A('comm-q4'));
+  L.push('');
+  L.push('— Project 1.2.2 Community Survey —');
+  L.push('Quant-vs-qual practice: all 8 sorted (required to advance)');
+  L.push('Team area + ideas + circled pick: '+A('surv-idea'));
+  L.push('My 5 draft survey questions: '+A('surv-q'));
+  L.push('Distribution plan: '+A('surv-dist'));
+  L.push('When is a market survey useful: '+A('surv-q3'));
+  L.push('');
+  L.push('— Activity 1.2.3 Charting the Data —');
+  L.push('Spreadsheet skills check: all 8 passed (required to advance)');
+  L.push('Q1 (why graphs help): '+A('chart-q1'));
+  L.push('Q2 (best chart + title): '+A('chart-q2'));
+  L.push('Q3 (charts for managing): '+A('chart-q3'));
+  L.push('(Google Sheet with the 4 charts submitted separately)');
+  L.push('');
+  L.push('— Project 1.2.4 Survey Says —');
+  L.push('Percent warm-up: solved (60%)');
+  L.push('Key demographics: '+A('ss-demo'));
+  L.push('Three trends: '+A('ss-trends'));
+  L.push('Our pick + supporting data: '+A('ss-pick'));
+  L.push('Additional data wanted: '+A('ss-q4'));
+  L.push('');
+  L.push('— Project 1.2.5 Business Description (draft) —');
+  L.push(bpCompile());
+  return L.join('\n');
+}
+function copyText(t,btn){
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+    .then(()=>{ btn.textContent='✓ Copied'; })
+    .catch(()=>{ btn.textContent='Copy failed — select the text above by hand'; });
+}
+
+/* ── glossary ── */
+const GLOSS=[
+['Agribusiness system','Career pathway that connects the business world with agricultural production.'],
+['Agricultural education systems','Pathway providing the foundational knowledge for careers in all other pathways.'],
+['Agricultural technology systems','Pathway for programming, data analysis, and technology development.'],
+['Animal system','Pathway working directly with animals or the products that come from animals.'],
+['Bar chart','Graphical representation of data using bars or strips, vertical or horizontal.'],
+['Biotechnology system','Pathway using genetic composition to enhance plants, animals, and microorganisms for safe, affordable food, fiber, and resources.'],
+['Business plan','A detailed plan setting out a business\'s objectives, the strategy and tactics to achieve them, and expected profits — usually over three to ten years.'],
+['Cell reference','Spreadsheet naming convention: the intersection of column and row names the cell (like C3).'],
+['Column','A vertical line on a spreadsheet, referenced by letters.'],
+['E-commerce','Electronic trade — buying and selling products and services via the internet.'],
+['Entrepreneur','An individual who organizes a business; a risk taker and profit seeker.'],
+['Environmental service system','Pathway making the Earth cleaner and healthier: recycling, pollution control, waste disposal, public health.'],
+['Excel™','The spreadsheet program from Microsoft.'],
+['Food products and processing system','Pathway using foods\' physical, biological, and chemical makeup to improve the food available to humans.'],
+['Line chart','A graphical display of data points connected by line segments.'],
+['Market analysis','The process of determining a market\'s factors, conditions, and characteristics.'],
+['Market survey','Tool used to investigate a product or service in a geographical area, including consumer needs and preferences.'],
+['Natural resources system','Pathway to develop, maintain, and manage minerals, forests, water, and land.'],
+['Outsource','Goods or services obtained from a supplier outside the area.'],
+['Pie graph','Graphical representation of data in a circle divided into wedges.'],
+['Plant system','Pathway that studies plants and how they impact our world.'],
+['Power, structural, and technical system','Pathway applying engineering, hydraulics, pneumatics, electronics, power, structures, and controls to agriculture.'],
+['Qualitative data','Observable, recordable data characterizing trends — open-ended written responses, not easily graphed.'],
+['Quantitative data','Data that results in numbers and categorical responses — easily graphed.'],
+['Row','A horizontal line on a spreadsheet, referenced by numbers.'],
+['Service','An intangible traded item — effort and talent, like mechanical work, consulting, logistics.'],
+['Skilled trades systems','Pathway using specialized skills, knowledge, or ability applied to specific areas.'],
+['Supervised Agricultural Experience (SAE)','Experiential, work-based learning built on a student\'s passions and career interests.'],
+['Sustainability systems','Pathway focused on improving environmental impacts.'],
+['Trend','Repeated similar ideas across responses; in markets, changes in production and prices of agricultural products.'],
+];
+RENDER.gloss=()=>`
+  <h2>📖 Lesson 1.2 Glossary</h2>
+  <p class="muted">Every key term for this lesson.</p>
+  ${GLOSS.map(([t,d])=>`<div class="term"><b>${t}</b><span>${d}</span></div>`).join('')}
+  <button class="btn ghost" onclick="goMap()">Back to map</button>`;
+
+/* ───────── boot ───────── */
+if(S.name) boot();
+</script>
+</body>
+</html>
