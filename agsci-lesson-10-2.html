@@ -1,0 +1,212 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 10.2 Drones, Data &amp; the Future of Farming — Self-Paced — Verde Tech</title>
+<style>
+  :root{color-scheme:light}
+  *{box-sizing:border-box}
+  body{margin:0;background:#f6f8f4;color:#1b2a1b;font:18px/1.6 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:18px 18px 70px}
+  header{background:#2f7d32;color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px}
+  header h1{margin:.1rem 0;font-size:26px}
+  header .sub{opacity:.9;font-size:16px}
+  h2{margin:1.4rem 0 .4rem;font-size:22px;color:#2f7d32;border-bottom:2px solid #cfe3cf;padding-bottom:.2rem}
+  .card{background:#fff;border:1px solid #dbe6db;border-radius:12px;padding:16px 18px;margin:12px 0}
+  .eq{background:#eef6ee;border-left:5px solid #2f7d32;border-radius:8px;padding:10px 14px;margin:10px 0}
+  .term{font-weight:700;color:#1f5e22}
+  ul{margin:.4rem 0 .4rem 1.1rem}
+  li{margin:.25rem 0}
+  .try{background:#fff8e6;border:1px solid #f0e2b6;border-radius:10px;padding:12px 14px;margin:10px 0}
+  .try b{color:#8a6d00}
+  table{border-collapse:collapse;width:100%;margin:.4rem 0;font-size:16px}
+  td,th{border:1px solid #cfe0cf;padding:6px 8px;text-align:left}
+  th{background:#eef6ee}
+  .turn{background:#2f7d32;color:#fff;border-radius:12px;padding:16px;margin-top:18px;font-size:19px}
+  .pill{display:inline-block;background:#2f7d32;color:#fff;border-radius:20px;padding:2px 12px;font-size:14px;font-weight:700}
+</style></head>
+<body><div class="wrap">
+<header>
+  <div class="pill">Unit 10 · Agriscience III</div>
+  <h1>Lesson 10.2 — Drones, Data &amp; the Future of Farming</h1>
+  <div class="sub">Work through this on your own. Do each step, answer the questions, and turn in your work.</div>
+</header>
+
+<h2>🧑‍🌾 What this lesson is about</h2>
+<div class="card">
+  <p>The last lesson of the year, and it points forward. Modern agriculture runs on data: a
+  spreadsheet that recalculates your break-even the second feed prices move, a drone that spots crop
+  stress before your eyes can, a tractor that steers itself to about an inch. None of it is magic —
+  every tool in this lesson is a faster way of doing something this course already taught you.
+  The drone is Lesson 8.1's scouting with wings. The yield map is Lesson 6.3's deficiency diagnosis
+  drawn in color. The greenhouse controller is Lesson 9.1's ventilation with a brain.</p>
+  <p><b>Big idea:</b> technology solves a problem only when it NARROWS the question. A tool that
+  produces a pile of data nobody acts on is an expense, not an upgrade. The last skill of the year
+  is deciding whether the tool earned its keep — which is Lesson 10.1's break-even thinking, aimed
+  at the tools themselves.</p>
+</div>
+
+<h2>📖 The words you'll use</h2>
+<div class="card">
+  <ul>
+    <li><span class="term">GPS</span> — a SATELLITE system that tells you precisely where you are.</li>
+    <li><span class="term">GIS</span> — SOFTWARE that layers located data (soil, yield, water lines)
+    onto a map so patterns can be analyzed. Not the same thing as GPS — one locates, one analyzes.</li>
+    <li><span class="term">UAS (drone)</span> — unmanned aircraft system. Commercial flights require
+    an <span class="term">FAA Part 107</span> Remote Pilot Certificate and aircraft registration.</li>
+    <li><span class="term">Ground-truth</span> — walking to the spot to confirm what the map claims.
+    Every map needs it.</li>
+    <li><span class="term">Variable rate</span> — matching the input to what each ZONE needs instead
+    of blanketing the whole field.</li>
+    <li><span class="term">RTK guidance</span> — corrected GPS that steers a tractor to about an
+    inch.</li>
+    <li><span class="term">LabQuest</span> — a handheld data collector that logs probe readings (pH,
+    temperature, dissolved oxygen) at the lab bench or the stock tank.</li>
+    <li><span class="term">PLC</span> — programmable logic controller: a rugged industrial computer
+    that reads sensors and runs programmed logic (open the vents, start the fans, trip the auger).</li>
+    <li><span class="term">CNC</span> — computer numerical control: a digital file drives the plasma
+    table or router so every part comes out identical.</li>
+    <li><span class="term">AET</span> — the electronic record book from Lesson 10.1; the software
+    side of your SAE.</li>
+  </ul>
+</div>
+
+<h2>💻 Activity 10.2.1 — Software That Runs the Operation</h2>
+<div class="card">
+  <p>The least glamorous tool on this page is the most used one in agriculture: the spreadsheet.
+  Feed costs, breeding dates, yield data — and when one number changes, everything downstream
+  recalculates itself. That's why the break-even worksheet you built in Lesson 10.1 belongs in a
+  spreadsheet instead of a notebook.</p>
+  <ol>
+    <li>Your Lesson 10.1 pig worksheet lives in a spreadsheet. Feed jumps from $0.30 to $0.38/lb.
+    In a notebook, what do you have to redo by hand? In the spreadsheet, what happens the moment you
+    change that one cell? Recompute the new break-even yourself to prove the machine right:
+    $150 + (600 × $0.38) + $45, all divided by 280 lb. Show your work.</li>
+    <li>The internet is a research tool ONLY if you judge the source — Lesson 2.3's evidence rule.
+    Rank these for answering "how much water does alfalfa need in Arizona," and defend the ranking:
+    <i>a University of Arizona Cooperative Extension publication · an anonymous blog post · a
+    sprinkler company's product page</i>. What is each source's reason for existing?</li>
+    <li>Name the right software category for each job, from this lesson: <i>SAE hours and expenses ·
+    a shop drawing of Lesson 9.1's structure · a field map layering soil type over yield · this
+    month's feed cost tracking</i>.</li>
+    <li>The account holding your records: what does a STRONG password look like, and why does
+    "unique, not shared around the shop" matter as much as strong? What's at stake in your AET
+    account specifically — think about what Lesson 10.1 said those records feed into.</li>
+    <li>Virtual-meeting etiquette is testable: list the four rules from this lesson, and for
+    "mute when not speaking," explain what it protects. When would screen sharing beat a wordy
+    explanation — give one example from this course (walking a committee through a judging scenario,
+    a marketing plan...)?</li>
+  </ol>
+</div>
+
+<h2>🛰 Activity 10.2.2 — GPS, GIS &amp; Eyes in the Sky</h2>
+<div class="card">
+  <p>Two technologies that get confused, and a flying camera that changes what one person can
+  check in an afternoon:</p>
+  <table>
+    <tr><th></th><th>GPS</th><th>GIS</th></tr>
+    <tr><td>What it is</td><td>Satellite positioning</td><td>Mapping/analysis software</td></tr>
+    <tr><td>Question it answers</td><td>WHERE am I / where is it?</td><td>What PATTERN do the
+    layers show?</td></tr>
+    <tr><td>On the farm</td><td>Mark a spot, steer a tractor</td><td>Soil + yield + elevation +
+    water lines stacked on one map</td></tr>
+  </table>
+  <div class="eq">The drone's real limits, all testable: Part 107 certificate + registration for
+  commercial flight · batteries run about <b>20–40 minutes</b> · wind and weather ground you · the
+  aircraft stays within <b>visual line of sight</b> · and every map still gets
+  <b>ground-truthed on foot</b>.</div>
+  <ol>
+    <li>One sentence each, no overlap: what does GPS do that GIS can't, and what does GIS do that
+    GPS can't? Then combine them: describe one map you'd build for a real field using both.</li>
+    <li>Three drone jobs from this lesson — checking water in a far pasture, mapping a washed-out
+    fence line after a monsoon, flying vegetation-index imagery that sees stress before eyes do.
+    For each: what did the drone replace, and what did it save (time, fuel, a missed problem)?</li>
+    <li>A neighbor offers to pay you to fly drone photos of their field for a sales listing. What
+    TWO FAA requirements just kicked in that didn't apply to your hobby flights, and why does "the
+    money makes it commercial" matter to the FAA?</li>
+    <li>The vegetation map shows a stressed strip along the east edge. Why is driving out and
+    digging BEFORE treating (ground-truthing) non-negotiable? Connect it to Lesson 6.3: name two
+    different causes that would look identical from 400 feet but get opposite treatments.</li>
+    <li>Robotic milkers, autonomous weeders, auto-steer tractors: the three honest costs this lesson
+    lists (up-front price, trained technicians, rural connectivity). Pick one machine and run
+    Lesson 10.1's decision process on it for a small dairy — including what the labor it replaces
+    actually costs.</li>
+  </ol>
+</div>
+
+<h2>🤖 Activity 10.2.3 — The Hardware Behind the Software</h2>
+<div class="card">
+  <p>Four machines that turn physical work into data and data back into physical work:</p>
+  <table>
+    <tr><th>Tool</th><th>What it does</th><th>Course connection</th></tr>
+    <tr><td>LabQuest</td><td>Logs probe readings — pH, temp, dissolved oxygen</td>
+    <td>Lesson 4.3's soil pH, at the stock tank</td></tr>
+    <tr><td>PLC</td><td>Reads sensors, runs logic: vents, fans, augers</td>
+    <td>Lesson 9.1's ventilation, automated</td></tr>
+    <tr><td>CNC</td><td>Digital file drives the cutter — identical parts</td>
+    <td>Lesson 9.2's plasma cutting, repeatable</td></tr>
+    <tr><td>RTK + monitors + EID</td><td>Inch-accurate steering, yield maps, electronic ear
+    tags</td><td>Lesson 7.1's RFID, feeding the GIS layers</td></tr>
+  </table>
+  <ol>
+    <li>Write the PLC logic for a greenhouse in plain if-then sentences: temperature above 85°F →
+    ? · below 60°F → ? · soil-moisture sensor reads dry → ? Three rules, each naming the sensor it
+    reads and the equipment it triggers.</li>
+    <li>Twenty identical brackets for Lesson 9.1's structure: freehand plasma vs. CNC plasma table —
+    what does the CNC guarantee that a skilled hand can't, and when would freehand still be the
+    right call? (Think setup time vs. quantity — that's break-even thinking again.)</li>
+    <li>An electronic ID ear tag pings every time a cow visits the automatic feeder. Name two
+    management decisions from Lesson 7.3 that data stream improves, and one way it feeds the
+    records from Lesson 10.1.</li>
+    <li>RTK steers to about an inch. Explain ONE concrete saving that accuracy buys on a 12-row
+    planter pass — what happens on every pass when a human driver overlaps six inches to be safe,
+    multiplied across a field?</li>
+  </ol>
+  <div class="try"><b>Try it at home — build a GIS by hand:</b> GIS is layered located data — you
+  can build one with paper. Draw your yard, street, or a nearby lot to rough scale. Then make three
+  LAYERS on separate sheets (or colors on tracing paper): (1) water — spigots, hoses, drainage,
+  where puddles form; (2) sun — full-sun vs. shade areas at midday; (3) living things — trees,
+  garden spots, where the dog wears the grass out. Stack them and write the analysis: name ONE
+  pattern visible only when layers combine (e.g. "the bare patch is where full sun meets no water
+  reach"). That pattern-from-layers moment is exactly what a $10,000 GIS package sells.</div>
+</div>
+
+<h2>🌾 Project 10.2.4 — Fix Something With Technology (capstone)</h2>
+<div class="card">
+  <p>The year ends where Lesson 3.1 began: a problem, narrowed until it can be solved. The corn
+  field shows an unexplained yellow patch. The technology answer is a chain, not a gadget:</p>
+  <div class="eq">Fly it → map the patch → mark it with GPS → soil-sample THAT spot → treat ONLY
+  that zone → measure the result → decide if the tool earned its keep. That's variable-rate
+  thinking: input matched to the zone, cost cut, runoff reduced (Lesson 4.2 would approve).</div>
+  <ol>
+    <li>Walk the chain yourself for the yellow patch, one sentence per step — and name which lesson
+    of this course each step leans on (the diagnosis step alone reaches back to 6.3's
+    mobile-vs-immobile logic).</li>
+    <li>The blanket alternative: spreading full-rate fertilizer over all 80 acres when only 6 acres
+    needed it. Using Lesson 6.3's numbers-style: 74 unneeded acres × 150 lb/acre × $0.60/lb — what
+    did the blanket approach waste? (Show the multiplication: 74 × 150 × 0.60.) Where does the
+    excess go — Lesson 4.2 answered this.</li>
+    <li>Now YOUR capstone: pick one real problem anywhere in your world — a struggling houseplant, a
+    gate that's always left open, a chore everyone forgets, an animal losing weight. Write the
+    six-step chain for it: narrow the question → choose ONE tool from this lesson (spreadsheet,
+    phone GPS, a data log, an if-then controller, a camera) → gather the data → act on ONLY what
+    the data shows → measure the result → verdict: did the tool earn its keep? A "the tool wasn't
+    worth it" verdict with honest evidence earns full credit.</li>
+  </ol>
+</div>
+
+<h2>✅ Quick self-check</h2>
+<div class="card">
+  <ol>
+    <li>GPS vs. GIS in one sentence each — which locates, which analyzes?</li>
+    <li>Four drone limits: certificate, battery minutes, line of sight, and the thing every map
+    still needs.</li>
+    <li>What does a PLC read, and what does it run? One greenhouse example.</li>
+    <li>Variable rate in one sentence — and the two things it cuts compared with blanketing.</li>
+    <li>Rank for trust: Extension publication, anonymous blog, product page — and why.</li>
+  </ol>
+</div>
+
+<div class="turn">📤 <b>Turn in your work:</b> your answers from Activities 10.2.1–10.2.3, your
+three-layer hand-drawn GIS with its written pattern analysis, and your capstone six-step chain with
+the honest verdict — through Google Classroom, the way your teacher showed you. That's the year —
+every standard, covered.</div>
+</div></body></html>
