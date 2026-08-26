@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Agribusiness — Student Work</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --green:#2f6b3f; --green-d:#245231; --green-l:#eaf3ec;
+    --sun:#c8892b; --sun-d:#9a6817; --sun-l:#fdf3e2;
+    --ink:#1d2321; --dim:#5b6763; --faint:#8a9591;
+    --line:#e2e8e3; --bg:#f4f7f4; --card:#fff;
+    --ok:#2f7d4f; --shadow:0 4px 16px rgba(31,45,40,.07);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;
+    padding:22px 16px 60px;}
+  .wrap{max-width:860px;margin:0 auto}
+  header{display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between;margin-bottom:6px}
+  h1{font-size:22px;margin:0;color:var(--green-d)}
+  .sub{color:var(--dim);font-size:13.5px;margin:0 0 18px}
+  .btn{border:1px solid var(--green);background:var(--green);color:#fff;font-weight:600;font-size:14px;
+    border-radius:10px;padding:9px 15px;cursor:pointer;font-family:inherit}
+  .btn:active{transform:scale(.98)}
+  .status{font-size:13px;color:var(--faint)}
+  .lesson{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);
+    margin:0 0 16px;overflow:hidden}
+  .lhead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;
+    background:linear-gradient(var(--card),#fbfdfb);border-bottom:1px solid var(--line)}
+  .lhead .nm{font-weight:700;color:var(--green-d)}
+  .pill{font-size:12px;font-weight:700;color:var(--sun-d);background:var(--sun-l);border:1px solid #ecd9b3;
+    border-radius:999px;padding:2px 10px}
+  .stu{border-top:1px solid var(--line)}
+  .stu:first-child{border-top:none}
+  .srow{display:flex;align-items:center;gap:10px;padding:11px 16px;cursor:pointer}
+  .srow:hover{background:#f7faf7}
+  .srow .who{font-weight:600;flex:1;min-width:0}
+  .srow .sc{font-size:12.5px;font-weight:700;color:#fff;background:var(--ok);border-radius:8px;padding:2px 8px;
+    font-variant-numeric:tabular-nums}
+  .srow .sc.low{background:var(--sun)}
+  .srow .dt{font-size:12px;color:var(--faint);white-space:nowrap}
+  .srow .caret{color:var(--faint);transition:transform .15s}
+  .srow.open .caret{transform:rotate(90deg)}
+  .work{display:none;padding:0 16px 16px}
+  .work.show{display:block}
+  .work pre{white-space:pre-wrap;word-break:break-word;background:var(--green-l);border:1px solid #cfe6d6;
+    border-radius:10px;padding:13px 14px;font-size:13px;margin:6px 0 0;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .empty{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:28px;text-align:center;color:var(--dim)}
+  .note{font-size:12px;color:var(--faint);margin-top:22px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🌱 Agribusiness — Student Work</h1>
+    <button class="btn" id="refresh">↻ Refresh</button>
+  </header>
+  <p class="sub">Every student's turned-in work, newest first. Tap a name to read their answers.</p>
+  <div class="status" id="status">Loading…</div>
+  <div id="list"></div>
+  <p class="note">Private teacher view · updates the moment a student finishes a lesson.</p>
+</div>
+<script>
+  var DB='https://verde-animation-25368-default-rtdb.firebaseio.com/submissions.json';
+  var NAMES={
+    'agb-1-1':'Lesson 1.1 — Organizing a Business','agb-1-2':'Lesson 1.2 — Starting a Business',
+    'agb-2-1':'Lesson 2.1 — Categorizing Transactions','agb-2-2':'Lesson 2.2 — The Cost of Doing Business',
+    'agb-2-3':'Lesson 2.3 — Measuring Success','agb-2-4':'Lesson 2.4 — Business Decisions',
+    'agb-3-1':'Lesson 3.1 — Taking Risk Seriously','agb-3-2':'Lesson 3.2 — Employment Opportunity',
+    'agb-3-3':'Lesson 3.3 — Risk and Opportunity','agb-4-1':'Lesson 4.1 — Finalizing the Plan'
+  };
+  var $=function(id){return document.getElementById(id);};
+  function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+  function ago(ts){ if(!ts) return ''; var d=Date.now()-ts, m=Math.round(d/60000);
+    if(m<1)return 'just now'; if(m<60)return m+'m ago'; var h=Math.round(m/60); if(h<24)return h+'h ago';
+    return new Date(ts).toLocaleDateString(); }
+  function load(){
+    $('status').textContent='Loading…';
+    fetch(DB+'?cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(render)
+      .catch(function(){ $('status').textContent='Could not load. Check the connection and tap Refresh.'; });
+  }
+  function render(data){
+    var list=$('list'); list.innerHTML='';
+    if(!data){ $('status').textContent=''; list.innerHTML='<div class="empty">No work turned in yet. When a student finishes a lesson, it shows up here.</div>'; return; }
+    var lids=Object.keys(data).filter(function(k){return k.indexOf('_')!==0;});
+    var totalStu=0;
+    // order lessons by known sequence, unknown last
+    var order=Object.keys(NAMES);
+    lids.sort(function(a,b){var ia=order.indexOf(a),ib=order.indexOf(b);return (ia<0?99:ia)-(ib<0?99:ib);});
+    lids.forEach(function(lid){
+      var subs=data[lid]||{}; var studs=Object.keys(subs).map(function(k){return subs[k];});
+      if(!studs.length) return;
+      totalStu+=studs.length;
+      studs.sort(function(a,b){return (b.updated||0)-(a.updated||0);});
+      var el=document.createElement('div'); el.className='lesson';
+      var rows=studs.map(function(s){
+        var sc=(typeof s.score==='number')?s.score:null;
+        var scCls=(sc!==null&&sc<80)?'sc low':'sc';
+        return '<div class="stu">'+
+          '<div class="srow" onclick="this.classList.toggle(\'open\');this.parentNode.querySelector(\'.work\').classList.toggle(\'show\')">'+
+            '<span class="who">'+esc(s.name||'(no name)')+'</span>'+
+            (sc!==null?'<span class="'+scCls+'">'+sc+'%</span>':'')+
+            '<span class="dt">'+ago(s.updated)+'</span>'+
+            '<span class="caret">›</span>'+
+          '</div>'+
+          '<div class="work"><pre>'+esc(s.work||'(empty)')+'</pre></div>'+
+        '</div>';
+      }).join('');
+      el.innerHTML='<div class="lhead"><span class="nm">'+esc(NAMES[lid]||lid)+'</span><span class="pill">'+studs.length+' turned in</span></div>'+rows;
+      list.appendChild(el);
+    });
+    $('status').textContent=totalStu+' submission'+(totalStu===1?'':'s')+' across '+lids.length+' lesson'+(lids.length===1?'':'s')+'.';
+    if(!totalStu) list.innerHTML='<div class="empty">No work turned in yet.</div>';
+  }
+  $('refresh').onclick=load;
+  load();
+</script>
+</body>
+</html>

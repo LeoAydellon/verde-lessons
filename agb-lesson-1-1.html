@@ -645,7 +645,7 @@ AFTER.final=()=>{
     document.getElementById('turnin').classList.remove('hide');
     document.getElementById('scoreBig').textContent=pct+'%';
     document.getElementById('scoreMsg').textContent=pct===100?'Perfect score. Outstanding.':'Passed — nice work.';
-    document.getElementById('compiled').textContent=compile(pct);
+    document.getElementById('compiled').textContent=compile(pct); cloudSubmit();
     window.scrollTo(0,0);
   }
   if(S.done.final && (S.scores.final||0)>=PASS){
@@ -654,9 +654,25 @@ AFTER.final=()=>{
     document.getElementById('turnin').classList.remove('hide');
     document.getElementById('scoreBig').textContent=(S.scores.final||0)+'%';
     document.getElementById('scoreMsg').textContent='Best score (already passed).';
-    document.getElementById('compiled').textContent=compile(S.scores.final||0);
+    document.getElementById('compiled').textContent=compile(S.scores.final||0); cloudSubmit();
   } else start();
 };
+
+/* ── cloud turn-in: save the student's compiled work to the teacher dashboard ── */
+var SUBMIT_DB='https://verde-animation-25368-default-rtdb.firebaseio.com/submissions';
+var LESSON_ID='agb-1-1';
+function subSlug(s){return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'student';}
+function cloudSubmit(){
+  try{
+    var work=(document.getElementById('compiled')||{}).textContent||'';
+    var se=document.getElementById('scoreBig');
+    var score=se?(parseInt(se.textContent,10)||0):0;
+    var name=(typeof S!=='undefined'&&S.name)?S.name:'';
+    if(!work) return;
+    fetch(SUBMIT_DB+'/'+LESSON_ID+'/'+subSlug(name)+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,lesson:LESSON_ID,score:score,work:work,updated:Date.now()})}).catch(function(){});
+  }catch(e){}
+}
+
 function compile(pct){
   const L=[], A=(id)=> (S.text[id]||'—').trim();
   L.push('ABF LESSON 1.1 — ORGANIZING A BUSINESS · SELF-PACED WORK');
