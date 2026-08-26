@@ -1,143 +1,750 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Lesson 2.2 The Cost of Doing Business — Self-Paced — Verde Tech</title>
+<meta name="theme-color" content="#2f6b3f">
+<!--
+  ABF Lesson 2.2 "The Cost of Doing Business" — self-paced student module.
+  Built from the CASE ABF curriculum Leo teaches in P2 Agribusiness.
+  Standalone file: no server, no login, works offline (videos need internet).
+  Student work saves in the browser (localStorage) and compiles into one text block to turn in.
+  The graded Lesson 2.2 Check for Understanding is NOT here — teacher distributes it.
+  All practice questions in this file are original (no CASE answer-key content).
+-->
 <style>
-  :root{color-scheme:light}
-  *{box-sizing:border-box}
-  body{margin:0;background:#f6f8f4;color:#1b2a1b;font:18px/1.6 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}
-  .wrap{max-width:760px;margin:0 auto;padding:18px 18px 70px}
-  header{background:#2f7d32;color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px}
-  header h1{margin:.1rem 0;font-size:26px}
-  header .sub{opacity:.9;font-size:16px}
-  h2{margin:1.4rem 0 .4rem;font-size:22px;color:#2f7d32;border-bottom:2px solid #cfe3cf;padding-bottom:.2rem}
-  .card{background:#fff;border:1px solid #dbe6db;border-radius:12px;padding:16px 18px;margin:12px 0}
-  .eq{background:#eef6ee;border-left:5px solid #2f7d32;border-radius:8px;padding:10px 14px;margin:10px 0}
-  .term{font-weight:700;color:#1f5e22}
-  ul{margin:.4rem 0 .4rem 1.1rem}
-  li{margin:.25rem 0}
-  .try{background:#fff8e6;border:1px solid #f0e2b6;border-radius:10px;padding:12px 14px;margin:10px 0}
-  .try b{color:#8a6d00}
-  table{border-collapse:collapse;width:100%;margin:.4rem 0;font-size:16px}
-  td,th{border:1px solid #cfe0cf;padding:6px 8px;text-align:left}
-  th{background:#eef6ee}
-  .turn{background:#2f7d32;color:#fff;border-radius:12px;padding:16px;margin-top:18px;font-size:19px}
-  .pill{display:inline-block;background:#2f7d32;color:#fff;border-radius:20px;padding:2px 12px;font-size:14px;font-weight:700}
-</style></head>
-<body><div class="wrap">
+  :root{
+    --green:#2f6b3f; --green-d:#245231; --green-l:#eaf3ec;
+    --sun:#c8892b; --sun-l:#fdf3e2;
+    --ink:#1d2321; --dim:#5b6763; --faint:#8a9591;
+    --line:#dfe5e1; --bg:#f6f8f6; --card:#fff;
+    --ok:#2f7d4f; --no:#b23b3b; --no-l:#fbecec;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    padding:0 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 90px}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  h1,h2,h3{line-height:1.25;margin:0}
+  header{position:sticky;top:0;z-index:20;background:var(--green);color:#fff;
+    padding:calc(10px + env(safe-area-inset-top)) 16px 10px}
+  .hrow{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .htitle{font-size:16px;font-weight:700;letter-spacing:.2px;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hsub{font-size:12px;opacity:.78;font-weight:500;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .back{font-size:15px;font-weight:600;opacity:.92;padding:6px 4px;margin-left:-4px}
+  .who{font-size:12.5px;opacity:.85;padding:6px 8px;border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .btn{display:block;width:100%;background:var(--green);color:#fff;font-size:17px;font-weight:700;
+    padding:16px;border-radius:14px;text-align:center;margin-top:14px;transition:.12s transform}
+  .btn:active{transform:scale(.985)}
+  .btn.ghost{background:#fff;color:var(--green);border:2px solid var(--green)}
+  .btn.quiet{background:transparent;color:var(--dim);font-weight:600;font-size:15px;padding:12px;margin-top:4px}
+  .btn[disabled]{opacity:.4;pointer-events:none}
+  .muted{color:var(--dim);font-size:14.5px}
+  .tiny{color:var(--faint);font-size:12.5px}
+  .hide{display:none !important}
+  #gate .card{margin-top:28px;text-align:center}
+  #gate h2{font-size:22px;margin-bottom:6px}
+  #nameIn{width:100%;font-size:18px;padding:15px;border:2px solid var(--line);
+    border-radius:12px;margin-top:16px;text-align:center;background:#fff;color:var(--ink)}
+  #nameIn:focus{outline:none;border-color:var(--green)}
+  .progwrap{margin:18px 0 6px}
+  .progbar{height:10px;background:#e4eae5;border-radius:99px;overflow:hidden}
+  .progfill{height:100%;background:linear-gradient(90deg,var(--green),#57a06b);
+    border-radius:99px;transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .progtxt{display:flex;justify-content:space-between;margin-top:7px;font-size:13px;color:var(--dim)}
+  .progtxt b{color:var(--ink)}
+  .row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 15px;margin:9px 0;transition:.12s border-color,.12s transform}
+  .row:active{transform:scale(.99)}
+  .row.done{border-color:#bcdcc5;background:#f4faf5}
+  .row.locked{opacity:.5}
+  .row.next{border-color:var(--green);box-shadow:0 0 0 3px rgba(47,107,63,.09)}
+  .dot{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-size:14px;font-weight:800;background:var(--green-l);color:var(--green-d)}
+  .row.done .dot{background:var(--ok);color:#fff}
+  .row.locked .dot{background:#eceeed;color:var(--faint)}
+  .rtext{flex:1;min-width:0}
+  .rtext .nm{display:block;font-size:16px;font-weight:650;line-height:1.3}
+  .rtext .sc{display:block;font-size:12.5px;color:var(--dim);margin-top:3px}
+  .row.done .sc{color:var(--ok);font-weight:600}
+  .chev{color:var(--faint);font-size:19px;flex:none}
+  .secttl{font-size:12px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;
+    color:var(--faint);margin:24px 4px 4px}
+  .lesson h2{font-size:21px;margin:4px 0 10px}
+  .lesson h3{font-size:16.5px;margin:18px 0 8px;color:var(--green-d)}
+  .lesson p{margin:0 0 12px;font-size:16px;color:#2a3330}
+  .lesson ul{margin:0 0 12px;padding-left:22px}
+  .lesson li{margin:5px 0;font-size:15.5px}
+  .callout{background:var(--green-l);border:1px solid #cfe2d4;border-radius:12px;
+    padding:13px 15px;margin:12px 0;font-size:15px}
+  .callout.sun{background:var(--sun-l);border-color:#eedcb8}
+  .term{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+  .term b{color:var(--green-d)}
+  .term span{display:block;font-size:14.5px;color:var(--dim);margin-top:3px}
+  a.ext{display:block;background:#fff;border:2px solid var(--green);border-radius:14px;
+    padding:14px 16px;margin:12px 0;color:var(--green);font-weight:700;text-decoration:none;font-size:16px}
+  a.ext small{display:block;font-weight:500;color:var(--dim);font-size:13px;margin-top:2px}
+  textarea{width:100%;min-height:84px;font:15.5px/1.5 inherit;padding:12px;border:2px solid var(--line);
+    border-radius:12px;background:#fff;color:var(--ink);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--green)}
+  .qlabel{font-size:15px;font-weight:650;margin:16px 0 7px}
+  .qlabel .qn{color:var(--sun);font-weight:800}
+  /* sort game */
+  .sortitem{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:16px;font-weight:600;text-align:center}
+  .sortbtns{display:flex;gap:10px;margin-top:12px}
+  .sortbtns button{flex:1;padding:14px;border-radius:12px;font-weight:800;font-size:16px}
+  .sb-need{background:var(--green-l);color:var(--green-d);border:2px solid var(--green)}
+  .sb-want{background:var(--sun-l);color:#8a5a12;border:2px solid var(--sun)}
+  .sortfeed{text-align:center;font-weight:700;margin-top:10px;min-height:24px;font-size:15px}
+  .sortfeed.ok{color:var(--ok)} .sortfeed.no{color:var(--no)}
+  /* mcq */
+  .mcq-q{font-size:17px;font-weight:650;margin:6px 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);
+    border-radius:13px;padding:14px 15px;margin:9px 0;font-size:15.5px;transition:.12s}
+  .opt.picked-ok{border-color:var(--ok);background:#f0f9f2;font-weight:650}
+  .opt.picked-no{border-color:var(--no);background:var(--no-l)}
+  .opt.reveal{border-color:var(--ok)}
+  .mcq-feed{min-height:26px;font-weight:700;font-size:15px;margin-top:6px}
+  .mcq-feed.ok{color:var(--ok)} .mcq-feed.no{color:var(--no)}
+  .mcq-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim);margin-bottom:10px}
+  /* chain order game */
+  .chainpick{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:15.5px;font-weight:600;text-align:left}
+  .chainpick[disabled]{opacity:.35}
+  .chainslot{background:var(--green-l);border:1px solid #cfe2d4;border-radius:10px;
+    padding:9px 13px;margin:5px 0;font-size:14.5px;font-weight:650;color:var(--green-d)}
+  /* checklist */
+  .ck{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;
+    background:#fff;border:2px solid var(--line);border-radius:13px;padding:13px 15px;margin:8px 0}
+  .ck .box{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);flex:none;
+    display:grid;place-items:center;font-size:15px;color:#fff;margin-top:1px}
+  .ck.on{border-color:#bcdcc5;background:#f4faf5}
+  .ck.on .box{background:var(--ok);border-color:var(--ok)}
+  .ck .t{flex:1;font-size:15px}
+  /* structures reference cards */
+  .struct{border-left:4px solid var(--green);background:#fff;border-radius:0 12px 12px 0;
+    border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:12px 15px;margin:10px 0}
+  .struct b{font-size:16px}
+  .struct p{margin:5px 0 0;font-size:14.5px;color:var(--dim)}
+  /* finish */
+  .bigscore{text-align:center;font-size:44px;font-weight:800;color:var(--green);margin:10px 0 2px}
+  pre#compiled{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace;background:#f2f5f2;
+    border:1px solid var(--line);border-radius:12px;padding:14px;max-height:340px;overflow:auto}
+</style>
+</head>
+<body>
 <header>
-  <div class="pill">Unit 2 · Agribusiness</div>
-  <h1>Lesson 2.2 — The Cost of Doing Business</h1>
-  <div class="sub">Work through this on your own. Do each step, answer the questions, and turn in your work.</div>
+  <div class="hrow">
+    <button class="back hide" id="backBtn" onclick="goMap()">‹ Map</button>
+    <div style="flex:1;min-width:0">
+      <div class="htitle">Lesson 2.2 · The Cost of Doing Business</div>
+      <div class="hsub">Agribusiness Foundations · self-paced · Mr. Beltran</div>
+    </div>
+    <div class="who hide" id="whoChip"></div>
+  </div>
 </header>
+<div class="wrap">
 
-<h2>🌱 What this lesson is about</h2>
-<div class="card">
-  <p>Last lesson you sorted money into <b>income</b> and <b>expenses</b>. But some costs are sneaky — they don't
-  show up as a bill you pay this month. A tractor slowly wears out. A loan quietly charges you extra. Even your own
-  <b>time</b> is worth money. This lesson is about finding <b>all</b> the real costs of running a business, so you
-  can tell if you're truly making money.</p>
-  <div class="eq"><b>Big idea:</b> a business is only worth doing if what comes in is bigger than <i>everything</i> it really costs — including the hidden costs.</div>
+<!-- ══════════ NAME GATE ══════════ -->
+<section id="gate">
+  <div class="card">
+    <h2>💵 The Cost of Doing Business</h2>
+    <p class="muted">Work through this lesson at your own pace. Your answers save on this device as you go, and at the end you'll turn in everything with one tap.</p>
+    <input id="nameIn" placeholder="First and last name" autocomplete="off">
+    <button class="btn" onclick="startApp()">Start</button>
+    <p class="tiny" style="margin-top:14px">Use the same device each day so your saved work is here when you come back.</p>
+  </div>
+</section>
+
+<!-- ══════════ MAP ══════════ -->
+<section id="map" class="hide">
+  <div class="progwrap">
+    <div class="progbar"><div class="progfill" id="progFill" style="width:0%"></div></div>
+    <div class="progtxt"><span>Lesson progress</span><b id="progTxt">0 of 6</b></div>
+  </div>
+  <div class="secttl">Work in order — each part unlocks the next</div>
+  <div id="rows"></div>
+  <div class="secttl">Reference</div>
+  <button class="row" onclick="openStation('gloss')">
+    <div class="dot">📖</div>
+    <div class="rtext"><span class="nm">Key Terms Glossary</span>
+    <span class="sc">Every term for this lesson — open any time</span></div>
+    <div class="chev">›</div>
+  </button>
+  <p class="tiny" style="text-align:center;margin-top:20px">CASE Agribusiness Foundations · Unit 2 · Verde Tech / Mr. Beltran<br>
+  Questions? Ask in class or post in Google Classroom.</p>
+  <button class="btn quiet" onclick="resetAll()">Start over (erases saved work)</button>
+</section>
+
+<!-- ══════════ STATION CONTAINER ══════════ -->
+<section id="station" class="hide"><div id="stationBody" class="lesson"></div></section>
+
 </div>
+<script>
+'use strict';
+/* ───────── persistence ───────── */
+const KEY='abf-l22-v1';
+let S = load();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{} }catch(e){ return {} } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)) }catch(e){} }
+S.done   = S.done || {};      // station id -> true
+S.text   = S.text || {};      // answer id  -> typed text
+S.checks = S.checks || {};    // checklist id -> true
+S.scores = S.scores || {};    // quiz id -> best %
 
-<h2>📖 The words you'll use</h2>
-<div class="card">
+/* ───────── stations ───────── */
+const STATIONS = [
+ {id:'overview', n:'1', nm:'Start Here — What This Lesson Is About',    sc:'Essential questions + what you\'ll be able to do'},
+ {id:'fixvar',   n:'2', nm:'Fixed Costs vs. Variable Costs',            sc:'Activity 2.2.1 · sorting game + short answers'},
+ {id:'total',    n:'3', nm:'Total Cost & Cost of Goods Sold',           sc:'Activity 2.2.2 · classify + compute'},
+ {id:'breakeven',n:'4', nm:'Break-Even Thinking',                       sc:'Activity 2.2.3 · order the steps + practice'},
+ {id:'pricing',  n:'5', nm:'How Costs Shape Price & Profit',            sc:'Activity 2.2.4 · pricing checklist + math'},
+ {id:'final',    n:'✓', nm:'Final Self-Check + Turn In',                 sc:'Quick quiz, then submit your work'},
+];
+function doneCount(){ return STATIONS.filter(s=>S.done[s.id]).length }
+function firstOpen(){ for(const s of STATIONS){ if(!S.done[s.id]) return s.id } return null }
+
+/* ───────── shell ───────── */
+function startApp(){
+  const v=document.getElementById('nameIn').value.trim();
+  if(!v){ document.getElementById('nameIn').focus(); return }
+  S.name=v; save(); boot();
+}
+function boot(){
+  document.getElementById('gate').classList.add('hide');
+  const chip=document.getElementById('whoChip');
+  chip.textContent=S.name; chip.classList.remove('hide');
+  goMap();
+}
+function goMap(){
+  document.getElementById('station').classList.add('hide');
+  document.getElementById('backBtn').classList.add('hide');
+  document.getElementById('map').classList.remove('hide');
+  renderMap(); window.scrollTo(0,0);
+}
+function renderMap(){
+  const open=firstOpen();
+  document.getElementById('rows').innerHTML = STATIONS.map((s,i)=>{
+    const done=!!S.done[s.id];
+    const locked=!done && s.id!==open;
+    const cls='row'+(done?' done':'')+(locked?' locked':'')+(s.id===open?' next':'');
+    const sc=done ? (s.id==='final' ? 'Done — tap to review / turn in again' : 'Done ✓  (tap to review)') : s.sc;
+    return `<button class="${cls}" ${locked?'disabled':''} onclick="openStation('${s.id}')">
+      <div class="dot">${done?'✓':s.n}</div>
+      <div class="rtext"><span class="nm">${s.nm}</span><span class="sc">${sc}</span></div>
+      <div class="chev">›</div></button>`;
+  }).join('');
+  const n=doneCount();
+  document.getElementById('progFill').style.width=(n/STATIONS.length*100)+'%';
+  document.getElementById('progTxt').textContent=`${n} of ${STATIONS.length}`;
+}
+function openStation(id){
+  document.getElementById('map').classList.add('hide');
+  document.getElementById('station').classList.remove('hide');
+  document.getElementById('backBtn').classList.remove('hide');
+  document.getElementById('stationBody').innerHTML = RENDER[id]();
+  if(AFTER[id]) AFTER[id]();
+  window.scrollTo(0,0);
+}
+function completeStation(id){ S.done[id]=true; save(); goMap(); }
+function resetAll(){ if(confirm('Erase ALL saved work and start over?')){ localStorage.removeItem(KEY); location.reload(); } }
+
+/* typed-answer helpers */
+function ta(id,ph){ return `<textarea id="ta-${id}" placeholder="${ph||'Type your answer…'}"
+  oninput="S.text['${id}']=this.value;save()">${esc(S.text[id]||'')}</textarea>` }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;') }
+function answered(ids){ return ids.every(i=>(S.text[i]||'').trim().length>=8) }
+function needAnswers(ids,btnId){
+  const b=document.getElementById(btnId); if(!b) return;
+  b.disabled=!answered(ids);
+}
+function wireAnswers(ids,btnId){
+  needAnswers(ids,btnId);
+  ids.forEach(i=>{ const el=document.getElementById('ta-'+i);
+    if(el) el.addEventListener('input',()=>needAnswers(ids,btnId)); });
+}
+
+/* ═════════ RENDERERS ═════════ */
+const RENDER={}, AFTER={};
+
+/* ── overview ── */
+RENDER.overview=()=>`
+  <h2>💵 What this lesson is about</h2>
+  <p>Every business — a farm stand, a candle shop, a lawn-care crew — spends money to make money. The money that goes <i>out</i> is your <b>costs</b>. If you don't know your real costs, you can be busy all season, sell a ton, and still walk away with nothing. This lesson teaches you to see <b>all</b> of your costs clearly, add them up, and use them to set a price that actually leaves you a profit.</p>
+  <p>Some costs stay the same no matter how much you make. Others grow every time you produce one more item. Some are the direct cost of the thing you sell. Once you can tell them apart, you can answer the biggest question in business: <b>how many do I have to sell before I stop losing money — and how much do I make on each one after that?</b></p>
+  <p>Over the next few days you will:</p>
   <ul>
-    <li><span class="term">Depreciation</span> — the value a big item (like a tractor) loses each year as it wears out. It's a real cost even though you don't pay a bill for it.</li>
-    <li><span class="term">Salvage value</span> — what an item is still worth at the end of its useful life (what you could sell it for as scrap or used).</li>
-    <li><span class="term">Straight-line depreciation</span> — the simplest way to spread that loss out evenly over the years.</li>
-    <li><span class="term">Principal</span> — the actual amount of money you borrowed on a loan.</li>
-    <li><span class="term">Interest</span> — the extra you pay the lender for borrowing. It's the price of the loan.</li>
-    <li><span class="term">Net income</span> — income minus <b>all</b> expenses. What you actually made.</li>
-    <li><span class="term">Return on assets (ROA)</span> — how good your business is at turning what it owns into profit, shown as a percent.</li>
-    <li><span class="term">Break-even</span> — the point where income exactly equals expenses. You're not losing money, but not making any yet either.</li>
+    <li>Tell <b>fixed costs</b> from <b>variable costs</b> — and see why the difference matters (Activity 2.2.1)</li>
+    <li>Add costs up into a <b>total cost</b>, and pull out the <b>cost of goods sold</b> (Activity 2.2.2)</li>
+    <li>Use simple <b>break-even</b> thinking to find how many units you must sell (Activity 2.2.3)</li>
+    <li>See how your costs <b>shape the price</b> you charge and the <b>profit</b> you keep (Activity 2.2.4)</li>
   </ul>
-</div>
+  <h3>Essential questions</h3>
+  <div class="callout">
+    1. What is the difference between a fixed cost and a variable cost?<br>
+    2. How do you find the total cost of running a business?<br>
+    3. What is cost of goods sold, and why does it matter?<br>
+    4. What does "break-even" mean, and how do you find it?<br>
+    5. How do a business's costs affect the price it charges and the profit it keeps?
+  </div>
+  <p class="muted">Keep these in the back of your mind — by the end of the lesson you should be able to answer every one of them without looking.</p>
+  <h3>Words you'll meet</h3>
+  <p class="muted">Cost · fixed cost · variable cost · overhead · unit cost · total cost · cost of goods sold (COGS) · revenue · profit · net income · price · markup · margin · break-even point … The full <b>📖 Glossary</b> is on the map screen any time you need it.</p>
+  <button class="btn" onclick="completeStation('overview')">Got it — start Activity 1</button>`;
 
-<h2>🧮 Activity 2.2.1 — Straight-Line Depreciation</h2>
-<div class="card">
-  <p>When a business buys something expensive that lasts several years, it spreads the cost out. Here's the simple formula:</p>
-  <div class="eq"><b>Yearly depreciation = (Cost − Salvage value) ÷ Years of useful life</b></div>
-  <p><b>Example:</b> A tractor costs $30,000. After 10 years you could still sell it for $5,000. So:
-  ($30,000 − $5,000) ÷ 10 = <b>$2,500 lost every year</b>.</p>
-  <p>Now you try. Copy each one and find the yearly depreciation:</p>
-  <table>
-    <tr><th>Item</th><th>Cost</th><th>Salvage value</th><th>Useful life</th><th>Yearly depreciation = ?</th></tr>
-    <tr><td>Delivery truck</td><td>$24,000</td><td>$4,000</td><td>10 years</td><td></td></tr>
-    <tr><td>Greenhouse</td><td>$18,000</td><td>$0</td><td>12 years</td><td></td></tr>
-    <tr><td>Walk-in cooler</td><td>$9,000</td><td>$1,000</td><td>8 years</td><td></td></tr>
-  </table>
-  <div class="try"><b>Answer:</b> Why does a business count depreciation as a cost even though no money leaves the bank that year?</div>
-</div>
+/* ── fixed vs variable ── */
+const SORT_ITEMS=[
+  {t:'Monthly rent on the farm-stand building',fixed:true,  why:'You owe the same rent whether you sell 1 jar or 1,000 — it doesn\'t move with how much you make.'},
+  {t:'Strawberries you buy to make each batch of jam',fixed:false, why:'The more jam you make, the more berries you buy. The cost rises and falls with production — that\'s variable.'},
+  {t:'The yearly business license fee',fixed:true,  why:'A flat cost set for the whole year, the same no matter how busy you are.'},
+  {t:'Empty jars and lids you fill for each batch',fixed:false, why:'Every jar you fill needs another container — the cost grows with each unit you make.'},
+  {t:'Insurance premium on the delivery truck',fixed:true, why:'The premium is set for the year; it doesn\'t change with how many deliveries you run.'},
+  {t:'Sugar and pectin used up in each batch',fixed:false, why:'Ingredients get used up per batch — more batches, more cost. Variable.'},
+  {t:'The monthly loan payment on the walk-in cooler',fixed:true, why:'The payment is the same every month regardless of how much you sell — fixed.'},
+  {t:'Wages for a helper you only call in on your busiest market days',fixed:false, why:'You pay more hours when production is high and fewer when it\'s slow — the cost varies with activity.'},
+  {t:'Your website subscription, billed the same every month',fixed:true, why:'A flat monthly fee that stays put whether traffic is high or low.'},
+  {t:'Fuel burned driving to deliver more orders',fixed:false, why:'The more you deliver, the more fuel you burn — it scales with how much you do. Variable.'},
+];
+RENDER.fixvar=()=>`
+  <h2>🧾 Activity 2.2.1 — Fixed Costs vs. Variable Costs</h2>
+  <p>A <b>cost</b> is money a business spends to operate. To manage costs, owners split them into two big buckets by asking one question: <i>does this cost change when I make or sell more?</i></p>
+  <div class="callout">
+    <b>Fixed cost</b> — stays the <i>same</i> no matter how much you produce or sell. Rent, insurance, a loan payment, a yearly license. You owe it whether business is booming or dead. (These are also called <b>overhead</b>.)<br><br>
+    <b>Variable cost</b> — <i>changes</i> with how much you produce. Materials, ingredients, packaging, per-hour labor, delivery fuel. Make more, spend more; make less, spend less.
+  </div>
+  <p>Why care? Because fixed costs don't shrink when sales are slow — so a bad month still costs you. And every extra unit you make adds only its <b>variable</b> cost. Knowing which is which is the first step to setting a smart price and finding your break-even point later in this lesson.</p>
+  <h3>Step 1 — Warm up (10 seconds)</h3>
+  <p class="muted">In your head, picture a lemonade stand. One cost that's the <b>same</b> whether you sell 3 cups or 300 (your table, your sign). One cost that <b>grows</b> with every cup (lemons, cups, ice). That's fixed vs. variable — now try the farm-business version below.</p>
+  <h3>Step 2 — Sort it yourself</h3>
+  <p class="muted">For each item, decide: is it a <b>FIXED</b> cost (same no matter how much you make) or a <b>VARIABLE</b> cost (changes with how much you make)?</p>
+  <div class="card" id="sortCard">
+    <div class="tiny" id="sortCount"></div>
+    <div class="sortitem" id="sortItem"></div>
+    <div class="sortbtns">
+      <button class="sb-need" onclick="sortPick(true)">FIXED</button>
+      <button class="sb-want" onclick="sortPick(false)">VARIABLE</button>
+    </div>
+    <div class="sortfeed" id="sortFeed"></div>
+  </div>
+  <div id="sortDoneMsg" class="hide">
+    <h3>Step 3 — Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> In your own words, what is the difference between a fixed cost and a variable cost? Give one clear example of each from a farm or ranch business.</div>
+    ${ta('fixvar-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> Pick a cost that could be seen as fixed for one business but variable for another. Explain why the same kind of cost can land in either bucket.</div>
+    ${ta('fixvar-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> Why is it useful for an owner to know which of their costs are fixed and which are variable? What decision does it help with?</div>
+    ${ta('fixvar-q3')}
+    <button class="btn" id="fixvarDone" onclick="completeStation('fixvar')">Finish Activity 1</button>
+    <p class="tiny" style="text-align:center">Answer all three (a sentence or two each) to unlock the button.</p>
+  </div>`;
+AFTER.fixvar=()=>{
+  let i=S.sortIdx||0, right=S.sortRight||0;
+  if(S.done.fixvar){ i=SORT_ITEMS.length } // reviewing: skip to questions
+  const item=document.getElementById('sortItem'), feed=document.getElementById('sortFeed'),
+        count=document.getElementById('sortCount');
+  function show(){
+    if(i>=SORT_ITEMS.length){
+      document.getElementById('sortCard').classList.add('hide');
+      document.getElementById('sortDoneMsg').classList.remove('hide');
+      wireAnswers(['fixvar-q1','fixvar-q2','fixvar-q3'],'fixvarDone');
+      return;
+    }
+    count.textContent=`Item ${i+1} of ${SORT_ITEMS.length}`;
+    item.textContent=SORT_ITEMS[i].t; feed.textContent=''; feed.className='sortfeed';
+  }
+  window.sortPick=(saidFixed)=>{
+    if(i>=SORT_ITEMS.length) return;
+    const it=SORT_ITEMS[i];
+    const ok=(saidFixed===it.fixed);
+    if(ok) right++;
+    feed.textContent=(ok?'✓ Right — ':'✗ Actually a '+(it.fixed?'FIXED':'VARIABLE')+' cost — ')+it.why;
+    feed.className='sortfeed '+(ok?'ok':'no');
+    i++; S.sortIdx=i; S.sortRight=right; save();
+    setTimeout(show, ok?1400:2600);
+  };
+  show();
+};
 
-<h2>💵 Activity 2.2.2 — The Cost of Money (Interest)</h2>
-<div class="card">
-  <p>Borrowing money isn't free. The extra you pay is <b>interest</b>. For one year, simple interest is:</p>
-  <div class="eq"><b>Interest = Principal × Rate</b> &nbsp;(rate is written as a decimal — 6% = 0.06)</div>
-  <p><b>Example:</b> You borrow $5,000 at 6% for one year → $5,000 × 0.06 = <b>$300 in interest</b>. You'd pay back $5,300 total.</p>
-  <p>Find the one-year interest for each:</p>
-  <table>
-    <tr><th>Loan (principal)</th><th>Rate</th><th>Interest = ?</th><th>Total to pay back = ?</th></tr>
-    <tr><td>$2,000</td><td>5%</td><td></td><td></td></tr>
-    <tr><td>$10,000</td><td>7%</td><td></td><td></td></tr>
-    <tr><td>$800</td><td>10%</td><td></td><td></td></tr>
-  </table>
-  <div class="try"><b>Answer:</b> Two lenders offer you $5,000 — one at 4%, one at 9%. Which costs you less, and how much less over one year?</div>
-</div>
+/* ── total cost & COGS ── */
+const COST_TYPES={fixed:'Fixed cost',variable:'Variable cost',total:'Total cost',cogs:'Cost of goods sold'};
+const COST_SCENARIOS=[
+  {t:'Your shop rent is $500 this month — due whether you build 2 birdhouses or 200.',
+   a:'fixed', hint:'It doesn\'t change with how many you make — that\'s the fixed bucket.'},
+  {t:'The $4 of lumber and $1 of paint that go into each birdhouse a customer actually buys.',
+   a:'cogs', hint:'Direct materials that went into the goods you SOLD — that\'s cost of goods sold.'},
+  {t:'The number that goes up by exactly $5 every time you build one more birdhouse.',
+   a:'variable', hint:'It moves with production, one unit at a time — that\'s the variable bucket.'},
+  {t:'Your $500 rent added to the $1,000 you spent on wood, paint, and wages this month, for $1,500 in all.',
+   a:'total', hint:'Everything added together — fixed plus variable — is the total cost.'},
+  {t:'On the income statement, the line that shows what it cost to produce just the birdhouses that were sold.',
+   a:'cogs', hint:'The direct production cost of the units sold has a special name: cost of goods sold.'},
+];
+RENDER.total=()=>`
+  <h2>➕ Activity 2.2.2 — Total Cost & Cost of Goods Sold</h2>
+  <p>Once you can spot fixed and variable costs, you can add them into one number that tells you what it really takes to run the business:</p>
+  <div class="callout"><b>Total cost = Fixed costs + Variable costs</b><br>Everything the business spends in a period, both buckets together.</div>
+  <p>There's one more cost worth pulling out on its own — the <b>cost of goods sold (COGS)</b>. That's the <i>direct</i> cost of making the products you actually sold: the materials and the labor that went straight into them. It does <b>not</b> include general overhead like the office electric bill or the owner's salary — just what it took to produce the goods that left the shelf.</p>
+  <div class="struct"><b>Total cost</b><p>Fixed + variable, all of it. Answers: "What did running the whole business cost this period?"</p></div>
+  <div class="struct"><b>Cost of goods sold (COGS)</b><p>Only the direct cost of the units you sold. Answers: "What did the products I sold cost me to make?" Used to figure gross profit.</p></div>
+  <div class="callout sun"><b>Why COGS matters:</b> subtract COGS from your sales and you get <b>gross profit</b> — the money left over from the products themselves, before overhead. If COGS is close to your sales, the product barely pays for itself, and no amount of selling will fix that.</div>
+  <h3>Sort the cost — practice</h3>
+  <p class="muted">Read each one and pick what it describes. Watch for the telling phrase: does the cost change with output? Is it everything added up? Is it just the direct cost of what sold?</p>
+  <div class="card" id="scCard"></div>
+  <div id="totalQs" class="hide">
+    <h3>Now compute — and answer</h3>
+    <p class="muted">A candle maker has <b>fixed costs of $700</b> this month. Wax, wick, and a jar cost <b>$3 per candle</b>, and she made and sold <b>400 candles</b>.</p>
+    <div class="qlabel"><span class="qn">Q1.</span> Do the math: (a) What are her total <b>variable</b> costs? (b) What is her <b>total cost</b>? Show your numbers.</div>
+    ${ta('total-q1','a) variable costs = …\nb) total cost = …')}
+    <div class="qlabel"><span class="qn">Q2.</span> In your own words, what is cost of goods sold, and how is it different from total cost? Give an example of something that would be in one but not the other.</div>
+    ${ta('total-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> Why does an owner need to know their total cost <i>before</i> deciding what price to charge?</div>
+    ${ta('total-q3')}
+    <button class="btn" id="totalDone" onclick="completeStation('total')">Finish Activity 2</button>
+  </div>`;
+AFTER.total=()=>{
+  let i=S.scIdx||0;
+  if(S.done.total) i=COST_SCENARIOS.length;
+  const card=document.getElementById('scCard');
+  function draw(){
+    if(i>=COST_SCENARIOS.length){
+      card.classList.add('hide');
+      document.getElementById('totalQs').classList.remove('hide');
+      wireAnswers(['total-q1','total-q2','total-q3'],'totalDone');
+      return;
+    }
+    const sc=COST_SCENARIOS[i];
+    const opts=Object.keys(COST_TYPES).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Scenario ${i+1} of ${COST_SCENARIOS.length}</div>
+      <p style="font-size:15.5px">${sc.t}</p>
+      ${opts.map(k=>`<button class="opt" data-k="${k}" onclick="scPick('${k}',this)">${COST_TYPES[k]}</button>`).join('')}
+      <div class="mcq-feed" id="scFeed"></div>`;
+  }
+  window.scPick=(k,el)=>{
+    const sc=COST_SCENARIOS[i], feed=document.getElementById('scFeed');
+    if(k===sc.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ '+COST_TYPES[sc.a]+' — exactly.'; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+      i++; S.scIdx=i; save(); setTimeout(draw,1500);
+    }else{
+      el.classList.add('picked-no'); feed.textContent='Not quite — hint: '+sc.hint; feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),900);
+    }
+  };
+  draw();
+};
 
-<h2>📊 Activity 2.2.3 — Profit or Loss? (Net Income &amp; ROA)</h2>
-<div class="card">
-  <p>Now put it together. First, net income:</p>
-  <div class="eq"><b>Net income = Income − All expenses</b> (don't forget depreciation and interest!)</div>
-  <p>Then, how hard your stuff is working for you — return on assets:</p>
-  <div class="eq"><b>ROA = Net income ÷ Total assets × 100</b> (this gives a percent)</div>
-  <p><b>Work this one out:</b> A small farm stand made <b>$20,000</b> in sales this year. Its expenses were:
-  supplies $9,000, interest $600, depreciation $2,400. It owns <b>$40,000</b> in assets (land, cooler, truck).</p>
-  <ol>
-    <li>Add up the total expenses.</li>
-    <li>Find the net income (sales − total expenses).</li>
-    <li>Did it make a profit or a loss?</li>
-    <li>Find the ROA (net income ÷ $40,000 × 100).</li>
-  </ol>
-  <div class="try"><b>Answer:</b> If another business had the same net income but only owned $20,000 in assets, would its ROA be higher or lower? What does that tell you about which business is using its stuff more efficiently?</div>
-</div>
+/* ── break-even ── */
+const CHAIN=[
+  ['Add up all your fixed costs','Total the costs that don\'t change with output — rent, insurance, loan payments — for the period.'],
+  ['Find the variable cost to make ONE unit','What do the materials and per-unit labor cost for a single item?'],
+  ['Set your selling price per unit','Decide what you\'ll charge a customer for one item.'],
+  ['Subtract unit cost from the price','Price minus the cost to make one = your profit on each unit (the "contribution" toward fixed costs).'],
+  ['Divide fixed costs by the profit per unit','Fixed costs ÷ profit-per-unit tells you how many units it takes to cover the fixed costs.'],
+  ['Read the answer: units needed to break even','That number is your break-even point. Sell that many and you\'ve covered everything; sell one more and it\'s profit.'],
+];
+RENDER.breakeven=()=>`
+  <h2>⚖️ Activity 2.2.3 — Break-Even Thinking</h2>
+  <p>The <b>break-even point</b> is the moment your income exactly covers your costs — not a penny of profit yet, but no loss either. Everything you sell <i>after</i> break-even starts putting real money in your pocket. Knowing this number tells you whether a plan is realistic before you ever spend a dollar.</p>
+  <p>The idea is simple. Every unit you sell earns its price but costs its variable cost to make. The leftover — <b>price minus the cost to make one</b> — is the profit each unit "contributes" toward paying off your fixed costs. Sell enough units and those contributions finally cover all the fixed costs. That count is your break-even.</p>
+  <div class="callout"><b>Break-even units = Total fixed costs ÷ (Price per unit − Cost to make one unit)</b></div>
+  <div class="callout sun"><b>Example:</b> Fixed costs are $600. You sell jars of honey for $8 each, and each jar costs you $3 to produce. That's $5 of profit per jar. $600 ÷ $5 = <b>120 jars</b> to break even. Jar #121 onward is profit.</div>
+  <h3>Put the steps in order</h3>
+  <p class="muted">Tap the steps in the order you'd actually work through them to find a break-even point — from the first thing you total up to the answer at the end.</p>
+  <div class="card">
+    <div id="chainSlots"></div>
+    <div id="chainPicks"></div>
+    <div class="mcq-feed" id="chainFeed"></div>
+  </div>
+  <div id="chainSteps" class="hide">
+    <h3>The steps, explained</h3>
+    ${CHAIN.map(([t,d],idx)=>`<div class="term"><b>${idx+1}. ${t}</b><span>${d}</span></div>`).join('')}
+    <h3>Now you try the math</h3>
+    <p class="muted">Fixed costs are <b>$900</b>. You sell holiday wreaths for <b>$25</b> each, and each wreath costs <b>$10</b> in materials to make.</p>
+    <div class="qlabel"><span class="qn">Q1.</span> How many wreaths must you sell to break even? Show your math (fixed costs ÷ profit per wreath).</div>
+    ${ta('be-q1','Profit per wreath = … ; Break-even = 900 ÷ … = … wreaths')}
+    <div class="qlabel"><span class="qn">Q2.</span> After you pass break-even, how much do you earn on each extra wreath? If you can only make 50 wreaths this season, will you break even — and what could you change to fix it?</div>
+    ${ta('be-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> Why is knowing your break-even point important <i>before</i> you start selling, not after?</div>
+    ${ta('be-q3')}
+    <button class="btn" id="beDone" onclick="completeStation('breakeven')">Finish Activity 3</button>
+  </div>`;
+AFTER.breakeven=()=>{
+  let placed=S.chainPlaced||0;
+  if(S.done.breakeven) placed=CHAIN.length;
+  const slots=document.getElementById('chainSlots'), picks=document.getElementById('chainPicks'),
+        feed=document.getElementById('chainFeed');
+  let order=S.chainOrder;
+  if(!order || placed===0){ order=[...CHAIN.keys()].sort(()=>Math.random()-.5); S.chainOrder=order; save(); }
+  function draw(){
+    slots.innerHTML=[...Array(placed).keys()].map(k=>`<div class="chainslot">${k+1}. ${CHAIN[k][0]}</div>`).join('')
+      || '<div class="tiny">Steps so far: (empty — what do you total up first?)</div>';
+    if(placed>=CHAIN.length){
+      picks.innerHTML=''; feed.textContent='✓ Steps in order!'; feed.className='mcq-feed ok';
+      document.getElementById('chainSteps').classList.remove('hide');
+      wireAnswers(['be-q1','be-q2','be-q3'],'beDone');
+      return;
+    }
+    const remaining=order.filter(k=>k>=placed);
+    picks.innerHTML=remaining.map(k=>`<button class="chainpick" onclick="chainPick(${k},this)">${CHAIN[k][0]}</button>`).join('');
+  }
+  window.chainPick=(k,el)=>{
+    if(k===placed){
+      placed++; S.chainPlaced=placed; save();
+      feed.textContent='✓'; feed.className='mcq-feed ok'; draw();
+    }else{
+      feed.textContent='Not next — think: what has to happen before "'+CHAIN[k][0]+'"?';
+      feed.className='mcq-feed no';
+      el.disabled=true; setTimeout(()=>{el.disabled=false},900);
+    }
+  };
+  draw();
+};
 
-<h2>⏰ Activity 2.2.4 — What Is Your Time Worth?</h2>
-<div class="card">
-  <p>When you run your own business, your <b>labor</b> is a real cost — even if you don't pay yourself a paycheck.
-  If you could earn $15/hour at another job, then every hour you spend on your business "costs" you that $15 you gave up.</p>
-  <p><b>Figure it out:</b></p>
-  <ol>
-    <li>You spend 8 hours a week on your business. What is that worth per week at $15/hour?</li>
-    <li>What is it worth over a whole year (52 weeks)?</li>
-    <li>If your business only made $4,000 profit this year, was your time well paid? Why or why not?</li>
-  </ol>
-  <div class="try"><b>Answer:</b> Why should a business owner count their own time as a cost when deciding if a business is really worth it?</div>
-</div>
+/* ── pricing & profit ── */
+const PRICE_CHECKS=[
+  ['pr1','Add up the cost to make ONE unit — your variable / cost-of-goods per item'],
+  ['pr2','Figure how much of your fixed costs each unit needs to help cover'],
+  ['pr3','Decide how much profit you want on each unit (your markup)'],
+  ['pr4','Check what customers are actually willing to pay'],
+  ['pr5','Compare your price to what competitors charge'],
+  ['pr6','Make sure the price is ABOVE your total cost per unit — or you lose money on every sale'],
+];
+RENDER.pricing=()=>`
+  <h2>🏷️ Activity 2.2.4 — How Costs Shape Price & Profit</h2>
+  <p>Now the payoff. <b>Revenue</b> is the money that comes in from sales. <b>Profit</b> is what's left after you pay for everything:</p>
+  <div class="callout"><b>Profit = Revenue − Total cost</b><br>Sell for more than it all cost you, and the difference is yours. Sell for less, and you lose money — no matter how busy you look.</div>
+  <p>Your costs set the <b>floor</b> under your price. A price has to cover three things: the <b>cost to make each unit</b>, a fair share of your <b>fixed costs</b>, and the <b>profit</b> you want to keep. The amount you add on top of your cost is the <b>markup</b>; the share of the price that's profit is the <b>margin</b>.</p>
+  <div class="callout sun"><b>Two ways to grow profit:</b> raise the price (if customers will still buy), or lower your costs. Cutting your cost to make each unit widens your margin <i>even if the price never changes</i> — that's why smart owners watch costs as closely as sales.</div>
+  <h3>Watch — pricing in the real world</h3>
+  <a class="ext" href="https://www.youtube.com/watch?v=n_-Vhaz3Wzo" target="_blank" rel="noopener">▶️ Fixed vs. Variable Costs, Explained <small>Take notes on which is which</small></a>
+  <a class="ext" href="https://www.youtube.com/watch?v=D2QeC3iEfj0" target="_blank" rel="noopener">▶️ Break-Even & Pricing Basics <small>How costs decide the price</small></a>
+  <h3>Before you set a price — checklist</h3>
+  <p class="muted">A good price is never a guess. Tap each step you'd take before pricing a product.</p>
+  <div id="prChecks"></div>
+  <h3>Now the math — and answer</h3>
+  <p class="muted">You sell a bar of goat-milk soap for <b>$6</b>. Materials cost <b>$2.50</b> per bar, and your fixed costs work out to about <b>$1.00</b> of overhead per bar.</p>
+  <div class="qlabel"><span class="qn">Q1.</span> Work it out: (a) total cost per bar, (b) profit per bar, (c) total profit if you sell 300 bars. Show your numbers.</div>
+  ${ta('price-q1','a) total cost per bar = …\nb) profit per bar = …\nc) profit on 300 bars = …')}
+  <div class="qlabel"><span class="qn">Q2.</span> Your supplier raises the price of your main ingredient, so your cost per bar goes up. Name two <i>different</i> things you could do about it — and give one downside of each.</div>
+  ${ta('price-q2')}
+  <div class="qlabel"><span class="qn">Q3.</span> Explain how lowering your costs can raise your profit even if you never change your price.</div>
+  ${ta('price-q3')}
+  <button class="btn" id="priceDone" onclick="completeStation('pricing')">Finish Activity 4</button>
+  <p class="tiny" style="text-align:center">Check every box and answer all three questions to unlock.</p>`;
+AFTER.pricing=()=>{
+  const wrap=document.getElementById('prChecks');
+  function draw(){
+    wrap.innerHTML=PRICE_CHECKS.map(([id,t])=>`
+      <button class="ck ${S.checks[id]?'on':''}" onclick="toggleCk('${id}')">
+        <div class="box">${S.checks[id]?'✓':''}</div><div class="t">${t}</div></button>`).join('');
+    gate();
+  }
+  function gate(){
+    const all=PRICE_CHECKS.every(([id])=>S.checks[id]);
+    const b=document.getElementById('priceDone');
+    b.disabled=!(all && answered(['price-q1','price-q2','price-q3']));
+  }
+  window.toggleCk=(id)=>{ S.checks[id]=!S.checks[id]; save(); draw(); };
+  ['price-q1','price-q2','price-q3'].forEach(i=>{
+    const el=document.getElementById('ta-'+i); if(el) el.addEventListener('input',gate);
+  });
+  draw();
+};
 
-<h2>⚖️ Activity 2.2.5 — Breaking Even</h2>
-<div class="card">
-  <p><b>Break-even</b> is the moment income exactly covers expenses — not a penny of profit, but no loss either.
-  To find how many units you must sell to break even:</p>
-  <div class="eq"><b>Break-even units = Total fixed costs ÷ (Price per unit − Cost to make one unit)</b></div>
-  <p><b>Example:</b> Fixed costs are $600. You sell jars of honey for $8 each, and each jar costs you $3 to produce.
-  That's $5 of profit per jar. $600 ÷ $5 = <b>120 jars</b> to break even.</p>
-  <p>Now you:</p>
-  <ol>
-    <li>Fixed costs $900. You sell wreaths for $25, each costs $10 to make. How many wreaths to break even?</li>
-    <li>After you pass break-even, how much do you earn on every extra wreath you sell?</li>
-    <li>If you can only make 50 wreaths this season, will you break even? What would you change?</li>
-  </ol>
-  <div class="try"><b>Answer:</b> Why is knowing your break-even point important <i>before</i> you start selling?</div>
-</div>
+/* ── final quiz + turn-in ── */
+const QUIZ=[
+  {q:'A fixed cost is best described as a cost that…',
+   o:['Goes up every time you make one more unit','Stays the same no matter how much you produce or sell','Only happens once and never again','Is always larger than a variable cost'],a:1},
+  {q:'Which of these is a VARIABLE cost for a jam business?',
+   o:['The yearly business license','The strawberries used in each batch','The insurance premium on the truck','The monthly building rent'],a:1},
+  {q:'Total cost is found by…',
+   o:['Adding fixed costs and variable costs together','Subtracting variable costs from fixed costs','Multiplying price by quantity','Dividing revenue by units sold'],a:0},
+  {q:'Cost of goods sold (COGS) is…',
+   o:['Every cost the business has, including office rent','The direct cost of making the products that were actually sold','The profit left after all expenses','The total value of items still on the shelf'],a:1},
+  {q:'"Overhead" is another word for which kind of cost?',
+   o:['Variable costs','Fixed costs','Cost of goods sold','Profit'],a:1},
+  {q:'The break-even point is where…',
+   o:['Income exactly equals total costs — no profit, no loss','You have sold every unit you can make','Fixed costs finally reach zero','Revenue is twice the total cost'],a:0},
+  {q:'Fixed costs are $600 and each unit earns $5 of profit after its cost. How many units to break even?',
+   o:['60 units','120 units','300 units','600 units'],a:1},
+  {q:'Profit is calculated as…',
+   o:['Revenue − total cost','Revenue + total cost','Fixed cost − variable cost','Price × units sold'],a:0},
+  {q:'For a price to be sustainable, it must at least cover…',
+   o:['Only the cost of materials','The total cost per unit','Only the fixed costs','Only what competitors charge'],a:1},
+  {q:'Which action raises profit even if the selling price never changes?',
+   o:['Lowering the cost to make each unit','Raising your fixed costs','Ignoring your variable costs','Selling below break-even'],a:0},
+  {q:'After a business passes its break-even point, each additional unit sold…',
+   o:['Loses money','Adds its profit-per-unit to the bottom line','Must be given away','Increases fixed costs'],a:1},
+  {q:'Revenue means…',
+   o:['The money that comes in from sales','The money spent on materials','The leftover profit at year end','The amount borrowed on a loan'],a:0},
+];
+const PASS=80;
+RENDER.final=()=>`
+  <h2>✅ Final Self-Check</h2>
+  <p class="muted">10 questions from the whole lesson. You need <b>${PASS}%</b> to finish — you can retry as many times as you want, and the questions reshuffle. This is practice: the graded <b>Check for Understanding</b> comes from Mr. Beltran in class.</p>
+  <div class="card" id="quizCard"></div>
+  <div id="turnin" class="hide">
+    <div class="bigscore" id="scoreBig"></div>
+    <p class="muted" style="text-align:center" id="scoreMsg"></p>
+    <h3>📤 Turn in your work</h3>
+    <p class="muted">This gathers every answer you typed into one block. Copy it, then paste it into the <b>Google Classroom assignment</b> (private comment or the attached doc) — or show this screen to Mr. Beltran.</p>
+    <pre id="compiled"></pre>
+    <button class="btn" onclick="copyWork(this)">📋 Copy my work</button>
+    <button class="btn ghost" onclick="completeStation('final')">Done — back to map</button>
+  </div>`;
+AFTER.final=()=>{
+  let qs=[], qi=0, right=0;
+  const card=document.getElementById('quizCard');
+  function start(){
+    qs=[...QUIZ].sort(()=>Math.random()-.5).slice(0,10);
+    qi=0; right=0;
+    card.classList.remove('hide');
+    document.getElementById('turnin').classList.add('hide');
+    draw();
+  }
+  function draw(){
+    if(qi>=qs.length) return finish();
+    const q=qs[qi];
+    const idx=q.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="mcq-top"><span>Question ${qi+1} of ${qs.length}</span><span>Score: ${right}</span></div>
+      <div class="mcq-q">${q.q}</div>
+      ${idx.map(k=>`<button class="opt" onclick="qPick(${k},this)">${q.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="qFeed"></div>`;
+  }
+  window.qPick=(k,el)=>{
+    const q=qs[qi], feed=document.getElementById('qFeed');
+    card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+    if(k===q.a){ right++; el.classList.add('picked-ok'); feed.textContent='✓ Correct'; feed.className='mcq-feed ok'; }
+    else{
+      el.classList.add('picked-no');
+      card.querySelectorAll('.opt').forEach(o=>{ if(o.textContent===q.o[q.a]) o.classList.add('reveal'); });
+      feed.textContent='✗ The answer: '+q.o[q.a]; feed.className='mcq-feed no';
+    }
+    qi++; setTimeout(draw, k===q.a?900:2400);
+  };
+  function finish(){
+    const pct=Math.round(right/qs.length*100);
+    S.scores.final=Math.max(S.scores.final||0,pct); save();
+    if(pct<PASS){
+      card.innerHTML=`<div class="bigscore" style="color:var(--sun)">${pct}%</div>
+        <p class="muted" style="text-align:center">Almost — you need ${PASS}%. Skim the stations you're shaky on (they stay open on the map), then try again. New shuffle every time.</p>
+        <button class="btn" id="retryBtn">Try again</button>`;
+      document.getElementById('retryBtn').onclick=start;
+      return;
+    }
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=pct+'%';
+    document.getElementById('scoreMsg').textContent=pct===100?'Perfect score. Outstanding.':'Passed — nice work.';
+    document.getElementById('compiled').textContent=compile(pct); cloudSubmit();
+    window.scrollTo(0,0);
+  }
+  if(S.done.final && (S.scores.final||0)>=PASS){
+    // reviewing after completion: show turn-in immediately with best score
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=(S.scores.final||0)+'%';
+    document.getElementById('scoreMsg').textContent='Best score (already passed).';
+    document.getElementById('compiled').textContent=compile(S.scores.final||0); cloudSubmit();
+  } else start();
+};
 
-<h2>✅ Quick self-check</h2>
-<div class="card">
-  <ol>
-    <li>What is depreciation, and why is it a real cost?</li>
-    <li>What's the difference between the principal and the interest on a loan?</li>
-    <li>What does break-even mean in your own words?</li>
-  </ol>
-</div>
+/* ── cloud turn-in: save the student's compiled work to the teacher dashboard ── */
+var SUBMIT_DB='https://verde-animation-25368-default-rtdb.firebaseio.com/submissions';
+var LESSON_ID='agb-2-2';
+function subSlug(s){return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'student';}
+function cloudSubmit(){
+  try{
+    var work=(document.getElementById('compiled')||{}).textContent||'';
+    var se=document.getElementById('scoreBig');
+    var score=se?(parseInt(se.textContent,10)||0):0;
+    var name=(typeof S!=='undefined'&&S.name)?S.name:'';
+    if(!work) return;
+    fetch(SUBMIT_DB+'/'+LESSON_ID+'/'+subSlug(name)+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,lesson:LESSON_ID,score:score,work:work,updated:Date.now()})}).catch(function(){});
+  }catch(e){}
+}
 
-<div class="turn">📤 <b>Turn in your work:</b> your answers and math for Activities 2.2.1 through 2.2.5 — through Google Classroom, the way your teacher showed you.</div>
-</div></body></html>
+function compile(pct){
+  const L=[], A=(id)=> (S.text[id]||'—').trim();
+  L.push('ABF LESSON 2.2 — THE COST OF DOING BUSINESS · SELF-PACED WORK');
+  L.push('Student: '+(S.name||'?'));
+  L.push('Date: '+new Date().toLocaleDateString());
+  L.push('Final self-check score: '+pct+'%');
+  L.push('');
+  L.push('— Activity 2.2.1 Fixed vs. Variable Costs —');
+  L.push('Sorting game: completed (10 costs classified)');
+  L.push('Q1 (fixed vs variable + examples): '+A('fixvar-q1'));
+  L.push('Q2 (same cost, either bucket): '+A('fixvar-q2'));
+  L.push('Q3 (why the split matters): '+A('fixvar-q3'));
+  L.push('');
+  L.push('— Activity 2.2.2 Total Cost & Cost of Goods Sold —');
+  L.push('Classify practice: all 5 matched correctly (required to advance)');
+  L.push('Q1 (variable + total cost math): '+A('total-q1'));
+  L.push('Q2 (COGS vs total cost): '+A('total-q2'));
+  L.push('Q3 (why total cost before price): '+A('total-q3'));
+  L.push('');
+  L.push('— Activity 2.2.3 Break-Even Thinking —');
+  L.push('Step ordering: completed (6 steps in order)');
+  L.push('Q1 (wreath break-even math): '+A('be-q1'));
+  L.push('Q2 (profit per extra unit / only 50 made): '+A('be-q2'));
+  L.push('Q3 (why know break-even first): '+A('be-q3'));
+  L.push('');
+  L.push('— Activity 2.2.4 Costs, Price & Profit —');
+  L.push('Pricing checklist: '+PRICE_CHECKS.filter(([id])=>S.checks[id]).length+' of '+PRICE_CHECKS.length+' steps checked');
+  L.push('Q1 (soap cost / profit / 300 bars): '+A('price-q1'));
+  L.push('Q2 (ingredient cost rises — two options): '+A('price-q2'));
+  L.push('Q3 (lower costs raise profit): '+A('price-q3'));
+  return L.join('\n');
+}
+function copyWork(btn){
+  const t=document.getElementById('compiled').textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+    .then(()=>{ btn.textContent='✓ Copied — paste it into Classroom'; })
+    .catch(()=>{ // fallback: select the block
+      const r=document.createRange(); r.selectNode(document.getElementById('compiled'));
+      getSelection().removeAllRanges(); getSelection().addRange(r);
+      btn.textContent='Select + copy the highlighted text above';
+    });
+}
+
+/* ── glossary ── */
+const GLOSS=[
+['Break-even point','The level of sales where total income exactly equals total costs — no profit and no loss. Sales beyond it become profit.'],
+['Contribution (per unit)','The price of one unit minus the cost to make it; the amount each sale "contributes" toward covering fixed costs, then profit.'],
+['Cost','Money a business spends to operate, produce, or provide a good or service.'],
+['Cost of goods sold (COGS)','The direct cost of producing the goods a business actually sold — chiefly materials and direct labor. Excludes general overhead.'],
+['Expense','A cost the business pays out in the course of operating; money that goes out.'],
+['Fixed cost','A cost that stays the same no matter how much the business produces or sells (rent, insurance, a loan payment). Also called overhead.'],
+['Gross profit','Sales revenue minus cost of goods sold — the money left from the products themselves, before overhead.'],
+['Margin','The share of the selling price that is profit, usually shown as a percent.'],
+['Markup','The amount added on top of a product\'s cost to set its selling price.'],
+['Net income','What a business truly earned after ALL expenses are subtracted from revenue; the bottom line.'],
+['Overhead','The ongoing fixed costs of running a business that are not tied to any single unit produced.'],
+['Price','The amount a customer pays for one unit of a product or service.'],
+['Profit','What remains after total cost is subtracted from revenue; the reward for running the business well.'],
+['Revenue','The total money a business takes in from selling its products or services (also called income or sales).'],
+['Total cost','The sum of all fixed costs and all variable costs for a period.'],
+['Unit cost','What it costs to produce a single item — the variable cost of one unit, sometimes plus a share of fixed costs.'],
+['Variable cost','A cost that changes with how much the business produces — materials, packaging, per-hour labor, delivery fuel.'],
+];
+RENDER.gloss=()=>`
+  <h2>📖 Lesson 2.2 Glossary</h2>
+  <p class="muted">Every key term for this lesson.</p>
+  ${GLOSS.map(([t,d])=>`<div class="term"><b>${t}</b><span>${d}</span></div>`).join('')}
+  <button class="btn ghost" onclick="goMap()">Back to map</button>`;
+
+/* ───────── boot ───────── */
+if(S.name) boot();
+</script>
+</body>
+</html>

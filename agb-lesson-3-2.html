@@ -1,134 +1,801 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Lesson 3.2 Employment Opportunity — Self-Paced — Verde Tech</title>
+<meta name="theme-color" content="#2f6b3f">
+<!--
+  ABF Lesson 3.2 "Employment Opportunity" — self-paced student module.
+  Built 2026-08-26 from the CASE ABF curriculum Leo teaches in P2 Agribusiness.
+  Standalone file: no server, no login, works offline (videos/game need internet).
+  Student work saves in the browser (localStorage) and compiles into one text block to turn in.
+  The graded Lesson 3.2 Check for Understanding is NOT here — teacher distributes it.
+  All practice questions in this file are original (no CASE answer-key content).
+-->
 <style>
-  :root{color-scheme:light}
-  *{box-sizing:border-box}
-  body{margin:0;background:#f6f8f4;color:#1b2a1b;font:18px/1.6 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}
-  .wrap{max-width:760px;margin:0 auto;padding:18px 18px 70px}
-  header{background:#2f7d32;color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px}
-  header h1{margin:.1rem 0;font-size:26px}
-  header .sub{opacity:.9;font-size:16px}
-  h2{margin:1.4rem 0 .4rem;font-size:22px;color:#2f7d32;border-bottom:2px solid #cfe3cf;padding-bottom:.2rem}
-  .card{background:#fff;border:1px solid #dbe6db;border-radius:12px;padding:16px 18px;margin:12px 0}
-  .eq{background:#eef6ee;border-left:5px solid #2f7d32;border-radius:8px;padding:10px 14px;margin:10px 0}
-  .term{font-weight:700;color:#1f5e22}
-  ul{margin:.4rem 0 .4rem 1.1rem}
-  li{margin:.25rem 0}
-  .try{background:#fff8e6;border:1px solid #f0e2b6;border-radius:10px;padding:12px 14px;margin:10px 0}
-  .try b{color:#8a6d00}
-  table{border-collapse:collapse;width:100%;margin:.4rem 0;font-size:16px}
-  td,th{border:1px solid #cfe0cf;padding:6px 8px;text-align:left}
-  th{background:#eef6ee}
-  .turn{background:#2f7d32;color:#fff;border-radius:12px;padding:16px;margin-top:18px;font-size:19px}
-  .pill{display:inline-block;background:#2f7d32;color:#fff;border-radius:20px;padding:2px 12px;font-size:14px;font-weight:700}
-</style></head>
-<body><div class="wrap">
+  :root{
+    --green:#2f6b3f; --green-d:#245231; --green-l:#eaf3ec;
+    --sun:#c8892b; --sun-l:#fdf3e2;
+    --ink:#1d2321; --dim:#5b6763; --faint:#8a9591;
+    --line:#dfe5e1; --bg:#f6f8f6; --card:#fff;
+    --ok:#2f7d4f; --no:#b23b3b; --no-l:#fbecec;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    padding:0 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 90px}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  h1,h2,h3{line-height:1.25;margin:0}
+  header{position:sticky;top:0;z-index:20;background:var(--green);color:#fff;
+    padding:calc(10px + env(safe-area-inset-top)) 16px 10px}
+  .hrow{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .htitle{font-size:16px;font-weight:700;letter-spacing:.2px;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hsub{font-size:12px;opacity:.78;font-weight:500;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .back{font-size:15px;font-weight:600;opacity:.92;padding:6px 4px;margin-left:-4px}
+  .who{font-size:12.5px;opacity:.85;padding:6px 8px;border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .btn{display:block;width:100%;background:var(--green);color:#fff;font-size:17px;font-weight:700;
+    padding:16px;border-radius:14px;text-align:center;margin-top:14px;transition:.12s transform}
+  .btn:active{transform:scale(.985)}
+  .btn.ghost{background:#fff;color:var(--green);border:2px solid var(--green)}
+  .btn.quiet{background:transparent;color:var(--dim);font-weight:600;font-size:15px;padding:12px;margin-top:4px}
+  .btn[disabled]{opacity:.4;pointer-events:none}
+  .muted{color:var(--dim);font-size:14.5px}
+  .tiny{color:var(--faint);font-size:12.5px}
+  .hide{display:none !important}
+  #gate .card{margin-top:28px;text-align:center}
+  #gate h2{font-size:22px;margin-bottom:6px}
+  #nameIn{width:100%;font-size:18px;padding:15px;border:2px solid var(--line);
+    border-radius:12px;margin-top:16px;text-align:center;background:#fff;color:var(--ink)}
+  #nameIn:focus{outline:none;border-color:var(--green)}
+  .progwrap{margin:18px 0 6px}
+  .progbar{height:10px;background:#e4eae5;border-radius:99px;overflow:hidden}
+  .progfill{height:100%;background:linear-gradient(90deg,var(--green),#57a06b);
+    border-radius:99px;transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .progtxt{display:flex;justify-content:space-between;margin-top:7px;font-size:13px;color:var(--dim)}
+  .progtxt b{color:var(--ink)}
+  .row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 15px;margin:9px 0;transition:.12s border-color,.12s transform}
+  .row:active{transform:scale(.99)}
+  .row.done{border-color:#bcdcc5;background:#f4faf5}
+  .row.locked{opacity:.5}
+  .row.next{border-color:var(--green);box-shadow:0 0 0 3px rgba(47,107,63,.09)}
+  .dot{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-size:14px;font-weight:800;background:var(--green-l);color:var(--green-d)}
+  .row.done .dot{background:var(--ok);color:#fff}
+  .row.locked .dot{background:#eceeed;color:var(--faint)}
+  .rtext{flex:1;min-width:0}
+  .rtext .nm{display:block;font-size:16px;font-weight:650;line-height:1.3}
+  .rtext .sc{display:block;font-size:12.5px;color:var(--dim);margin-top:3px}
+  .row.done .sc{color:var(--ok);font-weight:600}
+  .chev{color:var(--faint);font-size:19px;flex:none}
+  .secttl{font-size:12px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;
+    color:var(--faint);margin:24px 4px 4px}
+  .lesson h2{font-size:21px;margin:4px 0 10px}
+  .lesson h3{font-size:16.5px;margin:18px 0 8px;color:var(--green-d)}
+  .lesson p{margin:0 0 12px;font-size:16px;color:#2a3330}
+  .lesson ul{margin:0 0 12px;padding-left:22px}
+  .lesson li{margin:5px 0;font-size:15.5px}
+  .callout{background:var(--green-l);border:1px solid #cfe2d4;border-radius:12px;
+    padding:13px 15px;margin:12px 0;font-size:15px}
+  .callout.sun{background:var(--sun-l);border-color:#eedcb8}
+  .term{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+  .term b{color:var(--green-d)}
+  .term span{display:block;font-size:14.5px;color:var(--dim);margin-top:3px}
+  a.ext{display:block;background:#fff;border:2px solid var(--green);border-radius:14px;
+    padding:14px 16px;margin:12px 0;color:var(--green);font-weight:700;text-decoration:none;font-size:16px}
+  a.ext small{display:block;font-weight:500;color:var(--dim);font-size:13px;margin-top:2px}
+  textarea{width:100%;min-height:84px;font:15.5px/1.5 inherit;padding:12px;border:2px solid var(--line);
+    border-radius:12px;background:#fff;color:var(--ink);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--green)}
+  .qlabel{font-size:15px;font-weight:650;margin:16px 0 7px}
+  .qlabel .qn{color:var(--sun);font-weight:800}
+  /* sort game */
+  .sortitem{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:16px;font-weight:600;text-align:center}
+  .sortbtns{display:flex;gap:10px;margin-top:12px}
+  .sortbtns button{flex:1;padding:14px;border-radius:12px;font-weight:800;font-size:16px}
+  .sb-need{background:var(--green-l);color:var(--green-d);border:2px solid var(--green)}
+  .sb-want{background:var(--sun-l);color:#8a5a12;border:2px solid var(--sun)}
+  .sortfeed{text-align:center;font-weight:700;margin-top:10px;min-height:24px;font-size:15px}
+  .sortfeed.ok{color:var(--ok)} .sortfeed.no{color:var(--no)}
+  /* mcq */
+  .mcq-q{font-size:17px;font-weight:650;margin:6px 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);
+    border-radius:13px;padding:14px 15px;margin:9px 0;font-size:15.5px;transition:.12s}
+  .opt.picked-ok{border-color:var(--ok);background:#f0f9f2;font-weight:650}
+  .opt.picked-no{border-color:var(--no);background:var(--no-l)}
+  .opt.reveal{border-color:var(--ok)}
+  .mcq-feed{min-height:26px;font-weight:700;font-size:15px;margin-top:6px}
+  .mcq-feed.ok{color:var(--ok)} .mcq-feed.no{color:var(--no)}
+  .mcq-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim);margin-bottom:10px}
+  /* chain order game */
+  .chainpick{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:15.5px;font-weight:600;text-align:left}
+  .chainpick[disabled]{opacity:.35}
+  .chainslot{background:var(--green-l);border:1px solid #cfe2d4;border-radius:10px;
+    padding:9px 13px;margin:5px 0;font-size:14.5px;font-weight:650;color:var(--green-d)}
+  /* checklist */
+  .ck{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;
+    background:#fff;border:2px solid var(--line);border-radius:13px;padding:13px 15px;margin:8px 0}
+  .ck .box{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);flex:none;
+    display:grid;place-items:center;font-size:15px;color:#fff;margin-top:1px}
+  .ck.on{border-color:#bcdcc5;background:#f4faf5}
+  .ck.on .box{background:var(--ok);border-color:var(--ok)}
+  .ck .t{flex:1;font-size:15px}
+  /* structures reference cards */
+  .struct{border-left:4px solid var(--green);background:#fff;border-radius:0 12px 12px 0;
+    border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:12px 15px;margin:10px 0}
+  .struct b{font-size:16px}
+  .struct p{margin:5px 0 0;font-size:14.5px;color:var(--dim)}
+  /* finish */
+  .bigscore{text-align:center;font-size:44px;font-weight:800;color:var(--green);margin:10px 0 2px}
+  pre#compiled{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace;background:#f2f5f2;
+    border:1px solid var(--line);border-radius:12px;padding:14px;max-height:340px;overflow:auto}
+</style>
+</head>
+<body>
 <header>
-  <div class="pill">Unit 3 · Agribusiness</div>
-  <h1>Lesson 3.2 — Employment Opportunity</h1>
-  <div class="sub">Work through this on your own. Do each step, answer the questions, and turn in your work.</div>
+  <div class="hrow">
+    <button class="back hide" id="backBtn" onclick="goMap()">‹ Map</button>
+    <div style="flex:1;min-width:0">
+      <div class="htitle">Lesson 3.2 · Employment Opportunity</div>
+      <div class="hsub">Agribusiness Foundations · self-paced · Mr. Beltran</div>
+    </div>
+    <div class="who hide" id="whoChip"></div>
+  </div>
 </header>
+<div class="wrap">
 
-<h2>🌱 What this lesson is about</h2>
-<div class="card">
-  <p>Starting your own business isn't free — even if you don't spend a dime, you give up the money you <b>could</b> have
-  earned at a regular job. This lesson is about weighing that trade: what your skills and time are worth, what it costs
-  to live, and how to figure out whether running your own business actually pays off compared to working for someone else.</p>
-  <div class="eq"><b>Big idea:</b> the real cost of your business includes the paycheck you gave up to run it. That's called <b>opportunity cost</b>.</div>
+<!-- ══════════ NAME GATE ══════════ -->
+<section id="gate">
+  <div class="card">
+    <h2>💼 Employment Opportunity</h2>
+    <p class="muted">Work through this lesson at your own pace. Your answers save on this device as you go, and at the end you'll turn in everything with one tap.</p>
+    <input id="nameIn" placeholder="First and last name" autocomplete="off">
+    <button class="btn" onclick="startApp()">Start</button>
+    <p class="tiny" style="margin-top:14px">Use the same device each day so your saved work is here when you come back.</p>
+  </div>
+</section>
+
+<!-- ══════════ MAP ══════════ -->
+<section id="map" class="hide">
+  <div class="progwrap">
+    <div class="progbar"><div class="progfill" id="progFill" style="width:0%"></div></div>
+    <div class="progtxt"><span>Lesson progress</span><b id="progTxt">0 of 6</b></div>
+  </div>
+  <div class="secttl">Work in order — each part unlocks the next</div>
+  <div id="rows"></div>
+  <div class="secttl">Reference</div>
+  <button class="row" onclick="openStation('gloss')">
+    <div class="dot">📖</div>
+    <div class="rtext"><span class="nm">Key Terms Glossary</span>
+    <span class="sc">Every term for this lesson — open any time</span></div>
+    <div class="chev">›</div>
+  </button>
+  <p class="tiny" style="text-align:center;margin-top:20px">CASE Agribusiness Foundations · Unit 3 · Verde Tech / Mr. Beltran<br>
+  Questions? Ask in class or post in Google Classroom.</p>
+  <button class="btn quiet" onclick="resetAll()">Start over (erases saved work)</button>
+</section>
+
+<!-- ══════════ STATION CONTAINER ══════════ -->
+<section id="station" class="hide"><div id="stationBody" class="lesson"></div></section>
+
 </div>
+<script>
+'use strict';
+/* ───────── persistence ───────── */
+const KEY='abf-l32-v1';
+let S = load();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{} }catch(e){ return {} } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)) }catch(e){} }
+S.done   = S.done || {};      // station id -> true
+S.text   = S.text || {};      // answer id  -> typed text
+S.checks = S.checks || {};    // checklist id -> true
+S.scores = S.scores || {};    // quiz id -> best %
 
-<h2>📖 The words you'll use</h2>
-<div class="card">
+/* ───────── stations ───────── */
+const STATIONS = [
+ {id:'overview', n:'1', nm:'Start Here — What This Lesson Is About',    sc:'Essential questions + what you\'ll be able to do'},
+ {id:'careers',  n:'2', nm:'Careers & Jobs in Agribusiness',            sc:'Activity 3.2.1 · explore pathways + matching'},
+ {id:'skills',   n:'3', nm:'Employability & Soft Skills',               sc:'Activity 3.2.2 · what employers really want'},
+ {id:'apply',    n:'4', nm:'Applying for a Job',                        sc:'Activity 3.2.3 · application, resume, interview'},
+ {id:'goodemp',  n:'5', nm:'Good Employee · Employee vs. Owner',        sc:'Activity 3.2.4 · keeping the job + who takes the risk'},
+ {id:'final',    n:'✓', nm:'Final Self-Check + Turn In',                 sc:'Quick quiz, then submit your work'},
+];
+function doneCount(){ return STATIONS.filter(s=>S.done[s.id]).length }
+function firstOpen(){ for(const s of STATIONS){ if(!S.done[s.id]) return s.id } return null }
+
+/* ───────── shell ───────── */
+function startApp(){
+  const v=document.getElementById('nameIn').value.trim();
+  if(!v){ document.getElementById('nameIn').focus(); return }
+  S.name=v; save(); boot();
+}
+function boot(){
+  document.getElementById('gate').classList.add('hide');
+  const chip=document.getElementById('whoChip');
+  chip.textContent=S.name; chip.classList.remove('hide');
+  goMap();
+}
+function goMap(){
+  document.getElementById('station').classList.add('hide');
+  document.getElementById('backBtn').classList.add('hide');
+  document.getElementById('map').classList.remove('hide');
+  renderMap(); window.scrollTo(0,0);
+}
+function renderMap(){
+  const open=firstOpen();
+  document.getElementById('rows').innerHTML = STATIONS.map((s,i)=>{
+    const done=!!S.done[s.id];
+    const locked=!done && s.id!==open;
+    const cls='row'+(done?' done':'')+(locked?' locked':'')+(s.id===open?' next':'');
+    const sc=done ? (s.id==='final' ? 'Done — tap to review / turn in again' : 'Done ✓  (tap to review)') : s.sc;
+    return `<button class="${cls}" ${locked?'disabled':''} onclick="openStation('${s.id}')">
+      <div class="dot">${done?'✓':s.n}</div>
+      <div class="rtext"><span class="nm">${s.nm}</span><span class="sc">${sc}</span></div>
+      <div class="chev">›</div></button>`;
+  }).join('');
+  const n=doneCount();
+  document.getElementById('progFill').style.width=(n/STATIONS.length*100)+'%';
+  document.getElementById('progTxt').textContent=`${n} of ${STATIONS.length}`;
+}
+function openStation(id){
+  document.getElementById('map').classList.add('hide');
+  document.getElementById('station').classList.remove('hide');
+  document.getElementById('backBtn').classList.remove('hide');
+  document.getElementById('stationBody').innerHTML = RENDER[id]();
+  if(AFTER[id]) AFTER[id]();
+  window.scrollTo(0,0);
+}
+function completeStation(id){ S.done[id]=true; save(); goMap(); }
+function resetAll(){ if(confirm('Erase ALL saved work and start over?')){ localStorage.removeItem(KEY); location.reload(); } }
+
+/* typed-answer helpers */
+function ta(id,ph){ return `<textarea id="ta-${id}" placeholder="${ph||'Type your answer…'}"
+  oninput="S.text['${id}']=this.value;save()">${esc(S.text[id]||'')}</textarea>` }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;') }
+function answered(ids){ return ids.every(i=>(S.text[i]||'').trim().length>=8) }
+function needAnswers(ids,btnId){
+  const b=document.getElementById(btnId); if(!b) return;
+  b.disabled=!answered(ids);
+}
+function wireAnswers(ids,btnId){
+  needAnswers(ids,btnId);
+  ids.forEach(i=>{ const el=document.getElementById('ta-'+i);
+    if(el) el.addEventListener('input',()=>needAnswers(ids,btnId)); });
+}
+
+/* ═════════ RENDERERS ═════════ */
+const RENDER={}, AFTER={};
+
+/* ── overview ── */
+RENDER.overview=()=>`
+  <h2>💼 What this lesson is about</h2>
+  <p>Agriculture is one of the biggest employers on the planet. It is <b>far more than farming</b>: for every person driving a tractor there are people in labs, offices, sales trucks, processing plants, repair shops, and boardrooms who keep food, fuel, and fiber moving from the field to your table. That whole system runs on <b>people who show up and do good work</b> — and someday soon, that could be you.</p>
+  <p>An <b>employment opportunity</b> is simply a chance to earn a living by doing a job. This lesson is about how to find one, how to land one, and how to keep one. It's also about a bigger choice you'll face down the road: do you want to work <b>for</b> a business as an <b>employee</b>, or run one yourself as an <b>owner</b>?</p>
+  <p>Over the next few days you will:</p>
   <ul>
-    <li><span class="term">Resume</span> — a one-page list of your skills, experience, and education, used to show you're a good fit for a job or opportunity.</li>
-    <li><span class="term">Opportunity cost</span> — what you give up by choosing one option over another (the wages you skip to run your own business).</li>
-    <li><span class="term">Living expenses</span> — what it costs you to live for a period (rent, food, gas, phone).</li>
-    <li><span class="term">Living wage</span> — the income you need to cover your living expenses.</li>
-    <li><span class="term">Return to labor and management (RL&amp;M)</span> — what's left for <b>you</b> as the owner after the business pays all its other costs. It's your reward for your work and decisions.</li>
-    <li><span class="term">Chronological</span> — in time order (most resumes list your most recent experience first).</li>
+    <li>Explore the wide range of <b>careers and jobs in agribusiness</b> and see where your interests fit (Activity 3.2.1)</li>
+    <li>Learn the <b>employability and soft skills</b> employers care about most — often more than your resume (Activity 3.2.2)</li>
+    <li>Practice <b>applying for a job</b>: the application, resume basics, and the interview (Activity 3.2.3)</li>
+    <li>Figure out what it takes to be a <b>good employee</b>, and compare <b>employee vs. owner</b> (Activity 3.2.4)</li>
   </ul>
-</div>
+  <h3>Essential questions</h3>
+  <div class="callout">
+    1. What kinds of careers and jobs exist in agribusiness?<br>
+    2. What skills do employers look for besides technical ability?<br>
+    3. How do you apply for a job — application, resume, and interview?<br>
+    4. What does it take to be a good employee and keep a job?<br>
+    5. What is the difference between being an employee and being an owner?
+  </div>
+  <p class="muted">Keep these in the back of your mind — by the end of the lesson you should be able to answer every one of them without looking.</p>
+  <h3>Words you'll meet</h3>
+  <p class="muted">Career · job · career pathway · employability skills · soft skills · resume · reference · application · interview · cover letter · initiative · professionalism · employee · employer · owner · wage · salary · benefits … The full <b>📖 Glossary</b> is on the map screen any time you need it.</p>
+  <button class="btn" onclick="completeStation('overview')">Got it — start Activity 1</button>`;
 
-<h2>📝 Project 3.2.1 — Your Skills Resume</h2>
-<div class="card">
-  <p>Make a simple resume for yourself. Include:</p>
+/* ── careers ── */
+const CAREERS=[
+  {t:'You get up before dawn to feed and check a herd of dairy cattle, run the milking parlor, keep the animals healthy, and clean the barn. Your work is hands-on and outdoors, and it produces the raw milk everything else depends on.',
+   a:'prod', hint:'Hands-on growing of crops or raising of livestock — the raw product comes from your work.'},
+  {t:'You work in a lab testing soil and plant samples and running experiments to develop a corn variety that survives drought. You care about data, questions, and inventing something new.',
+   a:'sci', hint:'Research and experiments to create new products and solutions.'},
+  {t:'You drive from farm to farm as a rep for a seed company — explaining products, writing up orders, and building long-term relationships so customers keep coming back to you.',
+   a:'sales', hint:'Selling, promoting, and serving customers; relationships are the job.'},
+  {t:'You run a line in a meat-packing plant, operating the machinery that turns raw carcasses into clean, packaged cuts that are ready for the grocery-store shelf.',
+   a:'proc', hint:'Changing a raw commodity into a finished product people can buy.'},
+  {t:'You keep the books for a 2,000-acre operation — tracking expenses and loans, building budgets, and helping decide which parts of the business to grow this year.',
+   a:'mgmt', hint:'Money, records, and the big-picture business decisions.'},
+];
+const CAREER_NAMES={prod:'Production',sci:'Science & Research',sales:'Sales & Marketing',proc:'Processing & Manufacturing',mgmt:'Management & Finance'};
+RENDER.careers=()=>`
+  <h2>🧭 Activity 3.2.1 — Careers & Jobs in Agribusiness</h2>
+  <p>A <b>job</b> is the specific work you do for pay right now. A <b>career</b> is the bigger path you build over many years — a series of jobs that grow your skills and pay. Most careers in agriculture follow a <b>career pathway</b>: a family of related jobs you can move up and across as you learn.</p>
+  <p>People sometimes think "ag jobs" means only driving a tractor. In reality, the agriculture, food, and natural-resources system needs almost every kind of worker there is. Here are five big areas where the jobs live:</p>
+  <div class="struct"><b>1 · Production</b><p>Growing crops and raising livestock — the hands-on work that creates the raw product. Farm/ranch manager, herd technician, crop scout, equipment operator.</p></div>
+  <div class="struct"><b>2 · Science & Research</b><p>Inventing and improving. Plant breeder, soil scientist, animal nutritionist, food scientist, lab technician.</p></div>
+  <div class="struct"><b>3 · Sales & Marketing</b><p>Getting products to customers. Seed/feed sales rep, ag loan officer, marketing specialist, buyer, commodity broker.</p></div>
+  <div class="struct"><b>4 · Processing & Manufacturing</b><p>Turning raw commodities into finished goods. Plant operator, quality-control inspector, packaging technician, meat cutter.</p></div>
+  <div class="struct"><b>5 · Management & Finance</b><p>Running the business side. Accountant, operations manager, HR specialist, agribusiness owner, loan analyst.</p></div>
+  <div class="callout"><b>Why this matters to you:</b> knowing the areas helps you aim. If you love animals but not paperwork, production and science fit. If you're a people-person, sales might be your lane. There is a spot for almost anyone in this industry.</div>
+  <h3>Watch — then practice</h3>
+  <a class="ext" href="https://www.youtube.com/watch?v=z71cnnufHOw" target="_blank" rel="noopener">▶️ Careers in Agriculture <small>National FFA · what the range of ag jobs really looks like</small></a>
+  <h3>Which area is this job in? — practice</h3>
+  <p class="muted">Read each job description and pick the area it belongs to. Look for the clues — what does the person actually do all day, and what does their work produce?</p>
+  <div class="card" id="carCard"></div>
+  <div id="careerQs" class="hide">
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> Of the five areas (Production, Science & Research, Sales & Marketing, Processing & Manufacturing, Management & Finance), which ONE interests you most, and why?</div>
+    ${ta('careers-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> Name a specific job in that area and describe what a person in that job does on a normal day.</div>
+    ${ta('careers-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> What's the difference between a "job" and a "career"? Give an example of how one job could grow into a career.</div>
+    ${ta('careers-q3')}
+    <button class="btn" id="careersDone" onclick="completeStation('careers')">Finish Activity 1</button>
+    <p class="tiny" style="text-align:center">Answer all three (a sentence or two each) to unlock the button.</p>
+  </div>`;
+AFTER.careers=()=>{
+  let i=S.carIdx||0;
+  if(S.done.careers) i=CAREERS.length;
+  const card=document.getElementById('carCard');
+  function draw(){
+    if(i>=CAREERS.length){
+      card.classList.add('hide');
+      document.getElementById('careerQs').classList.remove('hide');
+      wireAnswers(['careers-q1','careers-q2','careers-q3'],'careersDone');
+      return;
+    }
+    const c=CAREERS[i];
+    const opts=Object.keys(CAREER_NAMES).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Job ${i+1} of ${CAREERS.length}</div>
+      <p style="font-size:15.5px">${c.t}</p>
+      ${opts.map(k=>`<button class="opt" data-k="${k}" onclick="carPick('${k}',this)">${CAREER_NAMES[k]}</button>`).join('')}
+      <div class="mcq-feed" id="carFeed"></div>`;
+  }
+  window.carPick=(k,el)=>{
+    const c=CAREERS[i], feed=document.getElementById('carFeed');
+    if(k===c.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ '+CAREER_NAMES[c.a]+' — exactly.'; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+      i++; S.carIdx=i; save(); setTimeout(draw,1500);
+    }else{
+      el.classList.add('picked-no'); feed.textContent='Not quite — hint: '+c.hint; feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),900);
+    }
+  };
+  draw();
+};
+
+/* ── skills ── */
+const SKILL_ITEMS=[
+  {t:'Showing up ten minutes early, ready to work',pro:true, why:'Being on time — even early — is one of the very first things every employer notices.'},
+  {t:'Scrolling your phone and texting friends during your shift',pro:false, why:'Personal phone use on the clock tells a boss your mind isn\'t on the job.'},
+  {t:'Looking someone in the eye and giving a firm handshake',pro:true, why:'Confident, respectful body language makes a strong first impression.'},
+  {t:'Blaming a coworker when a task goes wrong',pro:false, why:'Owning your mistakes builds trust; passing blame destroys it fast.'},
+  {t:'Asking a question when you\'re not sure how to do something',pro:true, why:'Good employees ask instead of guessing — it prevents costly mistakes.'},
+  {t:'Calling in "sick" so you can go to a concert',pro:false, why:'Dishonesty and no-shows are among the fastest ways to lose a job.'},
+  {t:'Finishing your work, then asking what else you can help with',pro:true, why:'Initiative — doing more than the minimum — is what gets people trusted and promoted.'},
+  {t:'Wearing dirty, torn clothes to a customer-facing job',pro:false, why:'Your appearance sends a message about how seriously you take the work.'},
+  {t:'Keeping your cool when a customer is rude to you',pro:true, why:'Staying calm under pressure is a soft skill every employer values.'},
+  {t:'Gossiping about your manager in the break room',pro:false, why:'Negativity and gossip poison a workplace — and it always gets back around.'},
+];
+RENDER.skills=()=>`
+  <h2>⭐ Activity 3.2.2 — Employability & Soft Skills</h2>
+  <p>There are two kinds of skills employers look for. <b>Technical skills</b> (also called hard skills) are the specific things you know how to do — drive a forklift, run a spreadsheet, give a shot to a calf. <b>Soft skills</b> (also called <b>employability skills</b>) are how you work with people and handle yourself: being on time, communicating, staying positive, taking responsibility.</p>
+  <div class="callout">
+    <b>Hard skill</b> — a specific, teachable ability, like welding or coding. Easy to put on a resume.<br><br>
+    <b>Soft skill</b> — how you carry yourself and work with others: reliability, attitude, communication, teamwork. Harder to teach — and often what actually gets you hired or fired.
+  </div>
+  <p>Here's the part that surprises people: surveys of employers show they will often hire the person with <b>strong soft skills</b> over the person with more technical training. Why? They can <i>teach</i> you how to run their machine. They usually can't teach you to show up on time, tell the truth, and treat people well. That's on you — and it's free to build.</p>
+  <p>The most-wanted employability skills across almost every job are:</p>
   <ul>
-    <li><b>Name</b> and how to reach you.</li>
-    <li><b>Skills</b> — at least 4 things you can do (work with animals, use tools, customer service, computer skills…).</li>
-    <li><b>Experience</b> — any jobs, chores, projects, or volunteering, listed most recent first.</li>
-    <li><b>Education</b> — your school and any certifications.</li>
+    <li><b>Reliability</b> — you show up, on time, and do what you said you'd do.</li>
+    <li><b>Communication</b> — you listen, ask, and speak clearly and respectfully.</li>
+    <li><b>Attitude</b> — you stay positive and coachable, even on a hard day.</li>
+    <li><b>Responsibility</b> — you own your mistakes and fix them.</li>
+    <li><b>Initiative</b> — you look for what needs doing without being told.</li>
+    <li><b>Teamwork</b> — you make the people around you better.</li>
   </ul>
-  <div class="try"><b>Answer:</b> Pick one skill on your resume and explain how it would help you run the business you've been planning.</div>
-</div>
+  <h3>Professional or unprofessional?</h3>
+  <p class="muted">Imagine an employer is watching. For each situation, decide: would they see this as <b>PROFESSIONAL</b> (a soft skill they want) or <b>UNPROFESSIONAL</b> (a habit that gets you passed over)?</p>
+  <div class="card" id="sortCard">
+    <div class="tiny" id="sortCount"></div>
+    <div class="sortitem" id="sortItem"></div>
+    <div class="sortbtns">
+      <button class="sb-need" onclick="sortPick(true)">PROFESSIONAL</button>
+      <button class="sb-want" onclick="sortPick(false)">UNPROFESSIONAL</button>
+    </div>
+    <div class="sortfeed" id="sortFeed"></div>
+  </div>
+  <div id="sortDoneMsg" class="hide">
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> What is the difference between a hard (technical) skill and a soft (employability) skill? Give one real example of each that you have or could build.</div>
+    ${ta('skills-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> Why would an employer sometimes hire the person with better soft skills over the person with more technical training?</div>
+    ${ta('skills-q2')}
+    <button class="btn" id="skillsDone" onclick="completeStation('skills')">Finish Activity 2</button>
+    <p class="tiny" style="text-align:center">Answer both (a sentence or two each) to unlock the button.</p>
+  </div>`;
+AFTER.skills=()=>{
+  let i=S.skillIdx||0, right=S.skillRight||0;
+  if(S.done.skills){ i=SKILL_ITEMS.length } // reviewing: skip to questions
+  const item=document.getElementById('sortItem'), feed=document.getElementById('sortFeed'),
+        count=document.getElementById('sortCount');
+  function show(){
+    if(i>=SKILL_ITEMS.length){
+      document.getElementById('sortCard').classList.add('hide');
+      document.getElementById('sortDoneMsg').classList.remove('hide');
+      wireAnswers(['skills-q1','skills-q2'],'skillsDone');
+      return;
+    }
+    count.textContent=`Situation ${i+1} of ${SKILL_ITEMS.length}`;
+    item.textContent=SKILL_ITEMS[i].t; feed.textContent=''; feed.className='sortfeed';
+  }
+  window.sortPick=(saidPro)=>{
+    if(i>=SKILL_ITEMS.length) return;
+    const it=SKILL_ITEMS[i];
+    const ok=(saidPro===it.pro);
+    if(ok) right++;
+    feed.textContent=(ok?'✓ Right — ':'✗ Actually '+(it.pro?'PROFESSIONAL':'UNPROFESSIONAL')+' — ')+it.why;
+    feed.className='sortfeed '+(ok?'ok':'no');
+    i++; S.skillIdx=i; S.skillRight=right; save();
+    setTimeout(show, ok?1400:2600);
+  };
+  show();
+};
 
-<h2>⏰ Activity 3.2.2 — The Value of Your Time</h2>
-<div class="card">
-  <p>Your time has a dollar value — it's what someone would pay you for it.</p>
-  <div class="eq"><b>Value of your time = Hours worked × Pay rate</b></div>
-  <ol>
-    <li>You could work 20 hours a week at a job paying $14/hour. What's that per week?</li>
-    <li>What's it over a month (about 4 weeks)?</li>
-    <li>If you instead spend those 20 hours a week on your own business, that monthly amount is your <b>opportunity cost</b> — the money you gave up. Write it down.</li>
-  </ol>
-  <div class="try"><b>Answer:</b> Why should you count the wages you gave up as a real cost of starting your business?</div>
-</div>
+/* ── apply ── */
+const HIRE=[
+  ['Find the opening','Watch job boards, ask people you know, or spot a "help wanted" sign. Look for a job that fits your skills and schedule.'],
+  ['Prepare your resume','Update a clean, one-page resume — your skills, experience, and education — before you apply, so you\'re ready to go.'],
+  ['Fill out the application','Complete the employer\'s application form neatly, completely, and honestly. No blanks, no lies, no sloppy handwriting.'],
+  ['Get called for the interview','The employer reviews applications and invites the strongest candidates to come talk in person.'],
+  ['Interview well','Dress the part, arrive early, answer clearly, and ask a good question or two. This is where they meet the real you.'],
+  ['Send a thank-you & follow up','A short thank-you note after the interview shows professionalism and keeps your name at the top of the pile.'],
+  ['Get the offer & start strong','You\'re hired — now show up ready on day one and prove they made the right call.'],
+];
+const RESUME_CHECKS=[
+  ['rc1','Your name and how to reach you (phone + a professional email)'],
+  ['rc2','A short list of at least 4 skills you can actually do'],
+  ['rc3','Your experience — jobs, chores, SAE, projects, or volunteering — most recent first (chronological)'],
+  ['rc4','Your education — your school and any certifications or awards'],
+  ['rc5','At least one reference (an adult, not family, who will speak up for you)'],
+  ['rc6','Proofread: no typos, one page, clean and easy to read'],
+];
+RENDER.apply=()=>`
+  <h2>📝 Activity 3.2.3 — Applying for a Job</h2>
+  <p>Getting a job is a process with a clear order. Skip a step or rush one and you can knock yourself out of the running before anyone even meets you. Three tools do most of the work: the <b>application</b>, the <b>resume</b>, and the <b>interview</b>.</p>
+  <h3>The three tools</h3>
+  <div class="struct"><b>Application</b><p>The employer's own form. Fill it out neatly, completely, and 100% honestly. A messy or half-finished application is often the first thing that gets tossed.</p></div>
+  <div class="struct"><b>Resume</b><p>A one-page summary of YOU: skills, experience, education, references. It lists your experience in <b>chronological</b> order — most recent first — so an employer can size you up in about ten seconds.</p></div>
+  <div class="struct"><b>Interview</b><p>A face-to-face conversation where the employer decides if you fit. Arrive early, dress a notch nicer than the job, make eye contact, and have a question ready to ask them.</p></div>
+  <div class="callout sun"><b>Honesty rule:</b> never lie on an application, resume, or in an interview — not about your age, your experience, or why you left a job. Getting caught in a lie ends the process instantly, and it can follow you.</div>
+  <h3>Put the hiring process in order</h3>
+  <p class="muted">Tap the steps in the order they really happen — from first spotting a job to your first day on it.</p>
+  <div class="card">
+    <div id="chainSlots"></div>
+    <div id="chainPicks"></div>
+    <div class="mcq-feed" id="chainFeed"></div>
+  </div>
+  <div id="applySteps" class="hide">
+    <h3>What each step means</h3>
+    ${HIRE.map(([t,d],idx)=>`<div class="term"><b>${idx+1}. ${t}</b><span>${d}</span></div>`).join('')}
+    <h3>Build your resume checklist</h3>
+    <p class="muted">A strong, simple resume has these parts. As you plan (or actually build) yours, tap each piece you've got covered.</p>
+    <div id="resChecks"></div>
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> List 4 real skills YOU would put on your resume, and pick one — explain how it would help you in a job you'd actually want.</div>
+    ${ta('apply-q1','Skill 1: …\nSkill 2: …\nSkill 3: …\nSkill 4: …\nBest one and why: …')}
+    <div class="qlabel"><span class="qn">Q2.</span> A common interview question is "Why should we hire you?" Write how YOU would answer it in 2–3 sentences.</div>
+    ${ta('apply-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> Why is it so important to be neat and completely honest on a job application?</div>
+    ${ta('apply-q3')}
+    <button class="btn" id="applyDone" onclick="completeStation('apply')">Finish Activity 3</button>
+    <p class="tiny" style="text-align:center">Check every resume part and answer all three questions to unlock.</p>
+  </div>`;
+AFTER.apply=()=>{
+  let placed=S.hirePlaced||0;
+  if(S.done.apply) placed=HIRE.length;
+  const slots=document.getElementById('chainSlots'), picks=document.getElementById('chainPicks'),
+        feed=document.getElementById('chainFeed');
+  let order=S.hireOrder;
+  if(!order || placed===0){ order=[...HIRE.keys()].sort(()=>Math.random()-.5); S.hireOrder=order; save(); }
+  function drawChecks(){
+    const wrap=document.getElementById('resChecks'); if(!wrap) return;
+    wrap.innerHTML=RESUME_CHECKS.map(([id,t])=>`
+      <button class="ck ${S.checks[id]?'on':''}" onclick="toggleCk('${id}')">
+        <div class="box">${S.checks[id]?'✓':''}</div><div class="t">${t}</div></button>`).join('');
+    gate();
+  }
+  function gate(){
+    const all=RESUME_CHECKS.every(([id])=>S.checks[id]);
+    const b=document.getElementById('applyDone'); if(!b) return;
+    b.disabled=!(all && answered(['apply-q1','apply-q2','apply-q3']));
+  }
+  window.toggleCk=(id)=>{ S.checks[id]=!S.checks[id]; save(); drawChecks(); };
+  function draw(){
+    slots.innerHTML=[...Array(placed).keys()].map(k=>`<div class="chainslot">${k+1}. ${HIRE[k][0]}</div>`).join('')
+      || '<div class="tiny">Steps so far: (empty — what comes first?)</div>';
+    if(placed>=HIRE.length){
+      picks.innerHTML=''; feed.textContent='✓ You\'ve got the whole process in order!'; feed.className='mcq-feed ok';
+      document.getElementById('applySteps').classList.remove('hide');
+      drawChecks();
+      ['apply-q1','apply-q2','apply-q3'].forEach(i=>{
+        const el=document.getElementById('ta-'+i); if(el) el.addEventListener('input',gate);
+      });
+      return;
+    }
+    const remaining=order.filter(k=>k>=placed);
+    picks.innerHTML=remaining.map(k=>`<button class="chainpick" onclick="hirePick(${k},this)">${HIRE[k][0]}</button>`).join('');
+  }
+  window.hirePick=(k,el)=>{
+    if(k===placed){
+      placed++; S.hirePlaced=placed; save();
+      feed.textContent='✓'; feed.className='mcq-feed ok'; draw();
+    }else{
+      feed.textContent='Not next — think: what has to happen before "'+HIRE[k][0]+'"?';
+      feed.className='mcq-feed no';
+      el.disabled=true; setTimeout(()=>{el.disabled=false},900);
+    }
+  };
+  draw();
+};
 
-<h2>🏠 Activity 3.2.3 — Income vs. Living Expenses</h2>
-<div class="card">
-  <p>A job (or a business) only works if it covers what it costs you to live. Here's a monthly budget:</p>
-  <table>
-    <tr><th>Living expense</th><th>Per month</th></tr>
-    <tr><td>Rent (share)</td><td>$500</td></tr>
-    <tr><td>Food</td><td>$300</td></tr>
-    <tr><td>Gas &amp; phone</td><td>$200</td></tr>
-    <tr><td><b>Total needed</b></td><td><b>?</b></td></tr>
+/* ── goodemp ── */
+const EMP_CHECKS=[
+  ['ge1','Show up on time — every shift, ready to work'],
+  ['ge2','Follow directions and safety rules the first time'],
+  ['ge3','Communicate — tell your boss early if there\'s a problem'],
+  ['ge4','Take responsibility for your mistakes and fix them'],
+  ['ge5','Treat coworkers and customers with respect'],
+  ['ge6','Show initiative — do more than the bare minimum'],
+  ['ge7','Keep a good attitude, even on a hard day'],
+];
+RENDER.goodemp=()=>`
+  <h2>🤝 Activity 3.2.4 — Good Employee · Employee vs. Owner</h2>
+  <p>Getting hired is only the start. <b>Keeping</b> a job — and getting raises, better hours, and a good reference for the next one — is about being someone your boss can count on. The good news: the habits that make a great employee are the same soft skills from Activity 2, just done every single day.</p>
+  <h3>What makes a good employee</h3>
+  <p class="muted">These are the habits managers say matter most. Check off the ones you already do well — and be honest about the ones you're still building.</p>
+  <div id="empChecks"></div>
+  <h3>Employee vs. Owner — two different roles</h3>
+  <p>Someday you may face a choice: keep working <b>for</b> a business, or start and run <b>your own</b>. Both are good paths — they just come with different trade-offs.</p>
+  <table style="border-collapse:collapse;width:100%;margin:8px 0;font-size:14.5px">
+    <tr><th style="border:1px solid var(--line);background:var(--green-l);padding:8px;text-align:left">As an EMPLOYEE</th>
+        <th style="border:1px solid var(--line);background:var(--sun-l);padding:8px;text-align:left">As an OWNER</th></tr>
+    <tr><td style="border:1px solid var(--line);padding:8px">Steady, predictable <b>paycheck</b></td>
+        <td style="border:1px solid var(--line);padding:8px">Income goes <b>up and down</b> — you get what's left over</td></tr>
+    <tr><td style="border:1px solid var(--line);padding:8px">The <b>owner</b> carries the risk and debt</td>
+        <td style="border:1px solid var(--line);padding:8px"><b>You</b> carry the risk, the debt, and the losses</td></tr>
+    <tr><td style="border:1px solid var(--line);padding:8px">You follow someone else's decisions</td>
+        <td style="border:1px solid var(--line);padding:8px">You make every decision — and live with it</td></tr>
+    <tr><td style="border:1px solid var(--line);padding:8px">Often get <b>benefits</b> (insurance, time off)</td>
+        <td style="border:1px solid var(--line);padding:8px">You provide your own benefits</td></tr>
+    <tr><td style="border:1px solid var(--line);padding:8px">Your upside is <b>capped</b> at your wage</td>
+        <td style="border:1px solid var(--line);padding:8px">Your upside can be <b>much larger</b> if it succeeds</td></tr>
   </table>
-  <ol>
-    <li>Add up the total living expenses per month.</li>
-    <li>Job A pays $1,100/month. Does it cover your living expenses? By how much over or under?</li>
-    <li>Your business is expected to bring you $1,300/month. Does it cover them? By how much?</li>
-  </ol>
-  <div class="try"><b>Answer:</b> Which option — Job A or your business — leaves you more money after living expenses? Show the difference.</div>
-</div>
+  <div class="callout"><b>The core trade-off:</b> employees trade some upside for <b>security</b> — a steady paycheck and less personal risk. Owners take on more <b>risk and work</b> in exchange for control and a bigger potential reward. Neither is "better" — it depends on the person and the moment.</div>
+  <p class="muted">One more idea from Lesson 3.2's finances: even if your own business earns money, you should still compare it to the wage you <b>gave up</b> by not taking a regular job. That skipped paycheck is a real cost of being your own boss.</p>
+  <h3>Answer in your own words</h3>
+  <div class="qlabel"><span class="qn">Q1.</span> Pick TWO habits from the checklist above that you think are the most important for keeping a job, and explain why.</div>
+  ${ta('goodemp-q1')}
+  <div class="qlabel"><span class="qn">Q2.</span> Would you rather be an employee or an owner right now? Give two real reasons, using words like paycheck, risk, decisions, or reward.</div>
+  ${ta('goodemp-q2')}
+  <button class="btn" id="goodempDone" onclick="completeStation('goodemp')">Finish Activity 4</button>
+  <p class="tiny" style="text-align:center">Check every box and answer both questions to unlock.</p>`;
+AFTER.goodemp=()=>{
+  const wrap=document.getElementById('empChecks');
+  function draw(){
+    wrap.innerHTML=EMP_CHECKS.map(([id,t])=>`
+      <button class="ck ${S.checks[id]?'on':''}" onclick="toggleGe('${id}')">
+        <div class="box">${S.checks[id]?'✓':''}</div><div class="t">${t}</div></button>`).join('');
+    gate();
+  }
+  function gate(){
+    const all=EMP_CHECKS.every(([id])=>S.checks[id]);
+    const b=document.getElementById('goodempDone');
+    b.disabled=!(all && answered(['goodemp-q1','goodemp-q2']));
+  }
+  window.toggleGe=(id)=>{ S.checks[id]=!S.checks[id]; save(); draw(); };
+  ['goodemp-q1','goodemp-q2'].forEach(i=>{
+    const el=document.getElementById('ta-'+i); if(el) el.addEventListener('input',gate);
+  });
+  draw();
+};
 
-<h2>💼 Activity 3.2.4 — Return to Labor &amp; Management</h2>
-<div class="card">
-  <p>RL&amp;M is what's left over for <b>you</b> after the business pays everything else. It's your reward for doing the
-  work and making the decisions.</p>
-  <div class="eq"><b>RL&amp;M = Total income − All business expenses (not counting your own pay)</b></div>
-  <p><b>Work it out:</b> A roadside stand brought in <b>$18,000</b> this year. Its business expenses (supplies, fuel,
-  insurance, interest) added up to <b>$11,000</b>.</p>
-  <ol>
-    <li>What is the RL&amp;M — the amount left for you?</li>
-    <li>You spent about 500 hours running it this year. Divide the RL&amp;M by 500 — what did you effectively earn per hour?</li>
-    <li>Is that better or worse than the $14/hour job from Activity 3.2.2?</li>
-  </ol>
-  <div class="try"><b>Answer:</b> Based on the numbers, would you keep running the stand or take the job? Explain your choice.</div>
-</div>
+/* ── final quiz + turn-in ── */
+const QUIZ=[
+  {q:'A career is best described as…',
+   o:['The specific work you do for pay this week','The long-term path of related jobs you build over years','A one-page list of your skills','A form the employer gives you'],a:1},
+  {q:'"Soft skills" (employability skills) are…',
+   o:['Specific technical abilities like welding or coding','How you work with people and handle yourself — reliability, attitude, communication','Skills that don\'t matter to employers','The same thing as your resume'],a:1},
+  {q:'Why might an employer hire the person with stronger soft skills over one with more technical training?',
+   o:['Soft skills are cheaper to buy','They can teach the technical skills, but not how to show up on time and be honest','Technical skills are illegal to require','Resumes don\'t list technical skills'],a:1},
+  {q:'A resume is…',
+   o:['The employer\'s application form','A one-page summary of your skills, experience, and education','A face-to-face conversation','A thank-you note'],a:1},
+  {q:'Listing your experience in "chronological" order on a resume means…',
+   o:['In alphabetical order','Most recent first, going back in time','Only your favorite jobs','In a random order'],a:1},
+  {q:'The correct early step when applying for a job is to…',
+   o:['Show up on the first day unannounced','Fill out the application neatly, completely, and honestly','Demand a salary before applying','Skip the resume'],a:1},
+  {q:'In a job interview you should…',
+   o:['Arrive a little late to seem busy','Dress the part, arrive early, and have a question ready to ask','Never make eye contact','Exaggerate your experience'],a:1},
+  {q:'"Initiative" as an employee means…',
+   o:['Doing only exactly what you\'re told','Looking for what needs doing without being told','Blaming coworkers for problems','Leaving early when work is slow'],a:1},
+  {q:'A key difference between an employee and an owner is…',
+   o:['Employees carry all the business debt and risk','Owners always earn a fixed, steady wage','Owners carry the risk and losses but can earn a bigger reward','There is no difference'],a:2},
+  {q:'One trade-off an employee accepts compared to an owner is…',
+   o:['More personal risk in exchange for control','Less upside in exchange for a steady, secure paycheck','No paycheck at all','Paying all the business\'s debts personally'],a:1},
+];
+const PASS=80;
+RENDER.final=()=>`
+  <h2>✅ Final Self-Check</h2>
+  <p class="muted">10 questions from the whole lesson. You need <b>${PASS}%</b> to finish — you can retry as many times as you want, and the questions reshuffle. This is practice: the graded <b>Check for Understanding</b> comes from Mr. Beltran in class.</p>
+  <div class="card" id="quizCard"></div>
+  <div id="turnin" class="hide">
+    <div class="bigscore" id="scoreBig"></div>
+    <p class="muted" style="text-align:center" id="scoreMsg"></p>
+    <h3>📤 Turn in your work</h3>
+    <p class="muted">This gathers every answer you typed into one block. Copy it, then paste it into the <b>Google Classroom assignment</b> (private comment or the attached doc) — or show this screen to Mr. Beltran.</p>
+    <pre id="compiled"></pre>
+    <button class="btn" onclick="copyWork(this)">📋 Copy my work</button>
+    <button class="btn ghost" onclick="completeStation('final')">Done — back to map</button>
+  </div>`;
+AFTER.final=()=>{
+  let qs=[], qi=0, right=0;
+  const card=document.getElementById('quizCard');
+  function start(){
+    qs=[...QUIZ].sort(()=>Math.random()-.5).slice(0,10);
+    qi=0; right=0;
+    card.classList.remove('hide');
+    document.getElementById('turnin').classList.add('hide');
+    draw();
+  }
+  function draw(){
+    if(qi>=qs.length) return finish();
+    const q=qs[qi];
+    const idx=q.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="mcq-top"><span>Question ${qi+1} of ${qs.length}</span><span>Score: ${right}</span></div>
+      <div class="mcq-q">${q.q}</div>
+      ${idx.map(k=>`<button class="opt" onclick="qPick(${k},this)">${q.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="qFeed"></div>`;
+  }
+  window.qPick=(k,el)=>{
+    const q=qs[qi], feed=document.getElementById('qFeed');
+    card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+    if(k===q.a){ right++; el.classList.add('picked-ok'); feed.textContent='✓ Correct'; feed.className='mcq-feed ok'; }
+    else{
+      el.classList.add('picked-no');
+      card.querySelectorAll('.opt').forEach(o=>{ if(o.textContent===q.o[q.a]) o.classList.add('reveal'); });
+      feed.textContent='✗ The answer: '+q.o[q.a]; feed.className='mcq-feed no';
+    }
+    qi++; setTimeout(draw, k===q.a?900:2400);
+  };
+  function finish(){
+    const pct=Math.round(right/qs.length*100);
+    S.scores.final=Math.max(S.scores.final||0,pct); save();
+    if(pct<PASS){
+      card.innerHTML=`<div class="bigscore" style="color:var(--sun)">${pct}%</div>
+        <p class="muted" style="text-align:center">Almost — you need ${PASS}%. Skim the stations you're shaky on (they stay open on the map), then try again. New shuffle every time.</p>
+        <button class="btn" id="retryBtn">Try again</button>`;
+      document.getElementById('retryBtn').onclick=start;
+      return;
+    }
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=pct+'%';
+    document.getElementById('scoreMsg').textContent=pct===100?'Perfect score. Outstanding.':'Passed — nice work.';
+    document.getElementById('compiled').textContent=compile(pct); cloudSubmit();
+    window.scrollTo(0,0);
+  }
+  if(S.done.final && (S.scores.final||0)>=PASS){
+    // reviewing after completion: show turn-in immediately with best score
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=(S.scores.final||0)+'%';
+    document.getElementById('scoreMsg').textContent='Best score (already passed).';
+    document.getElementById('compiled').textContent=compile(S.scores.final||0); cloudSubmit();
+  } else start();
+};
 
-<h2>🏦 Problem 3.2.5 — Would a Lender Say Yes?</h2>
-<div class="card">
-  <p>When you ask a lender for a loan, they check whether your business is strong enough to pay it back. They look at
-  your income, your expenses, and whether there's money left over after everything (including a loan payment).</p>
-  <p><b>Your business:</b> income $18,000/year, expenses $11,000/year. You want a loan whose payments would be
-  <b>$4,000/year</b>.</p>
-  <ol>
-    <li>After expenses, how much does the business have left before the loan payment?</li>
-    <li>Would that leftover cover the $4,000 loan payment? By how much?</li>
-    <li>Do you think a lender would approve this loan? Why?</li>
-  </ol>
-  <div class="try"><b>Answer:</b> Why does a lender care about your leftover income instead of just your total sales?</div>
-</div>
+/* ── cloud turn-in: save the student's compiled work to the teacher dashboard ── */
+var SUBMIT_DB='https://verde-animation-25368-default-rtdb.firebaseio.com/submissions';
+var LESSON_ID='agb-3-2';
+function subSlug(s){return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'student';}
+function cloudSubmit(){
+  try{
+    var work=(document.getElementById('compiled')||{}).textContent||'';
+    var se=document.getElementById('scoreBig');
+    var score=se?(parseInt(se.textContent,10)||0):0;
+    var name=(typeof S!=='undefined'&&S.name)?S.name:'';
+    if(!work) return;
+    fetch(SUBMIT_DB+'/'+LESSON_ID+'/'+subSlug(name)+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,lesson:LESSON_ID,score:score,work:work,updated:Date.now()})}).catch(function(){});
+  }catch(e){}
+}
 
-<h2>✅ Quick self-check</h2>
-<div class="card">
-  <ol>
-    <li>What is opportunity cost, in your own words?</li>
-    <li>What does a resume show, and why does it matter for a business owner?</li>
-    <li>What does RL&amp;M tell you about your business?</li>
-  </ol>
-</div>
+function compile(pct){
+  const L=[], A=(id)=> (S.text[id]||'—').trim();
+  L.push('ABF LESSON 3.2 — EMPLOYMENT OPPORTUNITY · SELF-PACED WORK');
+  L.push('Student: '+(S.name||'?'));
+  L.push('Date: '+new Date().toLocaleDateString());
+  L.push('Final self-check score: '+pct+'%');
+  L.push('');
+  L.push('— Activity 3.2.1 Careers & Jobs —');
+  L.push('Career-area matching: all 5 jobs matched correctly (required to advance)');
+  L.push('Q1 (area that interests you + why): '+A('careers-q1'));
+  L.push('Q2 (a specific job + a normal day): '+A('careers-q2'));
+  L.push('Q3 (job vs career + example): '+A('careers-q3'));
+  L.push('');
+  L.push('— Activity 3.2.2 Employability & Soft Skills —');
+  L.push('Professional vs. unprofessional sort: completed');
+  L.push('Q1 (hard vs soft skill + examples): '+A('skills-q1'));
+  L.push('Q2 (why soft skills can win the hire): '+A('skills-q2'));
+  L.push('');
+  L.push('— Activity 3.2.3 Applying for a Job —');
+  L.push('Hiring-process ordering: completed (7 steps in order)');
+  L.push('Resume checklist: '+RESUME_CHECKS.filter(([id])=>S.checks[id]).length+' of '+RESUME_CHECKS.length+' parts covered');
+  L.push('Q1 (4 resume skills + best one): '+A('apply-q1'));
+  L.push('Q2 ("Why should we hire you?"): '+A('apply-q2'));
+  L.push('Q3 (neat + honest application): '+A('apply-q3'));
+  L.push('');
+  L.push('— Activity 3.2.4 Good Employee · Employee vs. Owner —');
+  L.push('Good-employee checklist: '+EMP_CHECKS.filter(([id])=>S.checks[id]).length+' of '+EMP_CHECKS.length+' habits checked');
+  L.push('Q1 (two most important habits + why): '+A('goodemp-q1'));
+  L.push('Q2 (employee or owner + two reasons): '+A('goodemp-q2'));
+  return L.join('\n');
+}
+function copyWork(btn){
+  const t=document.getElementById('compiled').textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+    .then(()=>{ btn.textContent='✓ Copied — paste it into Classroom'; })
+    .catch(()=>{ // fallback: select the block
+      const r=document.createRange(); r.selectNode(document.getElementById('compiled'));
+      getSelection().removeAllRanges(); getSelection().addRange(r);
+      btn.textContent='Select + copy the highlighted text above';
+    });
+}
 
-<div class="turn">📤 <b>Turn in your work:</b> your Project 3.2.1 resume, Activities 3.2.2–3.2.4, and Problem 3.2.5 — through Google Classroom, the way your teacher showed you.</div>
-</div></body></html>
+/* ── glossary ── */
+const GLOSS=[
+['Application','The employer\'s own form that a job seeker fills out — completely and honestly — to be considered for a job.'],
+['Benefits','Extras an employer may provide beyond wages, such as health insurance, paid time off, or retirement contributions.'],
+['Career','The long-term path of related jobs a person builds over many years as their skills and pay grow.'],
+['Career pathway','A family of related jobs within an industry that a worker can move up and across over time.'],
+['Chronological','Arranged in time order; on a resume, listing the most recent experience first.'],
+['Communication','A soft skill: listening, asking, and speaking clearly and respectfully with others.'],
+['Cover letter','A short letter sent with a resume that explains who you are and why you fit the job.'],
+['Employability skills','The soft skills — reliability, communication, attitude, teamwork — that make a person hireable across almost any job.'],
+['Employee','A person who works for a business in exchange for a wage or salary; the owner carries the business risk.'],
+['Employer','A person or business that hires and pays workers to do jobs.'],
+['Hard skill','A specific, teachable technical ability, such as welding, coding, or driving a forklift.'],
+['Initiative','A soft skill: looking for what needs doing and acting without being told.'],
+['Interview','A face-to-face conversation in which an employer decides whether a candidate fits the job.'],
+['Job','The specific work a person does for pay at a given time.'],
+['Opportunity cost','What you give up by choosing one option over another — such as the wages skipped to run your own business.'],
+['Owner','A person who starts and runs a business, taking on its risk, debt, and decisions in exchange for the potential reward.'],
+['Professionalism','Conducting yourself with reliability, respect, honesty, and a good attitude at work.'],
+['Reference','A person (usually not family) who will vouch for your character and work to a potential employer.'],
+['Resume','A one-page summary of a person\'s skills, experience, and education used to apply for a job or opportunity.'],
+['Responsibility','A soft skill: owning your work and your mistakes, and following through on what you said you would do.'],
+['Salary','A fixed amount of pay for a job, usually stated per year regardless of exact hours worked.'],
+['Soft skill','How a person works with others and handles themselves — reliability, attitude, teamwork, communication.'],
+['Teamwork','A soft skill: working well with others and making the people around you more effective.'],
+['Wage','Pay for work, usually figured by the hour.'],
+];
+RENDER.gloss=()=>`
+  <h2>📖 Lesson 3.2 Glossary</h2>
+  <p class="muted">Every key term for this lesson.</p>
+  ${GLOSS.map(([t,d])=>`<div class="term"><b>${t}</b><span>${d}</span></div>`).join('')}
+  <button class="btn ghost" onclick="goMap()">Back to map</button>`;
+
+/* ───────── boot ───────── */
+if(S.name) boot();
+</script>
+</body>
+</html>

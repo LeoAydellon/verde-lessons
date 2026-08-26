@@ -1,122 +1,767 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Lesson 2.3 Measuring Success — Self-Paced — Verde Tech</title>
+<meta name="theme-color" content="#2f6b3f">
+<!--
+  ABF Lesson 2.3 "Measuring Success" — self-paced student module.
+  Built 2026-08-26 from the CASE ABF curriculum Leo teaches in P2 Agribusiness.
+  Topic: the balance sheet — assets, liabilities, owner's equity; A = L + E;
+  liquidity / current ratio; solvency / debt-to-asset; reading financial health.
+  Standalone file: no server, no login, works offline (videos need internet).
+  Student work saves in the browser (localStorage) and compiles into one text block to turn in.
+  The graded Lesson 2.3 Check for Understanding is NOT here — teacher distributes it.
+  All practice questions in this file are original (no CASE answer-key content).
+  Engine + CSS are byte-identical to Lesson 1.1; only the content differs.
+-->
 <style>
-  :root{color-scheme:light}
-  *{box-sizing:border-box}
-  body{margin:0;background:#f6f8f4;color:#1b2a1b;font:18px/1.6 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}
-  .wrap{max-width:760px;margin:0 auto;padding:18px 18px 70px}
-  header{background:#2f7d32;color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px}
-  header h1{margin:.1rem 0;font-size:26px}
-  header .sub{opacity:.9;font-size:16px}
-  h2{margin:1.4rem 0 .4rem;font-size:22px;color:#2f7d32;border-bottom:2px solid #cfe3cf;padding-bottom:.2rem}
-  .card{background:#fff;border:1px solid #dbe6db;border-radius:12px;padding:16px 18px;margin:12px 0}
-  .eq{background:#eef6ee;border-left:5px solid #2f7d32;border-radius:8px;padding:10px 14px;margin:10px 0}
-  .term{font-weight:700;color:#1f5e22}
-  ul{margin:.4rem 0 .4rem 1.1rem}
-  li{margin:.25rem 0}
-  .try{background:#fff8e6;border:1px solid #f0e2b6;border-radius:10px;padding:12px 14px;margin:10px 0}
-  .try b{color:#8a6d00}
-  table{border-collapse:collapse;width:100%;margin:.4rem 0;font-size:16px}
-  td,th{border:1px solid #cfe0cf;padding:6px 8px;text-align:left}
-  th{background:#eef6ee}
-  .turn{background:#2f7d32;color:#fff;border-radius:12px;padding:16px;margin-top:18px;font-size:19px}
-  .pill{display:inline-block;background:#2f7d32;color:#fff;border-radius:20px;padding:2px 12px;font-size:14px;font-weight:700}
-</style></head>
-<body><div class="wrap">
+  :root{
+    --green:#2f6b3f; --green-d:#245231; --green-l:#eaf3ec;
+    --sun:#c8892b; --sun-l:#fdf3e2;
+    --ink:#1d2321; --dim:#5b6763; --faint:#8a9591;
+    --line:#dfe5e1; --bg:#f6f8f6; --card:#fff;
+    --ok:#2f7d4f; --no:#b23b3b; --no-l:#fbecec;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    padding:0 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 90px}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  h1,h2,h3{line-height:1.25;margin:0}
+  header{position:sticky;top:0;z-index:20;background:var(--green);color:#fff;
+    padding:calc(10px + env(safe-area-inset-top)) 16px 10px}
+  .hrow{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .htitle{font-size:16px;font-weight:700;letter-spacing:.2px;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hsub{font-size:12px;opacity:.78;font-weight:500;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .back{font-size:15px;font-weight:600;opacity:.92;padding:6px 4px;margin-left:-4px}
+  .who{font-size:12.5px;opacity:.85;padding:6px 8px;border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .btn{display:block;width:100%;background:var(--green);color:#fff;font-size:17px;font-weight:700;
+    padding:16px;border-radius:14px;text-align:center;margin-top:14px;transition:.12s transform}
+  .btn:active{transform:scale(.985)}
+  .btn.ghost{background:#fff;color:var(--green);border:2px solid var(--green)}
+  .btn.quiet{background:transparent;color:var(--dim);font-weight:600;font-size:15px;padding:12px;margin-top:4px}
+  .btn[disabled]{opacity:.4;pointer-events:none}
+  .muted{color:var(--dim);font-size:14.5px}
+  .tiny{color:var(--faint);font-size:12.5px}
+  .hide{display:none !important}
+  #gate .card{margin-top:28px;text-align:center}
+  #gate h2{font-size:22px;margin-bottom:6px}
+  #nameIn{width:100%;font-size:18px;padding:15px;border:2px solid var(--line);
+    border-radius:12px;margin-top:16px;text-align:center;background:#fff;color:var(--ink)}
+  #nameIn:focus{outline:none;border-color:var(--green)}
+  .progwrap{margin:18px 0 6px}
+  .progbar{height:10px;background:#e4eae5;border-radius:99px;overflow:hidden}
+  .progfill{height:100%;background:linear-gradient(90deg,var(--green),#57a06b);
+    border-radius:99px;transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .progtxt{display:flex;justify-content:space-between;margin-top:7px;font-size:13px;color:var(--dim)}
+  .progtxt b{color:var(--ink)}
+  .row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 15px;margin:9px 0;transition:.12s border-color,.12s transform}
+  .row:active{transform:scale(.99)}
+  .row.done{border-color:#bcdcc5;background:#f4faf5}
+  .row.locked{opacity:.5}
+  .row.next{border-color:var(--green);box-shadow:0 0 0 3px rgba(47,107,63,.09)}
+  .dot{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-size:14px;font-weight:800;background:var(--green-l);color:var(--green-d)}
+  .row.done .dot{background:var(--ok);color:#fff}
+  .row.locked .dot{background:#eceeed;color:var(--faint)}
+  .rtext{flex:1;min-width:0}
+  .rtext .nm{display:block;font-size:16px;font-weight:650;line-height:1.3}
+  .rtext .sc{display:block;font-size:12.5px;color:var(--dim);margin-top:3px}
+  .row.done .sc{color:var(--ok);font-weight:600}
+  .chev{color:var(--faint);font-size:19px;flex:none}
+  .secttl{font-size:12px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;
+    color:var(--faint);margin:24px 4px 4px}
+  .lesson h2{font-size:21px;margin:4px 0 10px}
+  .lesson h3{font-size:16.5px;margin:18px 0 8px;color:var(--green-d)}
+  .lesson p{margin:0 0 12px;font-size:16px;color:#2a3330}
+  .lesson ul{margin:0 0 12px;padding-left:22px}
+  .lesson li{margin:5px 0;font-size:15.5px}
+  .callout{background:var(--green-l);border:1px solid #cfe2d4;border-radius:12px;
+    padding:13px 15px;margin:12px 0;font-size:15px}
+  .callout.sun{background:var(--sun-l);border-color:#eedcb8}
+  .term{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+  .term b{color:var(--green-d)}
+  .term span{display:block;font-size:14.5px;color:var(--dim);margin-top:3px}
+  a.ext{display:block;background:#fff;border:2px solid var(--green);border-radius:14px;
+    padding:14px 16px;margin:12px 0;color:var(--green);font-weight:700;text-decoration:none;font-size:16px}
+  a.ext small{display:block;font-weight:500;color:var(--dim);font-size:13px;margin-top:2px}
+  textarea{width:100%;min-height:84px;font:15.5px/1.5 inherit;padding:12px;border:2px solid var(--line);
+    border-radius:12px;background:#fff;color:var(--ink);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--green)}
+  .qlabel{font-size:15px;font-weight:650;margin:16px 0 7px}
+  .qlabel .qn{color:var(--sun);font-weight:800}
+  /* sort game */
+  .sortitem{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:16px;font-weight:600;text-align:center}
+  .sortbtns{display:flex;gap:10px;margin-top:12px}
+  .sortbtns button{flex:1;padding:14px;border-radius:12px;font-weight:800;font-size:16px}
+  .sb-need{background:var(--green-l);color:var(--green-d);border:2px solid var(--green)}
+  .sb-want{background:var(--sun-l);color:#8a5a12;border:2px solid var(--sun)}
+  .sortfeed{text-align:center;font-weight:700;margin-top:10px;min-height:24px;font-size:15px}
+  .sortfeed.ok{color:var(--ok)} .sortfeed.no{color:var(--no)}
+  /* mcq */
+  .mcq-q{font-size:17px;font-weight:650;margin:6px 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);
+    border-radius:13px;padding:14px 15px;margin:9px 0;font-size:15.5px;transition:.12s}
+  .opt.picked-ok{border-color:var(--ok);background:#f0f9f2;font-weight:650}
+  .opt.picked-no{border-color:var(--no);background:var(--no-l)}
+  .opt.reveal{border-color:var(--ok)}
+  .mcq-feed{min-height:26px;font-weight:700;font-size:15px;margin-top:6px}
+  .mcq-feed.ok{color:var(--ok)} .mcq-feed.no{color:var(--no)}
+  .mcq-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim);margin-bottom:10px}
+  /* chain order game */
+  .chainpick{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:15.5px;font-weight:600;text-align:left}
+  .chainpick[disabled]{opacity:.35}
+  .chainslot{background:var(--green-l);border:1px solid #cfe2d4;border-radius:10px;
+    padding:9px 13px;margin:5px 0;font-size:14.5px;font-weight:650;color:var(--green-d)}
+  /* checklist */
+  .ck{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;
+    background:#fff;border:2px solid var(--line);border-radius:13px;padding:13px 15px;margin:8px 0}
+  .ck .box{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);flex:none;
+    display:grid;place-items:center;font-size:15px;color:#fff;margin-top:1px}
+  .ck.on{border-color:#bcdcc5;background:#f4faf5}
+  .ck.on .box{background:var(--ok);border-color:var(--ok)}
+  .ck .t{flex:1;font-size:15px}
+  /* structures reference cards */
+  .struct{border-left:4px solid var(--green);background:#fff;border-radius:0 12px 12px 0;
+    border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:12px 15px;margin:10px 0}
+  .struct b{font-size:16px}
+  .struct p{margin:5px 0 0;font-size:14.5px;color:var(--dim)}
+  /* finish */
+  .bigscore{text-align:center;font-size:44px;font-weight:800;color:var(--green);margin:10px 0 2px}
+  pre#compiled{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace;background:#f2f5f2;
+    border:1px solid var(--line);border-radius:12px;padding:14px;max-height:340px;overflow:auto}
+</style>
+</head>
+<body>
 <header>
-  <div class="pill">Unit 2 · Agribusiness</div>
-  <h1>Lesson 2.3 — Measuring Success</h1>
-  <div class="sub">Work through this on your own. Do each step, answer the questions, and turn in your work.</div>
+  <div class="hrow">
+    <button class="back hide" id="backBtn" onclick="goMap()">‹ Map</button>
+    <div style="flex:1;min-width:0">
+      <div class="htitle">Lesson 2.3 · Measuring Success</div>
+      <div class="hsub">Agribusiness Foundations · self-paced · Mr. Beltran</div>
+    </div>
+    <div class="who hide" id="whoChip"></div>
+  </div>
 </header>
+<div class="wrap">
 
-<h2>🌱 What this lesson is about</h2>
-<div class="card">
-  <p>"Success" is more than just making a sale. A healthy business is one that <b>owns more than it owes</b> and can
-  <b>pay its bills</b> when they come due. In this lesson you'll learn to read a <b>balance sheet</b> — a snapshot of
-  everything a business owns and owes on one day — and use it to judge how healthy a business really is.</p>
-  <div class="eq"><b>Big idea:</b> what you <b>own</b> minus what you <b>owe</b> = what the business is really worth to you.</div>
+<!-- ══════════ NAME GATE ══════════ -->
+<section id="gate">
+  <div class="card">
+    <h2>📊 Measuring Success</h2>
+    <p class="muted">Work through this lesson at your own pace. Your answers save on this device as you go, and at the end you'll turn in everything with one tap.</p>
+    <input id="nameIn" placeholder="First and last name" autocomplete="off">
+    <button class="btn" onclick="startApp()">Start</button>
+    <p class="tiny" style="margin-top:14px">Use the same device each day so your saved work is here when you come back.</p>
+  </div>
+</section>
+
+<!-- ══════════ MAP ══════════ -->
+<section id="map" class="hide">
+  <div class="progwrap">
+    <div class="progbar"><div class="progfill" id="progFill" style="width:0%"></div></div>
+    <div class="progtxt"><span>Lesson progress</span><b id="progTxt">0 of 6</b></div>
+  </div>
+  <div class="secttl">Work in order — each part unlocks the next</div>
+  <div id="rows"></div>
+  <div class="secttl">Reference</div>
+  <button class="row" onclick="openStation('gloss')">
+    <div class="dot">📖</div>
+    <div class="rtext"><span class="nm">Key Terms Glossary</span>
+    <span class="sc">Every term for this lesson — open any time</span></div>
+    <div class="chev">›</div>
+  </button>
+  <p class="tiny" style="text-align:center;margin-top:20px">CASE Agribusiness Foundations · Unit 2 · Verde Tech / Mr. Beltran<br>
+  Questions? Ask in class or post in Google Classroom.</p>
+  <button class="btn quiet" onclick="resetAll()">Start over (erases saved work)</button>
+</section>
+
+<!-- ══════════ STATION CONTAINER ══════════ -->
+<section id="station" class="hide"><div id="stationBody" class="lesson"></div></section>
+
 </div>
+<script>
+'use strict';
+/* ───────── persistence ───────── */
+const KEY='abf-l23-v1';
+let S = load();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{} }catch(e){ return {} } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)) }catch(e){} }
+S.done   = S.done || {};      // station id -> true
+S.text   = S.text || {};      // answer id  -> typed text
+S.checks = S.checks || {};    // checklist id -> true
+S.scores = S.scores || {};    // quiz id -> best %
 
-<h2>📖 The words you'll use</h2>
-<div class="card">
+/* ───────── stations ───────── */
+const STATIONS = [
+ {id:'overview',  n:'1', nm:'Start Here — What This Lesson Is About', sc:'Essential questions + what you\'ll be able to do'},
+ {id:'balance',   n:'2', nm:'The Balance Sheet',                      sc:'Activity 2.3.1 · sort assets & liabilities + net worth'},
+ {id:'liquidity', n:'3', nm:'Liquidity — Can It Pay Bills Now?',      sc:'Activity 2.3.2 · the current ratio'},
+ {id:'solvency',  n:'4', nm:'Solvency — Can It Pay Everything?',      sc:'Activity 2.3.3 · the debt-to-asset ratio'},
+ {id:'health',    n:'5', nm:'Reading Financial Health',              sc:'Activity 2.3.4 · build your own balance sheet'},
+ {id:'final',     n:'✓', nm:'Final Self-Check + Turn In',            sc:'Quick quiz, then submit your work'},
+];
+function doneCount(){ return STATIONS.filter(s=>S.done[s.id]).length }
+function firstOpen(){ for(const s of STATIONS){ if(!S.done[s.id]) return s.id } return null }
+
+/* ───────── shell ───────── */
+function startApp(){
+  const v=document.getElementById('nameIn').value.trim();
+  if(!v){ document.getElementById('nameIn').focus(); return }
+  S.name=v; save(); boot();
+}
+function boot(){
+  document.getElementById('gate').classList.add('hide');
+  const chip=document.getElementById('whoChip');
+  chip.textContent=S.name; chip.classList.remove('hide');
+  goMap();
+}
+function goMap(){
+  document.getElementById('station').classList.add('hide');
+  document.getElementById('backBtn').classList.add('hide');
+  document.getElementById('map').classList.remove('hide');
+  renderMap(); window.scrollTo(0,0);
+}
+function renderMap(){
+  const open=firstOpen();
+  document.getElementById('rows').innerHTML = STATIONS.map((s,i)=>{
+    const done=!!S.done[s.id];
+    const locked=!done && s.id!==open;
+    const cls='row'+(done?' done':'')+(locked?' locked':'')+(s.id===open?' next':'');
+    const sc=done ? (s.id==='final' ? 'Done — tap to review / turn in again' : 'Done ✓  (tap to review)') : s.sc;
+    return `<button class="${cls}" ${locked?'disabled':''} onclick="openStation('${s.id}')">
+      <div class="dot">${done?'✓':s.n}</div>
+      <div class="rtext"><span class="nm">${s.nm}</span><span class="sc">${sc}</span></div>
+      <div class="chev">›</div></button>`;
+  }).join('');
+  const n=doneCount();
+  document.getElementById('progFill').style.width=(n/STATIONS.length*100)+'%';
+  document.getElementById('progTxt').textContent=`${n} of ${STATIONS.length}`;
+}
+function openStation(id){
+  document.getElementById('map').classList.add('hide');
+  document.getElementById('station').classList.remove('hide');
+  document.getElementById('backBtn').classList.remove('hide');
+  document.getElementById('stationBody').innerHTML = RENDER[id]();
+  if(AFTER[id]) AFTER[id]();
+  window.scrollTo(0,0);
+}
+function completeStation(id){ S.done[id]=true; save(); goMap(); }
+function resetAll(){ if(confirm('Erase ALL saved work and start over?')){ localStorage.removeItem(KEY); location.reload(); } }
+
+/* typed-answer helpers */
+function ta(id,ph){ return `<textarea id="ta-${id}" placeholder="${ph||'Type your answer…'}"
+  oninput="S.text['${id}']=this.value;save()">${esc(S.text[id]||'')}</textarea>` }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;') }
+function answered(ids){ return ids.every(i=>(S.text[i]||'').trim().length>=8) }
+function needAnswers(ids,btnId){
+  const b=document.getElementById(btnId); if(!b) return;
+  b.disabled=!answered(ids);
+}
+function wireAnswers(ids,btnId){
+  needAnswers(ids,btnId);
+  ids.forEach(i=>{ const el=document.getElementById('ta-'+i);
+    if(el) el.addEventListener('input',()=>needAnswers(ids,btnId)); });
+}
+
+/* ═════════ RENDERERS ═════════ */
+const RENDER={}, AFTER={};
+
+/* ── overview ── */
+RENDER.overview=()=>`
+  <h2>📊 What this lesson is about</h2>
+  <p>"Success" is more than making a sale. A business can be busy and still be broken. The real question is: does it <b>own more than it owes</b>, and can it <b>pay its bills</b> when they come due? To answer that, agribusinesses use a tool called the <b>balance sheet</b> — a one-page snapshot of everything a business owns and everything it owes on a single day.</p>
+  <p>In Lesson 1.1 you learned how a business is organized. In this lesson you learn how to <b>measure whether it is working</b>. By the end you will be able to read a balance sheet, do the same math a lender does, and say — with numbers to back you up — whether a business is healthy or headed for trouble.</p>
+  <p>Over the next few days you will:</p>
   <ul>
-    <li><span class="term">Assets</span> — everything the business <b>owns</b> (cash, tools, land, animals, inventory).</li>
-    <li><span class="term">Liabilities</span> — everything the business <b>owes</b> (loans, unpaid bills).</li>
-    <li><span class="term">Net worth (owner's equity)</span> — Assets − Liabilities. What's truly yours.</li>
-    <li><span class="term">Balance sheet</span> — a one-page snapshot listing all assets, all liabilities, and net worth on a certain date.</li>
-    <li><span class="term">Current</span> — will turn into cash or come due <b>within a year</b> (cash, this year's bills).</li>
-    <li><span class="term">Noncurrent</span> — lasts or is owed <b>longer than a year</b> (land, a multi-year loan).</li>
-    <li><span class="term">Liquidity</span> — can the business pay its <b>short-term</b> bills right now?</li>
-    <li><span class="term">Solvency</span> — can the business pay <b>everything</b> it owes if it had to?</li>
+    <li>Build and read a <b>balance sheet</b>, and calculate <b>owner's equity</b> (net worth) with the equation <b>Assets = Liabilities + Equity</b> (Activity 2.3.1)</li>
+    <li>Measure <b>liquidity</b> with the <b>current ratio</b> — can the business pay its bills right now? (Activity 2.3.2)</li>
+    <li>Measure <b>solvency</b> with the <b>debt-to-asset ratio</b> — could it pay everything it owes if it had to? (Activity 2.3.3)</li>
+    <li>Put it all together to <b>read a business's financial health</b> — and build a balance sheet for your own business idea (Activity 2.3.4)</li>
   </ul>
-</div>
+  <h3>Essential questions</h3>
+  <div class="callout">
+    1. What does a balance sheet show about a business?<br>
+    2. How do you calculate owner's equity (net worth)?<br>
+    3. What is liquidity, and how do you measure it?<br>
+    4. What is solvency, and how do you measure it?<br>
+    5. How can you tell whether a business is financially healthy?
+  </div>
+  <p class="muted">Keep these in the back of your mind — by the end of the lesson you should be able to answer every one of them without looking.</p>
+  <h3>Words you'll meet</h3>
+  <p class="muted">Asset · liability · owner's equity · net worth · balance sheet · accounting equation · current · noncurrent · liquidity · current ratio · working capital · solvency · debt-to-asset ratio · financial health … The full <b>📖 Glossary</b> is on the map screen any time you need it.</p>
+  <button class="btn" onclick="completeStation('overview')">Got it — start Activity 1</button>`;
 
-<h2>🧮 Activity 2.3.1 — Build &amp; Read a Balance Sheet</h2>
-<div class="card">
-  <p>First, sort. Label each item <b>Asset</b> or <b>Liability</b>, and then <b>current</b> or <b>noncurrent</b>:</p>
-  <table>
-    <tr><th>Item</th><th>Asset or Liability?</th><th>Current or Noncurrent?</th></tr>
-    <tr><td>$800 cash in the business account</td><td></td><td></td></tr>
-    <tr><td>A tractor worth $12,000</td><td></td><td></td></tr>
-    <tr><td>$300 feed bill due next week</td><td></td><td></td></tr>
-    <tr><td>A 5-year loan of $6,000</td><td></td><td></td></tr>
-    <tr><td>$500 of hay in the barn to sell</td><td></td><td></td></tr>
-  </table>
-  <p>Now find net worth for this business:</p>
-  <div class="eq"><b>Net worth = Total assets − Total liabilities</b></div>
-  <div class="try"><b>Do the math:</b> Add the assets above, add the liabilities above, and subtract. What is this business's net worth? Is it positive (good) or negative (in trouble)?</div>
-</div>
-
-<h2>💧 Activity 2.3.2 — Liquidity (Can it pay bills now?)</h2>
-<div class="card">
-  <p>Liquidity asks: does the business have enough <b>current assets</b> to cover its <b>current liabilities</b>?</p>
-  <div class="eq"><b>Current ratio = Current assets ÷ Current liabilities</b></div>
-  <p>A ratio <b>above 1.0</b> means it can cover its short-term bills. Below 1.0 means it can't — that's a warning sign.</p>
-  <p><b>Two farm stands:</b></p>
-  <table>
-    <tr><th></th><th>Current assets</th><th>Current liabilities</th><th>Current ratio = ?</th></tr>
-    <tr><td>Stand A</td><td>$4,000</td><td>$2,000</td><td></td></tr>
-    <tr><td>Stand B</td><td>$1,500</td><td>$3,000</td><td></td></tr>
-  </table>
-  <div class="try"><b>Answer:</b> Which stand can pay its short-term bills, and which one is in trouble? How can you tell from the ratio?</div>
-</div>
-
-<h2>🏦 Activity 2.3.3 — Solvency (Can it pay everything?)</h2>
-<div class="card">
-  <p>Solvency looks at the <b>whole</b> business — all debts against all assets.</p>
-  <div class="eq"><b>Debt-to-asset ratio = Total liabilities ÷ Total assets</b></div>
-  <p>This tells you what fraction of the business is owed to lenders. <b>Lower is healthier</b> — it means more of the
-  business is actually yours. (For example, 0.30 means 30% is owed and 70% is yours.)</p>
-  <p><b>Two businesses:</b></p>
-  <table>
-    <tr><th></th><th>Total liabilities</th><th>Total assets</th><th>Debt-to-asset = ?</th></tr>
-    <tr><td>Business X</td><td>$3,000</td><td>$10,000</td><td></td></tr>
-    <tr><td>Business Y</td><td>$8,000</td><td>$10,000</td><td></td></tr>
-  </table>
-  <div class="try"><b>Answer:</b> Which business owns more of itself and is on safer ground? Explain using the ratios.</div>
-</div>
-
-<h2>📋 Project 2.3.4 — Your Business's Balance Sheet</h2>
-<div class="card">
-  <p>For the business idea you've been planning, make a simple balance sheet:</p>
+/* ── balance sheet ── */
+const BAL_ITEMS=[
+  {t:'$800 cash in the business checking account', asset:true,  why:'Cash the business owns — an asset (and a current one).'},
+  {t:'A tractor the business owns, worth $12,000',  asset:true,  why:'Equipment you own is an asset (noncurrent — it lasts years).'},
+  {t:'A $300 feed bill due next week',             asset:false, why:'A bill you owe is a liability (current — due within a year).'},
+  {t:'A 5-year loan of $6,000',                    asset:false, why:'Borrowed money you must repay is a liability (noncurrent).'},
+  {t:'$500 of hay in the barn, ready to sell',     asset:true,  why:'Inventory you own and can sell is an asset (current).'},
+  {t:'40 acres of pasture land the business owns',  asset:true,  why:'Land you own is an asset (noncurrent).'},
+  {t:'$1,200 still owed on the truck',             asset:false, why:'Money still owed is a liability.'},
+  {t:'A flock of 30 laying hens the business raised', asset:true, why:'Livestock you own is an asset.'},
+  {t:'A $150 unpaid electric bill',                asset:false, why:'An unpaid bill is a liability (current).'},
+  {t:'$400 in the business savings account',       asset:true,  why:'Savings you own is an asset (current).'},
+];
+RENDER.balance=()=>`
+  <h2>🧮 Activity 2.3.1 — The Balance Sheet</h2>
+  <p>A <b>balance sheet</b> is a financial snapshot: it lists everything a business <b>owns</b>, everything it <b>owes</b>, and what is left over for the owner — all as of <i>one specific date</i>. It's called a "balance" sheet because the two sides always balance to the same total.</p>
+  <h3>The three parts</h3>
   <ul>
-    <li>List at least <b>4 assets</b> (what your business owns) with a dollar value for each.</li>
-    <li>List at least <b>2 liabilities</b> (what it owes) with a dollar value for each.</li>
-    <li>Add up each side and calculate your <b>net worth</b> (assets − liabilities).</li>
-    <li>Calculate your <b>current ratio</b> if you can.</li>
+    <li><b>Assets</b> — everything the business <b>owns</b> that has value: cash, tools, machinery, land, animals, inventory, and money other people owe to it.</li>
+    <li><b>Liabilities</b> — everything the business <b>owes</b>: loans, unpaid bills, and other financial obligations.</li>
+    <li><b>Owner's equity</b> (also called <b>net worth</b>) — what is truly the owner's after the debts are covered.</li>
   </ul>
-  <div class="try"><b>Wrap it up:</b> Based on your numbers, is your business healthy? Write two sentences using the words <i>net worth</i>, <i>liquidity</i>, or <i>solvency</i>.</div>
-</div>
+  <div class="callout"><b>The accounting equation:</b><br>
+    <b>Assets = Liabilities + Owner's Equity</b><br>
+    Rearranged, that's the money question you actually care about:<br>
+    <b>Owner's Equity = Total Assets − Total Liabilities</b><br><br>
+    In plain English: <i>what you own, minus what you owe, is what the business is really worth to you.</i></div>
+  <h3>Current vs. noncurrent</h3>
+  <p>Every asset and liability is also labeled by <b>time</b>:</p>
+  <ul>
+    <li><b>Current</b> — will turn into cash, or come due, <b>within one year</b> (cash, hay to sell this season, this month's bills).</li>
+    <li><b>Noncurrent</b> — lasts, or is owed, <b>longer than a year</b> (land, a tractor, a 5-year loan).</li>
+  </ul>
+  <p>That time split matters later: to know if a business can pay its <i>short-term</i> bills, you compare its <i>current</i> assets to its <i>current</i> liabilities. Keep it in mind.</p>
+  <h3>A worked example</h3>
+  <p>Suppose a small goat operation has these totals on June 1:</p>
+  <div class="struct"><b>Total assets: $18,000</b><p>($1,200 cash + $500 hay + $4,300 goats + $12,000 in equipment and land)</p></div>
+  <div class="struct"><b>Total liabilities: $5,000</b><p>($300 feed bill + $4,700 remaining on a loan)</p></div>
+  <div class="callout sun"><b>Owner's equity = $18,000 − $5,000 = $13,000.</b> That $13,000 is what the operation is really worth to its owner. Because it's a positive number, the business owns more than it owes — a healthy sign.</div>
+  <h3>Sort it yourself</h3>
+  <p class="muted">For each item below, decide: is it an <b>ASSET</b> (something the business owns) or a <b>LIABILITY</b> (something it owes)?</p>
+  <div class="card" id="sortCard">
+    <div class="tiny" id="sortCount"></div>
+    <div class="sortitem" id="sortItem"></div>
+    <div class="sortbtns">
+      <button class="sb-need" onclick="balPick(true)">ASSET</button>
+      <button class="sb-want" onclick="balPick(false)">LIABILITY</button>
+    </div>
+    <div class="sortfeed" id="sortFeed"></div>
+  </div>
+  <div id="balDoneMsg" class="hide">
+    <h3>Do the math &amp; explain</h3>
+    <p class="muted">Use this mini balance sheet:</p>
+    <div class="callout"><b>Assets:</b> $800 cash · $500 hay · $12,000 tractor &nbsp;&nbsp;|&nbsp;&nbsp; <b>Liabilities:</b> $300 feed bill · $6,000 loan</div>
+    <div class="qlabel"><span class="qn">Q1.</span> Add the assets, add the liabilities, then subtract. What is this business's owner's equity (net worth)? Show your numbers, and say whether it is positive (healthy) or negative (in trouble).</div>
+    ${ta('balance-q1','Total assets = …\nTotal liabilities = …\nOwner\'s equity = …\nHealthy or in trouble? …')}
+    <div class="qlabel"><span class="qn">Q2.</span> In your own words, what does a balance sheet show, and why does the accounting equation (Assets = Liabilities + Owner's Equity) always balance?</div>
+    ${ta('balance-q2')}
+    <button class="btn" id="balanceDone" onclick="completeStation('balance')">Finish Activity 1</button>
+    <p class="tiny" style="text-align:center">Answer both questions to unlock the button.</p>
+  </div>`;
+AFTER.balance=()=>{
+  let i=S.balIdx||0, right=S.balRight||0;
+  if(S.done.balance){ i=BAL_ITEMS.length } // reviewing: skip to questions
+  const item=document.getElementById('sortItem'), feed=document.getElementById('sortFeed'),
+        count=document.getElementById('sortCount');
+  function show(){
+    if(i>=BAL_ITEMS.length){
+      document.getElementById('sortCard').classList.add('hide');
+      document.getElementById('balDoneMsg').classList.remove('hide');
+      wireAnswers(['balance-q1','balance-q2'],'balanceDone');
+      return;
+    }
+    count.textContent=`Item ${i+1} of ${BAL_ITEMS.length}`;
+    item.textContent=BAL_ITEMS[i].t; feed.textContent=''; feed.className='sortfeed';
+  }
+  window.balPick=(saidAsset)=>{
+    if(i>=BAL_ITEMS.length) return;
+    const it=BAL_ITEMS[i];
+    const ok=(saidAsset===it.asset);
+    if(ok) right++;
+    feed.textContent=(ok?'✓ Right — ':'✗ Actually a '+(it.asset?'ASSET':'LIABILITY')+' — ')+it.why;
+    feed.className='sortfeed '+(ok?'ok':'no');
+    i++; S.balIdx=i; S.balRight=right; save();
+    setTimeout(show, ok?1400:2600);
+  };
+  show();
+};
 
-<h2>✅ Quick self-check</h2>
-<div class="card">
-  <ol>
-    <li>What does a balance sheet show?</li>
-    <li>How do you calculate net worth?</li>
-    <li>What's the difference between liquidity and solvency?</li>
-  </ol>
-</div>
+/* ── liquidity ── */
+const LIQ_OPTS={ok:'Healthy — it can cover its short-term bills',warn:'Warning — it cannot cover its short-term bills',even:'Break-even — assets just equal the bills'};
+const LIQ_SCEN=[
+  {t:'A farm stand has $4,000 in current assets and $2,000 in current liabilities. Current ratio = 4,000 ÷ 2,000 = 2.0. What does that tell you?',
+   a:'ok', hint:'2.0 is well above 1.0 — twice the assets needed to cover the bills.'},
+  {t:'Another stand has $1,500 in current assets and $3,000 in current liabilities. Current ratio = 1,500 ÷ 3,000 = 0.5. What does that tell you?',
+   a:'warn', hint:'0.5 is below 1.0 — only half the cash needed to cover the bills.'},
+  {t:'A greenhouse has $3,000 in current assets and $3,000 in current liabilities. Current ratio = 1.0. What does that tell you?',
+   a:'even', hint:'Exactly 1.0 means current assets just equal current liabilities — no cushion.'},
+  {t:'An orchard has $9,000 in current assets and $3,000 in current liabilities. Current ratio = 3.0. What does that tell you?',
+   a:'ok', hint:'3.0 is comfortably above 1.0 — a strong cushion.'},
+];
+RENDER.liquidity=()=>`
+  <h2>💧 Activity 2.3.2 — Liquidity</h2>
+  <p><b>Liquidity</b> answers a short, urgent question: <i>can the business pay the bills that are due soon?</i> A business can own a lot — land, a barn, a herd — and still be in trouble if it doesn't have enough cash (or things it can quickly turn into cash) to cover this month's bills. You can't pay the feed store with a pasture.</p>
+  <p>That's why the <b>current</b> label from Activity 1 matters. Liquidity compares only the <b>current assets</b> (cash and things that become cash within a year) to the <b>current liabilities</b> (bills due within a year).</p>
+  <div class="callout"><b>Current ratio = Current Assets ÷ Current Liabilities</b><br><br>
+    • <b>Above 1.0</b> → more current assets than current bills. It can cover its short-term obligations. 👍<br>
+    • <b>Exactly 1.0</b> → assets just equal the bills. No cushion.<br>
+    • <b>Below 1.0</b> → not enough to cover short-term bills. A warning sign. 👎</div>
+  <p>The gap between current assets and current liabilities is called <b>working capital</b> (Current Assets − Current Liabilities). Positive working capital is the cushion a business runs on day to day.</p>
+  <h3>Read the ratio</h3>
+  <p class="muted">For each business below, the current ratio is calculated for you. Pick what it tells you about the business's ability to pay its short-term bills.</p>
+  <div class="card" id="liqCard"></div>
+  <div id="liqQs" class="hide">
+    <h3>Do the math &amp; explain</h3>
+    <p class="muted">Two farm stands:</p>
+    <div class="callout"><b>Stand A:</b> current assets $4,000, current liabilities $2,000<br><b>Stand B:</b> current assets $1,500, current liabilities $3,000</div>
+    <div class="qlabel"><span class="qn">Q1.</span> Calculate the current ratio for each stand (show the division). Which one can pay its short-term bills, and which is in trouble? How can you tell from the ratio?</div>
+    ${ta('liquidity-q1','Stand A current ratio = 4,000 ÷ 2,000 = …\nStand B current ratio = 1,500 ÷ 3,000 = …\nWhich is healthy, and why? …')}
+    <div class="qlabel"><span class="qn">Q2.</span> In your own words, what is liquidity, and why might a business that owns a lot of land and equipment still have a liquidity problem?</div>
+    ${ta('liquidity-q2')}
+    <button class="btn" id="liquidityDone" onclick="completeStation('liquidity')">Finish Activity 2</button>
+  </div>`;
+AFTER.liquidity=()=>{
+  let i=S.liqIdx||0;
+  if(S.done.liquidity) i=LIQ_SCEN.length;
+  const card=document.getElementById('liqCard');
+  function draw(){
+    if(i>=LIQ_SCEN.length){
+      card.classList.add('hide');
+      document.getElementById('liqQs').classList.remove('hide');
+      wireAnswers(['liquidity-q1','liquidity-q2'],'liquidityDone');
+      return;
+    }
+    const sc=LIQ_SCEN[i];
+    const opts=Object.keys(LIQ_OPTS).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Business ${i+1} of ${LIQ_SCEN.length}</div>
+      <p style="font-size:15.5px">${sc.t}</p>
+      ${opts.map(k=>`<button class="opt" data-k="${k}" onclick="liqPick('${k}',this)">${LIQ_OPTS[k]}</button>`).join('')}
+      <div class="mcq-feed" id="liqFeed"></div>`;
+  }
+  window.liqPick=(k,el)=>{
+    const sc=LIQ_SCEN[i], feed=document.getElementById('liqFeed');
+    if(k===sc.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ Exactly.'; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+      i++; S.liqIdx=i; save(); setTimeout(draw,1400);
+    }else{
+      el.classList.add('picked-no'); feed.textContent='Not quite — hint: '+sc.hint; feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),900);
+    }
+  };
+  draw();
+};
 
-<div class="turn">📤 <b>Turn in your work:</b> your answers and math for Activities 2.3.1–2.3.3 and your Project 2.3.4 balance sheet — through Google Classroom, the way your teacher showed you.</div>
-</div></body></html>
+/* ── solvency ── */
+const SOLV=[
+  ['Green Acres — debt-to-asset 0.10','Only 10% is owed to lenders; 90% is truly the owner\'s. Safest of the four.'],
+  ['Riverbend Farm — debt-to-asset 0.30','30% owed, 70% owned. Strong, healthy footing.'],
+  ['Hilltop Ranch — debt-to-asset 0.55','More than half is owed. Getting risky — little room for a bad year.'],
+  ['Delta Produce — debt-to-asset 0.85','85% owed; only 15% is the owner\'s. The riskiest — deeply in debt.'],
+];
+RENDER.solvency=()=>`
+  <h2>🏦 Activity 2.3.3 — Solvency</h2>
+  <p>Liquidity was the short-term question. <b>Solvency</b> is the big-picture, long-term one: <i>if the business had to pay off everything it owes, could it?</i> Solvency looks at the <b>whole</b> business — <b>all</b> the debts against <b>all</b> the assets, current and noncurrent together.</p>
+  <div class="callout"><b>Debt-to-asset ratio = Total Liabilities ÷ Total Assets</b><br><br>
+    This tells you what fraction of the business is owed to lenders.<br>
+    • A ratio of <b>0.30</b> means 30% is owed and <b>70% is truly the owner's</b>.<br>
+    • <b>Lower is healthier</b> — more of the business is actually yours, and less can be lost to lenders.<br>
+    • As the ratio climbs toward 1.0, the owner owns almost nothing and one bad year can sink the business.</div>
+  <p>Notice how the two measures work together. A business can be <b>liquid</b> (able to pay this month) but not very <b>solvent</b> (buried in long-term debt) — or the reverse. Lenders look at both before approving a loan, and so should you.</p>
+  <h3>Watch — then practice</h3>
+  <a class="ext" href="https://www.youtube.com/watch?v=YQujxA9jZUo" target="_blank" rel="noopener">▶️ Reading a Balance Sheet <small>How assets, liabilities, and equity fit together · take notes</small></a>
+  <h3>Rank the businesses</h3>
+  <p class="muted">Below are four operations with different debt-to-asset ratios. Tap them in order from <b>SAFEST</b> (owns the most of itself) to <b>RISKIEST</b> (owes the most). Remember: lower ratio = healthier.</p>
+  <div class="card">
+    <div id="solvSlots"></div>
+    <div id="solvPicks"></div>
+    <div class="mcq-feed" id="solvFeed"></div>
+  </div>
+  <div id="solvSteps" class="hide">
+    <h3>What each ratio means</h3>
+    ${SOLV.map(([t,d],idx)=>`<div class="term"><b>${idx+1}. ${t}</b><span>${d}</span></div>`).join('')}
+    <h3>Do the math &amp; explain</h3>
+    <p class="muted">Two businesses:</p>
+    <div class="callout"><b>Business X:</b> total liabilities $3,000, total assets $10,000<br><b>Business Y:</b> total liabilities $8,000, total assets $10,000</div>
+    <div class="qlabel"><span class="qn">Q1.</span> Calculate each debt-to-asset ratio (show the division). Which business owns more of itself and is on safer ground? Explain using the ratios.</div>
+    ${ta('solvency-q1','Business X = 3,000 ÷ 10,000 = …\nBusiness Y = 8,000 ÷ 10,000 = …\nWhich is safer, and why? …')}
+    <div class="qlabel"><span class="qn">Q2.</span> In your own words, what is the difference between <b>liquidity</b> and <b>solvency</b>? Give a one-line example of a business that is one but not the other.</div>
+    ${ta('solvency-q2')}
+    <button class="btn" id="solvencyDone" onclick="completeStation('solvency')">Finish Activity 3</button>
+  </div>`;
+AFTER.solvency=()=>{
+  let placed=S.solvPlaced||0;
+  if(S.done.solvency) placed=SOLV.length;
+  const slots=document.getElementById('solvSlots'), picks=document.getElementById('solvPicks'),
+        feed=document.getElementById('solvFeed');
+  let order=S.solvOrder;
+  if(!order || placed===0){ order=[...SOLV.keys()].sort(()=>Math.random()-.5); S.solvOrder=order; save(); }
+  function draw(){
+    slots.innerHTML=[...Array(placed).keys()].map(k=>`<div class="chainslot">${k+1}. ${SOLV[k][0]}</div>`).join('')
+      || '<div class="tiny">Ranking so far: (empty — which is safest?)</div>';
+    if(placed>=SOLV.length){
+      picks.innerHTML=''; feed.textContent='✓ Ranked correctly, safest to riskiest!'; feed.className='mcq-feed ok';
+      document.getElementById('solvSteps').classList.remove('hide');
+      wireAnswers(['solvency-q1','solvency-q2'],'solvencyDone');
+      return;
+    }
+    const remaining=order.filter(k=>k>=placed);
+    picks.innerHTML=remaining.map(k=>`<button class="chainpick" onclick="solvPick(${k},this)">${SOLV[k][0]}</button>`).join('');
+  }
+  window.solvPick=(k,el)=>{
+    if(k===placed){
+      placed++; S.solvPlaced=placed; save();
+      feed.textContent='✓'; feed.className='mcq-feed ok'; draw();
+    }else{
+      feed.textContent='Not next — remember, lower debt-to-asset = safer. Which of these is safest of the ones left?';
+      feed.className='mcq-feed no';
+      el.disabled=true; setTimeout(()=>{el.disabled=false},900);
+    }
+  };
+  draw();
+};
+
+/* ── financial health / build your own ── */
+const BS_CHECKS=[
+  ['bs1','Write the name of the business you have been planning at the top of a page'],
+  ['bs2','List at least 4 ASSETS (what it owns) with a dollar value for each'],
+  ['bs3','List at least 2 LIABILITIES (what it owes) with a dollar value for each'],
+  ['bs4','Add up your total assets, then add up your total liabilities'],
+  ['bs5','Subtract to find owner\'s equity (net worth): Assets − Liabilities'],
+  ['bs6','Mark whether your net worth is positive (healthy) or negative (in trouble)'],
+  ['bs7','If you can, split assets/liabilities into current vs. noncurrent and compute your current ratio'],
+];
+RENDER.health=()=>`
+  <h2>📋 Activity 2.3.4 — Reading Financial Health</h2>
+  <p>You now have every tool a lender uses. Put them together and you can look at any balance sheet and judge a business's <b>financial health</b> at a glance. Here's the checklist a healthy agribusiness passes:</p>
+  <div class="struct"><b>1 · Positive owner's equity</b><p>Assets are bigger than liabilities — the business owns more than it owes.</p></div>
+  <div class="struct"><b>2 · Current ratio above 1.0</b><p>It has enough current assets to cover the bills due this year — it's liquid.</p></div>
+  <div class="struct"><b>3 · A low debt-to-asset ratio</b><p>Most of the business belongs to the owner, not to lenders — it's solvent.</p></div>
+  <div class="callout sun"><b>The three questions, in plain English:</b><br>
+    Does it own more than it owes? (equity)<br>
+    Can it pay the bills due soon? (liquidity)<br>
+    Could it pay off everything if it had to? (solvency)<br>
+    A "yes" to all three is a healthy business.</div>
+  <h3>Build your own balance sheet</h3>
+  <p class="muted">For the business idea you've been planning in this unit, build a simple balance sheet. Do it on paper or in a doc, then tap each step below as you finish it.</p>
+  <div id="bsChecks"></div>
+  <h3>Turn your balance sheet into words</h3>
+  <div class="qlabel"><span class="qn">Q1.</span> List your <b>assets</b> (at least 4) with a dollar value for each, then give your <b>total assets</b>.</div>
+  ${ta('health-q1','Asset 1: … $…\nAsset 2: … $…\nAsset 3: … $…\nAsset 4: … $…\nTotal assets = $…')}
+  <div class="qlabel"><span class="qn">Q2.</span> List your <b>liabilities</b> (at least 2) with a dollar value for each, then give your <b>total liabilities</b>.</div>
+  ${ta('health-q2','Liability 1: … $…\nLiability 2: … $…\nTotal liabilities = $…')}
+  <div class="qlabel"><span class="qn">Q3.</span> Calculate your <b>owner's equity</b> (total assets − total liabilities). If you can, also give your <b>current ratio</b>.</div>
+  ${ta('health-q3','Owner\'s equity = assets − liabilities = $…\nCurrent ratio (if known) = …')}
+  <div class="qlabel"><span class="qn">Q4.</span> Based on your numbers, is your business healthy? Write two or three sentences using the words <i>net worth</i>, <i>liquidity</i>, and <i>solvency</i>.</div>
+  ${ta('health-q4')}
+  <button class="btn" id="healthDone" onclick="completeStation('health')">Finish Activity 4</button>
+  <p class="tiny" style="text-align:center">Check every box and answer all four questions to unlock.</p>`;
+AFTER.health=()=>{
+  const wrap=document.getElementById('bsChecks');
+  function draw(){
+    wrap.innerHTML=BS_CHECKS.map(([id,t])=>`
+      <button class="ck ${S.checks[id]?'on':''}" onclick="toggleCk('${id}')">
+        <div class="box">${S.checks[id]?'✓':''}</div><div class="t">${t}</div></button>`).join('');
+    gate();
+  }
+  function gate(){
+    const all=BS_CHECKS.every(([id])=>S.checks[id]);
+    const b=document.getElementById('healthDone');
+    b.disabled=!(all && answered(['health-q1','health-q2','health-q3','health-q4']));
+  }
+  window.toggleCk=(id)=>{ S.checks[id]=!S.checks[id]; save(); draw(); };
+  ['health-q1','health-q2','health-q3','health-q4'].forEach(i=>{
+    const el=document.getElementById('ta-'+i); if(el) el.addEventListener('input',gate);
+  });
+  draw();
+};
+
+/* ── final quiz + turn-in ── */
+const QUIZ=[
+  {q:'A balance sheet shows…',
+   o:['A business\'s sales for the whole year','Everything a business owns and owes on one specific date','Only the money in the cash register','A list of the business\'s employees'],a:1},
+  {q:'The accounting equation is…',
+   o:['Assets = Liabilities + Owner\'s Equity','Assets = Income − Expenses','Liabilities = Assets + Equity','Equity = Assets + Liabilities'],a:0},
+  {q:'Owner\'s equity (net worth) is calculated by…',
+   o:['Adding assets and liabilities together','Total liabilities − total assets','Total assets − total liabilities','Dividing assets by liabilities'],a:2},
+  {q:'Which of these is an ASSET?',
+   o:['A 5-year loan the business took out','A tractor the business owns','An unpaid feed bill','Wages the business still owes'],a:1},
+  {q:'Which of these is a LIABILITY?',
+   o:['$500 of hay in the barn to sell','Cash in the business account','A $6,000 loan the business must repay','A flock of hens the business owns'],a:2},
+  {q:'A "current" asset or liability is one that…',
+   o:['Will turn into cash or come due within one year','Lasts longer than ten years','Can never be sold','Belongs only to the lender'],a:0},
+  {q:'The current ratio is calculated as…',
+   o:['Total liabilities ÷ total assets','Current assets ÷ current liabilities','Assets − liabilities','Current liabilities ÷ current assets'],a:1},
+  {q:'A current ratio BELOW 1.0 means the business…',
+   o:['Has more than enough to cover short-term bills','Owns no equipment','Does not have enough current assets to cover its current bills','Has paid off all its debt'],a:2},
+  {q:'The debt-to-asset ratio is calculated as…',
+   o:['Total liabilities ÷ total assets','Total assets ÷ total liabilities','Current assets ÷ current liabilities','Owner\'s equity ÷ assets'],a:0},
+  {q:'A debt-to-asset ratio of 0.30 means…',
+   o:['The owner owes nothing at all','30% is owed to lenders and 70% is truly the owner\'s — and lower is healthier','The business is bankrupt','70% is owed to lenders'],a:1},
+];
+const PASS=80;
+RENDER.final=()=>`
+  <h2>✅ Final Self-Check</h2>
+  <p class="muted">10 questions from the whole lesson. You need <b>${PASS}%</b> to finish — you can retry as many times as you want, and the questions reshuffle. This is practice: the graded <b>Check for Understanding</b> comes from Mr. Beltran in class.</p>
+  <div class="card" id="quizCard"></div>
+  <div id="turnin" class="hide">
+    <div class="bigscore" id="scoreBig"></div>
+    <p class="muted" style="text-align:center" id="scoreMsg"></p>
+    <h3>📤 Turn in your work</h3>
+    <p class="muted">This gathers every answer you typed into one block. Copy it, then paste it into the <b>Google Classroom assignment</b> (private comment or the attached doc) — or show this screen to Mr. Beltran.</p>
+    <pre id="compiled"></pre>
+    <button class="btn" onclick="copyWork(this)">📋 Copy my work</button>
+    <button class="btn ghost" onclick="completeStation('final')">Done — back to map</button>
+  </div>`;
+AFTER.final=()=>{
+  let qs=[], qi=0, right=0;
+  const card=document.getElementById('quizCard');
+  function start(){
+    qs=[...QUIZ].sort(()=>Math.random()-.5).slice(0,10);
+    qi=0; right=0;
+    card.classList.remove('hide');
+    document.getElementById('turnin').classList.add('hide');
+    draw();
+  }
+  function draw(){
+    if(qi>=qs.length) return finish();
+    const q=qs[qi];
+    const idx=q.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="mcq-top"><span>Question ${qi+1} of ${qs.length}</span><span>Score: ${right}</span></div>
+      <div class="mcq-q">${q.q}</div>
+      ${idx.map(k=>`<button class="opt" onclick="qPick(${k},this)">${q.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="qFeed"></div>`;
+  }
+  window.qPick=(k,el)=>{
+    const q=qs[qi], feed=document.getElementById('qFeed');
+    card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+    if(k===q.a){ right++; el.classList.add('picked-ok'); feed.textContent='✓ Correct'; feed.className='mcq-feed ok'; }
+    else{
+      el.classList.add('picked-no');
+      card.querySelectorAll('.opt').forEach(o=>{ if(o.textContent===q.o[q.a]) o.classList.add('reveal'); });
+      feed.textContent='✗ The answer: '+q.o[q.a]; feed.className='mcq-feed no';
+    }
+    qi++; setTimeout(draw, k===q.a?900:2400);
+  };
+  function finish(){
+    const pct=Math.round(right/qs.length*100);
+    S.scores.final=Math.max(S.scores.final||0,pct); save();
+    if(pct<PASS){
+      card.innerHTML=`<div class="bigscore" style="color:var(--sun)">${pct}%</div>
+        <p class="muted" style="text-align:center">Almost — you need ${PASS}%. Skim the stations you're shaky on (they stay open on the map), then try again. New shuffle every time.</p>
+        <button class="btn" id="retryBtn">Try again</button>`;
+      document.getElementById('retryBtn').onclick=start;
+      return;
+    }
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=pct+'%';
+    document.getElementById('scoreMsg').textContent=pct===100?'Perfect score. Outstanding.':'Passed — nice work.';
+    document.getElementById('compiled').textContent=compile(pct); cloudSubmit();
+    window.scrollTo(0,0);
+  }
+  if(S.done.final && (S.scores.final||0)>=PASS){
+    // reviewing after completion: show turn-in immediately with best score
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=(S.scores.final||0)+'%';
+    document.getElementById('scoreMsg').textContent='Best score (already passed).';
+    document.getElementById('compiled').textContent=compile(S.scores.final||0); cloudSubmit();
+  } else start();
+};
+
+/* ── cloud turn-in: save the student's compiled work to the teacher dashboard ── */
+var SUBMIT_DB='https://verde-animation-25368-default-rtdb.firebaseio.com/submissions';
+var LESSON_ID='agb-2-3';
+function subSlug(s){return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'student';}
+function cloudSubmit(){
+  try{
+    var work=(document.getElementById('compiled')||{}).textContent||'';
+    var se=document.getElementById('scoreBig');
+    var score=se?(parseInt(se.textContent,10)||0):0;
+    var name=(typeof S!=='undefined'&&S.name)?S.name:'';
+    if(!work) return;
+    fetch(SUBMIT_DB+'/'+LESSON_ID+'/'+subSlug(name)+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,lesson:LESSON_ID,score:score,work:work,updated:Date.now()})}).catch(function(){});
+  }catch(e){}
+}
+
+function compile(pct){
+  const L=[], A=(id)=> (S.text[id]||'—').trim();
+  L.push('ABF LESSON 2.3 — MEASURING SUCCESS · SELF-PACED WORK');
+  L.push('Student: '+(S.name||'?'));
+  L.push('Date: '+new Date().toLocaleDateString());
+  L.push('Final self-check score: '+pct+'%');
+  L.push('');
+  L.push('— Activity 2.3.1 The Balance Sheet —');
+  L.push('Asset/Liability sort: '+(S.balRight||0)+' correct on first tries (all items completed to advance)');
+  L.push('Q1 (net worth math): '+A('balance-q1'));
+  L.push('Q2 (what a balance sheet shows / equation): '+A('balance-q2'));
+  L.push('');
+  L.push('— Activity 2.3.2 Liquidity —');
+  L.push('Current-ratio readings: all matched correctly (required to advance)');
+  L.push('Q1 (two farm stands current ratios): '+A('liquidity-q1'));
+  L.push('Q2 (what liquidity is): '+A('liquidity-q2'));
+  L.push('');
+  L.push('— Activity 2.3.3 Solvency —');
+  L.push('Debt-to-asset ranking: 4 businesses ordered safest→riskiest (required to advance)');
+  L.push('Q1 (Business X vs Y debt-to-asset): '+A('solvency-q1'));
+  L.push('Q2 (liquidity vs solvency): '+A('solvency-q2'));
+  L.push('');
+  L.push('— Activity 2.3.4 Reading Financial Health / My Balance Sheet —');
+  L.push('Balance-sheet build checklist: '+BS_CHECKS.filter(([id])=>S.checks[id]).length+' of '+BS_CHECKS.length+' steps done');
+  L.push('Q1 (my assets + total): '+A('health-q1'));
+  L.push('Q2 (my liabilities + total): '+A('health-q2'));
+  L.push('Q3 (my owner\'s equity / current ratio): '+A('health-q3'));
+  L.push('Q4 (is my business healthy?): '+A('health-q4'));
+  return L.join('\n');
+}
+function copyWork(btn){
+  const t=document.getElementById('compiled').textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+    .then(()=>{ btn.textContent='✓ Copied — paste it into Classroom'; })
+    .catch(()=>{ // fallback: select the block
+      const r=document.createRange(); r.selectNode(document.getElementById('compiled'));
+      getSelection().removeAllRanges(); getSelection().addRange(r);
+      btn.textContent='Select + copy the highlighted text above';
+    });
+}
+
+/* ── glossary ── */
+const GLOSS=[
+['Accounting equation','The rule every balance sheet follows: Assets = Liabilities + Owner\'s Equity.'],
+['Asset','Physical or financial property that has value and is owned by a business or individual: cash, equipment, land, livestock, inventory.'],
+['Balance sheet','A financial snapshot listing all of a business\'s assets, liabilities, and owner\'s equity as of one specific date.'],
+['Current asset','An asset that will be used up or turned into cash within one year, such as cash, inventory, or hay to be sold this season.'],
+['Current liability','A debt or bill that must be paid within one year, such as a feed bill or this month\'s utilities.'],
+['Current ratio','Current assets ÷ current liabilities. A measure of liquidity; above 1.0 means the business can cover its short-term bills.'],
+['Debt-to-asset ratio','Total liabilities ÷ total assets. A measure of solvency; the fraction of the business owed to lenders. Lower is healthier.'],
+['Equity','See owner\'s equity — the owner\'s share of the business after debts are subtracted.'],
+['Financial health','The overall picture of whether a business owns more than it owes, can pay its short-term bills, and can cover all its debts.'],
+['Liability','A financial obligation (debt) the business owes and must pay at some future time: loans and unpaid bills.'],
+['Liquidity','A measure of whether a business can pay its short-term (current) bills as they come due.'],
+['Net worth','Another name for owner\'s equity: total assets minus total liabilities — what the business is truly worth to its owner.'],
+['Noncurrent asset','An asset that lasts longer than one year, such as land, buildings, or machinery.'],
+['Noncurrent liability','A debt owed over a period longer than one year, such as a multi-year loan or mortgage.'],
+['Owner\'s equity','What is left for the owner after liabilities are subtracted from assets; the owner\'s share of the business. Assets − Liabilities.'],
+['Solvency','A measure of whether a business could pay off everything it owes — all debts against all assets.'],
+['Working capital','Current assets minus current liabilities; the cash cushion a business runs on day to day.'],
+];
+RENDER.gloss=()=>`
+  <h2>📖 Lesson 2.3 Glossary</h2>
+  <p class="muted">Every key term for this lesson.</p>
+  ${GLOSS.map(([t,d])=>`<div class="term"><b>${t}</b><span>${d}</span></div>`).join('')}
+  <button class="btn ghost" onclick="goMap()">Back to map</button>`;
+
+/* ───────── boot ───────── */
+if(S.name) boot();
+</script>
+</body>
+</html>

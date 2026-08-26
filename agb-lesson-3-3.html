@@ -1,121 +1,784 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Lesson 3.3 Risk and Opportunity — Self-Paced — Verde Tech</title>
+<meta name="theme-color" content="#2f6b3f">
+<!--
+  ABF Lesson 3.3 "Risk and Opportunity" — self-paced student module.
+  Built from the CASE ABF curriculum Leo teaches in P2 Agribusiness (Unit 3, risk management).
+  Standalone file: no server, no login, works offline (videos need internet).
+  Student work saves in the browser (localStorage) and compiles into one text block to turn in.
+  The graded Lesson 3.3 Check for Understanding is NOT here — teacher distributes it in class.
+  All practice questions in this file are original (no CASE answer-key content).
+-->
 <style>
-  :root{color-scheme:light}
-  *{box-sizing:border-box}
-  body{margin:0;background:#f6f8f4;color:#1b2a1b;font:18px/1.6 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}
-  .wrap{max-width:760px;margin:0 auto;padding:18px 18px 70px}
-  header{background:#2f7d32;color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px}
-  header h1{margin:.1rem 0;font-size:26px}
-  header .sub{opacity:.9;font-size:16px}
-  h2{margin:1.4rem 0 .4rem;font-size:22px;color:#2f7d32;border-bottom:2px solid #cfe3cf;padding-bottom:.2rem}
-  .card{background:#fff;border:1px solid #dbe6db;border-radius:12px;padding:16px 18px;margin:12px 0}
-  .eq{background:#eef6ee;border-left:5px solid #2f7d32;border-radius:8px;padding:10px 14px;margin:10px 0}
-  .term{font-weight:700;color:#1f5e22}
-  ul{margin:.4rem 0 .4rem 1.1rem}
-  li{margin:.25rem 0}
-  .try{background:#fff8e6;border:1px solid #f0e2b6;border-radius:10px;padding:12px 14px;margin:10px 0}
-  .try b{color:#8a6d00}
-  table{border-collapse:collapse;width:100%;margin:.4rem 0;font-size:16px}
-  td,th{border:1px solid #cfe0cf;padding:6px 8px;text-align:left}
-  th{background:#eef6ee}
-  .turn{background:#2f7d32;color:#fff;border-radius:12px;padding:16px;margin-top:18px;font-size:19px}
-  .pill{display:inline-block;background:#2f7d32;color:#fff;border-radius:20px;padding:2px 12px;font-size:14px;font-weight:700}
-</style></head>
-<body><div class="wrap">
+  :root{
+    --green:#2f6b3f; --green-d:#245231; --green-l:#eaf3ec;
+    --sun:#c8892b; --sun-l:#fdf3e2;
+    --ink:#1d2321; --dim:#5b6763; --faint:#8a9591;
+    --line:#dfe5e1; --bg:#f6f8f6; --card:#fff;
+    --ok:#2f7d4f; --no:#b23b3b; --no-l:#fbecec;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    padding:0 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 90px}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  h1,h2,h3{line-height:1.25;margin:0}
+  header{position:sticky;top:0;z-index:20;background:var(--green);color:#fff;
+    padding:calc(10px + env(safe-area-inset-top)) 16px 10px}
+  .hrow{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .htitle{font-size:16px;font-weight:700;letter-spacing:.2px;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hsub{font-size:12px;opacity:.78;font-weight:500;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .back{font-size:15px;font-weight:600;opacity:.92;padding:6px 4px;margin-left:-4px}
+  .who{font-size:12.5px;opacity:.85;padding:6px 8px;border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .btn{display:block;width:100%;background:var(--green);color:#fff;font-size:17px;font-weight:700;
+    padding:16px;border-radius:14px;text-align:center;margin-top:14px;transition:.12s transform}
+  .btn:active{transform:scale(.985)}
+  .btn.ghost{background:#fff;color:var(--green);border:2px solid var(--green)}
+  .btn.quiet{background:transparent;color:var(--dim);font-weight:600;font-size:15px;padding:12px;margin-top:4px}
+  .btn[disabled]{opacity:.4;pointer-events:none}
+  .muted{color:var(--dim);font-size:14.5px}
+  .tiny{color:var(--faint);font-size:12.5px}
+  .hide{display:none !important}
+  #gate .card{margin-top:28px;text-align:center}
+  #gate h2{font-size:22px;margin-bottom:6px}
+  #nameIn{width:100%;font-size:18px;padding:15px;border:2px solid var(--line);
+    border-radius:12px;margin-top:16px;text-align:center;background:#fff;color:var(--ink)}
+  #nameIn:focus{outline:none;border-color:var(--green)}
+  .progwrap{margin:18px 0 6px}
+  .progbar{height:10px;background:#e4eae5;border-radius:99px;overflow:hidden}
+  .progfill{height:100%;background:linear-gradient(90deg,var(--green),#57a06b);
+    border-radius:99px;transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .progtxt{display:flex;justify-content:space-between;margin-top:7px;font-size:13px;color:var(--dim)}
+  .progtxt b{color:var(--ink)}
+  .row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 15px;margin:9px 0;transition:.12s border-color,.12s transform}
+  .row:active{transform:scale(.99)}
+  .row.done{border-color:#bcdcc5;background:#f4faf5}
+  .row.locked{opacity:.5}
+  .row.next{border-color:var(--green);box-shadow:0 0 0 3px rgba(47,107,63,.09)}
+  .dot{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-size:14px;font-weight:800;background:var(--green-l);color:var(--green-d)}
+  .row.done .dot{background:var(--ok);color:#fff}
+  .row.locked .dot{background:#eceeed;color:var(--faint)}
+  .rtext{flex:1;min-width:0}
+  .rtext .nm{display:block;font-size:16px;font-weight:650;line-height:1.3}
+  .rtext .sc{display:block;font-size:12.5px;color:var(--dim);margin-top:3px}
+  .row.done .sc{color:var(--ok);font-weight:600}
+  .chev{color:var(--faint);font-size:19px;flex:none}
+  .secttl{font-size:12px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;
+    color:var(--faint);margin:24px 4px 4px}
+  .lesson h2{font-size:21px;margin:4px 0 10px}
+  .lesson h3{font-size:16.5px;margin:18px 0 8px;color:var(--green-d)}
+  .lesson p{margin:0 0 12px;font-size:16px;color:#2a3330}
+  .lesson ul{margin:0 0 12px;padding-left:22px}
+  .lesson li{margin:5px 0;font-size:15.5px}
+  .callout{background:var(--green-l);border:1px solid #cfe2d4;border-radius:12px;
+    padding:13px 15px;margin:12px 0;font-size:15px}
+  .callout.sun{background:var(--sun-l);border-color:#eedcb8}
+  .term{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+  .term b{color:var(--green-d)}
+  .term span{display:block;font-size:14.5px;color:var(--dim);margin-top:3px}
+  a.ext{display:block;background:#fff;border:2px solid var(--green);border-radius:14px;
+    padding:14px 16px;margin:12px 0;color:var(--green);font-weight:700;text-decoration:none;font-size:16px}
+  a.ext small{display:block;font-weight:500;color:var(--dim);font-size:13px;margin-top:2px}
+  textarea{width:100%;min-height:84px;font:15.5px/1.5 inherit;padding:12px;border:2px solid var(--line);
+    border-radius:12px;background:#fff;color:var(--ink);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--green)}
+  .qlabel{font-size:15px;font-weight:650;margin:16px 0 7px}
+  .qlabel .qn{color:var(--sun);font-weight:800}
+  /* sort game */
+  .sortitem{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:16px;font-weight:600;text-align:center}
+  .sortbtns{display:flex;gap:10px;margin-top:12px}
+  .sortbtns button{flex:1;padding:14px;border-radius:12px;font-weight:800;font-size:16px}
+  .sb-need{background:var(--green-l);color:var(--green-d);border:2px solid var(--green)}
+  .sb-want{background:var(--sun-l);color:#8a5a12;border:2px solid var(--sun)}
+  .sortfeed{text-align:center;font-weight:700;margin-top:10px;min-height:24px;font-size:15px}
+  .sortfeed.ok{color:var(--ok)} .sortfeed.no{color:var(--no)}
+  /* mcq */
+  .mcq-q{font-size:17px;font-weight:650;margin:6px 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);
+    border-radius:13px;padding:14px 15px;margin:9px 0;font-size:15.5px;transition:.12s}
+  .opt.picked-ok{border-color:var(--ok);background:#f0f9f2;font-weight:650}
+  .opt.picked-no{border-color:var(--no);background:var(--no-l)}
+  .opt.reveal{border-color:var(--ok)}
+  .mcq-feed{min-height:26px;font-weight:700;font-size:15px;margin-top:6px}
+  .mcq-feed.ok{color:var(--ok)} .mcq-feed.no{color:var(--no)}
+  .mcq-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim);margin-bottom:10px}
+  /* chain order game */
+  .chainpick{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:15.5px;font-weight:600;text-align:left}
+  .chainpick[disabled]{opacity:.35}
+  .chainslot{background:var(--green-l);border:1px solid #cfe2d4;border-radius:10px;
+    padding:9px 13px;margin:5px 0;font-size:14.5px;font-weight:650;color:var(--green-d)}
+  /* checklist */
+  .ck{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;
+    background:#fff;border:2px solid var(--line);border-radius:13px;padding:13px 15px;margin:8px 0}
+  .ck .box{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);flex:none;
+    display:grid;place-items:center;font-size:15px;color:#fff;margin-top:1px}
+  .ck.on{border-color:#bcdcc5;background:#f4faf5}
+  .ck.on .box{background:var(--ok);border-color:var(--ok)}
+  .ck .t{flex:1;font-size:15px}
+  /* structures reference cards */
+  .struct{border-left:4px solid var(--green);background:#fff;border-radius:0 12px 12px 0;
+    border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:12px 15px;margin:10px 0}
+  .struct b{font-size:16px}
+  .struct p{margin:5px 0 0;font-size:14.5px;color:var(--dim)}
+  /* finish */
+  .bigscore{text-align:center;font-size:44px;font-weight:800;color:var(--green);margin:10px 0 2px}
+  pre#compiled{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace;background:#f2f5f2;
+    border:1px solid var(--line);border-radius:12px;padding:14px;max-height:340px;overflow:auto}
+</style>
+</head>
+<body>
 <header>
-  <div class="pill">Unit 3 · Agribusiness</div>
-  <h1>Lesson 3.3 — Risk and Opportunity</h1>
-  <div class="sub">Work through this on your own. Do each step, answer the questions, and turn in your work.</div>
+  <div class="hrow">
+    <button class="back hide" id="backBtn" onclick="goMap()">‹ Map</button>
+    <div style="flex:1;min-width:0">
+      <div class="htitle">Lesson 3.3 · Risk and Opportunity</div>
+      <div class="hsub">Agribusiness Foundations · self-paced · Mr. Beltran</div>
+    </div>
+    <div class="who hide" id="whoChip"></div>
+  </div>
 </header>
+<div class="wrap">
 
-<h2>🌱 What this lesson is about</h2>
-<div class="card">
-  <p>Last lesson you learned that starting a business means giving up a paycheck. But you also give up other things:
-  the <b>money</b> you invest could have earned interest somewhere else, and your <b>skill at managing</b> is worth
-  something too. This lesson adds those up so you can see the <i>full</i> trade-off — and then judge whether an
-  opportunity is actually worth it.</p>
-  <div class="eq"><b>Big idea:</b> every dollar and every hour you put into your business could have gone somewhere else. Comparing those "somewhere elses" is how you find the best opportunity.</div>
+<!-- ══════════ NAME GATE ══════════ -->
+<section id="gate">
+  <div class="card">
+    <h2>⚖️ Risk and Opportunity</h2>
+    <p class="muted">Work through this lesson at your own pace. Your answers save on this device as you go, and at the end you'll turn in everything with one tap.</p>
+    <input id="nameIn" placeholder="First and last name" autocomplete="off">
+    <button class="btn" onclick="startApp()">Start</button>
+    <p class="tiny" style="margin-top:14px">Use the same device each day so your saved work is here when you come back.</p>
+  </div>
+</section>
+
+<!-- ══════════ MAP ══════════ -->
+<section id="map" class="hide">
+  <div class="progwrap">
+    <div class="progbar"><div class="progfill" id="progFill" style="width:0%"></div></div>
+    <div class="progtxt"><span>Lesson progress</span><b id="progTxt">0 of 6</b></div>
+  </div>
+  <div class="secttl">Work in order — each part unlocks the next</div>
+  <div id="rows"></div>
+  <div class="secttl">Reference</div>
+  <button class="row" onclick="openStation('gloss')">
+    <div class="dot">📖</div>
+    <div class="rtext"><span class="nm">Key Terms Glossary</span>
+    <span class="sc">Every term for this lesson — open any time</span></div>
+    <div class="chev">›</div>
+  </button>
+  <p class="tiny" style="text-align:center;margin-top:20px">CASE Agribusiness Foundations · Unit 3 · Verde Tech / Mr. Beltran<br>
+  Questions? Ask in class or post in Google Classroom.</p>
+  <button class="btn quiet" onclick="resetAll()">Start over (erases saved work)</button>
+</section>
+
+<!-- ══════════ STATION CONTAINER ══════════ -->
+<section id="station" class="hide"><div id="stationBody" class="lesson"></div></section>
+
 </div>
+<script>
+'use strict';
+/* ───────── persistence ───────── */
+const KEY='abf-l33-v1';
+let S = load();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{} }catch(e){ return {} } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)) }catch(e){} }
+S.done   = S.done || {};      // station id -> true
+S.text   = S.text || {};      // answer id  -> typed text
+S.checks = S.checks || {};    // checklist id -> true
+S.scores = S.scores || {};    // quiz id -> best %
 
-<h2>📖 The three opportunity costs</h2>
-<div class="card">
+/* ───────── stations ───────── */
+const STATIONS = [
+ {id:'overview', n:'1', nm:'Start Here — What This Lesson Is About',    sc:'Essential questions + what you\'ll be able to do'},
+ {id:'risk',     n:'2', nm:'Weighing Risk Against Reward',              sc:'Activity 3.3.1 · the five kinds of risk + practice'},
+ {id:'calc',     n:'3', nm:'Calculated Risk & the Entrepreneur',        sc:'Activity 3.3.2 · smart risk vs. reckless gamble'},
+ {id:'eval',     n:'4', nm:'Evaluating an Opportunity',                 sc:'Activity 3.3.3 · SWOT + the go/no-go steps'},
+ {id:'roi',      n:'5', nm:'Is It Worth It? — Return on Investment',    sc:'Activity 3.3.4 · ROI, opportunity cost, ROE'},
+ {id:'final',    n:'✓', nm:'Final Self-Check + Turn In',                sc:'Quick quiz, then submit your work'},
+];
+function doneCount(){ return STATIONS.filter(s=>S.done[s.id]).length }
+function firstOpen(){ for(const s of STATIONS){ if(!S.done[s.id]) return s.id } return null }
+
+/* ───────── shell ───────── */
+function startApp(){
+  const v=document.getElementById('nameIn').value.trim();
+  if(!v){ document.getElementById('nameIn').focus(); return }
+  S.name=v; save(); boot();
+}
+function boot(){
+  document.getElementById('gate').classList.add('hide');
+  const chip=document.getElementById('whoChip');
+  chip.textContent=S.name; chip.classList.remove('hide');
+  goMap();
+}
+function goMap(){
+  document.getElementById('station').classList.add('hide');
+  document.getElementById('backBtn').classList.add('hide');
+  document.getElementById('map').classList.remove('hide');
+  renderMap(); window.scrollTo(0,0);
+}
+function renderMap(){
+  const open=firstOpen();
+  document.getElementById('rows').innerHTML = STATIONS.map((s,i)=>{
+    const done=!!S.done[s.id];
+    const locked=!done && s.id!==open;
+    const cls='row'+(done?' done':'')+(locked?' locked':'')+(s.id===open?' next':'');
+    const sc=done ? (s.id==='final' ? 'Done — tap to review / turn in again' : 'Done ✓  (tap to review)') : s.sc;
+    return `<button class="${cls}" ${locked?'disabled':''} onclick="openStation('${s.id}')">
+      <div class="dot">${done?'✓':s.n}</div>
+      <div class="rtext"><span class="nm">${s.nm}</span><span class="sc">${sc}</span></div>
+      <div class="chev">›</div></button>`;
+  }).join('');
+  const n=doneCount();
+  document.getElementById('progFill').style.width=(n/STATIONS.length*100)+'%';
+  document.getElementById('progTxt').textContent=`${n} of ${STATIONS.length}`;
+}
+function openStation(id){
+  document.getElementById('map').classList.add('hide');
+  document.getElementById('station').classList.remove('hide');
+  document.getElementById('backBtn').classList.remove('hide');
+  document.getElementById('stationBody').innerHTML = RENDER[id]();
+  if(AFTER[id]) AFTER[id]();
+  window.scrollTo(0,0);
+}
+function completeStation(id){ S.done[id]=true; save(); goMap(); }
+function resetAll(){ if(confirm('Erase ALL saved work and start over?')){ localStorage.removeItem(KEY); location.reload(); } }
+
+/* typed-answer helpers */
+function ta(id,ph){ return `<textarea id="ta-${id}" placeholder="${ph||'Type your answer…'}"
+  oninput="S.text['${id}']=this.value;save()">${esc(S.text[id]||'')}</textarea>` }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;') }
+function answered(ids){ return ids.every(i=>(S.text[i]||'').trim().length>=8) }
+function needAnswers(ids,btnId){
+  const b=document.getElementById(btnId); if(!b) return;
+  b.disabled=!answered(ids);
+}
+function wireAnswers(ids,btnId){
+  needAnswers(ids,btnId);
+  ids.forEach(i=>{ const el=document.getElementById('ta-'+i);
+    if(el) el.addEventListener('input',()=>needAnswers(ids,btnId)); });
+}
+
+/* ═════════ RENDERERS ═════════ */
+const RENDER={}, AFTER={};
+
+/* ── overview ── */
+RENDER.overview=()=>`
+  <h2>⚖️ What this lesson is about</h2>
+  <p>Every business decision is really a bet. When you plant a crop, buy an animal, take out a loan, or open a farm stand, you are putting money and time on the line <i>before</i> you know how it will turn out. That uncertainty is called <b>risk</b> — and on the other side of every risk is a possible <b>reward</b>.</p>
+  <p>Successful agribusiness owners are not the people who avoid risk. They are the people who <b>understand</b> risk, <b>weigh</b> it against the reward, and take <b>calculated</b> chances that are likely to pay off. This lesson teaches you to think like one of them.</p>
+  <p>Over the next few days you will:</p>
   <ul>
-    <li><span class="term">Opportunity cost of capital</span> — the return your <b>money</b> could have earned elsewhere (like interest in a savings account) instead of being tied up in the business.</li>
-    <li><span class="term">Opportunity cost of labor</span> — the wages your <b>time</b> could have earned at another job.</li>
-    <li><span class="term">Opportunity cost of management</span> — what your <b>decision-making skill</b> could have earned managing something else.</li>
+    <li>Learn the <b>five kinds of risk</b> in agriculture and weigh risk against reward (Activity 3.3.1)</li>
+    <li>Tell a <b>calculated risk</b> from a reckless gamble — and learn four ways to manage risk (Activity 3.3.2)</li>
+    <li>Use a <b>SWOT check</b> and a clear set of steps to evaluate a real opportunity (Activity 3.3.3)</li>
+    <li>Do <b>simple return-on-investment (ROI)</b> math to decide whether an opportunity is worth it (Activity 3.3.4)</li>
   </ul>
-  <p>And two ways to measure your reward:</p>
+  <h3>Essential questions</h3>
+  <div class="callout">
+    1. What is risk, and what are the main kinds of risk an agribusiness faces?<br>
+    2. How do owners weigh risk against reward?<br>
+    3. What makes a risk "calculated" instead of reckless?<br>
+    4. How can a business owner manage or lower a risk?<br>
+    5. How do you decide whether an opportunity is actually worth pursuing?
+  </div>
+  <p class="muted">Keep these in mind — by the end of the lesson you should be able to answer every one of them without looking.</p>
+  <h3>Words you'll meet</h3>
+  <p class="muted">Risk · reward · uncertainty · production risk · market risk · financial risk · human risk · legal risk · entrepreneur · calculated risk · risk management · avoid · reduce · transfer · retain · insurance · diversification · opportunity · opportunity cost · SWOT · return on investment (ROI) · return on equity (ROE) … The full <b>📖 Glossary</b> is on the map screen any time you need it.</p>
+  <button class="btn" onclick="completeStation('overview')">Got it — start Activity 1</button>`;
+
+/* ── risk types + risk vs reward ── */
+const RISK_TYPES={prod:'Production risk',market:'Market (price) risk',fin:'Financial risk',human:'Human risk',legal:'Legal risk'};
+const RISK_SCENARIOS=[
+  {t:'A late-spring hailstorm shreds a strawberry grower\'s plants two weeks before harvest, and most of the crop is ruined.',
+   a:'prod', hint:'Weather, pests, disease, drought, low yield — anything about whether the crop or the animals actually turn out the way you planned.'},
+  {t:'A hog farmer\'s animals are healthy and plentiful, but the price buyers are paying per pound drops by a third right when it\'s time to sell.',
+   a:'market', hint:'It\'s about the PRICE or the demand when you buy or sell — not about the growing.'},
+  {t:'A young rancher took out a big loan to expand the herd. Now interest rates jump, and the monthly loan payment is suddenly far higher than planned.',
+   a:'fin', hint:'It\'s about money itself — loans, debt, interest, and whether there\'s enough cash to pay the bills.'},
+  {t:'The one experienced mechanic who keeps the harvest equipment running quits during the busiest week of the year.',
+   a:'human', hint:'It\'s about people — health, injury, someone quitting, family issues, or missing skills.'},
+  {t:'A new county rule changes how close livestock pens can be to a creek, and the operation has to rebuild its fences to stay legal.',
+   a:'legal', hint:'It\'s about rules, laws, contracts, permits, or government regulations.'},
+  {t:'A drought dries up the pasture, so the cattle don\'t gain weight the way the rancher expected before sale day.',
+   a:'prod', hint:'Weather affecting how well the animals or crops turn out is a production problem.'},
+];
+RENDER.risk=()=>`
+  <h2>🎲 Activity 3.3.1 — Weighing Risk Against Reward</h2>
+  <p><b>Risk</b> is the chance that things turn out worse than you hoped. It comes from <b>uncertainty</b> — the plain fact that when you make a decision, you can\'t know the future for sure. A farmer plants in April but can\'t know June\'s weather; a rancher buys calves but can\'t know what beef will sell for in the fall.</p>
+  <p>On the other side of risk sits <b>reward</b> — the profit, growth, or success you\'re hoping to gain. The two travel together. As a rule, <b>the bigger the possible reward, the bigger the risk you usually have to take to reach it.</b> A savings account is nearly risk-free, but it barely grows your money. Starting a new agribusiness could make far more — or lose it all.</p>
+  <div class="callout"><b>The risk–reward trade-off:</b> smart owners don\'t just ask "How much could I make?" They ask "How much could I <i>lose</i>, and how <i>likely</i> is each one?" Weighing both sides is the whole game.</div>
+  <h3>The five kinds of risk in agriculture</h3>
+  <p class="muted">Risk shows up in five main forms. Knowing which kind you\'re facing tells you how to handle it.</p>
+  <div class="struct"><b>1 · Production risk</b><p>Nature and biology don\'t cooperate: weather, drought, flood, pests, disease, equipment breakdown — anything that hurts your yield or your animals.</p></div>
+  <div class="struct"><b>2 · Market (price) risk</b><p>Prices swing. What you can sell for — or what you must pay for inputs like feed and fuel — changes with supply and demand, often after you\'ve already committed.</p></div>
+  <div class="struct"><b>3 · Financial risk</b><p>The money side: too much debt, rising interest rates, or not enough cash on hand to pay the bills when they come due.</p></div>
+  <div class="struct"><b>4 · Human risk</b><p>People are part of the operation: illness, injury, a key worker quitting, an accident, or a family change can all stop the work.</p></div>
+  <div class="struct"><b>5 · Legal risk</b><p>Rules and contracts: new regulations, permits, lawsuits, or a broken agreement can cost time and money.</p></div>
+  <h3>Which risk is it? — practice</h3>
+  <p class="muted">Read each situation and pick the kind of risk it shows. Look for the clue words — weather and yield, price, money and debt, people, or rules.</p>
+  <div class="card" id="riskCard"></div>
+  <div id="riskQs" class="hide">
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> In your own words, what is risk, and why does <b>uncertainty</b> cause it? Give one real example from farming or ranching.</div>
+    ${ta('risk-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> Explain the risk–reward trade-off. Why does chasing a bigger reward usually mean taking on more risk?</div>
+    ${ta('risk-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> Pick TWO of the five kinds of risk and describe one thing that could go wrong for an agribusiness for each one.</div>
+    ${ta('risk-q3','Production risk: …\nOne other kind (name it): …')}
+    <button class="btn" id="riskDone" onclick="completeStation('risk')">Finish Activity 1</button>
+    <p class="tiny" style="text-align:center">Answer all three (a sentence or two each) to unlock the button.</p>
+  </div>`;
+AFTER.risk=()=>{
+  let i=S.scIdx||0;
+  if(S.done.risk) i=RISK_SCENARIOS.length;
+  const card=document.getElementById('riskCard');
+  function draw(){
+    if(i>=RISK_SCENARIOS.length){
+      card.classList.add('hide');
+      document.getElementById('riskQs').classList.remove('hide');
+      wireAnswers(['risk-q1','risk-q2','risk-q3'],'riskDone');
+      return;
+    }
+    const sc=RISK_SCENARIOS[i];
+    const opts=Object.keys(RISK_TYPES).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Situation ${i+1} of ${RISK_SCENARIOS.length}</div>
+      <p style="font-size:15.5px">${sc.t}</p>
+      ${opts.map(k=>`<button class="opt" data-k="${k}" onclick="scPick('${k}',this)">${RISK_TYPES[k]}</button>`).join('')}
+      <div class="mcq-feed" id="riskFeed"></div>`;
+  }
+  window.scPick=(k,el)=>{
+    const sc=RISK_SCENARIOS[i], feed=document.getElementById('riskFeed');
+    if(k===sc.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ '+RISK_TYPES[sc.a]+' — exactly.'; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+      i++; S.scIdx=i; save(); setTimeout(draw,1500);
+    }else{
+      el.classList.add('picked-no'); feed.textContent='Not quite — hint: '+sc.hint; feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),900);
+    }
+  };
+  draw();
+};
+
+/* ── calculated risk vs reckless gamble ── */
+const CALC_ITEMS=[
+  {t:'You research three feed suppliers, compare prices, and lock in your cost with a contract before expanding the herd.',
+   need:true,  why:'You gathered facts and removed unknowns before committing — that\'s a calculated risk.'},
+  {t:'You put your whole savings into an exotic crop you saw once online, without checking whether anyone nearby will buy it.',
+   need:false, why:'No research, no buyers lined up, everything on the line — that\'s a reckless gamble.'},
+  {t:'Before planting a new variety across the farm, you try it on one small test plot to see how it does in your soil.',
+   need:true,  why:'A small, low-cost test to learn before going big — smart and calculated.'},
+  {t:'You skip buying crop insurance to save money, even though hail wipes out local fields most years.',
+   need:false, why:'Ignoring a known, likely danger just to save a little now — reckless.'},
+  {t:'You keep three months of cash in reserve so one bad month won\'t sink the business.',
+   need:true,  why:'Planning a cushion for the ups and downs you know will come — calculated.'},
+  {t:'You open a second farm stand the same week as the first, on borrowed money, with no backup plan.',
+   need:false, why:'Stacking big unknowns with no cushion and no plan — reckless.'},
+  {t:'You talk to two experienced growers and read the extension guide before choosing your planting date.',
+   need:true,  why:'Learning from experts lowers the unknowns — calculated.'},
+  {t:'You promise a customer 500 pumpkins even though you have never grown more than 50.',
+   need:false, why:'Promising far beyond what you\'ve ever proven you can do — reckless.'},
+];
+RENDER.calc=()=>`
+  <h2>🧠 Activity 3.3.2 — Calculated Risk & the Entrepreneur</h2>
+  <p>An <b>entrepreneur</b> is someone who starts and runs a business, taking on risk in the hope of profit. Every entrepreneur takes risks — but the good ones take <b>calculated risks</b>, not wild gambles.</p>
+  <div class="callout">
+    <b>Calculated risk</b> — a chance you take <i>after</i> doing your homework: you research the facts, you plan, you know the worst case, and the likely reward is worth it.<br><br>
+    <b>Reckless gamble</b> — betting big on hope alone: no research, no plan, no cushion, and a loss you couldn\'t survive.
+  </div>
+  <p>The difference isn\'t the <i>size</i> of the risk — it\'s how much you <b>know</b> and <b>prepare</b> before you take it. A calculated risk can still fail, but you\'ve stacked the odds in your favor and you can survive if it does.</p>
+  <h3>Four ways to manage a risk</h3>
+  <p class="muted">Once you spot a risk, you have four basic moves. Real owners mix and match them.</p>
   <ul>
-    <li><span class="term">Return on assets (ROA)</span> — profit compared to everything the business owns (from Lesson 2.2).</li>
-    <li><span class="term">Return on equity (ROE)</span> — profit compared to the money <b>you personally</b> put in. It shows how hard <i>your own</i> money is working.</li>
+    <li><b>Avoid</b> — don\'t do the risky thing at all (skip a crop that never sells in your area).</li>
+    <li><b>Reduce</b> (mitigate) — lower the chance or the damage (irrigate against drought; <b>diversify</b> by growing several crops so one failure doesn\'t sink you).</li>
+    <li><b>Transfer</b> — hand the risk to someone else, usually with <b>insurance</b> or a price contract (crop insurance pays you if hail hits).</li>
+    <li><b>Retain</b> (assume) — accept the risk on purpose because it\'s small or worth it, and keep a cash reserve to cover it.</li>
   </ul>
-</div>
+  <h3>Watch — then practice</h3>
+  <a class="ext" href="https://www.youtube.com/results?search_query=managing+risk+in+agriculture+USDA" target="_blank" rel="noopener">▶️ Managing Risk in Agriculture <small>Search: USDA Risk Management · take notes as you watch</small></a>
+  <h3>Calculated risk or reckless gamble? — sort it</h3>
+  <p class="muted">For each move, decide: is it a smart <b>CALCULATED</b> risk, or a <b>RECKLESS</b> gamble?</p>
+  <div class="card" id="sortCard">
+    <div class="tiny" id="sortCount"></div>
+    <div class="sortitem" id="sortItem"></div>
+    <div class="sortbtns">
+      <button class="sb-need" onclick="sortPick(true)">CALCULATED</button>
+      <button class="sb-want" onclick="sortPick(false)">RECKLESS</button>
+    </div>
+    <div class="sortfeed" id="sortFeed"></div>
+  </div>
+  <div id="calcQs" class="hide">
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> What makes a risk a <b>calculated</b> risk instead of a reckless gamble? Name at least two things a smart owner does first.</div>
+    ${ta('calc-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> Pick a real risk an agribusiness might face, then explain how you\'d handle it with one of the four strategies (avoid, reduce, transfer, or retain) and why.</div>
+    ${ta('calc-q2')}
+    <button class="btn" id="calcDone" onclick="completeStation('calc')">Finish Activity 2</button>
+    <p class="tiny" style="text-align:center">Answer both questions (a sentence or two each) to unlock.</p>
+  </div>`;
+AFTER.calc=()=>{
+  let i=S.sortIdx||0, right=S.sortRight||0;
+  if(S.done.calc){ i=CALC_ITEMS.length }
+  const item=document.getElementById('sortItem'), feed=document.getElementById('sortFeed'),
+        count=document.getElementById('sortCount');
+  function show(){
+    if(i>=CALC_ITEMS.length){
+      document.getElementById('sortCard').classList.add('hide');
+      document.getElementById('calcQs').classList.remove('hide');
+      wireAnswers(['calc-q1','calc-q2'],'calcDone');
+      return;
+    }
+    count.textContent=`Move ${i+1} of ${CALC_ITEMS.length}`;
+    item.textContent=CALC_ITEMS[i].t; feed.textContent=''; feed.className='sortfeed';
+  }
+  window.sortPick=(saidCalc)=>{
+    if(i>=CALC_ITEMS.length) return;
+    const it=CALC_ITEMS[i];
+    const ok=(saidCalc===it.need);
+    if(ok) right++;
+    feed.textContent=(ok?'✓ Right — ':'✗ Actually '+(it.need?'CALCULATED':'RECKLESS')+' — ')+it.why;
+    feed.className='sortfeed '+(ok?'ok':'no');
+    i++; S.sortIdx=i; S.sortRight=right; save();
+    setTimeout(show, ok?1400:2600);
+  };
+  show();
+};
 
-<h2>🧮 Activity 3.3.1 — The Cost of Capital</h2>
-<div class="card">
-  <p>You have <b>$5,000</b> to invest. You could put it in a safe savings account earning 4% a year, or put it into
-  your business.</p>
-  <ol>
-    <li>How much would the $5,000 earn in one year in the savings account (5,000 × 0.04)?</li>
-    <li>That amount is your <b>opportunity cost of capital</b> — the safe return you're giving up. Write it down.</li>
-    <li>Your business is expected to earn you $600 on that $5,000 this year. Is that more or less than the savings account would have earned?</li>
-  </ol>
-  <div class="try"><b>Answer:</b> If the business earns <i>less</i> than the safe savings account, why might someone still choose the business anyway?</div>
-</div>
+/* ── evaluating an opportunity: SWOT + ordering ── */
+const EVAL_STEPS=[
+  ['Spot the opportunity','You notice a need, a trend, or a gap in the market that you might be able to fill.'],
+  ['Gather the facts','You research demand, costs, competition, and everything that could go wrong — no guessing.'],
+  ['Run a SWOT check','You honestly list your Strengths, Weaknesses, Opportunities, and Threats.'],
+  ['Weigh risk against reward','You compare what you could gain with what you could lose, and how likely each one is.'],
+  ['Estimate the return (ROI)','You do the math: is the expected payoff bigger than the cost and the risk you\'re taking?'],
+  ['Make the call & plan','You decide go or no-go — and write a plan that manages your biggest risks.'],
+];
+RENDER.eval=()=>`
+  <h2>🔍 Activity 3.3.3 — Evaluating an Opportunity</h2>
+  <p>An <b>opportunity</b> is a chance to gain something — a new product to sell, a market to enter, a piece of land to lease. But not every opportunity is a good one. Before you spend a dollar, you <b>evaluate</b> it: you look at it honestly from every angle and decide if it\'s worth the risk.</p>
+  <h3>The SWOT check</h3>
+  <p>A quick, powerful tool for sizing up an opportunity is <b>SWOT</b>. You split a page into four boxes and fill each one in honestly:</p>
+  <div class="struct"><b>S · Strengths</b><p>What you already have going for you — skills, land, equipment, savings, contacts. (Inside your control.)</p></div>
+  <div class="struct"><b>W · Weaknesses</b><p>Where you fall short — no experience, little cash, no truck. (Inside your control.)</p></div>
+  <div class="struct"><b>O · Opportunities</b><p>Outside chances working in your favor — growing demand, a new grant, a competitor closing. (Outside your control.)</p></div>
+  <div class="struct"><b>T · Threats</b><p>Outside dangers — weather, falling prices, new rules, tough competition. (Outside your control.)</p></div>
+  <div class="callout"><b>Trick to remember it:</b> Strengths and Weaknesses are about <i>you</i> (inside). Opportunities and Threats are about the <i>world around you</i> (outside).</div>
+  <h3>Put the go/no-go steps in order</h3>
+  <p class="muted">Smart owners evaluate an opportunity in a clear order. Tap the steps from the very first thing you do to the final decision.</p>
+  <div class="card">
+    <div id="chainSlots"></div>
+    <div id="chainPicks"></div>
+    <div class="mcq-feed" id="chainFeed"></div>
+  </div>
+  <div id="evalQs" class="hide">
+    <h3>The steps, in order</h3>
+    ${EVAL_STEPS.map(([t,d],idx)=>`<div class="term"><b>${idx+1}. ${t}</b><span>${d}</span></div>`).join('')}
+    <h3>Do a real SWOT</h3>
+    <p class="muted">Think of a business idea you might actually try (a lawn service, raising and selling animals, a farm stand, reselling gear…).</p>
+    <div class="qlabel"><span class="qn">Q1.</span> Name your opportunity, then list at least one <b>Strength</b> and one <b>Weakness</b> you\'d bring to it (these are about YOU).</div>
+    ${ta('eval-q1','Opportunity: …\nStrength: …\nWeakness: …')}
+    <div class="qlabel"><span class="qn">Q2.</span> List at least one <b>Opportunity</b> and one <b>Threat</b> from the world around this idea (these are OUTSIDE your control).</div>
+    ${ta('eval-q2','Opportunity (outside): …\nThreat: …')}
+    <div class="qlabel"><span class="qn">Q3.</span> After your SWOT, does this look like a smart opportunity to pursue? Explain your reasoning in a sentence or two.</div>
+    ${ta('eval-q3')}
+    <button class="btn" id="evalDone" onclick="completeStation('eval')">Finish Activity 3</button>
+    <p class="tiny" style="text-align:center">Finish the ordering and answer all three to unlock.</p>
+  </div>`;
+AFTER.eval=()=>{
+  let placed=S.chainPlaced||0;
+  if(S.done.eval) placed=EVAL_STEPS.length;
+  const slots=document.getElementById('chainSlots'), picks=document.getElementById('chainPicks'),
+        feed=document.getElementById('chainFeed');
+  let order=S.chainOrder;
+  if(!order || placed===0){ order=[...EVAL_STEPS.keys()].sort(()=>Math.random()-.5); S.chainOrder=order; save(); }
+  function draw(){
+    slots.innerHTML=[...Array(placed).keys()].map(k=>`<div class="chainslot">${k+1}. ${EVAL_STEPS[k][0]}</div>`).join('')
+      || '<div class="tiny">Steps so far: (empty — what do you do first?)</div>';
+    if(placed>=EVAL_STEPS.length){
+      picks.innerHTML=''; feed.textContent='✓ All six steps in order!'; feed.className='mcq-feed ok';
+      document.getElementById('evalQs').classList.remove('hide');
+      wireAnswers(['eval-q1','eval-q2','eval-q3'],'evalDone');
+      return;
+    }
+    const remaining=order.filter(k=>k>=placed);
+    picks.innerHTML=remaining.map(k=>`<button class="chainpick" onclick="chainPick(${k},this)">${EVAL_STEPS[k][0]}</button>`).join('');
+  }
+  window.chainPick=(k,el)=>{
+    if(k===placed){
+      placed++; S.chainPlaced=placed; save();
+      feed.textContent='✓'; feed.className='mcq-feed ok'; draw();
+    }else{
+      feed.textContent='Not next — think: what has to happen before "'+EVAL_STEPS[k][0]+'"?';
+      feed.className='mcq-feed no';
+      el.disabled=true; setTimeout(()=>{el.disabled=false},900);
+    }
+  };
+  draw();
+};
 
-<h2>⚖️ Activity 3.3.2 — Capital, Labor &amp; Management Together</h2>
-<div class="card">
-  <p>Now add up all three opportunity costs for one year and compare them to what the business actually gives you:</p>
-  <table>
-    <tr><th>Opportunity cost</th><th>Amount you gave up</th></tr>
-    <tr><td>Capital (your $5,000 could have earned 4%)</td><td>$200</td></tr>
-    <tr><td>Labor (400 hours you could have worked at $14/hr)</td><td>$5,600</td></tr>
-    <tr><td>Management (skill you could have used elsewhere)</td><td>$1,000</td></tr>
-    <tr><td><b>Total opportunity cost</b></td><td><b>?</b></td></tr>
-  </table>
-  <ol>
-    <li>Add up the total opportunity cost.</li>
-    <li>Your business gave you back <b>$7,500</b> this year. Subtract the total opportunity cost. Are you ahead or behind?</li>
-    <li>By how much?</li>
-  </ol>
-  <div class="try"><b>Answer:</b> Did running the business "beat" all the other things you could have done with your money and time? Explain using your number.</div>
-</div>
-
-<h2>📈 Activity 3.3.3 — Return on Equity (ROE)</h2>
-<div class="card">
-  <p>ROE shows how hard <b>your own money</b> is working in the business.</p>
-  <div class="eq"><b>ROE = Net income ÷ Your invested money × 100</b> (a percent)</div>
-  <p><b>Two owners:</b></p>
-  <table>
-    <tr><th></th><th>Net income</th><th>Their own money invested</th><th>ROE = ?</th></tr>
-    <tr><td>Owner A</td><td>$1,000</td><td>$5,000</td><td></td></tr>
-    <tr><td>Owner B</td><td>$1,000</td><td>$10,000</td><td></td></tr>
-  </table>
-  <div class="try"><b>Answer:</b> Both made $1,000. Whose money is working harder, and how do you know from the ROE?</div>
-</div>
-
-<h2>📋 Project 3.3.4 — Weigh Your Own Opportunity</h2>
-<div class="card">
-  <p>For the business idea you've been planning:</p>
+/* ── ROI / opportunity cost / ROE ── */
+const ROI_CHECKS=[
+  ['roi1','Write down the total money AND hours you would put in — that is your true cost.'],
+  ['roi2','Estimate the profit (net income) you realistically expect to earn back.'],
+  ['roi3','Find your opportunity cost of capital — what your money would earn in a safe savings account instead.'],
+  ['roi4','Find your opportunity cost of labor — what those hours could earn at another job.'],
+  ['roi5','Compare the expected profit to the cost + opportunity cost — is the reward really bigger?'],
+  ['roi6','Ask "what\'s the worst case?" and make sure you could survive it.'],
+  ['roi7','Only then decide go or no-go — with the numbers in front of you, not just a feeling.'],
+];
+RENDER.roi=()=>`
+  <h2>🧮 Activity 3.3.4 — Is It Worth It? Return on Investment</h2>
+  <p>Weighing risk against reward isn\'t only a gut feeling — you can put <i>numbers</i> on it. <b>Return on investment (ROI)</b> asks a simple question: <b>for every dollar I put in, how much do I get back?</b> If an opportunity can\'t clear that bar, it\'s probably not worth the risk.</p>
+  <div class="callout"><b>ROI = Net income ÷ Amount invested × 100</b> (written as a percent). Higher ROI means your money is working harder.</div>
+  <h3>Don\'t forget opportunity cost</h3>
+  <p>Every dollar and every hour you put into your business could have gone somewhere else. What you give up is the <b>opportunity cost</b> — and it\'s part of the true cost of any opportunity:</p>
   <ul>
-    <li>Estimate your <b>opportunity cost of capital</b> (money you'd invest × a safe 4%).</li>
-    <li>Estimate your <b>opportunity cost of labor</b> (your hours × a pay rate).</li>
-    <li>Add a rough <b>management</b> cost.</li>
-    <li>Add them for a <b>total opportunity cost</b>, and compare it to what you expect your business to give you.</li>
+    <li><b>Opportunity cost of capital</b> — the return your <b>money</b> could have earned elsewhere (like interest in a savings account).</li>
+    <li><b>Opportunity cost of labor</b> — the wages your <b>time</b> could have earned at another job.</li>
   </ul>
-  <div class="try"><b>Decide:</b> Based on your numbers, is your business worth doing over the other options? Write two or three sentences making your case.</div>
-</div>
+  <p>A related measure zooms in on <i>your own</i> money: <b>Return on equity (ROE)</b> compares profit to the money <b>you personally</b> invested, so you can see how hard your own dollars are working.</p>
+  <div class="callout sun"><b>ROE = Net income ÷ Your invested money × 100.</b> Two owners can earn the same profit — but the one who invested less has a higher ROE, because their money worked harder.</div>
+  <h3>Before you invest — work the checklist</h3>
+  <p class="muted">These are the steps that turn a "gut feeling" into a real decision. Tap each one as you understand it.</p>
+  <div id="roiChecks"></div>
+  <h3>Do the math</h3>
+  <div class="qlabel"><span class="qn">Q1.</span> You have <b>$5,000</b>. A safe savings account pays <b>4%</b> a year. First: how much would $5,000 earn in the account (5,000 × 0.04)? That number is your <b>opportunity cost of capital</b>. If your business would instead earn you <b>$600</b> on that $5,000, is the business ahead of the safe option — and by how much?</div>
+  ${ta('roi-q1','Savings earns: $…  ·  Business earns: $600  ·  Business is ahead/behind by: $…')}
+  <div class="qlabel"><span class="qn">Q2.</span> Two owners each earned <b>$1,000</b> of net income. Owner A invested <b>$5,000</b> of her own money; Owner B invested <b>$10,000</b>. Figure each ROE (net income ÷ invested × 100). Whose money worked harder, and how does the ROE prove it?</div>
+  ${ta('roi-q2','Owner A ROE: …%  ·  Owner B ROE: …%  ·  Whose money worked harder & why: …')}
+  <div class="qlabel"><span class="qn">Q3.</span> For a business idea you might really try: roughly estimate your opportunity cost of capital (money × 4%) and labor (hours × a pay rate), add them up, and compare to what you\'d expect to earn. Based on your numbers, is it worth doing? Make your case in two or three sentences.</div>
+  ${ta('roi-q3')}
+  <button class="btn" id="roiDone" onclick="completeStation('roi')">Finish Activity 4</button>
+  <p class="tiny" style="text-align:center">Check every box and answer all three questions to unlock.</p>`;
+AFTER.roi=()=>{
+  const wrap=document.getElementById('roiChecks');
+  function draw(){
+    wrap.innerHTML=ROI_CHECKS.map(([id,t])=>`
+      <button class="ck ${S.checks[id]?'on':''}" onclick="toggleCk('${id}')">
+        <div class="box">${S.checks[id]?'✓':''}</div><div class="t">${t}</div></button>`).join('');
+    gate();
+  }
+  function gate(){
+    const all=ROI_CHECKS.every(([id])=>S.checks[id]);
+    const b=document.getElementById('roiDone');
+    b.disabled=!(all && answered(['roi-q1','roi-q2','roi-q3']));
+  }
+  window.toggleCk=(id)=>{ S.checks[id]=!S.checks[id]; save(); draw(); };
+  ['roi-q1','roi-q2','roi-q3'].forEach(i=>{
+    const el=document.getElementById('ta-'+i); if(el) el.addEventListener('input',gate);
+  });
+  draw();
+};
 
-<h2>✅ Quick self-check</h2>
-<div class="card">
-  <ol>
-    <li>Name the three types of opportunity cost.</li>
-    <li>What does ROE measure that ROA doesn't?</li>
-    <li>Why do smart owners compare their business to what else they could do with their money and time?</li>
-  </ol>
-</div>
+/* ── final quiz + turn-in ── */
+const QUIZ=[
+  {q:'Risk in a business is best described as…',
+   o:['A guarantee that you will lose money','The chance that things turn out worse than you hoped, because the future is uncertain','A tax paid on profits','The paperwork needed to start a business'],a:1},
+  {q:'The risk–reward trade-off says that, in general…',
+   o:['The bigger the possible reward, the bigger the risk you usually have to take','Reward and risk have nothing to do with each other','Lower risk always means higher reward','Only reckless people ever earn a reward'],a:0},
+  {q:'A hailstorm that destroys a strawberry crop is an example of…',
+   o:['Financial risk','Legal risk','Production risk','Market risk'],a:2},
+  {q:'Beef prices dropping right before a rancher sells is an example of…',
+   o:['Market (price) risk','Human risk','Production risk','Legal risk'],a:0},
+  {q:'A key worker quitting during the busiest week is an example of…',
+   o:['Legal risk','Human risk','Market risk','Financial risk'],a:1},
+  {q:'What makes a risk a CALCULATED risk instead of a reckless gamble?',
+   o:['It is a small risk with no reward','You research the facts, plan, and know you could survive the worst case','You bet everything you own on a hunch','It has no chance of failing'],a:1},
+  {q:'Buying crop insurance so a hailstorm won\'t ruin you is which risk-management strategy?',
+   o:['Avoid','Retain','Transfer','Ignore'],a:2},
+  {q:'Growing several different crops so that one failure won\'t sink you is called…',
+   o:['Speculation','Diversification (reducing risk)','Avoiding all risk','Transferring risk'],a:1},
+  {q:'In a SWOT check, Strengths and Weaknesses are about ____, while Opportunities and Threats are about ____.',
+   o:['the government … the weather','you (inside your control) … the world around you (outside your control)','the past … the future','money … time'],a:1},
+  {q:'Return on investment (ROI) basically answers which question?',
+   o:['How many hours did I work?','For every dollar I put in, how much do I get back?','How much do my competitors earn?','What are the tax rules?'],a:1},
+  {q:'Opportunity cost of capital is…',
+   o:['The tax on your business','The return your money could have earned somewhere else, like a savings account','The cost of hiring workers','The price of your product'],a:1},
+  {q:'Two owners each earn $1,000. Owner A invested $5,000; Owner B invested $10,000. Whose money worked harder (higher ROE)?',
+   o:['Owner B, because they invested more','Owner A, because the same profit came from less invested money','They are exactly equal','You cannot tell from ROE'],a:1},
+];
+const PASS=80;
+RENDER.final=()=>`
+  <h2>✅ Final Self-Check</h2>
+  <p class="muted">10 questions from the whole lesson. You need <b>${PASS}%</b> to finish — you can retry as many times as you want, and the questions reshuffle. This is practice: the graded <b>Check for Understanding</b> comes from Mr. Beltran in class.</p>
+  <div class="card" id="quizCard"></div>
+  <div id="turnin" class="hide">
+    <div class="bigscore" id="scoreBig"></div>
+    <p class="muted" style="text-align:center" id="scoreMsg"></p>
+    <h3>📤 Turn in your work</h3>
+    <p class="muted">This gathers every answer you typed into one block. Copy it, then paste it into the <b>Google Classroom assignment</b> (private comment or the attached doc) — or show this screen to Mr. Beltran.</p>
+    <pre id="compiled"></pre>
+    <button class="btn" onclick="copyWork(this)">📋 Copy my work</button>
+    <button class="btn ghost" onclick="completeStation('final')">Done — back to map</button>
+  </div>`;
+AFTER.final=()=>{
+  let qs=[], qi=0, right=0;
+  const card=document.getElementById('quizCard');
+  function start(){
+    qs=[...QUIZ].sort(()=>Math.random()-.5).slice(0,10);
+    qi=0; right=0;
+    card.classList.remove('hide');
+    document.getElementById('turnin').classList.add('hide');
+    draw();
+  }
+  function draw(){
+    if(qi>=qs.length) return finish();
+    const q=qs[qi];
+    const idx=q.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="mcq-top"><span>Question ${qi+1} of ${qs.length}</span><span>Score: ${right}</span></div>
+      <div class="mcq-q">${q.q}</div>
+      ${idx.map(k=>`<button class="opt" onclick="qPick(${k},this)">${q.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="qFeed"></div>`;
+  }
+  window.qPick=(k,el)=>{
+    const q=qs[qi], feed=document.getElementById('qFeed');
+    card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+    if(k===q.a){ right++; el.classList.add('picked-ok'); feed.textContent='✓ Correct'; feed.className='mcq-feed ok'; }
+    else{
+      el.classList.add('picked-no');
+      card.querySelectorAll('.opt').forEach(o=>{ if(o.textContent===q.o[q.a]) o.classList.add('reveal'); });
+      feed.textContent='✗ The answer: '+q.o[q.a]; feed.className='mcq-feed no';
+    }
+    qi++; setTimeout(draw, k===q.a?900:2400);
+  };
+  function finish(){
+    const pct=Math.round(right/qs.length*100);
+    S.scores.final=Math.max(S.scores.final||0,pct); save();
+    if(pct<PASS){
+      card.innerHTML=`<div class="bigscore" style="color:var(--sun)">${pct}%</div>
+        <p class="muted" style="text-align:center">Almost — you need ${PASS}%. Skim the stations you're shaky on (they stay open on the map), then try again. New shuffle every time.</p>
+        <button class="btn" id="retryBtn">Try again</button>`;
+      document.getElementById('retryBtn').onclick=start;
+      return;
+    }
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=pct+'%';
+    document.getElementById('scoreMsg').textContent=pct===100?'Perfect score. Outstanding.':'Passed — nice work.';
+    document.getElementById('compiled').textContent=compile(pct); cloudSubmit();
+    window.scrollTo(0,0);
+  }
+  if(S.done.final && (S.scores.final||0)>=PASS){
+    // reviewing after completion: show turn-in immediately with best score
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=(S.scores.final||0)+'%';
+    document.getElementById('scoreMsg').textContent='Best score (already passed).';
+    document.getElementById('compiled').textContent=compile(S.scores.final||0); cloudSubmit();
+  } else start();
+};
 
-<div class="turn">📤 <b>Turn in your work:</b> your Activities 3.3.1–3.3.3 and your Project 3.3.4 — through Google Classroom, the way your teacher showed you.</div>
-</div></body></html>
+/* ── cloud turn-in: save the student's compiled work to the teacher dashboard ── */
+var SUBMIT_DB='https://verde-animation-25368-default-rtdb.firebaseio.com/submissions';
+var LESSON_ID='agb-3-3';
+function subSlug(s){return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'student';}
+function cloudSubmit(){
+  try{
+    var work=(document.getElementById('compiled')||{}).textContent||'';
+    var se=document.getElementById('scoreBig');
+    var score=se?(parseInt(se.textContent,10)||0):0;
+    var name=(typeof S!=='undefined'&&S.name)?S.name:'';
+    if(!work) return;
+    fetch(SUBMIT_DB+'/'+LESSON_ID+'/'+subSlug(name)+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,lesson:LESSON_ID,score:score,work:work,updated:Date.now()})}).catch(function(){});
+  }catch(e){}
+}
+
+function compile(pct){
+  const L=[], A=(id)=> (S.text[id]||'—').trim();
+  L.push('ABF LESSON 3.3 — RISK AND OPPORTUNITY · SELF-PACED WORK');
+  L.push('Student: '+(S.name||'?'));
+  L.push('Date: '+new Date().toLocaleDateString());
+  L.push('Final self-check score: '+pct+'%');
+  L.push('');
+  L.push('— Activity 3.3.1 Weighing Risk Against Reward —');
+  L.push('Risk-type practice: all situations matched correctly (required to advance)');
+  L.push('Q1 (what is risk / uncertainty + example): '+A('risk-q1'));
+  L.push('Q2 (risk-reward trade-off): '+A('risk-q2'));
+  L.push('Q3 (two kinds of risk): '+A('risk-q3'));
+  L.push('');
+  L.push('— Activity 3.3.2 Calculated Risk & Managing It —');
+  L.push('Calculated-vs-reckless sort: completed');
+  L.push('Q1 (what makes a risk calculated): '+A('calc-q1'));
+  L.push('Q2 (a risk + strategy to manage it): '+A('calc-q2'));
+  L.push('');
+  L.push('— Activity 3.3.3 Evaluating an Opportunity (SWOT) —');
+  L.push('Go/no-go step ordering: completed (6 steps in order)');
+  L.push('Q1 (opportunity + strength + weakness): '+A('eval-q1'));
+  L.push('Q2 (opportunity + threat, outside): '+A('eval-q2'));
+  L.push('Q3 (worth pursuing? reasoning): '+A('eval-q3'));
+  L.push('');
+  L.push('— Activity 3.3.4 Return on Investment —');
+  L.push('ROI decision checklist: '+ROI_CHECKS.filter(([id])=>S.checks[id]).length+' of '+ROI_CHECKS.length+' steps checked');
+  L.push('Q1 (opportunity cost of capital math): '+A('roi-q1'));
+  L.push('Q2 (ROE comparison): '+A('roi-q2'));
+  L.push('Q3 (weigh your own opportunity): '+A('roi-q3'));
+  return L.join('\n');
+}
+function copyWork(btn){
+  const t=document.getElementById('compiled').textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+    .then(()=>{ btn.textContent='✓ Copied — paste it into Classroom'; })
+    .catch(()=>{ // fallback: select the block
+      const r=document.createRange(); r.selectNode(document.getElementById('compiled'));
+      getSelection().removeAllRanges(); getSelection().addRange(r);
+      btn.textContent='Select + copy the highlighted text above';
+    });
+}
+
+/* ── glossary ── */
+const GLOSS=[
+['Avoid (risk avoidance)','A risk strategy: don\'t take on the risky activity at all.'],
+['Calculated risk','A chance taken after research and planning, when the likely reward is worth it and the worst case is survivable.'],
+['Capital','Wealth in the form of money or other assets used to start or invest in a business.'],
+['Diversification','Spreading out — growing several crops or products — so one failure won\'t sink the whole business; a way to reduce risk.'],
+['Entrepreneur','A person who starts and runs a business, taking on risk in the hope of making a profit.'],
+['Financial risk','Risk from the money side of a business: too much debt, rising interest rates, or not enough cash to pay bills.'],
+['Human risk','Risk from people: illness, injury, accidents, a key worker quitting, or missing skills.'],
+['Insurance','A way to transfer risk: you pay a premium and the insurer pays you if a covered loss happens.'],
+['Legal risk','Risk from rules and agreements: new regulations, permits, lawsuits, or a broken contract.'],
+['Market (price) risk','Risk that prices swing — what you can sell for, or must pay for inputs — often after you\'ve committed.'],
+['Net income','Profit: the money left after all costs are subtracted from what a business takes in.'],
+['Opportunity','A chance to gain something of value — a new product, market, or venture worth considering.'],
+['Opportunity cost','The value of the best thing you gave up to choose what you chose — money or time that could have gone elsewhere.'],
+['Production risk','Risk that nature or biology hurts your output: weather, drought, pests, disease, or equipment breakdown.'],
+['Reduce (mitigate)','A risk strategy: lower the chance or the damage of a risk (irrigate, diversify, maintain equipment).'],
+['Retain (assume)','A risk strategy: accept a risk on purpose because it\'s small or worth it, and keep a reserve to cover it.'],
+['Return on equity (ROE)','Net income divided by the money the owner personally invested, times 100 — how hard your own money works.'],
+['Return on investment (ROI)','Net income divided by the amount invested, times 100 — how much you get back per dollar put in.'],
+['Reward','The profit, growth, or success a business owner hopes to gain by taking a risk.'],
+['Risk','The chance that an outcome turns out worse than hoped, because the future is uncertain.'],
+['Risk management','The process of identifying risks and choosing how to handle them: avoid, reduce, transfer, or retain.'],
+['Risk–reward trade-off','The idea that bigger possible rewards usually require taking on bigger risks.'],
+['Speculation','Taking on high risk hoping for a big gain, often with little information — closer to a gamble.'],
+['SWOT analysis','A tool for evaluating an opportunity by listing Strengths, Weaknesses, Opportunities, and Threats.'],
+['Transfer (risk transfer)','A risk strategy: shift a risk to someone else, usually through insurance or a contract.'],
+['Uncertainty','Not being able to know the future for sure — the root cause of risk in every business decision.'],
+];
+RENDER.gloss=()=>`
+  <h2>📖 Lesson 3.3 Glossary</h2>
+  <p class="muted">Every key term for this lesson.</p>
+  ${GLOSS.map(([t,d])=>`<div class="term"><b>${t}</b><span>${d}</span></div>`).join('')}
+  <button class="btn ghost" onclick="goMap()">Back to map</button>`;
+
+/* ───────── boot ───────── */
+if(S.name) boot();
+</script>
+</body>
+</html>

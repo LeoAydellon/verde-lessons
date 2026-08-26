@@ -1,143 +1,747 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Lesson 3.1 Taking Risk Seriously — Self-Paced — Verde Tech</title>
+<meta name="theme-color" content="#2f6b3f">
+<!--
+  ABF Lesson 3.1 "Taking Risk Seriously" — self-paced student module.
+  Built 2026-08-26 from the CASE ABF curriculum Leo teaches in P2 Agribusiness.
+  Standalone file: no server, no login, works offline (videos need internet).
+  Student work saves in the browser (localStorage) and compiles into one text block to turn in.
+  The graded Lesson 3.1 Check for Understanding is NOT here — teacher distributes it.
+  All practice questions in this file are original (no CASE answer-key content).
+-->
 <style>
-  :root{color-scheme:light}
-  *{box-sizing:border-box}
-  body{margin:0;background:#f6f8f4;color:#1b2a1b;font:18px/1.6 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}
-  .wrap{max-width:760px;margin:0 auto;padding:18px 18px 70px}
-  header{background:#2f7d32;color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px}
-  header h1{margin:.1rem 0;font-size:26px}
-  header .sub{opacity:.9;font-size:16px}
-  h2{margin:1.4rem 0 .4rem;font-size:22px;color:#2f7d32;border-bottom:2px solid #cfe3cf;padding-bottom:.2rem}
-  .card{background:#fff;border:1px solid #dbe6db;border-radius:12px;padding:16px 18px;margin:12px 0}
-  .eq{background:#eef6ee;border-left:5px solid #2f7d32;border-radius:8px;padding:10px 14px;margin:10px 0}
-  .term{font-weight:700;color:#1f5e22}
-  ul{margin:.4rem 0 .4rem 1.1rem}
-  li{margin:.25rem 0}
-  .try{background:#fff8e6;border:1px solid #f0e2b6;border-radius:10px;padding:12px 14px;margin:10px 0}
-  .try b{color:#8a6d00}
-  table{border-collapse:collapse;width:100%;margin:.4rem 0;font-size:16px}
-  td,th{border:1px solid #cfe0cf;padding:6px 8px;text-align:left}
-  th{background:#eef6ee}
-  .turn{background:#2f7d32;color:#fff;border-radius:12px;padding:16px;margin-top:18px;font-size:19px}
-  .pill{display:inline-block;background:#2f7d32;color:#fff;border-radius:20px;padding:2px 12px;font-size:14px;font-weight:700}
-</style></head>
-<body><div class="wrap">
+  :root{
+    --green:#2f6b3f; --green-d:#245231; --green-l:#eaf3ec;
+    --sun:#c8892b; --sun-l:#fdf3e2;
+    --ink:#1d2321; --dim:#5b6763; --faint:#8a9591;
+    --line:#dfe5e1; --bg:#f6f8f6; --card:#fff;
+    --ok:#2f7d4f; --no:#b23b3b; --no-l:#fbecec;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    padding:0 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 90px}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  h1,h2,h3{line-height:1.25;margin:0}
+  header{position:sticky;top:0;z-index:20;background:var(--green);color:#fff;
+    padding:calc(10px + env(safe-area-inset-top)) 16px 10px}
+  .hrow{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .htitle{font-size:16px;font-weight:700;letter-spacing:.2px;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hsub{font-size:12px;opacity:.78;font-weight:500;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .back{font-size:15px;font-weight:600;opacity:.92;padding:6px 4px;margin-left:-4px}
+  .who{font-size:12.5px;opacity:.85;padding:6px 8px;border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .btn{display:block;width:100%;background:var(--green);color:#fff;font-size:17px;font-weight:700;
+    padding:16px;border-radius:14px;text-align:center;margin-top:14px;transition:.12s transform}
+  .btn:active{transform:scale(.985)}
+  .btn.ghost{background:#fff;color:var(--green);border:2px solid var(--green)}
+  .btn.quiet{background:transparent;color:var(--dim);font-weight:600;font-size:15px;padding:12px;margin-top:4px}
+  .btn[disabled]{opacity:.4;pointer-events:none}
+  .muted{color:var(--dim);font-size:14.5px}
+  .tiny{color:var(--faint);font-size:12.5px}
+  .hide{display:none !important}
+  #gate .card{margin-top:28px;text-align:center}
+  #gate h2{font-size:22px;margin-bottom:6px}
+  #nameIn{width:100%;font-size:18px;padding:15px;border:2px solid var(--line);
+    border-radius:12px;margin-top:16px;text-align:center;background:#fff;color:var(--ink)}
+  #nameIn:focus{outline:none;border-color:var(--green)}
+  .progwrap{margin:18px 0 6px}
+  .progbar{height:10px;background:#e4eae5;border-radius:99px;overflow:hidden}
+  .progfill{height:100%;background:linear-gradient(90deg,var(--green),#57a06b);
+    border-radius:99px;transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .progtxt{display:flex;justify-content:space-between;margin-top:7px;font-size:13px;color:var(--dim)}
+  .progtxt b{color:var(--ink)}
+  .row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 15px;margin:9px 0;transition:.12s border-color,.12s transform}
+  .row:active{transform:scale(.99)}
+  .row.done{border-color:#bcdcc5;background:#f4faf5}
+  .row.locked{opacity:.5}
+  .row.next{border-color:var(--green);box-shadow:0 0 0 3px rgba(47,107,63,.09)}
+  .dot{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-size:14px;font-weight:800;background:var(--green-l);color:var(--green-d)}
+  .row.done .dot{background:var(--ok);color:#fff}
+  .row.locked .dot{background:#eceeed;color:var(--faint)}
+  .rtext{flex:1;min-width:0}
+  .rtext .nm{display:block;font-size:16px;font-weight:650;line-height:1.3}
+  .rtext .sc{display:block;font-size:12.5px;color:var(--dim);margin-top:3px}
+  .row.done .sc{color:var(--ok);font-weight:600}
+  .chev{color:var(--faint);font-size:19px;flex:none}
+  .secttl{font-size:12px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;
+    color:var(--faint);margin:24px 4px 4px}
+  .lesson h2{font-size:21px;margin:4px 0 10px}
+  .lesson h3{font-size:16.5px;margin:18px 0 8px;color:var(--green-d)}
+  .lesson p{margin:0 0 12px;font-size:16px;color:#2a3330}
+  .lesson ul{margin:0 0 12px;padding-left:22px}
+  .lesson li{margin:5px 0;font-size:15.5px}
+  .callout{background:var(--green-l);border:1px solid #cfe2d4;border-radius:12px;
+    padding:13px 15px;margin:12px 0;font-size:15px}
+  .callout.sun{background:var(--sun-l);border-color:#eedcb8}
+  .term{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+  .term b{color:var(--green-d)}
+  .term span{display:block;font-size:14.5px;color:var(--dim);margin-top:3px}
+  a.ext{display:block;background:#fff;border:2px solid var(--green);border-radius:14px;
+    padding:14px 16px;margin:12px 0;color:var(--green);font-weight:700;text-decoration:none;font-size:16px}
+  a.ext small{display:block;font-weight:500;color:var(--dim);font-size:13px;margin-top:2px}
+  textarea{width:100%;min-height:84px;font:15.5px/1.5 inherit;padding:12px;border:2px solid var(--line);
+    border-radius:12px;background:#fff;color:var(--ink);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--green)}
+  .qlabel{font-size:15px;font-weight:650;margin:16px 0 7px}
+  .qlabel .qn{color:var(--sun);font-weight:800}
+  /* sort game */
+  .sortitem{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:16px;font-weight:600;text-align:center}
+  .sortbtns{display:flex;gap:10px;margin-top:12px}
+  .sortbtns button{flex:1;padding:14px;border-radius:12px;font-weight:800;font-size:16px}
+  .sb-need{background:var(--green-l);color:var(--green-d);border:2px solid var(--green)}
+  .sb-want{background:var(--sun-l);color:#8a5a12;border:2px solid var(--sun)}
+  .sortfeed{text-align:center;font-weight:700;margin-top:10px;min-height:24px;font-size:15px}
+  .sortfeed.ok{color:var(--ok)} .sortfeed.no{color:var(--no)}
+  /* mcq */
+  .mcq-q{font-size:17px;font-weight:650;margin:6px 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);
+    border-radius:13px;padding:14px 15px;margin:9px 0;font-size:15.5px;transition:.12s}
+  .opt.picked-ok{border-color:var(--ok);background:#f0f9f2;font-weight:650}
+  .opt.picked-no{border-color:var(--no);background:var(--no-l)}
+  .opt.reveal{border-color:var(--ok)}
+  .mcq-feed{min-height:26px;font-weight:700;font-size:15px;margin-top:6px}
+  .mcq-feed.ok{color:var(--ok)} .mcq-feed.no{color:var(--no)}
+  .mcq-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim);margin-bottom:10px}
+  /* chain order game */
+  .chainpick{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:15.5px;font-weight:600;text-align:left}
+  .chainpick[disabled]{opacity:.35}
+  .chainslot{background:var(--green-l);border:1px solid #cfe2d4;border-radius:10px;
+    padding:9px 13px;margin:5px 0;font-size:14.5px;font-weight:650;color:var(--green-d)}
+  /* checklist */
+  .ck{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;
+    background:#fff;border:2px solid var(--line);border-radius:13px;padding:13px 15px;margin:8px 0}
+  .ck .box{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);flex:none;
+    display:grid;place-items:center;font-size:15px;color:#fff;margin-top:1px}
+  .ck.on{border-color:#bcdcc5;background:#f4faf5}
+  .ck.on .box{background:var(--ok);border-color:var(--ok)}
+  .ck .t{flex:1;font-size:15px}
+  /* structures reference cards */
+  .struct{border-left:4px solid var(--green);background:#fff;border-radius:0 12px 12px 0;
+    border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:12px 15px;margin:10px 0}
+  .struct b{font-size:16px}
+  .struct p{margin:5px 0 0;font-size:14.5px;color:var(--dim)}
+  /* finish */
+  .bigscore{text-align:center;font-size:44px;font-weight:800;color:var(--green);margin:10px 0 2px}
+  pre#compiled{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace;background:#f2f5f2;
+    border:1px solid var(--line);border-radius:12px;padding:14px;max-height:340px;overflow:auto}
+</style>
+</head>
+<body>
 <header>
-  <div class="pill">Unit 3 · Agribusiness</div>
-  <h1>Lesson 3.1 — Taking Risk Seriously</h1>
-  <div class="sub">Work through this on your own. Do each step, answer the questions, and turn in your work.</div>
+  <div class="hrow">
+    <button class="back hide" id="backBtn" onclick="goMap()">‹ Map</button>
+    <div style="flex:1;min-width:0">
+      <div class="htitle">Lesson 3.1 · Taking Risk Seriously</div>
+      <div class="hsub">Agribusiness Foundations · self-paced · Mr. Beltran</div>
+    </div>
+    <div class="who hide" id="whoChip"></div>
+  </div>
 </header>
+<div class="wrap">
 
-<h2>🌱 What this lesson is about</h2>
-<div class="card">
-  <p>Every business can go wrong in ways the owner doesn't control — bad weather, prices dropping, a loan going bad,
-  a key worker quitting. Smart owners don't just hope; they <b>name</b> the risks ahead of time and make a plan to
-  soften the blow. This lesson teaches the five kinds of risk and how to protect your business against them.</p>
-  <div class="eq"><b>Big idea:</b> you can't remove risk, but you can <b>plan for it</b> so one bad break doesn't sink the whole business.</div>
+<!-- ══════════ NAME GATE ══════════ -->
+<section id="gate">
+  <div class="card">
+    <h2>🛡️ Taking Risk Seriously</h2>
+    <p class="muted">Work through this lesson at your own pace. Your answers save on this device as you go, and at the end you'll turn in everything with one tap.</p>
+    <input id="nameIn" placeholder="First and last name" autocomplete="off">
+    <button class="btn" onclick="startApp()">Start</button>
+    <p class="tiny" style="margin-top:14px">Use the same device each day so your saved work is here when you come back.</p>
+  </div>
+</section>
+
+<!-- ══════════ MAP ══════════ -->
+<section id="map" class="hide">
+  <div class="progwrap">
+    <div class="progbar"><div class="progfill" id="progFill" style="width:0%"></div></div>
+    <div class="progtxt"><span>Lesson progress</span><b id="progTxt">0 of 6</b></div>
+  </div>
+  <div class="secttl">Work in order — each part unlocks the next</div>
+  <div id="rows"></div>
+  <div class="secttl">Reference</div>
+  <button class="row" onclick="openStation('gloss')">
+    <div class="dot">📖</div>
+    <div class="rtext"><span class="nm">Key Terms Glossary</span>
+    <span class="sc">Every term for this lesson — open any time</span></div>
+    <div class="chev">›</div>
+  </button>
+  <p class="tiny" style="text-align:center;margin-top:20px">CASE Agribusiness Foundations · Unit 3 · Verde Tech / Mr. Beltran<br>
+  Questions? Ask in class or post in Google Classroom.</p>
+  <button class="btn quiet" onclick="resetAll()">Start over (erases saved work)</button>
+</section>
+
+<!-- ══════════ STATION CONTAINER ══════════ -->
+<section id="station" class="hide"><div id="stationBody" class="lesson"></div></section>
+
 </div>
+<script>
+'use strict';
+/* ───────── persistence ───────── */
+const KEY='abf-l31-v1';
+let S = load();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{} }catch(e){ return {} } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)) }catch(e){} }
+S.done   = S.done || {};      // station id -> true
+S.text   = S.text || {};      // answer id  -> typed text
+S.checks = S.checks || {};    // checklist id -> true
+S.scores = S.scores || {};    // quiz id -> best %
 
-<h2>📖 The five types of risk</h2>
-<div class="card">
+/* ───────── stations ───────── */
+const STATIONS = [
+ {id:'overview',  n:'1', nm:'Start Here — What This Lesson Is About',   sc:'Essential questions + what you\'ll be able to do'},
+ {id:'types',     n:'2', nm:'The Five Kinds of Risk',                   sc:'Activity 3.1.1 · name that risk + short answers'},
+ {id:'strategies',n:'3', nm:'Four Ways to Handle a Risk',               sc:'Activity 3.1.2 · avoid, reduce, transfer, retain'},
+ {id:'process',   n:'4', nm:'The Risk-Management Process',              sc:'Activity 3.1.3 · put the five steps in order'},
+ {id:'plan',      n:'5', nm:'Build Your Own Risk Plan',                 sc:'Activity 3.1.4 · protect a real business'},
+ {id:'final',     n:'✓', nm:'Final Self-Check + Turn In',               sc:'Quick quiz, then submit your work'},
+];
+function doneCount(){ return STATIONS.filter(s=>S.done[s.id]).length }
+function firstOpen(){ for(const s of STATIONS){ if(!S.done[s.id]) return s.id } return null }
+
+/* ───────── shell ───────── */
+function startApp(){
+  const v=document.getElementById('nameIn').value.trim();
+  if(!v){ document.getElementById('nameIn').focus(); return }
+  S.name=v; save(); boot();
+}
+function boot(){
+  document.getElementById('gate').classList.add('hide');
+  const chip=document.getElementById('whoChip');
+  chip.textContent=S.name; chip.classList.remove('hide');
+  goMap();
+}
+function goMap(){
+  document.getElementById('station').classList.add('hide');
+  document.getElementById('backBtn').classList.add('hide');
+  document.getElementById('map').classList.remove('hide');
+  renderMap(); window.scrollTo(0,0);
+}
+function renderMap(){
+  const open=firstOpen();
+  document.getElementById('rows').innerHTML = STATIONS.map((s,i)=>{
+    const done=!!S.done[s.id];
+    const locked=!done && s.id!==open;
+    const cls='row'+(done?' done':'')+(locked?' locked':'')+(s.id===open?' next':'');
+    const sc=done ? (s.id==='final' ? 'Done — tap to review / turn in again' : 'Done ✓  (tap to review)') : s.sc;
+    return `<button class="${cls}" ${locked?'disabled':''} onclick="openStation('${s.id}')">
+      <div class="dot">${done?'✓':s.n}</div>
+      <div class="rtext"><span class="nm">${s.nm}</span><span class="sc">${sc}</span></div>
+      <div class="chev">›</div></button>`;
+  }).join('');
+  const n=doneCount();
+  document.getElementById('progFill').style.width=(n/STATIONS.length*100)+'%';
+  document.getElementById('progTxt').textContent=`${n} of ${STATIONS.length}`;
+}
+function openStation(id){
+  document.getElementById('map').classList.add('hide');
+  document.getElementById('station').classList.remove('hide');
+  document.getElementById('backBtn').classList.remove('hide');
+  document.getElementById('stationBody').innerHTML = RENDER[id]();
+  if(AFTER[id]) AFTER[id]();
+  window.scrollTo(0,0);
+}
+function completeStation(id){ S.done[id]=true; save(); goMap(); }
+function resetAll(){ if(confirm('Erase ALL saved work and start over?')){ localStorage.removeItem(KEY); location.reload(); } }
+
+/* typed-answer helpers */
+function ta(id,ph){ return `<textarea id="ta-${id}" placeholder="${ph||'Type your answer…'}"
+  oninput="S.text['${id}']=this.value;save()">${esc(S.text[id]||'')}</textarea>` }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;') }
+function answered(ids){ return ids.every(i=>(S.text[i]||'').trim().length>=8) }
+function needAnswers(ids,btnId){
+  const b=document.getElementById(btnId); if(!b) return;
+  b.disabled=!answered(ids);
+}
+function wireAnswers(ids,btnId){
+  needAnswers(ids,btnId);
+  ids.forEach(i=>{ const el=document.getElementById('ta-'+i);
+    if(el) el.addEventListener('input',()=>needAnswers(ids,btnId)); });
+}
+
+/* ═════════ RENDERERS ═════════ */
+const RENDER={}, AFTER={};
+
+/* ── overview ── */
+RENDER.overview=()=>`
+  <h2>🛡️ What this lesson is about</h2>
+  <p>Every business faces <b>risk</b> — the chance that things turn out worse than the owner hoped. A late frost, a price crash, a loan you can't cover, an injured worker, a new law you didn't see coming: any of these can hurt a farm, ranch, or ag company. Smart owners don't just cross their fingers. They <b>name</b> the risks ahead of time, decide which ones matter most, and make a plan so a single bad break doesn't sink the whole operation.</p>
+  <p>Here's the key idea for the whole lesson: <b>you can never remove risk completely</b>. There will always be weather, markets, and bad luck. What you <i>can</i> do is <b>manage</b> it — lower the odds it happens, shrink the damage when it does, or shift the loss onto someone else. That skill, <b>risk management</b>, is what separates businesses that survive a hard year from businesses that don't.</p>
+  <p>Over the next few days you will:</p>
   <ul>
-    <li><span class="term">Production risk</span> — something goes wrong <b>making</b> the product (drought, pests, a sick herd).</li>
-    <li><span class="term">Market risk</span> — <b>prices</b> move against you (what you sell drops in value, or supplies get more expensive).</li>
-    <li><span class="term">Financial risk</span> — trouble with <b>money and debt</b> (can't cover a loan payment, run out of cash).</li>
-    <li><span class="term">Institutional risk</span> — <b>rules and laws</b> change (new regulation, a lost permit, a program ends).</li>
-    <li><span class="term">Personal risk</span> — something happens to <b>people</b> (injury, illness, a key person leaves).</li>
+    <li>Learn the <b>five kinds of risk</b> every agribusiness faces — production, market, financial, human, and legal (Activity 3.1.1)</li>
+    <li>Learn the <b>four ways</b> a manager can respond to any risk — avoid, reduce, transfer, retain (Activity 3.1.2)</li>
+    <li>Put the <b>five steps of the risk-management process</b> in the right order (Activity 3.1.3)</li>
+    <li>Build a real <b>risk-management plan</b> for a business of your own (Activity 3.1.4)</li>
   </ul>
-  <p>Two more words you'll use:</p>
-  <ul>
-    <li><span class="term">Cash flow statement</span> — a month-by-month picture of money coming in and going out, so you can spot the tight months.</li>
-    <li><span class="term">Shortfall / surplus</span> — a <b>shortfall</b> is a month where more goes out than comes in; a <b>surplus</b> is the opposite.</li>
-  </ul>
-</div>
+  <h3>Essential questions</h3>
+  <div class="callout">
+    1. What is risk, and why can't a business get rid of it completely?<br>
+    2. What are the five sources of risk in agribusiness?<br>
+    3. What are the four ways a manager can respond to a risk?<br>
+    4. How does managing risk protect a business and the people who depend on it?<br>
+    5. How do you build a simple risk-management plan?
+  </div>
+  <p class="muted">Keep these in the back of your mind — by the end of the lesson you should be able to answer every one of them without looking.</p>
+  <h3>Words you'll meet</h3>
+  <p class="muted">Risk · risk management · production risk · market (price) risk · financial risk · human risk · legal risk · avoid · reduce · transfer · insurance · retain · diversification · contract · liability · deductible · premium … The full <b>📖 Glossary</b> is on the map screen any time you need it.</p>
+  <button class="btn" onclick="completeStation('overview')">Got it — start Activity 1</button>`;
 
-<h2>🧮 Activity 3.1.1 — Name That Risk</h2>
-<div class="card">
-  <p>For each situation, decide which of the five risks it is (production, market, financial, institutional, or personal):</p>
-  <ol>
-    <li>A late frost kills half the strawberry crop.</li>
-    <li>The price of corn drops right before you sell.</li>
-    <li>You can't make this month's loan payment.</li>
-    <li>A new county rule requires an expensive permit for your stand.</li>
-    <li>Your only delivery driver breaks an arm.</li>
-    <li>Feed prices double over the winter.</li>
-  </ol>
-  <div class="try"><b>Answer:</b> Pick one of the risks above and describe <i>one thing</i> the owner could do ahead of time to soften it.</div>
-</div>
+/* ── types of risk ── */
+const RISK_NAMES={prod:'Production Risk',market:'Market / Price Risk',fin:'Financial Risk',human:'Human Risk',legal:'Legal Risk'};
+const RISK_SCENARIOS=[
+  {t:'A hailstorm rolls through in July and flattens most of the wheat in the field two weeks before harvest.',
+   a:'prod', hint:'Something went wrong while GROWING or MAKING the product — weather, pests, disease.'},
+  {t:'You raised a great crop of pumpkins, but by the time you truck them to the auction the going price has dropped from $5 to $2 each.',
+   a:'market', hint:'The product is fine — it\'s the SELLING PRICE that moved against you.'},
+  {t:'The operation took out a big equipment loan last year. This spring, cash is tight and the monthly payment is due before any sales come in.',
+   a:'fin', hint:'The problem is MONEY, CASH, and DEBT — covering payments, running out of cash.'},
+  {t:'The ranch\'s only experienced welder and mechanic slips on ice, breaks a wrist, and is out for six weeks during calving season.',
+   a:'human', hint:'Something happened to a PERSON — injury, illness, or a key worker leaving.'},
+  {t:'A new county ordinance requires a costly permit and a setback from the road before your family can keep running the roadside farm stand.',
+   a:'legal', hint:'A RULE, LAW, or REGULATION changed — permits, zoning, contracts, liability.'},
+  {t:'A barn fire destroys three tractors and the season\'s stored hay overnight.',
+   a:'prod', hint:'A physical loss to what the business produces or uses to produce it.'},
+  {t:'A customer slips in your muddy parking area and threatens to sue over the injury.',
+   a:'legal', hint:'This is about LIABILITY and the law — who is legally responsible for a loss.'},
+  {t:'Diesel and fertilizer both jump 40% over the winter, so every acre now costs far more to plant than you budgeted.',
+   a:'market', hint:'Price risk cuts both ways — the price of what you BUY can move against you too.'},
+];
+RENDER.types=()=>`
+  <h2>⚠️ Activity 3.1.1 — The Five Kinds of Risk</h2>
+  <p><b>Risk</b> is the chance that an outcome turns out worse than expected — a loss instead of a gain. Every agribusiness lives with it. But "risk" is a big word, and you can't plan for it until you get specific about <i>what kind</i> of risk you're facing. Farm and ranch managers sort risk into <b>five sources</b>:</p>
+  <div class="struct"><b>1 · Production Risk</b><p>Something goes wrong while you're <i>making</i> the product — drought, flood, hail, insects, disease, an equipment breakdown, or a barn fire. Nature and machinery don't always cooperate.</p></div>
+  <div class="struct"><b>2 · Market / Price Risk</b><p>The <i>prices</i> move against you. What you sell can drop in value between planting and harvest, or the inputs you buy — fuel, feed, seed, fertilizer — can spike. Either way your profit shrinks.</p></div>
+  <div class="struct"><b>3 · Financial Risk</b><p>Trouble with <i>money and debt.</i> You can't cover a loan payment, you run out of cash before sales come in, or interest rates climb. Even a profitable business can fail if the cash runs out at the wrong moment.</p></div>
+  <div class="struct"><b>4 · Human Risk</b><p>Something happens to the <i>people.</i> An owner or key worker gets injured, sick, or quits; a partner dies; a family split changes who runs things. People are the engine of a business — and people are fragile.</p></div>
+  <div class="struct"><b>5 · Legal Risk</b><p>The <i>rules</i> change or the business gets caught on the wrong side of them. New regulations, a lost permit, a broken contract, a lawsuit, or a liability claim when someone is hurt on your property.</p></div>
+  <div class="callout"><b>Why bother sorting them?</b> Because the <i>type</i> of risk points you to the <i>fix</i>. You handle a hailstorm (production) with crop insurance; you handle a price crash (market) with a contract; you handle a lawsuit (legal) with liability coverage. Name it right and the plan almost writes itself.</div>
+  <h3>Watch — then practice</h3>
+  <a class="ext" href="https://www.youtube.com/watch?v=aM_ExH8dl3g" target="_blank" rel="noopener">▶️ Types of Risk in Agriculture <small>USDA Risk Management Agency · take notes as you watch</small></a>
+  <h3>Name that risk — practice scenarios</h3>
+  <p class="muted">Read each situation and pick the source of risk it describes. Look for the tell — is it about the <i>weather/product</i>, the <i>price</i>, the <i>cash</i>, a <i>person</i>, or a <i>law</i>?</p>
+  <div class="card" id="rkCard"></div>
+  <div id="typeQs" class="hide">
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> List the five sources of risk, and give ONE short real-life example of each from a farm or ranch (one line each).</div>
+    ${ta('types-q1','Production: …\nMarket / price: …\nFinancial: …\nHuman: …\nLegal: …')}
+    <div class="qlabel"><span class="qn">Q2.</span> Why does it matter to figure out WHICH kind of risk you're facing before you try to protect against it?</div>
+    ${ta('types-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> Pick the one type of risk you think would be hardest for a small farm to control. Explain why.</div>
+    ${ta('types-q3')}
+    <button class="btn" id="typesDone" onclick="completeStation('types')">Finish Activity 1</button>
+    <p class="tiny" style="text-align:center">Answer all three (a sentence or two each) to unlock the button.</p>
+  </div>`;
+AFTER.types=()=>{
+  let i=S.rkIdx||0;
+  if(S.done.types) i=RISK_SCENARIOS.length;
+  const card=document.getElementById('rkCard');
+  function draw(){
+    if(i>=RISK_SCENARIOS.length){
+      card.classList.add('hide');
+      document.getElementById('typeQs').classList.remove('hide');
+      wireAnswers(['types-q1','types-q2','types-q3'],'typesDone');
+      return;
+    }
+    const sc=RISK_SCENARIOS[i];
+    const opts=Object.keys(RISK_NAMES).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Scenario ${i+1} of ${RISK_SCENARIOS.length}</div>
+      <p style="font-size:15.5px">${sc.t}</p>
+      ${opts.map(k=>`<button class="opt" data-k="${k}" onclick="rkPick('${k}',this)">${RISK_NAMES[k]}</button>`).join('')}
+      <div class="mcq-feed" id="rkFeed"></div>`;
+  }
+  window.rkPick=(k,el)=>{
+    const sc=RISK_SCENARIOS[i], feed=document.getElementById('rkFeed');
+    if(k===sc.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ '+RISK_NAMES[sc.a]+' — exactly.'; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+      i++; S.rkIdx=i; save(); setTimeout(draw,1500);
+    }else{
+      el.classList.add('picked-no'); feed.textContent='Not quite — hint: '+sc.hint; feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),900);
+    }
+  };
+  draw();
+};
 
-<h2>📊 Activity 3.1.2 — Reading a Cash Flow Statement</h2>
-<div class="card">
-  <p>A cash flow statement shows money in and out each month. Here's a simple one for a produce stand:</p>
-  <table>
-    <tr><th>Month</th><th>Cash in</th><th>Cash out</th><th>Net (in − out)</th></tr>
-    <tr><td>March</td><td>$200</td><td>$900</td><td></td></tr>
-    <tr><td>June</td><td>$1,800</td><td>$700</td><td></td></tr>
-    <tr><td>September</td><td>$2,400</td><td>$600</td><td></td></tr>
-    <tr><td>December</td><td>$300</td><td>$500</td><td></td></tr>
-  </table>
-  <ol>
-    <li>Fill in the "Net" column for each month (can be negative).</li>
-    <li>Which months have a <b>shortfall</b> (negative)?</li>
-    <li>Which month is the strongest <b>surplus</b>?</li>
-  </ol>
-  <div class="try"><b>Answer:</b> Why is it smart to notice a shortfall <i>before</i> it happens instead of when you're out of cash?</div>
-</div>
+/* ── strategies ── */
+const STRAT_NAMES={avoid:'Avoid',reduce:'Reduce',transfer:'Transfer / Insure',retain:'Retain'};
+const STRAT_SCENARIOS=[
+  {t:'A farmer decides NOT to plant a crop that only grows in a climate his region can\'t reliably provide — he simply won\'t take that gamble at all.',
+   a:'avoid', hint:'The owner chooses to NOT DO the risky thing in the first place — no exposure at all.'},
+  {t:'A rancher can\'t stop a barn fire from ever happening, so she buys a policy: she pays a yearly premium and the insurer covers the loss if it burns.',
+   a:'transfer', hint:'The loss is shifted onto someone else (an insurer or a contract) in exchange for a fee.'},
+  {t:'To keep one bad crop from wiping him out, a grower plants three different crops and sells at two different markets, so a single failure only dents part of the income.',
+   a:'reduce', hint:'The risk is still there, but steps like diversifying make the loss SMALLER or LESS LIKELY.'},
+  {t:'A small orchard keeps a savings "rainy-day" fund and simply plans to cover small, everyday losses out of its own pocket rather than insuring every little thing.',
+   a:'retain', hint:'The business knowingly KEEPS the risk and is ready to absorb the loss itself.'},
+  {t:'A produce stand signs a contract locking in a set price with a grocery buyer before harvest, so a price crash can\'t hurt that portion of the sale.',
+   a:'transfer', hint:'A contract passes the price risk to the other party — the risk is shifted off you.'},
+  {t:'A dairy installs sprinklers, keeps fire extinguishers charged, and trains everyone on safe handling to make an accident far less likely.',
+   a:'reduce', hint:'Safety steps and good practices lower the ODDS and the SIZE of a loss.'},
+  {t:'A greenhouse owner decides the flood-zone lot by the river is just too dangerous to build on, and picks a different site entirely.',
+   a:'avoid', hint:'Sidestepping the danger completely — not building there at all.'},
+  {t:'A tiny operation figures a $50 tool loss now and then is cheap enough to just eat, so it sets aside a little cash and self-covers those minor losses.',
+   a:'retain', hint:'For small, cheap losses, the business chooses to bear them itself on purpose.'},
+];
+RENDER.strategies=()=>`
+  <h2>🧰 Activity 3.1.2 — Four Ways to Handle a Risk</h2>
+  <p>Once you've named a risk, you have to decide what to <i>do</i> about it. No matter the industry, managers reach for the same four tools. Think of them as the four choices you always have:</p>
+  <div class="struct"><b>1 · Avoid</b><p>Don't take the risk at all. Skip the risky crop, don't build in the flood zone, walk away from the deal. You give up the possible reward, but you also erase the possible loss. Best for risks that are too big or too likely to be worth it.</p></div>
+  <div class="struct"><b>2 · Reduce</b><p>Take the risk, but shrink it. Diversify what you grow, add safety training, maintain equipment, spread sales across markets. The risk is still there — you've just made a loss <i>smaller</i> or <i>less likely</i>.</p></div>
+  <div class="struct"><b>3 · Transfer / Insure</b><p>Hand the loss to someone else. Buy <b>insurance</b> (pay a small <b>premium</b> now so an insurer covers a big loss later) or sign a <b>contract</b> that locks in a price. You pay a fee, and someone else carries the danger.</p></div>
+  <div class="struct"><b>4 · Retain</b><p>Keep the risk on purpose and be ready to absorb the loss yourself — usually with a savings fund. Smart for <i>small</i>, <i>cheap</i>, or <i>rare</i> losses where insurance would cost more than it's worth.</p></div>
+  <div class="callout sun"><b>How managers choose:</b> match the tool to the size and odds of the loss. <b>Big &amp; likely →</b> avoid it. <b>Big &amp; rare →</b> transfer it (insure). <b>Medium →</b> reduce it. <b>Small &amp; cheap →</b> retain it. A good plan uses more than one tool at once.</div>
+  <div class="callout"><b>Everyday tools you'll hear about:</b> <b>diversification</b> (grow/sell more than one thing) reduces risk; <b>insurance</b> and <b>contracts</b> transfer it; <b>value-added products</b> (turning milk into cheese) and <b>keeping cash reserves</b> both help a business ride out a bad break.</div>
+  <h3>Match the strategy — practice scenarios</h3>
+  <p class="muted">Read what the owner did and pick which of the four strategies it is. Ask: did they <i>skip it</i> (avoid), <i>shrink it</i> (reduce), <i>hand it off</i> (transfer), or <i>keep it</i> (retain)?</p>
+  <div class="card" id="stCard"></div>
+  <div id="stratQs" class="hide">
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> In your own words, explain the difference between <b>reducing</b> a risk and <b>transferring</b> a risk. Give an example of each.</div>
+    ${ta('strat-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> Give one example of a risk a small farm should probably <b>retain</b> (just handle itself), and one it should probably <b>transfer</b> (insure). Why the difference?</div>
+    ${ta('strat-q2')}
+    <button class="btn" id="stratDone" onclick="completeStation('strategies')">Finish Activity 2</button>
+    <p class="tiny" style="text-align:center">Answer both questions to unlock the button.</p>
+  </div>`;
+AFTER.strategies=()=>{
+  let i=S.stIdx||0;
+  if(S.done.strategies) i=STRAT_SCENARIOS.length;
+  const card=document.getElementById('stCard');
+  function draw(){
+    if(i>=STRAT_SCENARIOS.length){
+      card.classList.add('hide');
+      document.getElementById('stratQs').classList.remove('hide');
+      wireAnswers(['strat-q1','strat-q2'],'stratDone');
+      return;
+    }
+    const sc=STRAT_SCENARIOS[i];
+    const opts=Object.keys(STRAT_NAMES).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Scenario ${i+1} of ${STRAT_SCENARIOS.length}</div>
+      <p style="font-size:15.5px">${sc.t}</p>
+      ${opts.map(k=>`<button class="opt" data-k="${k}" onclick="stPick('${k}',this)">${STRAT_NAMES[k]}</button>`).join('')}
+      <div class="mcq-feed" id="stFeed"></div>`;
+  }
+  window.stPick=(k,el)=>{
+    const sc=STRAT_SCENARIOS[i], feed=document.getElementById('stFeed');
+    if(k===sc.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ '+STRAT_NAMES[sc.a]+' — exactly.'; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+      i++; S.stIdx=i; save(); setTimeout(draw,1500);
+    }else{
+      el.classList.add('picked-no'); feed.textContent='Not quite — hint: '+sc.hint; feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),900);
+    }
+  };
+  draw();
+};
 
-<h2>🏦 Activity 3.1.3 — Planning for the Tight Months</h2>
-<div class="card">
-  <p>Look back at your cash flow above. In March you're short and planting season is expensive. You could:</p>
-  <ul>
-    <li><b>Borrow</b> a small short-term loan and pay it back after the strong summer months.</li>
-    <li><b>Save</b> some of the September surplus ahead of time to cover the slow months.</li>
-  </ul>
-  <ol>
-    <li>March is short by $700. If you borrow it in March and pay it back in September, will September's surplus cover it? (Use your numbers.)</li>
-    <li>Which do you think is smarter here — borrowing or saving ahead? Why?</li>
-  </ol>
-  <div class="try"><b>Answer:</b> How does planning your cash flow help you avoid <i>financial</i> risk?</div>
-</div>
+/* ── risk-management process ── */
+const PROC=[
+  ['Identify the risks','List everything that could go wrong — every source of production, market, financial, human, and legal risk your business faces.'],
+  ['Measure each risk','For each one, judge two things: how LIKELY is it, and how BIG would the loss be? That tells you which risks actually matter most.'],
+  ['Choose a strategy','Pick a tool for each risk that matters — avoid, reduce, transfer, or retain — matched to its size and odds.'],
+  ['Put the plan in place','Actually do it: buy the insurance, sign the contract, diversify the crops, build the savings fund, add the safety training.'],
+  ['Review and adjust','Nothing stays the same. Weather, prices, laws, and people change — so check the plan regularly and update it as the business changes.'],
+];
+RENDER.process=()=>`
+  <h2>🔁 Activity 3.1.3 — The Risk-Management Process</h2>
+  <p>Managing risk isn't a one-time thing you do and forget — it's a <b>cycle</b> you run over and over. Good managers follow the same five steps, in order, and then loop back to the start as the business changes. Skipping a step is how surprises sneak through.</p>
+  <p>Here's the logic: you can't plan for a risk you haven't <i>named</i>, and you shouldn't spend money guarding against a tiny risk while ignoring a huge one — so you have to <i>measure</i> before you <i>choose</i>. Then you put the plan into action, and because the world keeps changing, you <i>review</i> and start again.</p>
+  <h3>Put the process in order</h3>
+  <p class="muted">Tap the steps in the order a manager works through them — from the very first thing you do to the step that loops you back around.</p>
+  <div class="card">
+    <div id="procSlots"></div>
+    <div id="procPicks"></div>
+    <div class="mcq-feed" id="procFeed"></div>
+  </div>
+  <div id="procSteps" class="hide">
+    <h3>What each step means</h3>
+    ${PROC.map(([t,d],idx)=>`<div class="term"><b>${idx+1}. ${t}</b><span>${d}</span></div>`).join('')}
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> Why do you have to MEASURE a risk (how likely, how big) before you choose what to do about it? What would go wrong if you skipped that step?</div>
+    ${ta('proc-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> Why is "review and adjust" part of the cycle? Name one thing that could change and force a farm to update its risk plan.</div>
+    ${ta('proc-q2')}
+    <button class="btn" id="procDone" onclick="completeStation('process')">Finish Activity 3</button>
+  </div>`;
+AFTER.process=()=>{
+  let placed=S.procPlaced||0;
+  if(S.done.process) placed=PROC.length;
+  const slots=document.getElementById('procSlots'), picks=document.getElementById('procPicks'),
+        feed=document.getElementById('procFeed');
+  let order=S.procOrder;
+  if(!order || placed===0){ order=[...PROC.keys()].sort(()=>Math.random()-.5); S.procOrder=order; save(); }
+  function draw(){
+    slots.innerHTML=[...Array(placed).keys()].map(k=>`<div class="chainslot">${k+1}. ${PROC[k][0]}</div>`).join('')
+      || '<div class="tiny">Process so far: (empty — what do you do first?)</div>';
+    if(placed>=PROC.length){
+      picks.innerHTML=''; feed.textContent='✓ Process complete!'; feed.className='mcq-feed ok';
+      document.getElementById('procSteps').classList.remove('hide');
+      wireAnswers(['proc-q1','proc-q2'],'procDone');
+      return;
+    }
+    const remaining=order.filter(k=>k>=placed);
+    picks.innerHTML=remaining.map(k=>`<button class="chainpick" onclick="procPick(${k},this)">${PROC[k][0]}</button>`).join('');
+  }
+  window.procPick=(k,el)=>{
+    if(k===placed){
+      placed++; S.procPlaced=placed; save();
+      feed.textContent='✓'; feed.className='mcq-feed ok'; draw();
+    }else{
+      feed.textContent='Not next — think: what has to happen before "'+PROC[k][0]+'" is possible?';
+      feed.className='mcq-feed no';
+      el.disabled=true; setTimeout(()=>{el.disabled=false},900);
+    }
+  };
+  draw();
+};
 
-<h2>🛡️ Activity 3.1.4 — Risk Management Strategies</h2>
-<div class="card">
-  <p>Businesses use a few common tools to lower risk:</p>
-  <ul>
-    <li><span class="term">Diversification</span> — sell more than one thing, so one failure doesn't wipe you out.</li>
-    <li><span class="term">Insurance</span> — pay a little now to be protected against a big loss later.</li>
-    <li><span class="term">Value-added products</span> — turn a raw product into something worth more (milk → cheese).</li>
-    <li><span class="term">Contracts</span> — lock in a price ahead of time so market swings hurt less.</li>
-  </ul>
-  <p>Match a strategy to each risk:</p>
-  <table>
-    <tr><th>Risk</th><th>Best strategy?</th></tr>
-    <tr><td>One crop could fail from weather</td><td></td></tr>
-    <tr><td>Barn could burn down</td><td></td></tr>
-    <tr><td>Selling price might drop before harvest</td><td></td></tr>
-    <tr><td>Plain product doesn't sell for much</td><td></td></tr>
-  </table>
-  <div class="try"><b>Answer:</b> Why can't a business just remove all its risk? What is it really trying to do instead?</div>
-</div>
+/* ── build your risk plan ── */
+const PLAN_CHECKS=[
+  ['pl1','Pick a real agribusiness to plan for (your SAE, a family operation, or a business idea you\'ve been building)'],
+  ['pl2','Brainstorm at least SIX things that could go wrong — cast a wide net across all five sources of risk'],
+  ['pl3','Sort each risk you listed by its TYPE: production, market, financial, human, or legal'],
+  ['pl4','For each risk, rate it: how LIKELY (low/medium/high) and how BIG the loss would be (small/medium/large)'],
+  ['pl5','Choose a STRATEGY for each — avoid, reduce, transfer/insure, or retain — matched to its size and odds'],
+  ['pl6','Star the ONE risk that worries you most and write down your first concrete action for it'],
+];
+RENDER.plan=()=>`
+  <h2>📋 Activity 3.1.4 — Build Your Own Risk Plan</h2>
+  <p>Time to put it all together. A <b>risk-management plan</b> is just the risk-management process written down for a real business: the risks you found, how big each one is, and what you'll do about it. Every serious business plan includes one — lenders and partners want to see that you've thought it through.</p>
+  <p>You'll build a small plan for a real agribusiness — your SAE project, a family farm or ranch, or the business idea you've been developing this year. Work through the checklist first (it walks you through the process), then write up the three-risk plan below.</p>
+  <div class="callout sun"><b>Keep it honest.</b> The goal isn't to look fearless — it's to look <i>prepared</i>. Naming a real weakness and having a plan for it is exactly what a good manager does.</div>
+  <h3>Planning checklist</h3>
+  <p class="muted">Tap each step as you finish it. These walk you through the same process from Activity 3.</p>
+  <div id="plChecks"></div>
+  <h3>Write your plan</h3>
+  <div class="qlabel"><span class="qn">Q1.</span> Name your business, then list <b>three real risks</b> it could face. Label each one with its type (production, market, financial, human, or legal).</div>
+  ${ta('plan-q1','My business: …\nRisk 1 (type): …\nRisk 2 (type): …\nRisk 3 (type): …')}
+  <div class="qlabel"><span class="qn">Q2.</span> For EACH of your three risks, name <b>one strategy</b> (avoid, reduce, transfer/insure, or retain) you'd use and briefly say how you'd do it.</div>
+  ${ta('plan-q2','Risk 1 → strategy + how: …\nRisk 2 → strategy + how: …\nRisk 3 → strategy + how: …')}
+  <div class="qlabel"><span class="qn">Q3.</span> Which of your three risks worries you most, and why? What is the very first thing you would do to protect against it?</div>
+  ${ta('plan-q3')}
+  <button class="btn" id="planDone" onclick="completeStation('plan')">Finish Activity 4</button>
+  <p class="tiny" style="text-align:center">Check every box and answer all three questions to unlock.</p>`;
+AFTER.plan=()=>{
+  const wrap=document.getElementById('plChecks');
+  function draw(){
+    wrap.innerHTML=PLAN_CHECKS.map(([id,t])=>`
+      <button class="ck ${S.checks[id]?'on':''}" onclick="togglePl('${id}')">
+        <div class="box">${S.checks[id]?'✓':''}</div><div class="t">${t}</div></button>`).join('');
+    gate();
+  }
+  function gate(){
+    const all=PLAN_CHECKS.every(([id])=>S.checks[id]);
+    const b=document.getElementById('planDone');
+    b.disabled=!(all && answered(['plan-q1','plan-q2','plan-q3']));
+  }
+  window.togglePl=(id)=>{ S.checks[id]=!S.checks[id]; save(); draw(); };
+  ['plan-q1','plan-q2','plan-q3'].forEach(i=>{
+    const el=document.getElementById('ta-'+i); if(el) el.addEventListener('input',gate);
+  });
+  draw();
+};
 
-<h2>📋 Project 3.1.5 — Your Risk Management Plan</h2>
-<div class="card">
-  <p>For the business idea you've been planning:</p>
-  <ul>
-    <li>List <b>three real risks</b> your business could face — and label each with its type (production, market, financial, institutional, or personal).</li>
-    <li>For each risk, name <b>one strategy</b> you'd use to protect against it.</li>
-  </ul>
-  <div class="try"><b>Wrap it up:</b> Which of your three risks worries you most, and why?</div>
-</div>
+/* ── final quiz + turn-in ── */
+const QUIZ=[
+  {q:'Risk is best described as…',
+   o:['A guarantee that a business will lose money','The chance that an outcome turns out worse than expected','A tax paid on farm income','Something only large corporations face'],a:1},
+  {q:'A hailstorm destroying a crop right before harvest is an example of…',
+   o:['Market risk','Financial risk','Production risk','Legal risk'],a:2},
+  {q:'The price of corn dropping between planting and harvest is an example of…',
+   o:['Market / price risk','Human risk','Legal risk','Production risk'],a:0},
+  {q:'Not being able to make a loan payment because cash is tight is an example of…',
+   o:['Production risk','Financial risk','Legal risk','Market risk'],a:1},
+  {q:'A key worker getting injured and being out for weeks is an example of…',
+   o:['Legal risk','Market risk','Human risk','Financial risk'],a:2},
+  {q:'A new regulation requiring an expensive permit is an example of…',
+   o:['Production risk','Legal risk','Human risk','Market risk'],a:1},
+  {q:'Choosing NOT to plant a crop your climate can\'t support — refusing the risk entirely — is which strategy?',
+   o:['Retain','Transfer','Reduce','Avoid'],a:3},
+  {q:'Buying insurance so an insurer covers a big loss for a yearly premium is which strategy?',
+   o:['Transfer / insure','Avoid','Retain','Reduce'],a:0},
+  {q:'Planting several different crops so one failure doesn\'t wipe you out (diversification) is which strategy?',
+   o:['Avoid','Reduce','Retain','Transfer'],a:1},
+  {q:'Keeping a small savings fund to cover minor losses yourself, on purpose, is which strategy?',
+   o:['Transfer','Avoid','Retain','Reduce'],a:2},
+  {q:'Why can a business NEVER remove risk completely?',
+   o:['Because insurance is illegal for farms','Because there will always be weather, markets, and bad luck it can\'t control','Because owners are careless','Because risk only exists on paper'],a:1},
+  {q:'What is the FIRST step of the risk-management process?',
+   o:['Buy insurance','Review and adjust the plan','Identify the risks','Choose a strategy'],a:2},
+];
+const PASS=80;
+RENDER.final=()=>`
+  <h2>✅ Final Self-Check</h2>
+  <p class="muted">10 questions from the whole lesson. You need <b>${PASS}%</b> to finish — you can retry as many times as you want, and the questions reshuffle. This is practice: the graded <b>Check for Understanding</b> comes from Mr. Beltran in class.</p>
+  <div class="card" id="quizCard"></div>
+  <div id="turnin" class="hide">
+    <div class="bigscore" id="scoreBig"></div>
+    <p class="muted" style="text-align:center" id="scoreMsg"></p>
+    <h3>📤 Turn in your work</h3>
+    <p class="muted">This gathers every answer you typed into one block. Copy it, then paste it into the <b>Google Classroom assignment</b> (private comment or the attached doc) — or show this screen to Mr. Beltran.</p>
+    <pre id="compiled"></pre>
+    <button class="btn" onclick="copyWork(this)">📋 Copy my work</button>
+    <button class="btn ghost" onclick="completeStation('final')">Done — back to map</button>
+  </div>`;
+AFTER.final=()=>{
+  let qs=[], qi=0, right=0;
+  const card=document.getElementById('quizCard');
+  function start(){
+    qs=[...QUIZ].sort(()=>Math.random()-.5).slice(0,10);
+    qi=0; right=0;
+    card.classList.remove('hide');
+    document.getElementById('turnin').classList.add('hide');
+    draw();
+  }
+  function draw(){
+    if(qi>=qs.length) return finish();
+    const q=qs[qi];
+    const idx=q.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="mcq-top"><span>Question ${qi+1} of ${qs.length}</span><span>Score: ${right}</span></div>
+      <div class="mcq-q">${q.q}</div>
+      ${idx.map(k=>`<button class="opt" onclick="qPick(${k},this)">${q.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="qFeed"></div>`;
+  }
+  window.qPick=(k,el)=>{
+    const q=qs[qi], feed=document.getElementById('qFeed');
+    card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+    if(k===q.a){ right++; el.classList.add('picked-ok'); feed.textContent='✓ Correct'; feed.className='mcq-feed ok'; }
+    else{
+      el.classList.add('picked-no');
+      card.querySelectorAll('.opt').forEach(o=>{ if(o.textContent===q.o[q.a]) o.classList.add('reveal'); });
+      feed.textContent='✗ The answer: '+q.o[q.a]; feed.className='mcq-feed no';
+    }
+    qi++; setTimeout(draw, k===q.a?900:2400);
+  };
+  function finish(){
+    const pct=Math.round(right/qs.length*100);
+    S.scores.final=Math.max(S.scores.final||0,pct); save();
+    if(pct<PASS){
+      card.innerHTML=`<div class="bigscore" style="color:var(--sun)">${pct}%</div>
+        <p class="muted" style="text-align:center">Almost — you need ${PASS}%. Skim the stations you're shaky on (they stay open on the map), then try again. New shuffle every time.</p>
+        <button class="btn" id="retryBtn">Try again</button>`;
+      document.getElementById('retryBtn').onclick=start;
+      return;
+    }
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=pct+'%';
+    document.getElementById('scoreMsg').textContent=pct===100?'Perfect score. Outstanding.':'Passed — nice work.';
+    document.getElementById('compiled').textContent=compile(pct); cloudSubmit();
+    window.scrollTo(0,0);
+  }
+  if(S.done.final && (S.scores.final||0)>=PASS){
+    // reviewing after completion: show turn-in immediately with best score
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=(S.scores.final||0)+'%';
+    document.getElementById('scoreMsg').textContent='Best score (already passed).';
+    document.getElementById('compiled').textContent=compile(S.scores.final||0); cloudSubmit();
+  } else start();
+};
 
-<h2>✅ Quick self-check</h2>
-<div class="card">
-  <ol>
-    <li>Name the five types of risk.</li>
-    <li>What does a cash flow statement help you spot?</li>
-    <li>Give one example of a risk management strategy and what it protects against.</li>
-  </ol>
-</div>
+/* ── cloud turn-in: save the student's compiled work to the teacher dashboard ── */
+var SUBMIT_DB='https://verde-animation-25368-default-rtdb.firebaseio.com/submissions';
+var LESSON_ID='agb-3-1';
+function subSlug(s){return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'student';}
+function cloudSubmit(){
+  try{
+    var work=(document.getElementById('compiled')||{}).textContent||'';
+    var se=document.getElementById('scoreBig');
+    var score=se?(parseInt(se.textContent,10)||0):0;
+    var name=(typeof S!=='undefined'&&S.name)?S.name:'';
+    if(!work) return;
+    fetch(SUBMIT_DB+'/'+LESSON_ID+'/'+subSlug(name)+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,lesson:LESSON_ID,score:score,work:work,updated:Date.now()})}).catch(function(){});
+  }catch(e){}
+}
 
-<div class="turn">📤 <b>Turn in your work:</b> your Activities 3.1.1–3.1.4 and your Project 3.1.5 risk plan — through Google Classroom, the way your teacher showed you.</div>
-</div></body></html>
+function compile(pct){
+  const L=[], A=(id)=> (S.text[id]||'—').trim();
+  L.push('ABF LESSON 3.1 — TAKING RISK SERIOUSLY · SELF-PACED WORK');
+  L.push('Student: '+(S.name||'?'));
+  L.push('Date: '+new Date().toLocaleDateString());
+  L.push('Final self-check score: '+pct+'%');
+  L.push('');
+  L.push('— Activity 3.1.1 The Five Kinds of Risk —');
+  L.push('Name-that-risk scenarios: all matched correctly (required to advance)');
+  L.push('Q1 (five sources + examples): '+A('types-q1'));
+  L.push('Q2 (why name the type first): '+A('types-q2'));
+  L.push('Q3 (hardest risk to control): '+A('types-q3'));
+  L.push('');
+  L.push('— Activity 3.1.2 Four Ways to Handle a Risk —');
+  L.push('Match-the-strategy scenarios: all matched correctly (required to advance)');
+  L.push('Q1 (reduce vs transfer): '+A('strat-q1'));
+  L.push('Q2 (retain vs transfer example): '+A('strat-q2'));
+  L.push('');
+  L.push('— Activity 3.1.3 The Risk-Management Process —');
+  L.push('Process ordering: completed (5 steps in order)');
+  L.push('Q1 (why measure before choosing): '+A('proc-q1'));
+  L.push('Q2 (why review & adjust): '+A('proc-q2'));
+  L.push('');
+  L.push('— Activity 3.1.4 Build Your Own Risk Plan —');
+  L.push('Planning checklist: '+PLAN_CHECKS.filter(([id])=>S.checks[id]).length+' of '+PLAN_CHECKS.length+' steps done');
+  L.push('Q1 (business + three risks by type): '+A('plan-q1'));
+  L.push('Q2 (a strategy for each risk): '+A('plan-q2'));
+  L.push('Q3 (biggest worry + first action): '+A('plan-q3'));
+  return L.join('\n');
+}
+function copyWork(btn){
+  const t=document.getElementById('compiled').textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+    .then(()=>{ btn.textContent='✓ Copied — paste it into Classroom'; })
+    .catch(()=>{ // fallback: select the block
+      const r=document.createRange(); r.selectNode(document.getElementById('compiled'));
+      getSelection().removeAllRanges(); getSelection().addRange(r);
+      btn.textContent='Select + copy the highlighted text above';
+    });
+}
+
+/* ── glossary ── */
+const GLOSS=[
+['Avoid','Risk strategy: choose not to take a risk at all — skip the risky activity so there is no chance of that loss.'],
+['Contract','A binding agreement — for example, locking in a sale price ahead of time so a price swing can\'t hurt that sale. A common way to transfer market risk.'],
+['Deductible','The share of a loss the insured business pays itself before insurance covers the rest.'],
+['Diversification','Producing or selling more than one product or in more than one market, so that a single failure does not wipe out the whole business. A way to reduce risk.'],
+['Financial risk','The risk of trouble with money and debt — being unable to cover loans or payments, running out of cash, or rising interest rates.'],
+['Human risk','The risk that something happens to the people in a business — injury, illness, death, or a key worker leaving. Also called personnel or human-resource risk.'],
+['Insurance','Paying a set fee (a premium) to a company that agrees to cover a large loss if it happens. A way to transfer risk.'],
+['Legal risk','The risk that laws, regulations, contracts, or liability create a loss — new rules, lost permits, lawsuits, or broken agreements. Also called institutional risk.'],
+['Liability','Legal responsibility for a loss or injury — for example, being responsible when someone is hurt on your property.'],
+['Market risk','The risk that prices move against you — the product you sell drops in value, or the inputs you buy rise in cost. Also called price risk.'],
+['Premium','The regular payment a business makes to an insurer in exchange for coverage.'],
+['Production risk','The risk that something goes wrong while making the product — weather, pests, disease, equipment failure, or fire.'],
+['Reduce','Risk strategy: take the risk but make the loss smaller or less likely — through diversification, safety practices, or maintenance.'],
+['Retain','Risk strategy: knowingly keep a risk and be ready to absorb the loss yourself, usually with a savings fund. Best for small or cheap losses.'],
+['Risk','The chance that an outcome turns out worse than expected — a loss instead of a gain.'],
+['Risk management','The ongoing process of identifying, measuring, and responding to the risks a business faces in order to protect it.'],
+['Transfer','Risk strategy: shift a loss onto someone else — through insurance or a contract — usually in exchange for a fee.'],
+['Value-added product','A raw product turned into something worth more (milk into cheese, fruit into jam), which can spread out risk and raise income.'],
+];
+RENDER.gloss=()=>`
+  <h2>📖 Lesson 3.1 Glossary</h2>
+  <p class="muted">Every key term for this lesson.</p>
+  ${GLOSS.map(([t,d])=>`<div class="term"><b>${t}</b><span>${d}</span></div>`).join('')}
+  <button class="btn ghost" onclick="goMap()">Back to map</button>`;
+
+/* ───────── boot ───────── */
+if(S.name) boot();
+</script>
+</body>
+</html>

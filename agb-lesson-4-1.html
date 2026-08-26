@@ -1,143 +1,778 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Lesson 4.1 Finalizing the Plan — Self-Paced — Verde Tech</title>
+<meta name="theme-color" content="#2f6b3f">
+<!--
+  ABF Lesson 4.1 "Finalizing the Plan" — self-paced student module (capstone of Unit 4).
+  Built from the CASE ABF curriculum Leo teaches in P2 Agribusiness.
+  Standalone file: no server, no login, works offline (videos need internet).
+  Student work saves in the browser (localStorage) and compiles into one text block to turn in.
+  The graded Lesson 4.1 Check for Understanding is NOT here — teacher distributes it.
+  All practice questions in this file are original (no CASE answer-key content).
+-->
 <style>
-  :root{color-scheme:light}
-  *{box-sizing:border-box}
-  body{margin:0;background:#f6f8f4;color:#1b2a1b;font:18px/1.6 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}
-  .wrap{max-width:760px;margin:0 auto;padding:18px 18px 70px}
-  header{background:#2f7d32;color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px}
-  header h1{margin:.1rem 0;font-size:26px}
-  header .sub{opacity:.9;font-size:16px}
-  h2{margin:1.4rem 0 .4rem;font-size:22px;color:#2f7d32;border-bottom:2px solid #cfe3cf;padding-bottom:.2rem}
-  .card{background:#fff;border:1px solid #dbe6db;border-radius:12px;padding:16px 18px;margin:12px 0}
-  .eq{background:#eef6ee;border-left:5px solid #2f7d32;border-radius:8px;padding:10px 14px;margin:10px 0}
-  .term{font-weight:700;color:#1f5e22}
-  ul{margin:.4rem 0 .4rem 1.1rem}
-  li{margin:.25rem 0}
-  .try{background:#fff8e6;border:1px solid #f0e2b6;border-radius:10px;padding:12px 14px;margin:10px 0}
-  .try b{color:#8a6d00}
-  table{border-collapse:collapse;width:100%;margin:.4rem 0;font-size:16px}
-  td,th{border:1px solid #cfe0cf;padding:6px 8px;text-align:left;vertical-align:top}
-  th{background:#eef6ee}
-  .turn{background:#2f7d32;color:#fff;border-radius:12px;padding:16px;margin-top:18px;font-size:19px}
-  .pill{display:inline-block;background:#2f7d32;color:#fff;border-radius:20px;padding:2px 12px;font-size:14px;font-weight:700}
-</style></head>
-<body><div class="wrap">
+  :root{
+    --green:#2f6b3f; --green-d:#245231; --green-l:#eaf3ec;
+    --sun:#c8892b; --sun-l:#fdf3e2;
+    --ink:#1d2321; --dim:#5b6763; --faint:#8a9591;
+    --line:#dfe5e1; --bg:#f6f8f6; --card:#fff;
+    --ok:#2f7d4f; --no:#b23b3b; --no-l:#fbecec;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    padding:0 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 90px}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  h1,h2,h3{line-height:1.25;margin:0}
+  header{position:sticky;top:0;z-index:20;background:var(--green);color:#fff;
+    padding:calc(10px + env(safe-area-inset-top)) 16px 10px}
+  .hrow{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .htitle{font-size:16px;font-weight:700;letter-spacing:.2px;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hsub{font-size:12px;opacity:.78;font-weight:500;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .back{font-size:15px;font-weight:600;opacity:.92;padding:6px 4px;margin-left:-4px}
+  .who{font-size:12.5px;opacity:.85;padding:6px 8px;border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .btn{display:block;width:100%;background:var(--green);color:#fff;font-size:17px;font-weight:700;
+    padding:16px;border-radius:14px;text-align:center;margin-top:14px;transition:.12s transform}
+  .btn:active{transform:scale(.985)}
+  .btn.ghost{background:#fff;color:var(--green);border:2px solid var(--green)}
+  .btn.quiet{background:transparent;color:var(--dim);font-weight:600;font-size:15px;padding:12px;margin-top:4px}
+  .btn[disabled]{opacity:.4;pointer-events:none}
+  .muted{color:var(--dim);font-size:14.5px}
+  .tiny{color:var(--faint);font-size:12.5px}
+  .hide{display:none !important}
+  #gate .card{margin-top:28px;text-align:center}
+  #gate h2{font-size:22px;margin-bottom:6px}
+  #nameIn{width:100%;font-size:18px;padding:15px;border:2px solid var(--line);
+    border-radius:12px;margin-top:16px;text-align:center;background:#fff;color:var(--ink)}
+  #nameIn:focus{outline:none;border-color:var(--green)}
+  .progwrap{margin:18px 0 6px}
+  .progbar{height:10px;background:#e4eae5;border-radius:99px;overflow:hidden}
+  .progfill{height:100%;background:linear-gradient(90deg,var(--green),#57a06b);
+    border-radius:99px;transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .progtxt{display:flex;justify-content:space-between;margin-top:7px;font-size:13px;color:var(--dim)}
+  .progtxt b{color:var(--ink)}
+  .row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 15px;margin:9px 0;transition:.12s border-color,.12s transform}
+  .row:active{transform:scale(.99)}
+  .row.done{border-color:#bcdcc5;background:#f4faf5}
+  .row.locked{opacity:.5}
+  .row.next{border-color:var(--green);box-shadow:0 0 0 3px rgba(47,107,63,.09)}
+  .dot{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-size:14px;font-weight:800;background:var(--green-l);color:var(--green-d)}
+  .row.done .dot{background:var(--ok);color:#fff}
+  .row.locked .dot{background:#eceeed;color:var(--faint)}
+  .rtext{flex:1;min-width:0}
+  .rtext .nm{display:block;font-size:16px;font-weight:650;line-height:1.3}
+  .rtext .sc{display:block;font-size:12.5px;color:var(--dim);margin-top:3px}
+  .row.done .sc{color:var(--ok);font-weight:600}
+  .chev{color:var(--faint);font-size:19px;flex:none}
+  .secttl{font-size:12px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;
+    color:var(--faint);margin:24px 4px 4px}
+  .lesson h2{font-size:21px;margin:4px 0 10px}
+  .lesson h3{font-size:16.5px;margin:18px 0 8px;color:var(--green-d)}
+  .lesson p{margin:0 0 12px;font-size:16px;color:#2a3330}
+  .lesson ul{margin:0 0 12px;padding-left:22px}
+  .lesson li{margin:5px 0;font-size:15.5px}
+  .callout{background:var(--green-l);border:1px solid #cfe2d4;border-radius:12px;
+    padding:13px 15px;margin:12px 0;font-size:15px}
+  .callout.sun{background:var(--sun-l);border-color:#eedcb8}
+  .term{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+  .term b{color:var(--green-d)}
+  .term span{display:block;font-size:14.5px;color:var(--dim);margin-top:3px}
+  a.ext{display:block;background:#fff;border:2px solid var(--green);border-radius:14px;
+    padding:14px 16px;margin:12px 0;color:var(--green);font-weight:700;text-decoration:none;font-size:16px}
+  a.ext small{display:block;font-weight:500;color:var(--dim);font-size:13px;margin-top:2px}
+  textarea{width:100%;min-height:84px;font:15.5px/1.5 inherit;padding:12px;border:2px solid var(--line);
+    border-radius:12px;background:#fff;color:var(--ink);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--green)}
+  .qlabel{font-size:15px;font-weight:650;margin:16px 0 7px}
+  .qlabel .qn{color:var(--sun);font-weight:800}
+  /* sort game */
+  .sortitem{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:16px;font-weight:600;text-align:center}
+  .sortbtns{display:flex;gap:10px;margin-top:12px}
+  .sortbtns button{flex:1;padding:14px;border-radius:12px;font-weight:800;font-size:16px}
+  .sb-need{background:var(--green-l);color:var(--green-d);border:2px solid var(--green)}
+  .sb-want{background:var(--sun-l);color:#8a5a12;border:2px solid var(--sun)}
+  .sortfeed{text-align:center;font-weight:700;margin-top:10px;min-height:24px;font-size:15px}
+  .sortfeed.ok{color:var(--ok)} .sortfeed.no{color:var(--no)}
+  /* mcq */
+  .mcq-q{font-size:17px;font-weight:650;margin:6px 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);
+    border-radius:13px;padding:14px 15px;margin:9px 0;font-size:15.5px;transition:.12s}
+  .opt.picked-ok{border-color:var(--ok);background:#f0f9f2;font-weight:650}
+  .opt.picked-no{border-color:var(--no);background:var(--no-l)}
+  .opt.reveal{border-color:var(--ok)}
+  .mcq-feed{min-height:26px;font-weight:700;font-size:15px;margin-top:6px}
+  .mcq-feed.ok{color:var(--ok)} .mcq-feed.no{color:var(--no)}
+  .mcq-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim);margin-bottom:10px}
+  /* chain order game */
+  .chainpick{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:15.5px;font-weight:600;text-align:left}
+  .chainpick[disabled]{opacity:.35}
+  .chainslot{background:var(--green-l);border:1px solid #cfe2d4;border-radius:10px;
+    padding:9px 13px;margin:5px 0;font-size:14.5px;font-weight:650;color:var(--green-d)}
+  /* checklist */
+  .ck{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;
+    background:#fff;border:2px solid var(--line);border-radius:13px;padding:13px 15px;margin:8px 0}
+  .ck .box{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);flex:none;
+    display:grid;place-items:center;font-size:15px;color:#fff;margin-top:1px}
+  .ck.on{border-color:#bcdcc5;background:#f4faf5}
+  .ck.on .box{background:var(--ok);border-color:var(--ok)}
+  .ck .t{flex:1;font-size:15px}
+  /* structures reference cards */
+  .struct{border-left:4px solid var(--green);background:#fff;border-radius:0 12px 12px 0;
+    border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:12px 15px;margin:10px 0}
+  .struct b{font-size:16px}
+  .struct p{margin:5px 0 0;font-size:14.5px;color:var(--dim)}
+  /* finish */
+  .bigscore{text-align:center;font-size:44px;font-weight:800;color:var(--green);margin:10px 0 2px}
+  pre#compiled{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace;background:#f2f5f2;
+    border:1px solid var(--line);border-radius:12px;padding:14px;max-height:340px;overflow:auto}
+</style>
+</head>
+<body>
 <header>
-  <div class="pill">Unit 4 · Agribusiness</div>
-  <h1>Lesson 4.1 — Finalizing the Plan</h1>
-  <div class="sub">This is the capstone. You'll pull everything together into a finished business plan and pitch it.</div>
+  <div class="hrow">
+    <button class="back hide" id="backBtn" onclick="goMap()">‹ Map</button>
+    <div style="flex:1;min-width:0">
+      <div class="htitle">Lesson 4.1 · Finalizing the Plan</div>
+      <div class="hsub">Agribusiness Foundations · self-paced · Mr. Beltran</div>
+    </div>
+    <div class="who hide" id="whoChip"></div>
+  </div>
 </header>
+<div class="wrap">
 
-<h2>🌱 What this lesson is about</h2>
-<div class="card">
-  <p>You've learned to track money, measure a business's health, plan for risk, and weigh opportunities. Now you put
-  it all together into a <b>finished business plan</b> — the document you'd show an investor or a bank to get support.
-  You'll size up your competition, set clear goals, build a timeline, and pitch your idea.</p>
-  <div class="eq"><b>Big idea:</b> a business plan turns a good idea into something other people can believe in and back with money.</div>
+<!-- ══════════ NAME GATE ══════════ -->
+<section id="gate">
+  <div class="card">
+    <h2>📋 Finalizing the Business Plan</h2>
+    <p class="muted">This is the capstone. Work through it at your own pace — your answers save on this device as you go, and at the end you'll pull your whole plan together and turn it in with one tap.</p>
+    <input id="nameIn" placeholder="First and last name" autocomplete="off">
+    <button class="btn" onclick="startApp()">Start</button>
+    <p class="tiny" style="margin-top:14px">Use the same device each day so your saved work is here when you come back.</p>
+  </div>
+</section>
+
+<!-- ══════════ MAP ══════════ -->
+<section id="map" class="hide">
+  <div class="progwrap">
+    <div class="progbar"><div class="progfill" id="progFill" style="width:0%"></div></div>
+    <div class="progtxt"><span>Lesson progress</span><b id="progTxt">0 of 6</b></div>
+  </div>
+  <div class="secttl">Work in order — each part unlocks the next</div>
+  <div id="rows"></div>
+  <div class="secttl">Reference</div>
+  <button class="row" onclick="openStation('gloss')">
+    <div class="dot">📖</div>
+    <div class="rtext"><span class="nm">Key Terms Glossary</span>
+    <span class="sc">Every term for this lesson — open any time</span></div>
+    <div class="chev">›</div>
+  </button>
+  <p class="tiny" style="text-align:center;margin-top:20px">CASE Agribusiness Foundations · Unit 4 · Verde Tech / Mr. Beltran<br>
+  Questions? Ask in class or post in Google Classroom.</p>
+  <button class="btn quiet" onclick="resetAll()">Start over (erases saved work)</button>
+</section>
+
+<!-- ══════════ STATION CONTAINER ══════════ -->
+<section id="station" class="hide"><div id="stationBody" class="lesson"></div></section>
+
 </div>
+<script>
+'use strict';
+/* ───────── persistence ───────── */
+const KEY='abf-l41-v1';
+let S = load();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{} }catch(e){ return {} } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)) }catch(e){} }
+S.done   = S.done || {};      // station id -> true
+S.text   = S.text || {};      // answer id  -> typed text
+S.checks = S.checks || {};    // checklist id -> true
+S.scores = S.scores || {};    // quiz id -> best %
 
-<h2>📖 The words you'll use</h2>
-<div class="card">
+/* ───────── stations ───────── */
+const STATIONS = [
+ {id:'overview', n:'1', nm:'Start Here — What This Lesson Is About', sc:'The capstone — what a business plan is and what you\'ll build'},
+ {id:'parts',    n:'2', nm:'The Five Parts of a Business Plan',      sc:'Activity 4.1.1 · match the sections + short answers'},
+ {id:'market',   n:'3', nm:'Market & Competition',                   sc:'Activity 4.1.2 · SWOT + competitive analysis'},
+ {id:'goals',    n:'4', nm:'SMART Goals & Timeline',                 sc:'Activity 4.1.3 · set a goal + order your milestones'},
+ {id:'pitch',    n:'5', nm:'Executive Summary, Compile & Pitch',     sc:'Activity 4.1.4 · assemble the plan, then pitch it'},
+ {id:'final',    n:'✓', nm:'Final Self-Check + Turn In',             sc:'Quick quiz, then submit your finished plan'},
+];
+function doneCount(){ return STATIONS.filter(s=>S.done[s.id]).length }
+function firstOpen(){ for(const s of STATIONS){ if(!S.done[s.id]) return s.id } return null }
+
+/* ───────── shell ───────── */
+function startApp(){
+  const v=document.getElementById('nameIn').value.trim();
+  if(!v){ document.getElementById('nameIn').focus(); return }
+  S.name=v; save(); boot();
+}
+function boot(){
+  document.getElementById('gate').classList.add('hide');
+  const chip=document.getElementById('whoChip');
+  chip.textContent=S.name; chip.classList.remove('hide');
+  goMap();
+}
+function goMap(){
+  document.getElementById('station').classList.add('hide');
+  document.getElementById('backBtn').classList.add('hide');
+  document.getElementById('map').classList.remove('hide');
+  renderMap(); window.scrollTo(0,0);
+}
+function renderMap(){
+  const open=firstOpen();
+  document.getElementById('rows').innerHTML = STATIONS.map((s,i)=>{
+    const done=!!S.done[s.id];
+    const locked=!done && s.id!==open;
+    const cls='row'+(done?' done':'')+(locked?' locked':'')+(s.id===open?' next':'');
+    const sc=done ? (s.id==='final' ? 'Done — tap to review / turn in again' : 'Done ✓  (tap to review)') : s.sc;
+    return `<button class="${cls}" ${locked?'disabled':''} onclick="openStation('${s.id}')">
+      <div class="dot">${done?'✓':s.n}</div>
+      <div class="rtext"><span class="nm">${s.nm}</span><span class="sc">${sc}</span></div>
+      <div class="chev">›</div></button>`;
+  }).join('');
+  const n=doneCount();
+  document.getElementById('progFill').style.width=(n/STATIONS.length*100)+'%';
+  document.getElementById('progTxt').textContent=`${n} of ${STATIONS.length}`;
+}
+function openStation(id){
+  document.getElementById('map').classList.add('hide');
+  document.getElementById('station').classList.remove('hide');
+  document.getElementById('backBtn').classList.remove('hide');
+  document.getElementById('stationBody').innerHTML = RENDER[id]();
+  if(AFTER[id]) AFTER[id]();
+  window.scrollTo(0,0);
+}
+function completeStation(id){ S.done[id]=true; save(); goMap(); }
+function resetAll(){ if(confirm('Erase ALL saved work and start over?')){ localStorage.removeItem(KEY); location.reload(); } }
+
+/* typed-answer helpers */
+function ta(id,ph){ return `<textarea id="ta-${id}" placeholder="${ph||'Type your answer…'}"
+  oninput="S.text['${id}']=this.value;save()">${esc(S.text[id]||'')}</textarea>` }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;') }
+function answered(ids){ return ids.every(i=>(S.text[i]||'').trim().length>=8) }
+function needAnswers(ids,btnId){
+  const b=document.getElementById(btnId); if(!b) return;
+  b.disabled=!answered(ids);
+}
+function wireAnswers(ids,btnId){
+  needAnswers(ids,btnId);
+  ids.forEach(i=>{ const el=document.getElementById('ta-'+i);
+    if(el) el.addEventListener('input',()=>needAnswers(ids,btnId)); });
+}
+
+/* ═════════ RENDERERS ═════════ */
+const RENDER={}, AFTER={};
+
+/* ── overview ── */
+RENDER.overview=()=>`
+  <h2>📋 What this lesson is about</h2>
+  <p>All year you've been building the pieces of a business: you learned how businesses are organized, how to track money, how to read whether a business is healthy, how to plan for risk, and how to weigh an opportunity. This is the lesson where all of it comes together.</p>
+  <p>A <b>business plan</b> is a written document that describes a business, explains how it will make money, and lays out the plan to reach its goals. It's the thing you'd hand to a bank, an investor, or a partner to convince them your idea is real and worth backing. A good plan turns "I have an idea" into "here's exactly how this works, and here's the proof."</p>
+  <div class="callout"><b>Big idea:</b> a business plan turns a good idea into something other people can understand, believe in, and back with money.</div>
+  <p>Over the next few days you will:</p>
   <ul>
-    <li><span class="term">SWOT</span> — a four-part look at your business: <b>S</b>trengths, <b>W</b>eaknesses, <b>O</b>pportunities, <b>T</b>hreats.</li>
-    <li><span class="term">Competitive product</span> — someone else's product that competes with yours for the same customers.</li>
-    <li><span class="term">Complementary product</span> — a product that <b>helps</b> yours sell (hot dogs help sell buns).</li>
-    <li><span class="term">Competitive analysis</span> — sizing up your competition to see how you stack up.</li>
-    <li><span class="term">SMART goal</span> — a goal that is <b>S</b>pecific, <b>M</b>easurable, <b>A</b>chievable, <b>R</b>elevant, and <b>T</b>ime-based.</li>
-    <li><span class="term">Milestone</span> — a checkpoint on your timeline (a date by which something should be done).</li>
-    <li><span class="term">Pitch</span> — a short, convincing presentation of your business to someone who might invest.</li>
+    <li>Learn the <b>five parts of a business plan</b> — description, market, operations, finances, and executive summary (Activity 4.1.1)</li>
+    <li>Study your <b>market and competition</b> with a <b>SWOT analysis</b> and a <b>competitive analysis</b> (Activity 4.1.2)</li>
+    <li>Set a <b>SMART goal</b> and build a <b>timeline</b> of milestones to reach it (Activity 4.1.3)</li>
+    <li>Write your <b>executive summary</b>, <b>compile the whole plan</b>, and <b>pitch it</b> like you would to an investor (Activity 4.1.4)</li>
   </ul>
-</div>
+  <h3>Essential questions</h3>
+  <div class="callout">
+    1. What are the parts of a business plan, and what does each one do?<br>
+    2. How does knowing your market and competition make a plan stronger?<br>
+    3. What makes a goal SMART, and why does a timeline matter?<br>
+    4. What is an executive summary, and why is it written last but read first?<br>
+    5. How do you pitch a business plan so someone wants to say "yes"?
+  </div>
+  <p class="muted">Keep these in the back of your mind — by the end of the lesson you should be able to answer every one of them without looking, and you'll have a finished plan to prove it.</p>
+  <h3>Words you'll meet</h3>
+  <p class="muted">Business plan · business description · market analysis · target market · operations plan · financial plan · executive summary · SWOT · competitive product · complementary product · competitive analysis · SMART goal · milestone · timeline · pitch · investor … The full <b>📖 Glossary</b> is on the map screen any time you need it.</p>
+  <button class="btn" onclick="completeStation('overview')">Got it — start Activity 1</button>`;
 
-<h2>🔍 Project 4.1.1 — SWOT Analysis</h2>
-<div class="card">
-  <p>Fill in a SWOT for the business you've been planning. Two boxes are about <b>you</b> (inside the business), two
-  are about the <b>outside world</b>.</p>
-  <table>
-    <tr><th>Strengths (what you do well)</th><th>Weaknesses (where you're short)</th></tr>
-    <tr><td>List 2–3</td><td>List 2–3</td></tr>
-    <tr><th>Opportunities (outside chances to grow)</th><th>Threats (outside dangers)</th></tr>
-    <tr><td>List 2–3</td><td>List 2–3</td></tr>
-  </table>
-  <div class="try"><b>Answer:</b> Look at your weaknesses and threats — pick the most serious one and describe how you'd deal with it.</div>
-</div>
+/* ── parts of a business plan (matching) ── */
+const PART_NAMES={desc:'Business Description',market:'Market Analysis',ops:'Operations Plan',fin:'Financial Plan',exec:'Executive Summary'};
+const PART_SCENARIOS=[
+  {t:'"Verde Greens is a small hydroponic lettuce farm in Prescott. We grow fresh salad greens and sell them to three local restaurants and at the Saturday farmers\' market."',
+   a:'desc', hint:'This says WHAT the business is and WHO it sells to — the plain introduction to the business itself.'},
+  {t:'"Our town has about 4,000 households. A survey shows 60% buy bagged salad every week. Right now two grocery stores and one other local grower serve them, and neither offers same-day fresh greens."',
+   a:'market', hint:'Numbers about customers, demand, and who else is out there — that\'s sizing up the market.'},
+  {t:'"Greens are seeded on Mondays, transplanted on day 14, and harvested on day 35. We run two grow rooms, and one part-time worker helps with harvest, washing, and packing every Friday."',
+   a:'ops', hint:'This is the day-to-day of HOW the product actually gets made and delivered.'},
+  {t:'"Start-up cost is $6,200. We project $1,450 in monthly revenue against $900 in monthly expenses, which reaches break-even in month 7 and a net income of about $550 a month after that."',
+   a:'fin', hint:'Dollars in, dollars out, when it breaks even — this is all about the money.'},
+  {t:'"In one page up front: who we are, the problem we solve, our edge over the competition, and that we\'re seeking $5,000 to add a third grow room. Everything a busy investor needs at a glance."',
+   a:'exec', hint:'A short overview of the whole plan, placed first so a busy reader gets the big picture fast.'},
+];
+RENDER.parts=()=>`
+  <h2>📑 Activity 4.1.1 — The Five Parts of a Business Plan</h2>
+  <p>A business plan isn't one long ramble — it's built from <b>parts</b>, and each part answers a different question a reader will have. Learn the five parts once and you can read (or write) any plan.</p>
+  <div class="struct"><b>1 · Business Description</b><p>The introduction. What the business is, what it sells, who its customers are, and how it's legally organized. Answers: "What is this?"</p></div>
+  <div class="struct"><b>2 · Market Analysis</b><p>A look at the customers and the competition. How big is the demand? Who are the buyers? Who else is selling something like this? Answers: "Is there a market, and who else is in it?"</p></div>
+  <div class="struct"><b>3 · Operations Plan</b><p>How the business actually runs day to day — how the product is made, stored, and delivered, what equipment and workers are needed. Answers: "How does it get done?"</p></div>
+  <div class="struct"><b>4 · Financial Plan</b><p>The money. Start-up cost, income, expenses, predicted net income, and the balance sheet. Often the part an investor reads most carefully. Answers: "Will this make money?"</p></div>
+  <div class="struct"><b>5 · Executive Summary</b><p>A short one-page overview of the whole plan — written LAST but placed FIRST so a busy reader gets the big picture before diving in. Answers: "Why should I keep reading?"</p></div>
+  <div class="callout sun"><b>Why the order matters:</b> a reader meets the business (description), checks that customers exist (market), sees how it runs (operations), and checks the money (financial). The executive summary sits on top of all of it — you can only summarize the plan once the rest is written.</div>
+  <h3>Match each piece to its part</h3>
+  <p class="muted">Read each snippet from a real plan and tap which part of the plan it belongs in. Look for the clue words — who, market numbers, day-to-day steps, dollars, or a big-picture overview.</p>
+  <div class="card" id="partCard"></div>
+  <div id="partQs" class="hide">
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> In one short line each, say what job every part of the plan does.</div>
+    ${ta('parts-q1','Business description: …\nMarket analysis: …\nOperations plan: …\nFinancial plan: …\nExecutive summary: …')}
+    <div class="qlabel"><span class="qn">Q2.</span> Which part do you think will be the hardest to write for YOUR business, and why?</div>
+    ${ta('parts-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> An investor only has 5 minutes. Why does having all five parts — not just the money part — help you get a "yes"?</div>
+    ${ta('parts-q3')}
+    <button class="btn" id="partsDone" onclick="completeStation('parts')">Finish Activity 1</button>
+    <p class="tiny" style="text-align:center">Answer all three (a sentence or two each) to unlock the button.</p>
+  </div>`;
+AFTER.parts=()=>{
+  let i=S.partIdx||0;
+  if(S.done.parts) i=PART_SCENARIOS.length;
+  const card=document.getElementById('partCard');
+  function draw(){
+    if(i>=PART_SCENARIOS.length){
+      card.classList.add('hide');
+      document.getElementById('partQs').classList.remove('hide');
+      wireAnswers(['parts-q1','parts-q2','parts-q3'],'partsDone');
+      return;
+    }
+    const sc=PART_SCENARIOS[i];
+    const opts=Object.keys(PART_NAMES).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Snippet ${i+1} of ${PART_SCENARIOS.length}</div>
+      <p style="font-size:15.5px">${sc.t}</p>
+      ${opts.map(k=>`<button class="opt" data-k="${k}" onclick="partPick('${k}',this)">${PART_NAMES[k]}</button>`).join('')}
+      <div class="mcq-feed" id="partFeed"></div>`;
+  }
+  window.partPick=(k,el)=>{
+    const sc=PART_SCENARIOS[i], feed=document.getElementById('partFeed');
+    if(k===sc.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ '+PART_NAMES[sc.a]+' — exactly.'; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+      i++; S.partIdx=i; save(); setTimeout(draw,1500);
+    }else{
+      el.classList.add('picked-no'); feed.textContent='Not quite — hint: '+sc.hint; feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),900);
+    }
+  };
+  draw();
+};
 
-<h2>🏪 Activity 4.1.2 — Sizing Up the Competition</h2>
-<div class="card">
-  <p>Think about who else sells something like what you'll sell.</p>
-  <ol>
-    <li>Name <b>2 competitors</b> (other stands, stores, or sellers your customers could choose instead).</li>
-    <li>For each, write one thing they do <b>better</b> than you and one thing you can do <b>better</b> than them.</li>
-    <li>Name <b>1 complementary</b> product or business — something that could help your sales.</li>
-  </ol>
-  <div class="try"><b>Answer:</b> What is the <i>one</i> reason a customer should pick you over your competition? (This is your edge — say it in one sentence.)</div>
-</div>
-
-<h2>🎯 Project 4.1.3 — Set a SMART Goal</h2>
-<div class="card">
-  <p>A weak goal is "sell a lot." A SMART goal is "sell 200 jars of honey by the end of October at $8 each."
-  Write one SMART goal for your business and check each part:</p>
-  <table>
-    <tr><th>SMART part</th><th>Does your goal have it?</th></tr>
-    <tr><td><b>S</b>pecific — exactly what?</td><td></td></tr>
-    <tr><td><b>M</b>easurable — a number to check?</td><td></td></tr>
-    <tr><td><b>A</b>chievable — realistic?</td><td></td></tr>
-    <tr><td><b>R</b>elevant — matters to your business?</td><td></td></tr>
-    <tr><td><b>T</b>ime-based — has a deadline?</td><td></td></tr>
-  </table>
-  <div class="try"><b>Write it:</b> State your final SMART goal in one clear sentence.</div>
-</div>
-
-<h2>📅 Project 4.1.4 — Build a Timeline</h2>
-<div class="card">
-  <p>A timeline lists the <b>milestones</b> that get you to your goal. Make a simple one with at least 4 milestones and a date for each:</p>
-  <table>
-    <tr><th>Milestone (what gets done)</th><th>By when (date)</th></tr>
-    <tr><td>Example: buy supplies</td><td>Example: March 1</td></tr>
-    <tr><td></td><td></td></tr>
-    <tr><td></td><td></td></tr>
-    <tr><td></td><td></td></tr>
-    <tr><td></td><td></td></tr>
-  </table>
-  <div class="try"><b>Answer:</b> Which milestone is the most important to hit on time, and what happens to the rest of the plan if you miss it?</div>
-</div>
-
-<h2>📋 Project 4.1.5 — Compile Your Business Plan</h2>
-<div class="card">
-  <p>Now bring together the work you've done across these lessons into one finished plan. It should include:</p>
+/* ── market & competition (competitive vs complementary sort) ── */
+const SORT_ITEMS=[
+  {t:'Another farm stand two blocks away selling the same heirloom tomatoes',need:true,  why:'They fight you for the SAME customers and the same dollars — that\'s a competitor.'},
+  {t:'The grocery store\'s bagged salad down the street',                    need:true,  why:'A different seller offering the same kind of product to your buyers — competitive.'},
+  {t:'A neighbor who also sells farm-fresh eggs just like you do',           need:true,  why:'Same product, same shoppers — a direct competitor.'},
+  {t:'An online seller shipping the same local honey to your area',          need:true,  why:'Another source of the exact product you sell — competitive.'},
+  {t:'A big-box store that undercuts your price on jam',                     need:true,  why:'They pull the same customers away with a lower price — competitive.'},
+  {t:'A bakery next door that buys your eggs to make and sell cakes',        need:false, why:'They HELP you sell — more egg demand for you. That\'s complementary.'},
+  {t:'The farmers\'-market coffee cart that draws the morning crowd',        need:false, why:'It pulls in the very shoppers you sell to — complementary foot traffic.'},
+  {t:'A recipe blog that features dishes made with your honey',              need:false, why:'It sends buyers toward your product — complementary.'},
+  {t:'A local taco truck that buys your salsa peppers every week',           need:false, why:'Their sales create demand for yours — complementary.'},
+  {t:'A cheese shop that slips a coupon for your crackers into every bag',   need:false, why:'They boost your sales instead of competing for them — complementary.'},
+];
+RENDER.market=()=>`
+  <h2>🏪 Activity 4.1.2 — Know Your Market &amp; Competition</h2>
+  <p>The <b>market analysis</b> part of your plan answers two questions: <i>Are there enough customers?</i> and <i>Who else is trying to sell to them?</i> Investors want proof you actually understand the world your business lives in.</p>
+  <p>Two tools do most of the work here:</p>
+  <h3>SWOT analysis</h3>
+  <p>A <b>SWOT</b> is a four-part honest look at your business. Two boxes are about <b>you</b> (inside the business), two are about the <b>outside world</b>:</p>
   <ul>
-    <li>A short <b>description</b> of your business (what you sell and to whom).</li>
-    <li>Your <b>income &amp; expenses</b> and predicted <b>net income</b> (Lessons 2.1–2.4).</li>
-    <li>Your <b>balance sheet</b> / net worth (Lesson 2.3).</li>
-    <li>Your <b>risk management plan</b> (Lesson 3.1).</li>
-    <li>Your <b>SWOT</b>, <b>competitive analysis</b>, <b>SMART goal</b>, and <b>timeline</b> (this lesson).</li>
+    <li><b>S — Strengths:</b> what you do well (fresher product, lower cost, a great location).</li>
+    <li><b>W — Weaknesses:</b> where you fall short (little experience, a small budget, one supplier).</li>
+    <li><b>O — Opportunities:</b> outside chances to grow (a new restaurant opening, a rising interest in local food).</li>
+    <li><b>T — Threats:</b> outside dangers (a drought, a bigger competitor, rising feed prices).</li>
   </ul>
-  <div class="try"><b>Check:</b> Read your plan as if you were an investor. Is there anything missing or unclear? Fix it.</div>
-</div>
+  <div class="callout"><b>Inside vs. outside:</b> Strengths and Weaknesses are things YOU control. Opportunities and Threats come from the outside world — you can plan around them but you can\'t simply decide them away.</div>
+  <h3>Competitive vs. complementary</h3>
+  <p>A <b>competitive product</b> competes with yours for the same customers. A <b>complementary product</b> actually <i>helps</i> yours sell — hot dogs help sell buns. A <b>competitive analysis</b> is just sizing up your competition to see how you stack up and where your edge is.</p>
+  <a class="ext" href="https://www.youtube.com/watch?v=JXP2vvL0iuE" target="_blank" rel="noopener">▶️ What is a SWOT Analysis? <small>A quick, plain walkthrough — take notes as you watch</small></a>
+  <h3>Competitor or helper? — sort it</h3>
+  <p class="muted">For each business below, decide: is it a <b>competitor</b> (fights you for the same customers) or <b>complementary</b> (helps your sales)?</p>
+  <div class="card" id="sortCard">
+    <div class="tiny" id="sortCount"></div>
+    <div class="sortitem" id="sortItem"></div>
+    <div class="sortbtns">
+      <button class="sb-need" onclick="sortPick(true)">COMPETITOR</button>
+      <button class="sb-want" onclick="sortPick(false)">COMPLEMENTARY</button>
+    </div>
+    <div class="sortfeed" id="sortFeed"></div>
+  </div>
+  <div id="sortDoneMsg" class="hide">
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> Write a SWOT for the business you\'ve been planning — at least two items in each box.</div>
+    ${ta('market-swot','Strengths: …\nWeaknesses: …\nOpportunities: …\nThreats: …')}
+    <div class="qlabel"><span class="qn">Q2.</span> Name TWO competitors. For each, one thing they do better than you and one thing you can do better than them.</div>
+    ${ta('market-comp')}
+    <div class="qlabel"><span class="qn">Q3.</span> What is the ONE reason a customer should pick you over your competition? Say it in a single sentence — this is your edge.</div>
+    ${ta('market-edge')}
+    <button class="btn" id="marketDone" onclick="completeStation('market')">Finish Activity 2</button>
+    <p class="tiny" style="text-align:center">Answer all three to unlock the button.</p>
+  </div>`;
+AFTER.market=()=>{
+  let i=S.sortIdx||0, right=S.sortRight||0;
+  if(S.done.market){ i=SORT_ITEMS.length } // reviewing: skip to questions
+  const item=document.getElementById('sortItem'), feed=document.getElementById('sortFeed'),
+        count=document.getElementById('sortCount');
+  function show(){
+    if(i>=SORT_ITEMS.length){
+      document.getElementById('sortCard').classList.add('hide');
+      document.getElementById('sortDoneMsg').classList.remove('hide');
+      wireAnswers(['market-swot','market-comp','market-edge'],'marketDone');
+      return;
+    }
+    count.textContent=`Item ${i+1} of ${SORT_ITEMS.length}`;
+    item.textContent=SORT_ITEMS[i].t; feed.textContent=''; feed.className='sortfeed';
+  }
+  window.sortPick=(saidCompetitor)=>{
+    if(i>=SORT_ITEMS.length) return;
+    const it=SORT_ITEMS[i];
+    const ok=(saidCompetitor===it.need);
+    if(ok) right++;
+    feed.textContent=(ok?'✓ Right — ':'✗ Actually '+(it.need?'a COMPETITOR':'COMPLEMENTARY')+' — ')+it.why;
+    feed.className='sortfeed '+(ok?'ok':'no');
+    i++; S.sortIdx=i; S.sortRight=right; save();
+    setTimeout(show, ok?1400:2600);
+  };
+  show();
+};
 
-<h2>🎤 Project 4.1.6 — Pitch It</h2>
-<div class="card">
-  <p>A pitch is a short, convincing summary you'd give to someone who might invest. Write a <b>pitch of about 5–7
-  sentences</b> that covers:</p>
+/* ── SMART goals & timeline (order the milestones) ── */
+const CHAIN=[
+  ['Write &amp; finalize the plan','Finish the whole business plan and get feedback before you spend a dollar.'],
+  ['Secure start-up money','Line up the savings, loan, or investor named in your financial plan.'],
+  ['Buy supplies &amp; equipment','Purchase the seed, jars, hives, or tools listed in your operations plan.'],
+  ['Set up production','Plant, build, or prepare so you can actually make the product.'],
+  ['First harvest / first batch','Produce your first real inventory — the first thing you can sell.'],
+  ['Launch sales','Open the stand, list online, or deliver your first orders to customers.'],
+  ['Review &amp; adjust','Check your real numbers against the plan and fix what\'s off target.'],
+];
+RENDER.goals=()=>`
+  <h2>🎯 Activity 4.1.3 — SMART Goals &amp; Timeline</h2>
+  <p>A plan needs a goal you can actually aim at. A weak goal is "sell a lot." A strong goal is <b>SMART</b>:</p>
   <ul>
-    <li>What your business is and the problem it solves.</li>
-    <li>Why it will make money (use a number from your plan).</li>
-    <li>Your edge over the competition.</li>
-    <li>What you're asking for (money, support) and what the investor gets back.</li>
+    <li><b>S — Specific:</b> exactly what will happen?</li>
+    <li><b>M — Measurable:</b> a number you can check?</li>
+    <li><b>A — Achievable:</b> realistic with what you have?</li>
+    <li><b>R — Relevant:</b> does it actually matter to the business?</li>
+    <li><b>T — Time-based:</b> is there a deadline?</li>
   </ul>
-  <div class="try"><b>Finish strong:</b> End your pitch with one sentence that would make someone want to say "yes."</div>
-</div>
+  <div class="callout"><b>Weak:</b> "Sell honey." → <b>SMART:</b> "Sell 200 jars of honey at $8 each by the end of October." Same idea — but now you can measure it, plan for it, and know if you hit it.</div>
+  <h3>Milestones and a timeline</h3>
+  <p>You don\'t reach a goal in one jump. A <b>milestone</b> is a checkpoint on the way — something that has to get done by a certain date. Put your milestones in order and you have a <b>timeline</b>, the roadmap from "idea" to "open for business." Missing an early milestone pushes every later one back, so order matters.</p>
+  <h3>Put the launch in order</h3>
+  <p class="muted">Tap these startup milestones in the order they must happen — from the very first step to running and reviewing your business.</p>
+  <div class="card">
+    <div id="chainSlots"></div>
+    <div id="chainPicks"></div>
+    <div class="mcq-feed" id="chainFeed"></div>
+  </div>
+  <div id="chainSteps" class="hide">
+    <h3>A sensible startup order</h3>
+    ${CHAIN.map(([t,d],idx)=>`<div class="term"><b>${idx+1}. ${t}</b><span>${d}</span></div>`).join('')}
+    <h3>Set YOUR goal and milestones</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> Write ONE SMART goal for your business in a single clear sentence (include a number and a deadline).</div>
+    ${ta('goals-smart','e.g. "Sell 200 jars of honey at $8 each by the end of October."')}
+    <div class="qlabel"><span class="qn">Q2.</span> Show your goal is SMART: name what makes it Specific, Measurable, Achievable, Relevant, and Time-based.</div>
+    ${ta('goals-check','S — …\nM — …\nA — …\nR — …\nT — …')}
+    <div class="qlabel"><span class="qn">Q3.</span> Of your milestones, which ONE is most important to hit on time — and what happens to the rest of the plan if you miss it?</div>
+    ${ta('goals-critical')}
+    <button class="btn" id="goalsDone" onclick="completeStation('goals')">Finish Activity 3</button>
+  </div>`;
+AFTER.goals=()=>{
+  let placed=S.chainPlaced||0;
+  if(S.done.goals) placed=CHAIN.length;
+  const slots=document.getElementById('chainSlots'), picks=document.getElementById('chainPicks'),
+        feed=document.getElementById('chainFeed');
+  let order=S.chainOrder;
+  if(!order || placed===0){ order=[...CHAIN.keys()].sort(()=>Math.random()-.5); S.chainOrder=order; save(); }
+  function draw(){
+    slots.innerHTML=[...Array(placed).keys()].map(k=>`<div class="chainslot">${k+1}. ${CHAIN[k][0]}</div>`).join('')
+      || '<div class="tiny">Timeline so far: (empty — what comes first?)</div>';
+    if(placed>=CHAIN.length){
+      picks.innerHTML=''; feed.textContent='✓ Timeline complete!'; feed.className='mcq-feed ok';
+      document.getElementById('chainSteps').classList.remove('hide');
+      wireAnswers(['goals-smart','goals-check','goals-critical'],'goalsDone');
+      return;
+    }
+    // steps must be tapped in true order 0,1,2…; the un-placed ones display shuffled
+    const remaining=order.filter(k=>k>=placed);
+    picks.innerHTML=remaining.map(k=>`<button class="chainpick" onclick="chainPick(${k},this)">${CHAIN[k][0]}</button>`).join('');
+  }
+  window.chainPick=(k,el)=>{
+    if(k===placed){
+      placed++; S.chainPlaced=placed; save();
+      feed.textContent='✓'; feed.className='mcq-feed ok'; draw();
+    }else{
+      feed.textContent='Not next — think: what has to happen before "'+CHAIN[k][0].replace(/&amp;/g,'&')+'" is possible?';
+      feed.className='mcq-feed no';
+      el.disabled=true; setTimeout(()=>{el.disabled=false},900);
+    }
+  };
+  draw();
+};
 
-<h2>✅ Quick self-check</h2>
-<div class="card">
-  <ol>
-    <li>What do the four letters in SWOT stand for?</li>
-    <li>What makes a goal "SMART"?</li>
-    <li>What is the purpose of a pitch?</li>
-  </ol>
-</div>
+/* ── executive summary, compile & pitch (checklist) ── */
+const NB_CHECKS=[
+  ['pc1','Business description — what I sell and who buys it'],
+  ['pc2','Market analysis — my customers, market size, and competition'],
+  ['pc3','Operations plan — how the product actually gets made and delivered'],
+  ['pc4','Financial plan — start-up cost, income, expenses, and predicted net income'],
+  ['pc5','Balance sheet / net worth from Lesson 2.3'],
+  ['pc6','Risk management plan from Lesson 3.1'],
+  ['pc7','SWOT and competitive analysis (this lesson)'],
+  ['pc8','A SMART goal and a timeline of milestones (this lesson)'],
+  ['pc9','Executive summary — written last, placed first'],
+];
+RENDER.pitch=()=>`
+  <h2>🎤 Activity 4.1.4 — Executive Summary, Compile &amp; Pitch</h2>
+  <p>Time to bring everything together. First you\'ll assemble the full plan, then write the <b>executive summary</b> that sits on top of it, and finally turn it into a short <b>pitch</b>.</p>
+  <h3>The executive summary</h3>
+  <p>The <b>executive summary</b> is a one-page overview of the entire plan. It\'s written <b>last</b> — you can\'t summarize a plan that doesn\'t exist yet — but it goes <b>first</b>, because a busy investor reads it to decide whether to keep going. A good one hits: who you are, the problem you solve, your edge, the money, and what you\'re asking for.</p>
+  <div class="callout sun"><b>Write it last, read it first.</b> If your executive summary can\'t get someone interested in one page, the other twenty pages may never get read.</div>
+  <h3>Compile your plan — completeness check</h3>
+  <p class="muted">Pull together the work you\'ve done across the whole course into one finished plan. Tap each part as it\'s in your document.</p>
+  <div id="nbChecks"></div>
+  <h3>The pitch</h3>
+  <p>A <b>pitch</b> is a short, convincing spoken (or written) summary you\'d give to someone who might invest — usually just 5 to 7 sentences. It covers what your business is and the problem it solves, why it will make money (use a real number from your plan), your edge over the competition, and what you\'re asking for and what the investor gets back.</p>
+  <a class="ext" href="https://www.youtube.com/watch?v=uHkTGRXtdaE" target="_blank" rel="noopener">▶️ How to Pitch a Business Idea <small>Watch how a strong short pitch is built — take notes</small></a>
+  <h3>Write it out</h3>
+  <div class="qlabel"><span class="qn">Q1.</span> In 1–2 sentences, describe your business: what you sell and who buys it.</div>
+  ${ta('pitch-desc')}
+  <div class="qlabel"><span class="qn">Q2.</span> Write your <b>executive summary</b> (about 4–6 sentences): who you are, the problem you solve, your edge, the money, and what you\'re asking for.</div>
+  ${ta('pitch-exec')}
+  <div class="qlabel"><span class="qn">Q3.</span> Write your <b>pitch</b> — about 5–7 sentences that would convince an investor to back you.</div>
+  ${ta('pitch-pitch')}
+  <div class="qlabel"><span class="qn">Q4.</span> End with ONE closing line that would make someone want to say "yes."</div>
+  ${ta('pitch-close')}
+  <button class="btn" id="pitchDone" onclick="completeStation('pitch')">Finish Activity 4</button>
+  <p class="tiny" style="text-align:center">Check every part of your plan and answer all four to unlock.</p>`;
+AFTER.pitch=()=>{
+  const wrap=document.getElementById('nbChecks');
+  function draw(){
+    wrap.innerHTML=NB_CHECKS.map(([id,t])=>`
+      <button class="ck ${S.checks[id]?'on':''}" onclick="toggleCk('${id}')">
+        <div class="box">${S.checks[id]?'✓':''}</div><div class="t">${t}</div></button>`).join('');
+    gate();
+  }
+  function gate(){
+    const all=NB_CHECKS.every(([id])=>S.checks[id]);
+    const b=document.getElementById('pitchDone');
+    b.disabled=!(all && answered(['pitch-desc','pitch-exec','pitch-pitch','pitch-close']));
+  }
+  window.toggleCk=(id)=>{ S.checks[id]=!S.checks[id]; save(); draw(); };
+  ['pitch-desc','pitch-exec','pitch-pitch','pitch-close'].forEach(i=>{
+    const el=document.getElementById('ta-'+i); if(el) el.addEventListener('input',gate);
+  });
+  draw();
+};
 
-<div class="turn">📤 <b>Turn in your work:</b> your SWOT, competitive analysis, SMART goal, timeline, compiled business plan, and your written pitch — through Google Classroom, the way your teacher showed you. 🎉 This completes the Agribusiness plan!</div>
-</div></body></html>
+/* ── final quiz + turn-in ── */
+const QUIZ=[
+  {q:'A business plan is best described as…',
+   o:['A single advertisement for a product','A written document describing a business, how it will make money, and its plan to reach its goals','A list of a farm\'s daily chores','A receipt for supplies'],a:1},
+  {q:'Which part of the plan introduces WHAT the business is and WHO its customers are?',
+   o:['Financial plan','Operations plan','Business description','Executive summary'],a:2},
+  {q:'The part of the plan that studies customers, demand, and competition is the…',
+   o:['Market analysis','Operations plan','Executive summary','Balance sheet'],a:0},
+  {q:'The operations plan mainly explains…',
+   o:['How much profit the owner keeps','How the product actually gets made, stored, and delivered','Who the competitors are','Why the owner started the business'],a:1},
+  {q:'The executive summary is unusual because it is…',
+   o:['The longest part of the plan','Written last but placed first','Only about money','Left out of most plans'],a:1},
+  {q:'In a SWOT analysis, Strengths and Weaknesses describe…',
+   o:['The outside world','Things inside the business that you control','Only the competition','Government rules'],a:1},
+  {q:'A competitive product is one that…',
+   o:['Helps your product sell','Competes with yours for the same customers','Is always cheaper than yours','Is sold by the government'],a:1},
+  {q:'A bakery that buys your eggs to make cakes it then sells is an example of a…',
+   o:['Competitor','Complementary business','Threat','Weakness'],a:1},
+  {q:'Which goal is SMART?',
+   o:['"Sell a lot of honey"','"Be the best farm around"','"Sell 200 jars of honey at $8 each by the end of October"','"Make people happy"'],a:2},
+  {q:'The purpose of a pitch is to…',
+   o:['List every expense in detail','Briefly and convincingly get someone to back your business','Replace the whole business plan','Hide the risks from an investor'],a:1},
+];
+const PASS=80;
+RENDER.final=()=>`
+  <h2>✅ Final Self-Check</h2>
+  <p class="muted">10 questions from the whole lesson. You need <b>${PASS}%</b> to finish — you can retry as many times as you want, and the questions reshuffle. This is practice: the graded <b>Check for Understanding</b> comes from Mr. Beltran in class.</p>
+  <div class="card" id="quizCard"></div>
+  <div id="turnin" class="hide">
+    <div class="bigscore" id="scoreBig"></div>
+    <p class="muted" style="text-align:center" id="scoreMsg"></p>
+    <h3>📤 Turn in your work</h3>
+    <p class="muted">This gathers every answer you typed into one block. Copy it, then paste it into the <b>Google Classroom assignment</b> (private comment or the attached doc) — or show this screen to Mr. Beltran.</p>
+    <pre id="compiled"></pre>
+    <button class="btn" onclick="copyWork(this)">📋 Copy my work</button>
+    <button class="btn ghost" onclick="completeStation('final')">Done — back to map</button>
+  </div>`;
+AFTER.final=()=>{
+  let qs=[], qi=0, right=0;
+  const card=document.getElementById('quizCard');
+  function start(){
+    qs=[...QUIZ].sort(()=>Math.random()-.5).slice(0,10);
+    qi=0; right=0;
+    card.classList.remove('hide');
+    document.getElementById('turnin').classList.add('hide');
+    draw();
+  }
+  function draw(){
+    if(qi>=qs.length) return finish();
+    const q=qs[qi];
+    const idx=q.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="mcq-top"><span>Question ${qi+1} of ${qs.length}</span><span>Score: ${right}</span></div>
+      <div class="mcq-q">${q.q}</div>
+      ${idx.map(k=>`<button class="opt" onclick="qPick(${k},this)">${q.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="qFeed"></div>`;
+  }
+  window.qPick=(k,el)=>{
+    const q=qs[qi], feed=document.getElementById('qFeed');
+    card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+    if(k===q.a){ right++; el.classList.add('picked-ok'); feed.textContent='✓ Correct'; feed.className='mcq-feed ok'; }
+    else{
+      el.classList.add('picked-no');
+      card.querySelectorAll('.opt').forEach(o=>{ if(o.textContent===q.o[q.a]) o.classList.add('reveal'); });
+      feed.textContent='✗ The answer: '+q.o[q.a]; feed.className='mcq-feed no';
+    }
+    qi++; setTimeout(draw, k===q.a?900:2400);
+  };
+  function finish(){
+    const pct=Math.round(right/qs.length*100);
+    S.scores.final=Math.max(S.scores.final||0,pct); save();
+    if(pct<PASS){
+      card.innerHTML=`<div class="bigscore" style="color:var(--sun)">${pct}%</div>
+        <p class="muted" style="text-align:center">Almost — you need ${PASS}%. Skim the stations you're shaky on (they stay open on the map), then try again. New shuffle every time.</p>
+        <button class="btn" id="retryBtn">Try again</button>`;
+      document.getElementById('retryBtn').onclick=start;
+      return;
+    }
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=pct+'%';
+    document.getElementById('scoreMsg').textContent=pct===100?'Perfect score. Outstanding.':'Passed — nice work.';
+    document.getElementById('compiled').textContent=compile(pct); cloudSubmit();
+    window.scrollTo(0,0);
+  }
+  if(S.done.final && (S.scores.final||0)>=PASS){
+    // reviewing after completion: show turn-in immediately with best score
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=(S.scores.final||0)+'%';
+    document.getElementById('scoreMsg').textContent='Best score (already passed).';
+    document.getElementById('compiled').textContent=compile(S.scores.final||0); cloudSubmit();
+  } else start();
+};
+
+/* ── cloud turn-in: save the student's compiled work to the teacher dashboard ── */
+var SUBMIT_DB='https://verde-animation-25368-default-rtdb.firebaseio.com/submissions';
+var LESSON_ID='agb-4-1';
+function subSlug(s){return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'student';}
+function cloudSubmit(){
+  try{
+    var work=(document.getElementById('compiled')||{}).textContent||'';
+    var se=document.getElementById('scoreBig');
+    var score=se?(parseInt(se.textContent,10)||0):0;
+    var name=(typeof S!=='undefined'&&S.name)?S.name:'';
+    if(!work) return;
+    fetch(SUBMIT_DB+'/'+LESSON_ID+'/'+subSlug(name)+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,lesson:LESSON_ID,score:score,work:work,updated:Date.now()})}).catch(function(){});
+  }catch(e){}
+}
+
+function compile(pct){
+  const L=[], A=(id)=> (S.text[id]||'—').trim();
+  L.push('ABF LESSON 4.1 — FINALIZING THE PLAN · SELF-PACED WORK');
+  L.push('Student: '+(S.name||'?'));
+  L.push('Date: '+new Date().toLocaleDateString());
+  L.push('Final self-check score: '+pct+'%');
+  L.push('');
+  L.push('— Activity 4.1.1 The Five Parts of a Business Plan —');
+  L.push('Part-matching: all 5 sections matched correctly (required to advance)');
+  L.push('Q1 (job of each part): '+A('parts-q1'));
+  L.push('Q2 (hardest part to write): '+A('parts-q2'));
+  L.push('Q3 (why all five parts help): '+A('parts-q3'));
+  L.push('');
+  L.push('— Activity 4.1.2 Market & Competition —');
+  L.push('Competitor vs. complementary sort: completed');
+  L.push('Q1 (SWOT): '+A('market-swot'));
+  L.push('Q2 (two competitors compared): '+A('market-comp'));
+  L.push('Q3 (my edge, one sentence): '+A('market-edge'));
+  L.push('');
+  L.push('— Activity 4.1.3 SMART Goals & Timeline —');
+  L.push('Timeline ordering: completed (7 milestones in order)');
+  L.push('Q1 (SMART goal): '+A('goals-smart'));
+  L.push('Q2 (how it meets S-M-A-R-T): '+A('goals-check'));
+  L.push('Q3 (most important milestone): '+A('goals-critical'));
+  L.push('');
+  L.push('— Activity 4.1.4 Executive Summary, Compile & Pitch —');
+  L.push('Plan-completeness checklist: '+NB_CHECKS.filter(([id])=>S.checks[id]).length+' of '+NB_CHECKS.length+' parts assembled');
+  L.push('Q1 (business description): '+A('pitch-desc'));
+  L.push('Q2 (executive summary): '+A('pitch-exec'));
+  L.push('Q3 (pitch): '+A('pitch-pitch'));
+  L.push('Q4 (closing line): '+A('pitch-close'));
+  return L.join('\n');
+}
+function copyWork(btn){
+  const t=document.getElementById('compiled').textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+    .then(()=>{ btn.textContent='✓ Copied — paste it into Classroom'; })
+    .catch(()=>{ // fallback: select the block
+      const r=document.createRange(); r.selectNode(document.getElementById('compiled'));
+      getSelection().removeAllRanges(); getSelection().addRange(r);
+      btn.textContent='Select + copy the highlighted text above';
+    });
+}
+
+/* ── glossary ── */
+const GLOSS=[
+['Business plan','A written document that describes a business, explains how it will make money, and lays out its plan to reach its goals.'],
+['Business description','The part of a plan that introduces what the business is, what it sells, who its customers are, and how it is organized.'],
+['Market','The group of customers who might buy a product or service, plus the sellers who serve them.'],
+['Market analysis','The part of a plan that studies customer demand, market size, and the competition.'],
+['Target market','The specific group of customers a business is trying to reach.'],
+['Operations plan','The part of a plan that explains how the business runs day to day — how the product is made, stored, and delivered.'],
+['Financial plan','The part of a plan covering the money: start-up cost, income, expenses, predicted net income, and the balance sheet.'],
+['Executive summary','A short one-page overview of the whole plan — written last but placed first so a busy reader gets the big picture.'],
+['SWOT analysis','A four-part look at a business: Strengths, Weaknesses, Opportunities, and Threats.'],
+['Strengths','In a SWOT, the things a business does well — inside factors it controls.'],
+['Weaknesses','In a SWOT, where a business falls short — inside factors it controls.'],
+['Opportunities','In a SWOT, outside chances to grow that come from the world around the business.'],
+['Threats','In a SWOT, outside dangers that could hurt the business.'],
+['Competitive product','Someone else\'s product that competes with yours for the same customers.'],
+['Complementary product','A product that helps yours sell, like hot dogs helping sell buns.'],
+['Competitive analysis','Sizing up the competition to see how a business stacks up and where its edge is.'],
+['Competitor','Another seller offering a similar product to the same customers.'],
+['SMART goal','A goal that is Specific, Measurable, Achievable, Relevant, and Time-based.'],
+['Milestone','A checkpoint on a timeline — something that should be done by a certain date.'],
+['Timeline','An ordered list of milestones showing the path from an idea to an open business.'],
+['Pitch','A short, convincing presentation of a business to someone who might invest.'],
+['Investor','A person or organization that puts money into a business expecting a return.'],
+['Revenue','The total money a business takes in from sales before expenses.'],
+['Net income','What is left after subtracting expenses from revenue — the profit.'],
+['Break-even','The point where total income equals total expenses — no profit yet, but no loss.'],
+['Start-up cost','The one-time money needed to get a business up and running before it opens.'],
+['Balance sheet','A snapshot of what a business owns (assets) and owes (liabilities), showing its net worth.'],
+['Risk management','Planning ahead to reduce or handle the things that could go wrong for a business.'],
+];
+RENDER.gloss=()=>`
+  <h2>📖 Lesson 4.1 Glossary</h2>
+  <p class="muted">Every key term for this lesson.</p>
+  ${GLOSS.map(([t,d])=>`<div class="term"><b>${t}</b><span>${d}</span></div>`).join('')}
+  <button class="btn ghost" onclick="goMap()">Back to map</button>`;
+
+/* ───────── boot ───────── */
+if(S.name) boot();
+</script>
+</body>
+</html>

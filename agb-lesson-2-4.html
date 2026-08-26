@@ -1,136 +1,770 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Lesson 2.4 Business Decisions — Self-Paced — Verde Tech</title>
+<meta name="theme-color" content="#2f6b3f">
+<!--
+  ABF Lesson 2.4 "Business Decisions" — self-paced student module.
+  Built 2026-08-26 from the CASE ABF curriculum Leo teaches in P2 Agribusiness.
+  Standalone file: no server, no login, works offline (videos/game need internet).
+  Student work saves in the browser (localStorage) and compiles into one text block to turn in.
+  The graded Lesson 2.4 Check for Understanding is NOT here — teacher distributes it.
+  All practice questions in this file are original (no CASE answer-key content).
+-->
 <style>
-  :root{color-scheme:light}
-  *{box-sizing:border-box}
-  body{margin:0;background:#f6f8f4;color:#1b2a1b;font:18px/1.6 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}
-  .wrap{max-width:760px;margin:0 auto;padding:18px 18px 70px}
-  header{background:#2f7d32;color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px}
-  header h1{margin:.1rem 0;font-size:26px}
-  header .sub{opacity:.9;font-size:16px}
-  h2{margin:1.4rem 0 .4rem;font-size:22px;color:#2f7d32;border-bottom:2px solid #cfe3cf;padding-bottom:.2rem}
-  .card{background:#fff;border:1px solid #dbe6db;border-radius:12px;padding:16px 18px;margin:12px 0}
-  .eq{background:#eef6ee;border-left:5px solid #2f7d32;border-radius:8px;padding:10px 14px;margin:10px 0}
-  .term{font-weight:700;color:#1f5e22}
-  ul{margin:.4rem 0 .4rem 1.1rem}
-  li{margin:.25rem 0}
-  .try{background:#fff8e6;border:1px solid #f0e2b6;border-radius:10px;padding:12px 14px;margin:10px 0}
-  .try b{color:#8a6d00}
-  table{border-collapse:collapse;width:100%;margin:.4rem 0;font-size:16px}
-  td,th{border:1px solid #cfe0cf;padding:6px 8px;text-align:left}
-  th{background:#eef6ee}
-  .turn{background:#2f7d32;color:#fff;border-radius:12px;padding:16px;margin-top:18px;font-size:19px}
-  .pill{display:inline-block;background:#2f7d32;color:#fff;border-radius:20px;padding:2px 12px;font-size:14px;font-weight:700}
-</style></head>
-<body><div class="wrap">
+  :root{
+    --green:#2f6b3f; --green-d:#245231; --green-l:#eaf3ec;
+    --sun:#c8892b; --sun-l:#fdf3e2;
+    --ink:#1d2321; --dim:#5b6763; --faint:#8a9591;
+    --line:#dfe5e1; --bg:#f6f8f6; --card:#fff;
+    --ok:#2f7d4f; --no:#b23b3b; --no-l:#fbecec;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    padding:0 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 90px}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  h1,h2,h3{line-height:1.25;margin:0}
+  header{position:sticky;top:0;z-index:20;background:var(--green);color:#fff;
+    padding:calc(10px + env(safe-area-inset-top)) 16px 10px}
+  .hrow{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .htitle{font-size:16px;font-weight:700;letter-spacing:.2px;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hsub{font-size:12px;opacity:.78;font-weight:500;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .back{font-size:15px;font-weight:600;opacity:.92;padding:6px 4px;margin-left:-4px}
+  .who{font-size:12.5px;opacity:.85;padding:6px 8px;border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .btn{display:block;width:100%;background:var(--green);color:#fff;font-size:17px;font-weight:700;
+    padding:16px;border-radius:14px;text-align:center;margin-top:14px;transition:.12s transform}
+  .btn:active{transform:scale(.985)}
+  .btn.ghost{background:#fff;color:var(--green);border:2px solid var(--green)}
+  .btn.quiet{background:transparent;color:var(--dim);font-weight:600;font-size:15px;padding:12px;margin-top:4px}
+  .btn[disabled]{opacity:.4;pointer-events:none}
+  .muted{color:var(--dim);font-size:14.5px}
+  .tiny{color:var(--faint);font-size:12.5px}
+  .hide{display:none !important}
+  #gate .card{margin-top:28px;text-align:center}
+  #gate h2{font-size:22px;margin-bottom:6px}
+  #nameIn{width:100%;font-size:18px;padding:15px;border:2px solid var(--line);
+    border-radius:12px;margin-top:16px;text-align:center;background:#fff;color:var(--ink)}
+  #nameIn:focus{outline:none;border-color:var(--green)}
+  .progwrap{margin:18px 0 6px}
+  .progbar{height:10px;background:#e4eae5;border-radius:99px;overflow:hidden}
+  .progfill{height:100%;background:linear-gradient(90deg,var(--green),#57a06b);
+    border-radius:99px;transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .progtxt{display:flex;justify-content:space-between;margin-top:7px;font-size:13px;color:var(--dim)}
+  .progtxt b{color:var(--ink)}
+  .row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 15px;margin:9px 0;transition:.12s border-color,.12s transform}
+  .row:active{transform:scale(.99)}
+  .row.done{border-color:#bcdcc5;background:#f4faf5}
+  .row.locked{opacity:.5}
+  .row.next{border-color:var(--green);box-shadow:0 0 0 3px rgba(47,107,63,.09)}
+  .dot{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-size:14px;font-weight:800;background:var(--green-l);color:var(--green-d)}
+  .row.done .dot{background:var(--ok);color:#fff}
+  .row.locked .dot{background:#eceeed;color:var(--faint)}
+  .rtext{flex:1;min-width:0}
+  .rtext .nm{display:block;font-size:16px;font-weight:650;line-height:1.3}
+  .rtext .sc{display:block;font-size:12.5px;color:var(--dim);margin-top:3px}
+  .row.done .sc{color:var(--ok);font-weight:600}
+  .chev{color:var(--faint);font-size:19px;flex:none}
+  .secttl{font-size:12px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;
+    color:var(--faint);margin:24px 4px 4px}
+  .lesson h2{font-size:21px;margin:4px 0 10px}
+  .lesson h3{font-size:16.5px;margin:18px 0 8px;color:var(--green-d)}
+  .lesson p{margin:0 0 12px;font-size:16px;color:#2a3330}
+  .lesson ul{margin:0 0 12px;padding-left:22px}
+  .lesson li{margin:5px 0;font-size:15.5px}
+  .callout{background:var(--green-l);border:1px solid #cfe2d4;border-radius:12px;
+    padding:13px 15px;margin:12px 0;font-size:15px}
+  .callout.sun{background:var(--sun-l);border-color:#eedcb8}
+  .term{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+  .term b{color:var(--green-d)}
+  .term span{display:block;font-size:14.5px;color:var(--dim);margin-top:3px}
+  a.ext{display:block;background:#fff;border:2px solid var(--green);border-radius:14px;
+    padding:14px 16px;margin:12px 0;color:var(--green);font-weight:700;text-decoration:none;font-size:16px}
+  a.ext small{display:block;font-weight:500;color:var(--dim);font-size:13px;margin-top:2px}
+  textarea{width:100%;min-height:84px;font:15.5px/1.5 inherit;padding:12px;border:2px solid var(--line);
+    border-radius:12px;background:#fff;color:var(--ink);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--green)}
+  .qlabel{font-size:15px;font-weight:650;margin:16px 0 7px}
+  .qlabel .qn{color:var(--sun);font-weight:800}
+  /* sort game */
+  .sortitem{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:16px;font-weight:600;text-align:center}
+  .sortbtns{display:flex;gap:10px;margin-top:12px}
+  .sortbtns button{flex:1;padding:14px;border-radius:12px;font-weight:800;font-size:16px}
+  .sb-need{background:var(--green-l);color:var(--green-d);border:2px solid var(--green)}
+  .sb-want{background:var(--sun-l);color:#8a5a12;border:2px solid var(--sun)}
+  .sortfeed{text-align:center;font-weight:700;margin-top:10px;min-height:24px;font-size:15px}
+  .sortfeed.ok{color:var(--ok)} .sortfeed.no{color:var(--no)}
+  /* mcq */
+  .mcq-q{font-size:17px;font-weight:650;margin:6px 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);
+    border-radius:13px;padding:14px 15px;margin:9px 0;font-size:15.5px;transition:.12s}
+  .opt.picked-ok{border-color:var(--ok);background:#f0f9f2;font-weight:650}
+  .opt.picked-no{border-color:var(--no);background:var(--no-l)}
+  .opt.reveal{border-color:var(--ok)}
+  .mcq-feed{min-height:26px;font-weight:700;font-size:15px;margin-top:6px}
+  .mcq-feed.ok{color:var(--ok)} .mcq-feed.no{color:var(--no)}
+  .mcq-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim);margin-bottom:10px}
+  /* chain order game */
+  .chainpick{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:15.5px;font-weight:600;text-align:left}
+  .chainpick[disabled]{opacity:.35}
+  .chainslot{background:var(--green-l);border:1px solid #cfe2d4;border-radius:10px;
+    padding:9px 13px;margin:5px 0;font-size:14.5px;font-weight:650;color:var(--green-d)}
+  /* checklist */
+  .ck{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;
+    background:#fff;border:2px solid var(--line);border-radius:13px;padding:13px 15px;margin:8px 0}
+  .ck .box{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);flex:none;
+    display:grid;place-items:center;font-size:15px;color:#fff;margin-top:1px}
+  .ck.on{border-color:#bcdcc5;background:#f4faf5}
+  .ck.on .box{background:var(--ok);border-color:var(--ok)}
+  .ck .t{flex:1;font-size:15px}
+  /* structures reference cards */
+  .struct{border-left:4px solid var(--green);background:#fff;border-radius:0 12px 12px 0;
+    border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:12px 15px;margin:10px 0}
+  .struct b{font-size:16px}
+  .struct p{margin:5px 0 0;font-size:14.5px;color:var(--dim)}
+  /* finish */
+  .bigscore{text-align:center;font-size:44px;font-weight:800;color:var(--green);margin:10px 0 2px}
+  pre#compiled{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace;background:#f2f5f2;
+    border:1px solid var(--line);border-radius:12px;padding:14px;max-height:340px;overflow:auto}
+</style>
+</head>
+<body>
 <header>
-  <div class="pill">Unit 2 · Agribusiness</div>
-  <h1>Lesson 2.4 — Business Decisions</h1>
-  <div class="sub">Work through this on your own. Do each step, answer the questions, and turn in your work.</div>
+  <div class="hrow">
+    <button class="back hide" id="backBtn" onclick="goMap()">‹ Map</button>
+    <div style="flex:1;min-width:0">
+      <div class="htitle">Lesson 2.4 · Business Decisions</div>
+      <div class="hsub">Agribusiness Foundations · self-paced · Mr. Beltran</div>
+    </div>
+    <div class="who hide" id="whoChip"></div>
+  </div>
 </header>
+<div class="wrap">
 
-<h2>🌱 What this lesson is about</h2>
-<div class="card">
-  <p>Now you can read the numbers — this lesson is about <b>using</b> them to make smart choices. Two tools help you
-  decide: an <b>income statement</b> (what already happened over a period of time) and a <b>budget</b> (your best
-  guess at what <i>will</i> happen next). Good managers use both to decide whether a plan is worth doing.</p>
-  <div class="eq"><b>Big idea:</b> an income statement looks <b>backward</b> at what you earned; a budget looks <b>forward</b> at what you plan to earn. Comparing the two tells you if you're on track.</div>
+<!-- ══════════ NAME GATE ══════════ -->
+<section id="gate">
+  <div class="card">
+    <h2>🧭 Making Business Decisions</h2>
+    <p class="muted">Work through this lesson at your own pace. Your answers save on this device as you go, and at the end you'll turn in everything with one tap.</p>
+    <input id="nameIn" placeholder="First and last name" autocomplete="off">
+    <button class="btn" onclick="startApp()">Start</button>
+    <p class="tiny" style="margin-top:14px">Use the same device each day so your saved work is here when you come back.</p>
+  </div>
+</section>
+
+<!-- ══════════ MAP ══════════ -->
+<section id="map" class="hide">
+  <div class="progwrap">
+    <div class="progbar"><div class="progfill" id="progFill" style="width:0%"></div></div>
+    <div class="progtxt"><span>Lesson progress</span><b id="progTxt">0 of 6</b></div>
+  </div>
+  <div class="secttl">Work in order — each part unlocks the next</div>
+  <div id="rows"></div>
+  <div class="secttl">Reference</div>
+  <button class="row" onclick="openStation('gloss')">
+    <div class="dot">📖</div>
+    <div class="rtext"><span class="nm">Key Terms Glossary</span>
+    <span class="sc">Every term for this lesson — open any time</span></div>
+    <div class="chev">›</div>
+  </button>
+  <p class="tiny" style="text-align:center;margin-top:20px">CASE Agribusiness Foundations · Unit 2 · Verde Tech / Mr. Beltran<br>
+  Questions? Ask in class or post in Google Classroom.</p>
+  <button class="btn quiet" onclick="resetAll()">Start over (erases saved work)</button>
+</section>
+
+<!-- ══════════ STATION CONTAINER ══════════ -->
+<section id="station" class="hide"><div id="stationBody" class="lesson"></div></section>
+
 </div>
+<script>
+'use strict';
+/* ───────── persistence ───────── */
+const KEY='abf-l24-v1';
+let S = load();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{} }catch(e){ return {} } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)) }catch(e){} }
+S.done   = S.done || {};      // station id -> true
+S.text   = S.text || {};      // answer id  -> typed text
+S.checks = S.checks || {};    // checklist id -> true
+S.scores = S.scores || {};    // quiz id -> best %
 
-<h2>📖 The words you'll use</h2>
-<div class="card">
+/* ───────── stations ───────── */
+const STATIONS = [
+ {id:'overview', n:'1', nm:'Start Here — What This Lesson Is About',    sc:'Essential questions + what you\'ll be able to do'},
+ {id:'process',  n:'2', nm:'A Decision-Making Process',                 sc:'Activity 2.4.1 · order the steps + short answers'},
+ {id:'opcost',   n:'3', nm:'Opportunity Cost',                          sc:'Activity 2.4.2 · what you give up'},
+ {id:'costben',  n:'4', nm:'Weighing Costs & Benefits',                 sc:'Activity 2.4.3 · sort costs vs. benefits + compare'},
+ {id:'margin',   n:'5', nm:'Thinking at the Margin',                    sc:'Activity 2.4.4 · one more, step by step'},
+ {id:'final',    n:'✓', nm:'Final Self-Check + Turn In',                sc:'Quick quiz, then submit your work'},
+];
+function doneCount(){ return STATIONS.filter(s=>S.done[s.id]).length }
+function firstOpen(){ for(const s of STATIONS){ if(!S.done[s.id]) return s.id } return null }
+
+/* ───────── shell ───────── */
+function startApp(){
+  const v=document.getElementById('nameIn').value.trim();
+  if(!v){ document.getElementById('nameIn').focus(); return }
+  S.name=v; save(); boot();
+}
+function boot(){
+  document.getElementById('gate').classList.add('hide');
+  const chip=document.getElementById('whoChip');
+  chip.textContent=S.name; chip.classList.remove('hide');
+  goMap();
+}
+function goMap(){
+  document.getElementById('station').classList.add('hide');
+  document.getElementById('backBtn').classList.add('hide');
+  document.getElementById('map').classList.remove('hide');
+  renderMap(); window.scrollTo(0,0);
+}
+function renderMap(){
+  const open=firstOpen();
+  document.getElementById('rows').innerHTML = STATIONS.map((s,i)=>{
+    const done=!!S.done[s.id];
+    const locked=!done && s.id!==open;
+    const cls='row'+(done?' done':'')+(locked?' locked':'')+(s.id===open?' next':'');
+    const sc=done ? (s.id==='final' ? 'Done — tap to review / turn in again' : 'Done ✓  (tap to review)') : s.sc;
+    return `<button class="${cls}" ${locked?'disabled':''} onclick="openStation('${s.id}')">
+      <div class="dot">${done?'✓':s.n}</div>
+      <div class="rtext"><span class="nm">${s.nm}</span><span class="sc">${sc}</span></div>
+      <div class="chev">›</div></button>`;
+  }).join('');
+  const n=doneCount();
+  document.getElementById('progFill').style.width=(n/STATIONS.length*100)+'%';
+  document.getElementById('progTxt').textContent=`${n} of ${STATIONS.length}`;
+}
+function openStation(id){
+  document.getElementById('map').classList.add('hide');
+  document.getElementById('station').classList.remove('hide');
+  document.getElementById('backBtn').classList.remove('hide');
+  document.getElementById('stationBody').innerHTML = RENDER[id]();
+  if(AFTER[id]) AFTER[id]();
+  window.scrollTo(0,0);
+}
+function completeStation(id){ S.done[id]=true; save(); goMap(); }
+function resetAll(){ if(confirm('Erase ALL saved work and start over?')){ localStorage.removeItem(KEY); location.reload(); } }
+
+/* typed-answer helpers */
+function ta(id,ph){ return `<textarea id="ta-${id}" placeholder="${ph||'Type your answer…'}"
+  oninput="S.text['${id}']=this.value;save()">${esc(S.text[id]||'')}</textarea>` }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;') }
+function answered(ids){ return ids.every(i=>(S.text[i]||'').trim().length>=8) }
+function needAnswers(ids,btnId){
+  const b=document.getElementById(btnId); if(!b) return;
+  b.disabled=!answered(ids);
+}
+function wireAnswers(ids,btnId){
+  needAnswers(ids,btnId);
+  ids.forEach(i=>{ const el=document.getElementById('ta-'+i);
+    if(el) el.addEventListener('input',()=>needAnswers(ids,btnId)); });
+}
+
+/* ═════════ RENDERERS ═════════ */
+const RENDER={}, AFTER={};
+
+/* ── overview ── */
+RENDER.overview=()=>`
+  <h2>🧭 What this lesson is about</h2>
+  <p>By now you can read the numbers — an income statement, a budget, income and expenses. This lesson is about the harder part: <b>using</b> those numbers to make a smart choice. Every day a manager asks questions like <i>Should we plant corn or pumpkins? Buy the tractor or keep repairing the old one? Add another hen or stop where we are?</i> There's usually no perfect answer — but there is a <b>better</b> way to decide.</p>
+  <p>A good decision-maker doesn't just go with a gut feeling. They follow a <b>process</b>, they check what each choice really <b>costs</b> (including what they give up), and they compare it against what they'll <b>gain</b>. That's the whole game, and it's what you'll practice here.</p>
+  <p>Over the next few days you will:</p>
   <ul>
-    <li><span class="term">Income statement</span> — a summary of all income and all expenses over a period (a month, a season, a year), ending in the net income.</li>
-    <li><span class="term">Net operating income</span> — income left after the normal costs of running the business. Your bottom line for that period.</li>
-    <li><span class="term">Budget</span> — a plan that predicts future income and expenses before they happen.</li>
-    <li><span class="term">Enterprise</span> — one specific money-making activity (for example, "the egg operation" or "the pumpkin patch").</li>
-    <li><span class="term">Enterprise budget</span> — a budget for just <b>one</b> enterprise, so you can see if that one activity is worth it.</li>
-    <li><span class="term">Fiscal year</span> — the 12-month period a business uses for its accounting.</li>
-    <li><span class="term">Feasible</span> — worth doing; the plan is likely to make money.</li>
+    <li>Learn a simple <b>decision-making process</b> you can use for any choice (Activity 2.4.1)</li>
+    <li>Understand <b>opportunity cost</b> — the hidden cost of every choice you make (Activity 2.4.2)</li>
+    <li>Use financial information to <b>weigh costs against benefits</b> and pick between options (Activity 2.4.3)</li>
+    <li>Learn to <b>think at the margin</b> — deciding one step at a time whether "one more" is worth it (Activity 2.4.4)</li>
   </ul>
-</div>
+  <h3>Essential questions</h3>
+  <div class="callout">
+    1. How do good managers use financial information to make decisions?<br>
+    2. What is a decision-making process, and why follow one?<br>
+    3. What is opportunity cost, and why is it part of every choice?<br>
+    4. How do you weigh the costs and benefits of a decision?<br>
+    5. What does it mean to think "at the margin," one step at a time?
+  </div>
+  <p class="muted">Keep these in the back of your mind — by the end of the lesson you should be able to answer every one of them without looking.</p>
+  <h3>Words you'll meet</h3>
+  <p class="muted">Decision-making process · alternative · opportunity cost · trade-off · cost-benefit analysis · scarcity · marginal cost · marginal benefit · sunk cost · feasible · enterprise · net income · risk · return … The full <b>📖 Glossary</b> is on the map screen any time you need it.</p>
+  <button class="btn" onclick="completeStation('overview')">Got it — start Activity 1</button>`;
 
-<h2>🧮 Activity 2.4.1 — Incoming and Outgoing (Income Statement)</h2>
-<div class="card">
-  <p>An income statement lists income at the top, expenses below, and subtracts to find net income. Build one for
-  <b>a season of a small pumpkin stand</b>:</p>
-  <table>
-    <tr><th>Income</th><th>Amount</th></tr>
-    <tr><td>Pumpkin sales</td><td>$2,400</td></tr>
-    <tr><td>Hayride tickets</td><td>$600</td></tr>
-    <tr><th>Expenses</th><th>Amount</th></tr>
-    <tr><td>Seed &amp; supplies</td><td>$500</td></tr>
-    <tr><td>Fuel</td><td>$250</td></tr>
-    <tr><td>Signs &amp; advertising</td><td>$150</td></tr>
-  </table>
-  <ol>
-    <li>Add up total income.</li>
-    <li>Add up total expenses.</li>
-    <li>Net operating income = total income − total expenses. What is it?</li>
-    <li>Did the stand make a profit this season?</li>
-  </ol>
-  <div class="try"><b>Answer:</b> Why does an income statement cover a <i>period of time</i> instead of just one day?</div>
-</div>
+/* ── process: a decision-making process (ordering) ── */
+const PROCESS=[
+  ['Name the decision','State clearly what you are actually deciding. A fuzzy question ("should I do stuff differently?") gets a fuzzy answer — so pin it down: "Should I buy a used tractor this year?"'],
+  ['Gather the facts & the numbers','Pull your records — income statement, budget, prices, costs. Decisions run on information, not on hope. The better your facts, the better your choice.'],
+  ['List your alternatives','Write down every realistic option, and always include "do nothing / keep things the same." You can\'t pick the best option if you never wrote it down.'],
+  ['Weigh the costs and benefits','For each option, line up what it will cost you against what you\'ll gain — and don\'t forget the opportunity cost of what you give up.'],
+  ['Make the choice','Pick the option whose benefits beat its costs by the most, and that fits how much risk you can handle.'],
+  ['Put it into action','A decision only matters once you actually do it. Carry out the plan.'],
+  ['Review the results','Compare what really happened to what you expected. Did it work? What would you change? This is how you get better at deciding next time.'],
+];
+RENDER.process=()=>`
+  <h2>🧩 Activity 2.4.1 — A Decision-Making Process</h2>
+  <p>Big or small, good decisions tend to follow the same path. When money is on the line, jumping straight to "just pick something" is how businesses lose money. A <b>decision-making process</b> is a repeatable set of steps that keeps you from skipping the parts that matter.</p>
+  <p>Here's the version you'll use in this class. Notice how <b>the numbers</b> come in early (step 2) — you decide with information, not just a feeling.</p>
+  <div class="callout"><b>Why bother with steps?</b> A process forces you to slow down at the exact moments people usually rush: gathering facts, listing <i>all</i> the options, and honestly weighing what each one costs. Skip those and you're just guessing.</div>
+  <h3>Put the steps in order</h3>
+  <p class="muted">Tap the steps in the order a smart manager would follow them — from first figuring out the decision, all the way to learning from the result.</p>
+  <div class="card">
+    <div id="procSlots"></div>
+    <div id="procPicks"></div>
+    <div class="mcq-feed" id="procFeed"></div>
+  </div>
+  <div id="procSteps" class="hide">
+    <h3>What each step means</h3>
+    ${PROCESS.map(([t,d],idx)=>`<div class="term"><b>${idx+1}. ${t}</b><span>${d}</span></div>`).join('')}
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> Why is "gather the facts and the numbers" so important before you choose? What could go wrong if you skip it?</div>
+    ${ta('process-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> Why should "do nothing / keep things the same" count as one of your alternatives, even when you're excited about a new idea?</div>
+    ${ta('process-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> Why is it worth reviewing the results <i>after</i> you act? What do you gain for next time?</div>
+    ${ta('process-q3')}
+    <button class="btn" id="processDone" onclick="completeStation('process')">Finish Activity 1</button>
+    <p class="tiny" style="text-align:center">Answer all three (a sentence or two each) to unlock the button.</p>
+  </div>`;
+AFTER.process=()=>{
+  let placed=S.procPlaced||0;
+  if(S.done.process) placed=PROCESS.length;
+  const slots=document.getElementById('procSlots'), picks=document.getElementById('procPicks'),
+        feed=document.getElementById('procFeed');
+  let order=S.procOrder;
+  if(!order || placed===0){ order=[...PROCESS.keys()].sort(()=>Math.random()-.5); S.procOrder=order; save(); }
+  function draw(){
+    slots.innerHTML=[...Array(placed).keys()].map(k=>`<div class="chainslot">${k+1}. ${PROCESS[k][0]}</div>`).join('')
+      || '<div class="tiny">Your process so far: (empty — what comes first?)</div>';
+    if(placed>=PROCESS.length){
+      picks.innerHTML=''; feed.textContent='✓ Process complete!'; feed.className='mcq-feed ok';
+      document.getElementById('procSteps').classList.remove('hide');
+      wireAnswers(['process-q1','process-q2','process-q3'],'processDone');
+      return;
+    }
+    const remaining=order.filter(k=>k>=placed);
+    picks.innerHTML=remaining.map(k=>`<button class="chainpick" onclick="procPick(${k},this)">${PROCESS[k][0]}</button>`).join('');
+  }
+  window.procPick=(k,el)=>{
+    if(k===placed){
+      placed++; S.procPlaced=placed; save();
+      feed.textContent='✓'; feed.className='mcq-feed ok'; draw();
+    }else{
+      feed.textContent='Not next — think: what has to happen before "'+PROCESS[k][0]+'" makes sense?';
+      feed.className='mcq-feed no';
+      el.disabled=true; setTimeout(()=>{el.disabled=false},900);
+    }
+  };
+  draw();
+};
 
-<h2>📈 Activity 2.4.2 — Building a Budget</h2>
-<div class="card">
-  <p>A budget predicts <b>next</b> season before it happens. Suppose you plan to grow the pumpkin stand next year:
-  you expect income to go up 25%, but supply costs to go up too.</p>
-  <table>
-    <tr><th>Line</th><th>Last year (actual)</th><th>Next year (your budget)</th></tr>
-    <tr><td>Total income</td><td>$3,000</td><td>+25% → ?</td></tr>
-    <tr><td>Seed &amp; supplies</td><td>$500</td><td>$650</td></tr>
-    <tr><td>Fuel</td><td>$250</td><td>$300</td></tr>
-    <tr><td>Advertising</td><td>$150</td><td>$250</td></tr>
-    <tr><td><b>Predicted net income</b></td><td></td><td><b>?</b></td></tr>
-  </table>
-  <ol>
-    <li>What is next year's predicted income (last year's $3,000 plus 25%)?</li>
-    <li>Add up next year's predicted expenses.</li>
-    <li>What is the predicted net income for next year?</li>
-  </ol>
-  <div class="try"><b>Answer:</b> Is growing the stand a good idea based on your budget? Would you do it? Why?</div>
-</div>
+/* ── opportunity cost (mcq) ── */
+const OC=[
+  {t:'You own one acre. You can plant it in sweet corn OR pumpkins this season — not both. You choose sweet corn. What is the opportunity cost of that choice?',
+   o:['The money you spent on sweet-corn seed','The pumpkin crop you gave up by not planting it','The acre of land itself','Nothing — you made money on the corn'], a:1,
+   why:'Opportunity cost is the value of the NEXT BEST thing you gave up — here, the pumpkins you could have grown instead.'},
+  {t:'You have a free Saturday and $0 out of pocket. You spend the day fixing the barn. If you had worked your part-time job instead, you would have earned $120. What is the opportunity cost of fixing the barn?',
+   o:['$120 — the pay you gave up','$0, because fixing the barn was free','The cost of the barn materials','The whole Saturday, worth nothing'], a:0,
+   why:'Even when something feels "free," the opportunity cost is the best thing you gave up — the $120 you could have earned.'},
+  {t:'A dairy has $30,000 in cash. It buys new milking equipment instead of leaving the money in a savings account that would have earned interest. What is the opportunity cost of buying the equipment?',
+   o:['The price of the equipment','The milk the cows produce','The interest the savings account would have earned','There is no cost — it is the dairy\'s own money'], a:2,
+   why:'The money could have earned interest. Giving up that interest is the opportunity cost of spending it on equipment.'},
+  {t:'It\'s the night before an Ag test. You can study for an hour or watch your show. You study. What is the opportunity cost of studying?',
+   o:['The hour of the show you gave up','A better grade on the test','Nothing — studying is always free','The test itself'], a:0,
+   why:'Opportunity cost isn\'t only about money. Here it\'s your next-best use of that hour — the show you chose not to watch.'},
+];
+RENDER.opcost=()=>`
+  <h2>💸 Activity 2.4.2 — Opportunity Cost</h2>
+  <p>Here's a truth that trips people up: <b>every choice has a cost, even the "free" ones.</b> Whenever you pick one option, you give up the next best thing you could have done instead. That giving-up is called <b>opportunity cost</b>.</p>
+  <div class="callout">
+    <b>Opportunity cost</b> — the value of the <i>next best alternative</i> you give up when you make a choice.
+  </div>
+  <p>Why does it matter? Because resources are <b>scarce</b> — you never have unlimited land, money, time, or labor. When your acre grows corn, it can't also grow pumpkins. When your cash buys a tractor, it can't also sit in the bank earning interest. A smart manager counts the road <i>not</i> taken as part of the price.</p>
+  <div class="callout sun"><b>Watch out for:</b> "It didn't cost me anything — I already had it." That's the classic opportunity-cost trap. Land, time, and cash you already own are <i>not</i> free to use, because using them one way means you can't use them another.</div>
+  <h3>Spot the opportunity cost</h3>
+  <p class="muted">For each situation, pick the true opportunity cost — the next best thing that got given up. Get it right to move on.</p>
+  <div class="card" id="ocCard"></div>
+  <div id="opcostQs" class="hide">
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> Define opportunity cost in your own words, then give one real example from YOUR life (money, time, or something you own).</div>
+    ${ta('opcost-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> A farmer says, "This land didn't cost me anything to plant corn — I already owned it." Use opportunity cost to explain why that thinking is a mistake.</div>
+    ${ta('opcost-q2')}
+    <button class="btn" id="opcostDone" onclick="completeStation('opcost')">Finish Activity 2</button>
+    <p class="tiny" style="text-align:center">Answer both questions to unlock.</p>
+  </div>`;
+AFTER.opcost=()=>{
+  let i=S.ocIdx||0;
+  if(S.done.opcost) i=OC.length;
+  const card=document.getElementById('ocCard');
+  function draw(){
+    if(i>=OC.length){
+      card.classList.add('hide');
+      document.getElementById('opcostQs').classList.remove('hide');
+      wireAnswers(['opcost-q1','opcost-q2'],'opcostDone');
+      return;
+    }
+    const it=OC[i];
+    const idx=it.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Scenario ${i+1} of ${OC.length}</div>
+      <p style="font-size:15.5px">${it.t}</p>
+      ${idx.map(k=>`<button class="opt" onclick="ocPick(${k},this)">${it.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="ocFeed"></div>`;
+  }
+  window.ocPick=(k,el)=>{
+    const it=OC[i], feed=document.getElementById('ocFeed');
+    if(k===it.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ '+it.why; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+      i++; S.ocIdx=i; save(); setTimeout(draw,1700);
+    }else{
+      el.classList.add('picked-no');
+      feed.textContent='Not quite — remember: opportunity cost is the NEXT BEST thing you gave up, not the money you spent.';
+      feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),1000);
+    }
+  };
+  draw();
+};
 
-<h2>🎲 Activity 2.4.3 — Applying Business Decisions</h2>
-<div class="card">
-  <p>Real managers use their numbers to choose between options. You have <b>$1,000</b> to invest in one new enterprise.
-  Here are two choices:</p>
-  <table>
-    <tr><th></th><th>Option A: Egg layers</th><th>Option B: Cut flowers</th></tr>
-    <tr><td>Startup cost</td><td>$1,000</td><td>$1,000</td></tr>
-    <tr><td>Expected income</td><td>$1,700</td><td>$2,200</td></tr>
-    <tr><td>Expected expenses</td><td>$500</td><td>$1,100</td></tr>
-    <tr><td>Risk</td><td>Low (steady demand)</td><td>Higher (spoils fast)</td></tr>
-  </table>
-  <ol>
-    <li>Find the predicted net income for each option (income − expenses).</li>
-    <li>Which option makes more money on paper?</li>
-    <li>Which would you actually choose once you consider the <b>risk</b>? Explain.</li>
-  </ol>
-  <div class="try"><b>Answer:</b> A budget shows Option B earns more, but it's riskier. Explain in your own words why the "best on paper" choice isn't always the right one.</div>
-</div>
+/* ── weighing costs & benefits (binary sort: cost vs benefit) ── */
+const CB_ITEMS=[
+  {t:'The $8,000 you pay for the used tractor',                 cost:true,  why:'Money out the door — a direct cost of the decision.'},
+  {t:'Fewer hours doing heavy work by hand',                    cost:false, why:'A gain in time and effort saved — that\'s a benefit.'},
+  {t:'Fuel and repairs the tractor needs every year',           cost:true,  why:'Ongoing money you\'ll spend because you bought it — a cost.'},
+  {t:'Getting the harvest in faster, before bad weather',       cost:false, why:'Speed that protects your crop and income — a benefit.'},
+  {t:'Interest on the loan you took out to buy it',             cost:true,  why:'Borrowing isn\'t free — the interest is a real cost.'},
+  {t:'Being able to farm bigger fields and earn more',          cost:false, why:'More capacity means more potential income — a benefit.'},
+  {t:'The savings-account interest you give up by spending the cash', cost:true,  why:'That\'s opportunity cost — still a cost of the choice.'},
+  {t:'Less physical strain on you and your workers',            cost:false, why:'Easier, safer work is a genuine benefit.'},
+  {t:'Yearly insurance on the tractor',                         cost:true,  why:'Another ongoing expense caused by owning it — a cost.'},
+  {t:'A more valuable, better-equipped operation to sell later',cost:false, why:'It can raise what your whole operation is worth — a benefit.'},
+];
+RENDER.costben=()=>`
+  <h2>⚖️ Activity 2.4.3 — Weighing Costs &amp; Benefits</h2>
+  <p>Once you've listed your options, how do you actually pick? You use <b>cost-benefit analysis</b>: for a choice, you add up everything it will <b>cost</b> you, add up everything you'll <b>gain</b> (the benefits), and see which side is bigger. If the benefits clearly beat the costs, it's usually worth doing.</p>
+  <div class="callout">
+    <b>Cost-benefit analysis</b> — lining up the total costs of a choice against its total benefits to decide whether it's worth it.
+  </div>
+  <p>The tricky part is remembering <i>all</i> the costs and <i>all</i> the benefits. Some costs are obvious (the purchase price). Others hide — ongoing fuel and repairs, loan interest, and the opportunity cost of the cash. Some benefits are dollars (more income); others are real but harder to price (less strain, more safety).</p>
+  <h3>Sort it: cost or benefit?</h3>
+  <p class="muted">Imagine you're deciding whether to <b>buy a used $8,000 tractor</b>. For each item below, decide: is it a <b>COST</b> (something the decision takes from you) or a <b>BENEFIT</b> (something it gives you)?</p>
+  <div class="card" id="cbCard">
+    <div class="tiny" id="cbCount"></div>
+    <div class="sortitem" id="cbItem"></div>
+    <div class="sortbtns">
+      <button class="sb-need" onclick="cbPick(true)">COST</button>
+      <button class="sb-want" onclick="cbPick(false)">BENEFIT</button>
+    </div>
+    <div class="sortfeed" id="cbFeed"></div>
+  </div>
+  <div id="cbDoneMsg" class="hide">
+    <h3>Now use the numbers to choose</h3>
+    <p class="muted">Cost-benefit analysis works best with real figures. Here are two enterprises fighting for your <b>$1,000</b> startup money:</p>
+    <div class="struct"><b>Option A · Egg layers</b><p>Expected income $1,700 · expected expenses $500 · risk: LOW (steady demand)</p></div>
+    <div class="struct"><b>Option B · Cut flowers</b><p>Expected income $2,200 · expected expenses $1,100 · risk: HIGHER (spoils fast)</p></div>
+    <div class="qlabel"><span class="qn">Q1.</span> Back to the tractor: would YOU buy it? Point to at least one cost AND one benefit from the sort above to back up your answer.</div>
+    ${ta('costben-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> Find the predicted net income (income − expenses) for Option A and for Option B. Show both numbers. Which is higher on paper?</div>
+    ${ta('costben-q2','Option A net: $…\nOption B net: $…\nHigher on paper: …')}
+    <div class="qlabel"><span class="qn">Q3.</span> Option B earns more on paper but is riskier (flowers spoil fast). Explain why the "best on paper" choice isn't always the one you should make.</div>
+    ${ta('costben-q3')}
+    <button class="btn" id="costbenDone" onclick="completeStation('costben')">Finish Activity 3</button>
+    <p class="tiny" style="text-align:center">Answer all three to unlock.</p>
+  </div>`;
+AFTER.costben=()=>{
+  let i=S.cbIdx||0, right=S.cbRight||0;
+  if(S.done.costben){ i=CB_ITEMS.length }
+  const item=document.getElementById('cbItem'), feed=document.getElementById('cbFeed'),
+        count=document.getElementById('cbCount');
+  function show(){
+    if(i>=CB_ITEMS.length){
+      document.getElementById('cbCard').classList.add('hide');
+      document.getElementById('cbDoneMsg').classList.remove('hide');
+      wireAnswers(['costben-q1','costben-q2','costben-q3'],'costbenDone');
+      return;
+    }
+    count.textContent=`Item ${i+1} of ${CB_ITEMS.length}`;
+    item.textContent=CB_ITEMS[i].t; feed.textContent=''; feed.className='sortfeed';
+  }
+  window.cbPick=(saidCost)=>{
+    if(i>=CB_ITEMS.length) return;
+    const it=CB_ITEMS[i];
+    const ok=(saidCost===it.cost);
+    if(ok) right++;
+    feed.textContent=(ok?'✓ Right — ':'✗ Actually a '+(it.cost?'COST':'BENEFIT')+' — ')+it.why;
+    feed.className='sortfeed '+(ok?'ok':'no');
+    i++; S.cbIdx=i; S.cbRight=right; save();
+    setTimeout(show, ok?1400:2600);
+  };
+  show();
+};
 
-<h2>📋 Project 2.4.4 — A Budget for Your Business</h2>
-<div class="card">
-  <p>For the business idea you've been planning, write a one-year budget:</p>
-  <ul>
-    <li>Predict your <b>total income</b> for the year (be realistic).</li>
-    <li>List and add up your <b>expected expenses</b>.</li>
-    <li>Calculate your <b>predicted net income</b>.</li>
-  </ul>
-  <div class="try"><b>Decide:</b> Based on your budget, is your business <i>feasible</i> — worth doing? Write two or three sentences making your case with the numbers.</div>
-</div>
+/* ── thinking at the margin (mcq) ── */
+const MG=[
+  {t:'Your egg stand sells out every single day — customers leave empty-handed. Adding ONE more hen would cost about $3 a week in feed and bring in about $5 a week in eggs. Should you add the hen?',
+   o:['Yes — the extra $5 it brings in beats the extra $3 it costs','No — a hen costs money, so never add one','No — you can\'t know the future','Yes — but only if eggs are free'], a:0,
+   why:'Marginal benefit ($5) is bigger than marginal cost ($3), so one more hen adds profit. Do it.'},
+  {t:'Your farm stand is open Friday and Saturday. Opening on Sunday too would cost about $80 in wages but bring in only about $50 in extra sales. Should you open on Sunday?',
+   o:['Yes — more open days are always better','No — the extra cost ($80) is more than the extra benefit ($50)','Yes — $50 is still money','No — Sundays are unlucky'], a:1,
+   why:'At the margin, opening Sunday costs $80 but only earns $50 — the extra cost beats the extra benefit, so don\'t.'},
+  {t:'"Marginal cost" is best described as…',
+   o:['The total cost of everything you own','The added cost of producing ONE more unit','The cost you already paid and can\'t get back','A cost that never changes'], a:1,
+   why:'Marginal means "one more." Marginal cost is the extra cost of making one additional unit.'},
+  {t:'You keep adding hens. The 20th hen brings in $5 a week and costs $3. But by the 40th hen your eggs pile up unsold, so that hen brings in only $2 a week and still costs $3. Should you add the 40th hen?',
+   o:['Yes — adding hens worked before, so keep going','No — its marginal benefit ($2) is now below its marginal cost ($3)','Yes — 40 is a nice round number','No — hens never make money'], a:1,
+   why:'Each hen must be judged on its own. The 40th brings in $2 but costs $3, so stop before it. That\'s deciding at the margin.'},
+];
+RENDER.margin=()=>`
+  <h2>➕ Activity 2.4.4 — Thinking at the Margin</h2>
+  <p>Not every decision is all-or-nothing. A lot of the smartest business choices are made <b>one step at a time</b>: <i>Should I add one more hen? Open one more hour? Plant one more row?</i> Deciding this way — looking at the effect of just <b>one more</b> — is called <b>thinking at the margin</b>.</p>
+  <div class="callout">
+    <b>Marginal cost</b> — the extra cost of doing ONE more.<br>
+    <b>Marginal benefit</b> — the extra benefit you get from ONE more.<br><br>
+    <b>The rule:</b> keep doing more as long as the <i>marginal benefit</i> is bigger than the <i>marginal cost</i>. Stop when the next one would cost more than it's worth.
+  </div>
+  <p>This little rule is powerful. It stops you from two classic mistakes: quitting too early (leaving easy money on the table) and going too far (pushing past the point where "more" starts to lose money). And notice: it uses your financial info directly — you compare the extra dollars in against the extra dollars out.</p>
+  <div class="callout sun"><b>Diminishing returns:</b> "more" doesn't stay good forever. The first few hens sell out instantly. Add too many and the eggs pile up unsold — that hen's marginal benefit drops below its marginal cost, and it's time to stop.</div>
+  <h3>Should you do one more?</h3>
+  <p class="muted">For each situation, compare the extra cost to the extra benefit and decide. Get it right to move on.</p>
+  <div class="card" id="mgCard"></div>
+  <div id="marginQs" class="hide">
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> What does "thinking at the margin" mean? Give the simple rule for when you should do one more of something.</div>
+    ${ta('margin-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> Explain why adding MORE of a good thing (more hens, more open hours) can eventually stop being worth it. Use the words <b>marginal cost</b> and <b>marginal benefit</b>.</div>
+    ${ta('margin-q2')}
+    <button class="btn" id="marginDone" onclick="completeStation('margin')">Finish Activity 4</button>
+    <p class="tiny" style="text-align:center">Answer both questions to unlock.</p>
+  </div>`;
+AFTER.margin=()=>{
+  let i=S.mgIdx||0;
+  if(S.done.margin) i=MG.length;
+  const card=document.getElementById('mgCard');
+  function draw(){
+    if(i>=MG.length){
+      card.classList.add('hide');
+      document.getElementById('marginQs').classList.remove('hide');
+      wireAnswers(['margin-q1','margin-q2'],'marginDone');
+      return;
+    }
+    const it=MG[i];
+    const idx=it.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Scenario ${i+1} of ${MG.length}</div>
+      <p style="font-size:15.5px">${it.t}</p>
+      ${idx.map(k=>`<button class="opt" onclick="mgPick(${k},this)">${it.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="mgFeed"></div>`;
+  }
+  window.mgPick=(k,el)=>{
+    const it=MG[i], feed=document.getElementById('mgFeed');
+    if(k===it.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ '+it.why; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+      i++; S.mgIdx=i; save(); setTimeout(draw,1700);
+    }else{
+      el.classList.add('picked-no');
+      feed.textContent='Not quite — compare the EXTRA cost of one more against the EXTRA benefit of one more.';
+      feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),1000);
+    }
+  };
+  draw();
+};
 
-<h2>✅ Quick self-check</h2>
-<div class="card">
-  <ol>
-    <li>What's the difference between an income statement and a budget?</li>
-    <li>What does "net operating income" mean?</li>
-    <li>How can a budget help you decide if a business idea is worth doing?</li>
-  </ol>
-</div>
+/* ── final quiz + turn-in ── */
+const QUIZ=[
+  {q:'A decision-making process is…',
+   o:['A lucky guess made under pressure','A repeatable set of steps for making a choice','A way to avoid ever deciding','A list of prices only'],a:1},
+  {q:'In the decision-making process, gathering the facts and the numbers comes…',
+   o:['After you\'ve already chosen','Early — you decide with information, not just a feeling','Only if the decision fails','Never; feelings are enough'],a:1},
+  {q:'Opportunity cost is best described as…',
+   o:['The money you spend on an item','The value of the next best alternative you give up','A cost that only businesses pay','The tax on a purchase'],a:1},
+  {q:'You plant your one free acre in corn instead of pumpkins. The opportunity cost is…',
+   o:['The seed you bought','The pumpkin crop you gave up','The acre itself','Nothing, because you owned the land'],a:1},
+  {q:'"It didn\'t cost me anything — I already owned the land." This thinking ignores…',
+   o:['Sales tax','Opportunity cost','The weather','Marginal benefit'],a:1},
+  {q:'Cost-benefit analysis means…',
+   o:['Adding up a choice\'s total costs and comparing them to its total benefits','Only counting the purchase price','Choosing the cheapest option every time','Ignoring the numbers and trusting your gut'],a:0},
+  {q:'Option A nets $1,200 and Option B nets $1,100, but B is far riskier. A smart manager might still pick A because…',
+   o:['A always earns more forever','Lower risk can be worth a slightly smaller net income','Risk never matters','B is illegal'],a:1},
+  {q:'"Thinking at the margin" means deciding based on…',
+   o:['The total of everything you own','The effect of doing ONE more','What you paid in the past','What your neighbor is doing'],a:1},
+  {q:'You should keep doing more of something as long as…',
+   o:['You have space for it','The marginal benefit is greater than the marginal cost','It felt good last time','The marginal cost is greater than the marginal benefit'],a:1},
+  {q:'Adding the 40th hen brings in $2 a week but costs $3 a week. You should…',
+   o:['Add it — more hens is always better','Not add it — its marginal cost is greater than its marginal benefit','Add ten more just in case','Sell all the hens'],a:1},
+];
+const PASS=80;
+RENDER.final=()=>`
+  <h2>✅ Final Self-Check</h2>
+  <p class="muted">10 questions from the whole lesson. You need <b>${PASS}%</b> to finish — you can retry as many times as you want, and the questions reshuffle. This is practice: the graded <b>Check for Understanding</b> comes from Mr. Beltran in class.</p>
+  <div class="card" id="quizCard"></div>
+  <div id="turnin" class="hide">
+    <div class="bigscore" id="scoreBig"></div>
+    <p class="muted" style="text-align:center" id="scoreMsg"></p>
+    <h3>📤 Turn in your work</h3>
+    <p class="muted">This gathers every answer you typed into one block. Copy it, then paste it into the <b>Google Classroom assignment</b> (private comment or the attached doc) — or show this screen to Mr. Beltran.</p>
+    <pre id="compiled"></pre>
+    <button class="btn" onclick="copyWork(this)">📋 Copy my work</button>
+    <button class="btn ghost" onclick="completeStation('final')">Done — back to map</button>
+  </div>`;
+AFTER.final=()=>{
+  let qs=[], qi=0, right=0;
+  const card=document.getElementById('quizCard');
+  function start(){
+    qs=[...QUIZ].sort(()=>Math.random()-.5).slice(0,10);
+    qi=0; right=0;
+    card.classList.remove('hide');
+    document.getElementById('turnin').classList.add('hide');
+    draw();
+  }
+  function draw(){
+    if(qi>=qs.length) return finish();
+    const q=qs[qi];
+    const idx=q.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="mcq-top"><span>Question ${qi+1} of ${qs.length}</span><span>Score: ${right}</span></div>
+      <div class="mcq-q">${q.q}</div>
+      ${idx.map(k=>`<button class="opt" onclick="qPick(${k},this)">${q.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="qFeed"></div>`;
+  }
+  window.qPick=(k,el)=>{
+    const q=qs[qi], feed=document.getElementById('qFeed');
+    card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+    if(k===q.a){ right++; el.classList.add('picked-ok'); feed.textContent='✓ Correct'; feed.className='mcq-feed ok'; }
+    else{
+      el.classList.add('picked-no');
+      card.querySelectorAll('.opt').forEach(o=>{ if(o.textContent===q.o[q.a]) o.classList.add('reveal'); });
+      feed.textContent='✗ The answer: '+q.o[q.a]; feed.className='mcq-feed no';
+    }
+    qi++; setTimeout(draw, k===q.a?900:2400);
+  };
+  function finish(){
+    const pct=Math.round(right/qs.length*100);
+    S.scores.final=Math.max(S.scores.final||0,pct); save();
+    if(pct<PASS){
+      card.innerHTML=`<div class="bigscore" style="color:var(--sun)">${pct}%</div>
+        <p class="muted" style="text-align:center">Almost — you need ${PASS}%. Skim the stations you're shaky on (they stay open on the map), then try again. New shuffle every time.</p>
+        <button class="btn" id="retryBtn">Try again</button>`;
+      document.getElementById('retryBtn').onclick=start;
+      return;
+    }
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=pct+'%';
+    document.getElementById('scoreMsg').textContent=pct===100?'Perfect score. Outstanding.':'Passed — nice work.';
+    document.getElementById('compiled').textContent=compile(pct); cloudSubmit();
+    window.scrollTo(0,0);
+  }
+  if(S.done.final && (S.scores.final||0)>=PASS){
+    // reviewing after completion: show turn-in immediately with best score
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=(S.scores.final||0)+'%';
+    document.getElementById('scoreMsg').textContent='Best score (already passed).';
+    document.getElementById('compiled').textContent=compile(S.scores.final||0); cloudSubmit();
+  } else start();
+};
 
-<div class="turn">📤 <b>Turn in your work:</b> your Activities 2.4.1–2.4.3 and your Project 2.4.4 budget — through Google Classroom, the way your teacher showed you.</div>
-</div></body></html>
+/* ── cloud turn-in: save the student's compiled work to the teacher dashboard ── */
+var SUBMIT_DB='https://verde-animation-25368-default-rtdb.firebaseio.com/submissions';
+var LESSON_ID='agb-2-4';
+function subSlug(s){return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'student';}
+function cloudSubmit(){
+  try{
+    var work=(document.getElementById('compiled')||{}).textContent||'';
+    var se=document.getElementById('scoreBig');
+    var score=se?(parseInt(se.textContent,10)||0):0;
+    var name=(typeof S!=='undefined'&&S.name)?S.name:'';
+    if(!work) return;
+    fetch(SUBMIT_DB+'/'+LESSON_ID+'/'+subSlug(name)+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,lesson:LESSON_ID,score:score,work:work,updated:Date.now()})}).catch(function(){});
+  }catch(e){}
+}
+
+function compile(pct){
+  const L=[], A=(id)=> (S.text[id]||'—').trim();
+  L.push('ABF LESSON 2.4 — BUSINESS DECISIONS · SELF-PACED WORK');
+  L.push('Student: '+(S.name||'?'));
+  L.push('Date: '+new Date().toLocaleDateString());
+  L.push('Final self-check score: '+pct+'%');
+  L.push('');
+  L.push('— Activity 2.4.1 A Decision-Making Process —');
+  L.push('Step ordering: completed (7 steps in order)');
+  L.push('Q1 (why gather facts/numbers first): '+A('process-q1'));
+  L.push('Q2 (why "do nothing" is an option): '+A('process-q2'));
+  L.push('Q3 (why review the results): '+A('process-q3'));
+  L.push('');
+  L.push('— Activity 2.4.2 Opportunity Cost —');
+  L.push('Practice scenarios: all 4 matched correctly (required to advance)');
+  L.push('Q1 (define + personal example): '+A('opcost-q1'));
+  L.push('Q2 ("already owned it" mistake): '+A('opcost-q2'));
+  L.push('');
+  L.push('— Activity 2.4.3 Weighing Costs & Benefits —');
+  L.push('Cost/benefit sort: completed (10 items sorted)');
+  L.push('Q1 (buy the tractor? cost + benefit): '+A('costben-q1'));
+  L.push('Q2 (net income A vs B): '+A('costben-q2'));
+  L.push('Q3 (why "best on paper" isn\'t always right): '+A('costben-q3'));
+  L.push('');
+  L.push('— Activity 2.4.4 Thinking at the Margin —');
+  L.push('Practice scenarios: all 4 matched correctly (required to advance)');
+  L.push('Q1 (what "at the margin" means + the rule): '+A('margin-q1'));
+  L.push('Q2 (why more stops being worth it): '+A('margin-q2'));
+  return L.join('\n');
+}
+function copyWork(btn){
+  const t=document.getElementById('compiled').textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+    .then(()=>{ btn.textContent='✓ Copied — paste it into Classroom'; })
+    .catch(()=>{ // fallback: select the block
+      const r=document.createRange(); r.selectNode(document.getElementById('compiled'));
+      getSelection().removeAllRanges(); getSelection().addRange(r);
+      btn.textContent='Select + copy the highlighted text above';
+    });
+}
+
+/* ── glossary ── */
+const GLOSS=[
+['Alternative','One of the options you could choose in a decision. Good decisions start by listing every realistic alternative, including "do nothing."'],
+['Break-even','The point where total income exactly equals total costs — no profit and no loss.'],
+['Budget','A plan that predicts future income and expenses before they happen.'],
+['Cost-benefit analysis','Lining up the total costs of a choice against its total benefits to decide whether it is worth doing.'],
+['Decision-making process','A repeatable set of steps for making a choice: name the decision, gather facts, list alternatives, weigh costs and benefits, choose, act, and review.'],
+['Diminishing returns','The point where adding more of something starts to give you less and less extra benefit for the same cost.'],
+['Enterprise','One specific money-making activity within a business, such as the egg operation or the pumpkin patch.'],
+['Feasible','Worth doing; a plan that is realistic and likely to succeed or make money.'],
+['Fixed cost','A cost that stays the same no matter how much you produce (like rent or insurance).'],
+['Income statement','A summary of all income and all expenses over a period of time, ending in net income.'],
+['Incentive','Something that motivates a person or business to act — often a reward or a cost that nudges a decision.'],
+['Marginal benefit','The extra benefit you get from doing one more of something.'],
+['Marginal cost','The extra cost of doing one more of something.'],
+['Net income','What is left after subtracting total expenses from total income; the bottom line.'],
+['Opportunity cost','The value of the next best alternative you give up when you make a choice.'],
+['Return','The benefit or profit you get back from a decision or investment.'],
+['Risk','The chance that a decision turns out worse than expected; higher potential reward often comes with higher risk.'],
+['Scarcity','The basic fact that resources — land, money, time, labor — are limited, which forces us to make choices.'],
+['Sunk cost','Money already spent that cannot be recovered; it should not drive a new decision, because it is gone either way.'],
+['Thinking at the margin','Making a decision by looking at the effect of just one more — doing more while marginal benefit beats marginal cost.'],
+['Trade-off','What you give up to get something else; every choice involves a trade-off.'],
+['Variable cost','A cost that rises or falls with how much you produce (like feed or seed).'],
+];
+RENDER.gloss=()=>`
+  <h2>📖 Lesson 2.4 Glossary</h2>
+  <p class="muted">Every key term for this lesson.</p>
+  ${GLOSS.map(([t,d])=>`<div class="term"><b>${t}</b><span>${d}</span></div>`).join('')}
+  <button class="btn ghost" onclick="goMap()">Back to map</button>`;
+
+/* ───────── boot ───────── */
+if(S.name) boot();
+</script>
+</body>
+</html>

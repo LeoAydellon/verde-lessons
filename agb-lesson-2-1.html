@@ -1,106 +1,748 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Lesson 2.1 Categorizing Transactions — Self-Paced — Verde Tech</title>
+<meta name="theme-color" content="#2f6b3f">
+<!--
+  ABF Lesson 2.1 "Categorizing Transactions" — self-paced student module.
+  Built 2026-08-26 from the CASE ABF curriculum Leo teaches in P2 Agribusiness.
+  Standalone file: no server, no login, works offline (videos/game need internet).
+  Student work saves in the browser (localStorage) and compiles into one text block to turn in.
+  The graded Lesson 2.1 Check for Understanding is NOT here — teacher distributes it.
+  All practice questions in this file are original (no CASE answer-key content).
+-->
 <style>
-  :root{color-scheme:light}
-  *{box-sizing:border-box}
-  body{margin:0;background:#f6f8f4;color:#1b2a1b;font:18px/1.6 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}
-  .wrap{max-width:760px;margin:0 auto;padding:18px 18px 70px}
-  header{background:#2f7d32;color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:14px}
-  header h1{margin:.1rem 0;font-size:26px}
-  header .sub{opacity:.9;font-size:16px}
-  h2{margin:1.4rem 0 .4rem;font-size:22px;color:#2f7d32;border-bottom:2px solid #cfe3cf;padding-bottom:.2rem}
-  .card{background:#fff;border:1px solid #dbe6db;border-radius:12px;padding:16px 18px;margin:12px 0}
-  .eq{background:#eef6ee;border-left:5px solid #2f7d32;border-radius:8px;padding:10px 14px;margin:10px 0}
-  .term{font-weight:700;color:#1f5e22}
-  ul{margin:.4rem 0 .4rem 1.1rem}
-  li{margin:.25rem 0}
-  .try{background:#fff8e6;border:1px solid #f0e2b6;border-radius:10px;padding:12px 14px;margin:10px 0}
-  .try b{color:#8a6d00}
-  table{border-collapse:collapse;width:100%;margin:.4rem 0;font-size:16px}
-  td,th{border:1px solid #cfe0cf;padding:6px 8px;text-align:left}
-  th{background:#eef6ee}
-  .turn{background:#2f7d32;color:#fff;border-radius:12px;padding:16px;margin-top:18px;font-size:19px}
-  .pill{display:inline-block;background:#2f7d32;color:#fff;border-radius:20px;padding:2px 12px;font-size:14px;font-weight:700}
-</style></head>
-<body><div class="wrap">
+  :root{
+    --green:#2f6b3f; --green-d:#245231; --green-l:#eaf3ec;
+    --sun:#c8892b; --sun-l:#fdf3e2;
+    --ink:#1d2321; --dim:#5b6763; --faint:#8a9591;
+    --line:#dfe5e1; --bg:#f6f8f6; --card:#fff;
+    --ok:#2f7d4f; --no:#b23b3b; --no-l:#fbecec;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    padding:0 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 90px}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  h1,h2,h3{line-height:1.25;margin:0}
+  header{position:sticky;top:0;z-index:20;background:var(--green);color:#fff;
+    padding:calc(10px + env(safe-area-inset-top)) 16px 10px}
+  .hrow{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+  .htitle{font-size:16px;font-weight:700;letter-spacing:.2px;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hsub{font-size:12px;opacity:.78;font-weight:500;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .back{font-size:15px;font-weight:600;opacity:.92;padding:6px 4px;margin-left:-4px}
+  .who{font-size:12.5px;opacity:.85;padding:6px 8px;border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .btn{display:block;width:100%;background:var(--green);color:#fff;font-size:17px;font-weight:700;
+    padding:16px;border-radius:14px;text-align:center;margin-top:14px;transition:.12s transform}
+  .btn:active{transform:scale(.985)}
+  .btn.ghost{background:#fff;color:var(--green);border:2px solid var(--green)}
+  .btn.quiet{background:transparent;color:var(--dim);font-weight:600;font-size:15px;padding:12px;margin-top:4px}
+  .btn[disabled]{opacity:.4;pointer-events:none}
+  .muted{color:var(--dim);font-size:14.5px}
+  .tiny{color:var(--faint);font-size:12.5px}
+  .hide{display:none !important}
+  #gate .card{margin-top:28px;text-align:center}
+  #gate h2{font-size:22px;margin-bottom:6px}
+  #nameIn{width:100%;font-size:18px;padding:15px;border:2px solid var(--line);
+    border-radius:12px;margin-top:16px;text-align:center;background:#fff;color:var(--ink)}
+  #nameIn:focus{outline:none;border-color:var(--green)}
+  .progwrap{margin:18px 0 6px}
+  .progbar{height:10px;background:#e4eae5;border-radius:99px;overflow:hidden}
+  .progfill{height:100%;background:linear-gradient(90deg,var(--green),#57a06b);
+    border-radius:99px;transition:width .5s cubic-bezier(.2,.7,.3,1)}
+  .progtxt{display:flex;justify-content:space-between;margin-top:7px;font-size:13px;color:var(--dim)}
+  .progtxt b{color:var(--ink)}
+  .row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 15px;margin:9px 0;transition:.12s border-color,.12s transform}
+  .row:active{transform:scale(.99)}
+  .row.done{border-color:#bcdcc5;background:#f4faf5}
+  .row.locked{opacity:.5}
+  .row.next{border-color:var(--green);box-shadow:0 0 0 3px rgba(47,107,63,.09)}
+  .dot{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-size:14px;font-weight:800;background:var(--green-l);color:var(--green-d)}
+  .row.done .dot{background:var(--ok);color:#fff}
+  .row.locked .dot{background:#eceeed;color:var(--faint)}
+  .rtext{flex:1;min-width:0}
+  .rtext .nm{display:block;font-size:16px;font-weight:650;line-height:1.3}
+  .rtext .sc{display:block;font-size:12.5px;color:var(--dim);margin-top:3px}
+  .row.done .sc{color:var(--ok);font-weight:600}
+  .chev{color:var(--faint);font-size:19px;flex:none}
+  .secttl{font-size:12px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;
+    color:var(--faint);margin:24px 4px 4px}
+  .lesson h2{font-size:21px;margin:4px 0 10px}
+  .lesson h3{font-size:16.5px;margin:18px 0 8px;color:var(--green-d)}
+  .lesson p{margin:0 0 12px;font-size:16px;color:#2a3330}
+  .lesson ul{margin:0 0 12px;padding-left:22px}
+  .lesson li{margin:5px 0;font-size:15.5px}
+  .callout{background:var(--green-l);border:1px solid #cfe2d4;border-radius:12px;
+    padding:13px 15px;margin:12px 0;font-size:15px}
+  .callout.sun{background:var(--sun-l);border-color:#eedcb8}
+  .term{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+  .term b{color:var(--green-d)}
+  .term span{display:block;font-size:14.5px;color:var(--dim);margin-top:3px}
+  a.ext{display:block;background:#fff;border:2px solid var(--green);border-radius:14px;
+    padding:14px 16px;margin:12px 0;color:var(--green);font-weight:700;text-decoration:none;font-size:16px}
+  a.ext small{display:block;font-weight:500;color:var(--dim);font-size:13px;margin-top:2px}
+  textarea{width:100%;min-height:84px;font:15.5px/1.5 inherit;padding:12px;border:2px solid var(--line);
+    border-radius:12px;background:#fff;color:var(--ink);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--green)}
+  .qlabel{font-size:15px;font-weight:650;margin:16px 0 7px}
+  .qlabel .qn{color:var(--sun);font-weight:800}
+  /* sort game */
+  .sortitem{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:16px;font-weight:600;text-align:center}
+  .sortbtns{display:flex;gap:10px;margin-top:12px}
+  .sortbtns button{flex:1;padding:14px;border-radius:12px;font-weight:800;font-size:16px}
+  .sb-need{background:var(--green-l);color:var(--green-d);border:2px solid var(--green)}
+  .sb-want{background:var(--sun-l);color:#8a5a12;border:2px solid var(--sun)}
+  .sortfeed{text-align:center;font-weight:700;margin-top:10px;min-height:24px;font-size:15px}
+  .sortfeed.ok{color:var(--ok)} .sortfeed.no{color:var(--no)}
+  /* mcq */
+  .mcq-q{font-size:17px;font-weight:650;margin:6px 0 14px}
+  .opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);
+    border-radius:13px;padding:14px 15px;margin:9px 0;font-size:15.5px;transition:.12s}
+  .opt.picked-ok{border-color:var(--ok);background:#f0f9f2;font-weight:650}
+  .opt.picked-no{border-color:var(--no);background:var(--no-l)}
+  .opt.reveal{border-color:var(--ok)}
+  .mcq-feed{min-height:26px;font-weight:700;font-size:15px;margin-top:6px}
+  .mcq-feed.ok{color:var(--ok)} .mcq-feed.no{color:var(--no)}
+  .mcq-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim);margin-bottom:10px}
+  /* chain order game */
+  .chainpick{display:block;width:100%;background:#fff;border:2px solid var(--line);border-radius:13px;
+    padding:13px 15px;margin:8px 0;font-size:15.5px;font-weight:600;text-align:left}
+  .chainpick[disabled]{opacity:.35}
+  .chainslot{background:var(--green-l);border:1px solid #cfe2d4;border-radius:10px;
+    padding:9px 13px;margin:5px 0;font-size:14.5px;font-weight:650;color:var(--green-d)}
+  /* checklist */
+  .ck{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;
+    background:#fff;border:2px solid var(--line);border-radius:13px;padding:13px 15px;margin:8px 0}
+  .ck .box{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);flex:none;
+    display:grid;place-items:center;font-size:15px;color:#fff;margin-top:1px}
+  .ck.on{border-color:#bcdcc5;background:#f4faf5}
+  .ck.on .box{background:var(--ok);border-color:var(--ok)}
+  .ck .t{flex:1;font-size:15px}
+  /* structures reference cards */
+  .struct{border-left:4px solid var(--green);background:#fff;border-radius:0 12px 12px 0;
+    border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:12px 15px;margin:10px 0}
+  .struct b{font-size:16px}
+  .struct p{margin:5px 0 0;font-size:14.5px;color:var(--dim)}
+  /* finish */
+  .bigscore{text-align:center;font-size:44px;font-weight:800;color:var(--green);margin:10px 0 2px}
+  pre#compiled{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace;background:#f2f5f2;
+    border:1px solid var(--line);border-radius:12px;padding:14px;max-height:340px;overflow:auto}
+</style>
+</head>
+<body>
 <header>
-  <div class="pill">Unit 2 · Agribusiness</div>
-  <h1>Lesson 2.1 — Categorizing Transactions</h1>
-  <div class="sub">Work through this on your own. Do each step, answer the questions, and turn in your work.</div>
+  <div class="hrow">
+    <button class="back hide" id="backBtn" onclick="goMap()">‹ Map</button>
+    <div style="flex:1;min-width:0">
+      <div class="htitle">Lesson 2.1 · Categorizing Transactions</div>
+      <div class="hsub">Agribusiness Foundations · self-paced · Mr. Beltran</div>
+    </div>
+    <div class="who hide" id="whoChip"></div>
+  </div>
 </header>
+<div class="wrap">
 
-<h2>🌱 What this lesson is about</h2>
-<div class="card">
-  <p>Every business — a farm, a shop, or your own idea — has money coming <b>in</b> and money going <b>out</b>.
-  To run a business well, you have to <b>track</b> those and <b>sort</b> them into the right buckets. That's what
-  today is about.</p>
-  <p><b>Big idea:</b> if you know your income and your expenses, you can figure out whether you're actually making money.</p>
-  <div class="eq"><b>Net income = Income − Expenses.</b> If it's positive, you made a profit. If it's negative, you lost money.</div>
+<!-- ══════════ NAME GATE ══════════ -->
+<section id="gate">
+  <div class="card">
+    <h2>💵 Categorizing Transactions</h2>
+    <p class="muted">Work through this lesson at your own pace. Your answers save on this device as you go, and at the end you'll turn in everything with one tap.</p>
+    <input id="nameIn" placeholder="First and last name" autocomplete="off">
+    <button class="btn" onclick="startApp()">Start</button>
+    <p class="tiny" style="margin-top:14px">Use the same device each day so your saved work is here when you come back.</p>
+  </div>
+</section>
+
+<!-- ══════════ MAP ══════════ -->
+<section id="map" class="hide">
+  <div class="progwrap">
+    <div class="progbar"><div class="progfill" id="progFill" style="width:0%"></div></div>
+    <div class="progtxt"><span>Lesson progress</span><b id="progTxt">0 of 6</b></div>
+  </div>
+  <div class="secttl">Work in order — each part unlocks the next</div>
+  <div id="rows"></div>
+  <div class="secttl">Reference</div>
+  <button class="row" onclick="openStation('gloss')">
+    <div class="dot">📖</div>
+    <div class="rtext"><span class="nm">Key Terms Glossary</span>
+    <span class="sc">Every term for this lesson — open any time</span></div>
+    <div class="chev">›</div>
+  </button>
+  <p class="tiny" style="text-align:center;margin-top:20px">CASE Agribusiness Foundations · Unit 2 · Verde Tech / Mr. Beltran<br>
+  Questions? Ask in class or post in Google Classroom.</p>
+  <button class="btn quiet" onclick="resetAll()">Start over (erases saved work)</button>
+</section>
+
+<!-- ══════════ STATION CONTAINER ══════════ -->
+<section id="station" class="hide"><div id="stationBody" class="lesson"></div></section>
+
 </div>
+<script>
+'use strict';
+/* ───────── persistence ───────── */
+const KEY='abf-l21-v1';
+let S = load();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{} }catch(e){ return {} } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)) }catch(e){} }
+S.done   = S.done || {};      // station id -> true
+S.text   = S.text || {};      // answer id  -> typed text
+S.checks = S.checks || {};    // checklist id -> true
+S.scores = S.scores || {};    // quiz id -> best %
 
-<h2>📖 The words you'll use</h2>
-<div class="card">
+/* ───────── stations ───────── */
+const STATIONS = [
+ {id:'overview',  n:'1', nm:'Start Here — What This Lesson Is About',   sc:'Essential questions + what you\'ll be able to do'},
+ {id:'inout',     n:'2', nm:'Income or Expense?',                        sc:'Activity 2.1.1 · money in vs. money out — sort game'},
+ {id:'netincome', n:'3', nm:'Net Income = Income − Expenses',            sc:'Activity 2.1.2 · profit or loss? put the steps in order'},
+ {id:'classify',  n:'4', nm:'Sorting Expenses into Categories',          sc:'Activity 2.1.3 · fixed, variable, or asset?'},
+ {id:'ledger',    n:'5', nm:'Cash Records & the Ledger',                 sc:'Activity 2.1.4 · set up a record you can trust'},
+ {id:'final',     n:'✓', nm:'Final Self-Check + Turn In',                sc:'Quick quiz, then submit your work'},
+];
+function doneCount(){ return STATIONS.filter(s=>S.done[s.id]).length }
+function firstOpen(){ for(const s of STATIONS){ if(!S.done[s.id]) return s.id } return null }
+
+/* ───────── shell ───────── */
+function startApp(){
+  const v=document.getElementById('nameIn').value.trim();
+  if(!v){ document.getElementById('nameIn').focus(); return }
+  S.name=v; save(); boot();
+}
+function boot(){
+  document.getElementById('gate').classList.add('hide');
+  const chip=document.getElementById('whoChip');
+  chip.textContent=S.name; chip.classList.remove('hide');
+  goMap();
+}
+function goMap(){
+  document.getElementById('station').classList.add('hide');
+  document.getElementById('backBtn').classList.add('hide');
+  document.getElementById('map').classList.remove('hide');
+  renderMap(); window.scrollTo(0,0);
+}
+function renderMap(){
+  const open=firstOpen();
+  document.getElementById('rows').innerHTML = STATIONS.map((s,i)=>{
+    const done=!!S.done[s.id];
+    const locked=!done && s.id!==open;
+    const cls='row'+(done?' done':'')+(locked?' locked':'')+(s.id===open?' next':'');
+    const sc=done ? (s.id==='final' ? 'Done — tap to review / turn in again' : 'Done ✓  (tap to review)') : s.sc;
+    return `<button class="${cls}" ${locked?'disabled':''} onclick="openStation('${s.id}')">
+      <div class="dot">${done?'✓':s.n}</div>
+      <div class="rtext"><span class="nm">${s.nm}</span><span class="sc">${sc}</span></div>
+      <div class="chev">›</div></button>`;
+  }).join('');
+  const n=doneCount();
+  document.getElementById('progFill').style.width=(n/STATIONS.length*100)+'%';
+  document.getElementById('progTxt').textContent=`${n} of ${STATIONS.length}`;
+}
+function openStation(id){
+  document.getElementById('map').classList.add('hide');
+  document.getElementById('station').classList.remove('hide');
+  document.getElementById('backBtn').classList.remove('hide');
+  document.getElementById('stationBody').innerHTML = RENDER[id]();
+  if(AFTER[id]) AFTER[id]();
+  window.scrollTo(0,0);
+}
+function completeStation(id){ S.done[id]=true; save(); goMap(); }
+function resetAll(){ if(confirm('Erase ALL saved work and start over?')){ localStorage.removeItem(KEY); location.reload(); } }
+
+/* typed-answer helpers */
+function ta(id,ph){ return `<textarea id="ta-${id}" placeholder="${ph||'Type your answer…'}"
+  oninput="S.text['${id}']=this.value;save()">${esc(S.text[id]||'')}</textarea>` }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;') }
+function answered(ids){ return ids.every(i=>(S.text[i]||'').trim().length>=8) }
+function needAnswers(ids,btnId){
+  const b=document.getElementById(btnId); if(!b) return;
+  b.disabled=!answered(ids);
+}
+function wireAnswers(ids,btnId){
+  needAnswers(ids,btnId);
+  ids.forEach(i=>{ const el=document.getElementById('ta-'+i);
+    if(el) el.addEventListener('input',()=>needAnswers(ids,btnId)); });
+}
+
+/* ═════════ RENDERERS ═════════ */
+const RENDER={}, AFTER={};
+
+/* ── overview ── */
+RENDER.overview=()=>`
+  <h2>💵 What this lesson is about</h2>
+  <p>Every business — a farm, a shop, or your own idea — has money coming <b>in</b> and money going <b>out</b>. To run a business well, you can't just guess. You have to <b>track</b> every dollar that moves and <b>sort</b> each one into the right bucket. That's the whole job today: taking a messy stream of <b>transactions</b> and putting each one where it belongs.</p>
+  <p>Here's why it matters. Two farm stands can both sell $2,000 of pumpkins in October and end the month in completely different places — one made money, one lost it. The only way to know which is which is to categorize what came in and what went out. That's this lesson.</p>
+  <div class="callout"><b>Big idea:</b> <b>Net income = Income − Expenses.</b> If the answer is positive, you made a <b>profit</b>. If it's negative, you took a <b>loss</b>. You can't find that number until every transaction is sorted.</div>
+  <p>Over the next few days you will:</p>
   <ul>
-    <li><span class="term">Income</span> — money coming <b>into</b> the business (like selling a product).</li>
-    <li><span class="term">Expense</span> — money the business <b>spends</b> to operate (like buying supplies).</li>
-    <li><span class="term">Net income</span> — what's left after you subtract expenses from income.</li>
-    <li><span class="term">Transaction</span> — any single exchange of money (one sale, one purchase).</li>
-    <li><span class="term">Ledger</span> — the running list where you write every transaction down.</li>
-    <li><span class="term">Cash vs. Non-cash</span> — cash = money changes hands now; non-cash = value changes without cash moving (like something wearing out over time).</li>
-    <li><span class="term">Fixed expense</span> — stays the <b>same</b> each month (like rent).</li>
-    <li><span class="term">Variable expense</span> — <b>changes</b> based on how much you do (like feed for more animals).</li>
-    <li><span class="term">Current vs. Noncurrent asset</span> — current = used up within a year; noncurrent = lasts more than a year (like a tractor).</li>
+    <li>Tell <b>income</b> (money in) from <b>expenses</b> (money out) fast, using real farm transactions (Activity 2.1.1)</li>
+    <li>Put the steps of finding <b>net income</b> in order and figure out profit or loss (Activity 2.1.2)</li>
+    <li>Sort expenses into <b>fixed</b>, <b>variable</b>, and <b>noncurrent-asset</b> categories (Activity 2.1.3)</li>
+    <li>Set up a <b>cash record / ledger</b> you can actually trust to run a business (Activity 2.1.4)</li>
   </ul>
-</div>
+  <h3>Essential questions</h3>
+  <div class="callout">
+    1. What is the difference between income and an expense?<br>
+    2. How do you calculate net income, and what does it tell you?<br>
+    3. Why do businesses sort transactions into categories instead of just watching the bank balance?<br>
+    4. What kinds of expenses are there, and why does the difference matter?<br>
+    5. How does a good cash record help an owner make decisions?
+  </div>
+  <p class="muted">Keep these in the back of your mind — by the end of the lesson you should be able to answer every one of them without looking.</p>
+  <h3>Words you'll meet</h3>
+  <p class="muted">Transaction · income · expense · net income · profit · loss · break even · ledger · cash record · recordkeeping · fixed expense · variable expense · operating expense · capital purchase · asset · current asset · noncurrent asset · category … The full <b>📖 Glossary</b> is on the map screen any time you need it.</p>
+  <button class="btn" onclick="completeStation('overview')">Got it — start Activity 1</button>`;
 
-<h2>🧮 Activity 2.1.1 — Income or Expense?</h2>
-<div class="card">
-  <p>Decide whether each item is <b>income</b> (money in) or an <b>expense</b> (money out). Copy the list and label each one:</p>
-  <ol>
-    <li>You sell a dozen eggs at the farmers market.</li>
-    <li>You buy a bag of chicken feed.</li>
-    <li>You pay the electric bill for the barn.</li>
-    <li>A customer pays you to mow their field.</li>
-    <li>You buy fuel for the tractor.</li>
-    <li>You get paid for a load of hay you sold.</li>
-  </ol>
-  <div class="try"><b>Then answer in your own words:</b> If your income for the month was $500 and your expenses were $350, what was your net income — and did the business make money?</div>
-</div>
+/* ── income vs expense (sort game) ── */
+const INOUT_ITEMS=[
+  {t:'You sell a dozen eggs at the farmers market', income:true,  why:'Money is coming IN from a sale — that\'s income.'},
+  {t:'You buy a bag of chicken feed',               income:false, why:'Money going OUT to run the operation — that\'s an expense.'},
+  {t:'A neighbor pays you to bale their hay field',  income:true,  why:'You performed a service and got paid — money in, income.'},
+  {t:'You pay the barn\'s electric bill',            income:false, why:'A bill you owe to operate — money out, an expense.'},
+  {t:'You buy diesel fuel for the tractor',          income:false, why:'A purchase to keep working — money out, an expense.'},
+  {t:'A customer buys three of your pumpkins',       income:true,  why:'A sale — money coming in is income.'},
+  {t:'You pay a worker to help during harvest',      income:false, why:'Wages you pay out to operate — an expense.'},
+  {t:'The co-op sends you a check for your soybeans', income:true, why:'You sold your crop; the payment is income.'},
+  {t:'You buy fencing wire to repair a pen',         income:false, why:'A supply you pay for — money out, an expense.'},
+  {t:'Someone pays you to board their horse for a month', income:true, why:'A service you sold — the payment is income.'},
+];
+RENDER.inout=()=>`
+  <h2>🧮 Activity 2.1.1 — Income or Expense?</h2>
+  <p>A <b>transaction</b> is any single exchange of money — one sale, one purchase, one bill paid. Every transaction is one of two things:</p>
+  <div class="callout">
+    <b>Income</b> — money coming <i>into</i> the business. Usually from selling a product or a service.<br><br>
+    <b>Expense</b> — money the business <i>spends</i> to operate. Feed, fuel, rent, wages, supplies, bills.
+  </div>
+  <p>This sounds obvious with one item, but a real business has hundreds of transactions a month, all jumbled together. The skill is telling them apart <b>quickly and correctly</b>, because everything else — profit, taxes, decisions — is built on getting this first sort right.</p>
+  <h3>Step 1 — Warm up (10 seconds)</h3>
+  <p class="muted">In your head: name one way a farm makes money (income) and one thing a farm has to pay for (an expense). Now do the sort below — that's the real game, right here on this page.</p>
+  <h3>Step 2 — Sort it yourself</h3>
+  <p class="muted">For each transaction, decide: is money coming <b>IN</b> (income) or going <b>OUT</b> (expense)?</p>
+  <div class="card" id="sortCard">
+    <div class="tiny" id="sortCount"></div>
+    <div class="sortitem" id="sortItem"></div>
+    <div class="sortbtns">
+      <button class="sb-need" onclick="sortPick(true)">INCOME</button>
+      <button class="sb-want" onclick="sortPick(false)">EXPENSE</button>
+    </div>
+    <div class="sortfeed" id="sortFeed"></div>
+  </div>
+  <div id="sortDoneMsg" class="hide">
+    <h3>Step 3 — Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> What is the difference between income and an expense? Give one example of each from a farm or ranch business.</div>
+    ${ta('inout-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> If a business had $500 of income and $350 of expenses in one month, what was its net income? Show the subtraction, and say whether it made money.</div>
+    ${ta('inout-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> Why does a business bother to sort every single transaction into income or expense, instead of just glancing at how much cash is in the bank?</div>
+    ${ta('inout-q3')}
+    <button class="btn" id="inoutDone" onclick="completeStation('inout')">Finish Activity 1</button>
+    <p class="tiny" style="text-align:center">Answer all three (a sentence or two each) to unlock the button.</p>
+  </div>`;
+AFTER.inout=()=>{
+  let i=S.sortIdx||0, right=S.sortRight||0;
+  if(S.done.inout){ i=INOUT_ITEMS.length } // reviewing: skip to questions
+  const item=document.getElementById('sortItem'), feed=document.getElementById('sortFeed'),
+        count=document.getElementById('sortCount');
+  function show(){
+    if(i>=INOUT_ITEMS.length){
+      document.getElementById('sortCard').classList.add('hide');
+      document.getElementById('sortDoneMsg').classList.remove('hide');
+      wireAnswers(['inout-q1','inout-q2','inout-q3'],'inoutDone');
+      return;
+    }
+    count.textContent=`Transaction ${i+1} of ${INOUT_ITEMS.length}`;
+    item.textContent=INOUT_ITEMS[i].t; feed.textContent=''; feed.className='sortfeed';
+  }
+  window.sortPick=(saidIncome)=>{
+    if(i>=INOUT_ITEMS.length) return;
+    const it=INOUT_ITEMS[i];
+    const ok=(saidIncome===it.income);
+    if(ok) right++;
+    feed.textContent=(ok?'✓ Right — ':'✗ Actually '+(it.income?'INCOME':'an EXPENSE')+' — ')+it.why;
+    feed.className='sortfeed '+(ok?'ok':'no');
+    i++; S.sortIdx=i; S.sortRight=right; save();
+    setTimeout(show, ok?1400:2600);
+  };
+  show();
+};
 
-<h2>🗂 Activity 2.1.2 — Classifying Expenses</h2>
-<div class="card">
-  <p>Every expense fits a type. Sort each expense below into <b>Fixed</b>, <b>Variable</b>, or <b>Noncurrent asset</b>:</p>
-  <table>
-    <tr><th>Expense</th><th>Fixed / Variable / Noncurrent asset?</th></tr>
-    <tr><td>Monthly land rent</td><td></td></tr>
-    <tr><td>Feed (more animals = more feed)</td><td></td></tr>
-    <tr><td>A new tractor</td><td></td></tr>
-    <tr><td>Insurance payment (same every month)</td><td></td></tr>
-    <tr><td>Seed for this season's planting</td><td></td></tr>
-    <tr><td>A walk-in freezer for the shop</td><td></td></tr>
-  </table>
-  <div class="try"><b>Explain:</b> Why is a tractor a "noncurrent asset" and not just a regular expense? (Hint: how long does it last?)</div>
-</div>
+/* ── net income (ordering game) ── */
+const NET_STEPS=[
+  ['Gather every transaction','Pull together all the income and all the expenses for the time period — a week, a month, a season.'],
+  ['Add up all the income','Total every dollar that came IN: all the sales and services. This is your total income.'],
+  ['Add up all the expenses','Total every dollar that went OUT: feed, fuel, rent, wages, supplies. This is your total expenses.'],
+  ['Subtract expenses from income','Net income = Income − Expenses. Do the subtraction — this single number is the point of the whole thing.'],
+  ['Read the result','A positive number is a PROFIT — you made money. A negative number is a LOSS. Zero means you broke even.'],
+  ['Record the net income','Write the result in your records so you can compare it to last month and make decisions.'],
+];
+RENDER.netincome=()=>`
+  <h2>📈 Activity 2.1.2 — Net Income = Income − Expenses</h2>
+  <p><b>Net income</b> is the whole reason you sort transactions. It's what's left after you subtract your total expenses from your total income:</p>
+  <div class="callout"><b>Net income = Income − Expenses</b><br>Positive = <b>profit</b> (you made money) · Negative = <b>loss</b> (you lost money) · Zero = <b>break even</b>.</div>
+  <p>Notice that a big pile of income does NOT mean you made money. A stand could take in $2,000 in sales but spend $2,300 on seed, fuel, and a broken tractor — that's a $300 loss, even though sales were high. The bank balance can look fine on a busy day and still hide a loss. Net income is the honest answer, and you can only get it by adding up categorized transactions.</p>
+  <h3>Put the steps in order</h3>
+  <p class="muted">Tap the steps in the order you'd actually do them — from a shoebox full of receipts all the way to knowing your profit or loss.</p>
+  <div class="card">
+    <div id="netSlots"></div>
+    <div id="netPicks"></div>
+    <div class="mcq-feed" id="netFeed"></div>
+  </div>
+  <div id="netSteps" class="hide">
+    <h3>What each step means</h3>
+    ${NET_STEPS.map(([t,d],idx)=>`<div class="term"><b>${idx+1}. ${t}</b><span>${d}</span></div>`).join('')}
+    <h3>Now try the math</h3>
+    <p class="muted">Work these out on paper or in your head, then type your answer and how you got it.</p>
+    <div class="qlabel"><span class="qn">Q1.</span> A farm stand made $1,200 in sales. It spent $800 on supplies and $150 on fuel. What is its net income? Is that a profit or a loss? Show your work.</div>
+    ${ta('netincome-q1')}
+    <div class="qlabel"><span class="qn">Q2.</span> In your own words, what does net income tell an owner that just looking at the bank balance does not?</div>
+    ${ta('netincome-q2')}
+    <div class="qlabel"><span class="qn">Q3.</span> Describe a month where a business could have <b>lots</b> of income but still end with a <b>negative</b> net income. What happened?</div>
+    ${ta('netincome-q3')}
+    <button class="btn" id="netincomeDone" onclick="completeStation('netincome')">Finish Activity 2</button>
+  </div>`;
+AFTER.netincome=()=>{
+  let placed=S.netPlaced||0;
+  if(S.done.netincome) placed=NET_STEPS.length;
+  const slots=document.getElementById('netSlots'), picks=document.getElementById('netPicks'),
+        feed=document.getElementById('netFeed');
+  let order=S.netOrder;
+  if(!order || placed===0){ order=[...NET_STEPS.keys()].sort(()=>Math.random()-.5); S.netOrder=order; save(); }
+  function draw(){
+    slots.innerHTML=[...Array(placed).keys()].map(k=>`<div class="chainslot">${k+1}. ${NET_STEPS[k][0]}</div>`).join('')
+      || '<div class="tiny">Steps so far: (empty — what comes first?)</div>';
+    if(placed>=NET_STEPS.length){
+      picks.innerHTML=''; feed.textContent='✓ Steps complete!'; feed.className='mcq-feed ok';
+      document.getElementById('netSteps').classList.remove('hide');
+      wireAnswers(['netincome-q1','netincome-q2','netincome-q3'],'netincomeDone');
+      return;
+    }
+    const remaining=order.filter(k=>k>=placed);
+    picks.innerHTML=remaining.map(k=>`<button class="chainpick" onclick="netPick(${k},this)">${NET_STEPS[k][0]}</button>`).join('');
+  }
+  window.netPick=(k,el)=>{
+    if(k===placed){
+      placed++; S.netPlaced=placed; save();
+      feed.textContent='✓'; feed.className='mcq-feed ok'; draw();
+    }else{
+      feed.textContent='Not next — think: what has to happen before "'+NET_STEPS[k][0]+'"?';
+      feed.className='mcq-feed no';
+      el.disabled=true; setTimeout(()=>{el.disabled=false},900);
+    }
+  };
+  draw();
+};
 
-<h2>📋 Project 2.1.3 — Your Business's Income &amp; Expenses</h2>
-<div class="card">
-  <p>Think about the business idea you've been planning. Make two lists:</p>
-  <ul>
-    <li><b>Income:</b> at least 3 ways your business could make money.</li>
-    <li><b>Expenses:</b> at least 5 things your business would have to pay for — and label each Fixed, Variable, or Noncurrent asset.</li>
-  </ul>
-  <div class="try"><b>Wrap it up:</b> Do you think your business would have a positive net income? Write one or two sentences explaining why or why not.</div>
-</div>
+/* ── classify expenses (scenario mcq) ── */
+const CAT_SCEN=[
+  {t:'Monthly land rent — you pay the same $400 whether you plant one acre or ten.',
+   a:'fixed', hint:'The amount does not change with how much you produce — that\'s the tell.'},
+  {t:'Feed: the more show goats you raise, the more bags you have to buy each month.',
+   a:'var', hint:'The cost rises and falls with your level of activity.'},
+  {t:'A brand-new tractor you expect to use on the farm for the next fifteen years.',
+   a:'asset', hint:'A big purchase that lasts far longer than one year — it\'s not "used up" this season.'},
+  {t:'An insurance premium that is exactly the same amount every single month, rain or shine.',
+   a:'fixed', hint:'Steady, unchanging cost no matter what you produce.'},
+  {t:'Seed you buy in proportion to how many acres you decide to plant this spring.',
+   a:'var', hint:'Plant more, buy more; plant less, buy less — it scales with activity.'},
+  {t:'A walk-in freezer for the farm shop that will keep working for many years.',
+   a:'asset', hint:'A lasting piece of equipment, used well beyond a single year.'},
+];
+const CAT_NAMES={fixed:'Fixed expense',var:'Variable expense',asset:'Noncurrent asset'};
+RENDER.classify=()=>`
+  <h2>🗂 Activity 2.1.3 — Sorting Expenses into Categories</h2>
+  <p>Not every "money out" is the same kind of thing. Once you know something is an expense, the next question is <b>what type</b> — because the type changes how you plan for it. Three categories cover most of what a farm business pays for:</p>
+  <div class="struct"><b>Fixed expense</b><p>Stays the <b>same</b> no matter how much you produce — like rent or an insurance payment. You owe it whether you have a great month or a slow one.</p></div>
+  <div class="struct"><b>Variable expense</b><p><b>Changes</b> based on how much you do. More animals means more feed; more acres means more seed. It scales up and down with activity.</p></div>
+  <div class="struct"><b>Noncurrent asset</b><p>A big purchase that <b>lasts more than a year</b> — a tractor, a freezer, a building. You don't "use it up" this season, so it isn't treated like a normal monthly expense; it's property the business owns and uses for years.</p></div>
+  <div class="callout sun"><b>Why the difference matters:</b> fixed expenses you can predict and budget for. Variable expenses you plan around your production. Noncurrent assets are investments you spread out over their whole useful life. Lumping them all together hides what's really happening to your money.</div>
+  <div class="callout"><b>Quick contrast:</b> a <b>current asset</b> is used up or turned into cash within a year (this season's feed, the crop in the field). A <b>noncurrent asset</b> keeps its value and does its job for many years (the tractor that plants the crop).</div>
+  <h3>Watch — then practice</h3>
+  <a class="ext" href="https://www.youtube.com/watch?v=ZAOQ0Xj9jXk" target="_blank" rel="noopener">▶️ Fixed vs. Variable Costs, Explained <small>take notes on which is which</small></a>
+  <h3>Which category is it? — practice</h3>
+  <p class="muted">Read each expense and pick the category it belongs in. Look for the clue: does the cost stay the same, does it change with activity, or does it last for years?</p>
+  <div class="card" id="catCard"></div>
+  <div id="classifyQs" class="hide">
+    <h3>Answer in your own words</h3>
+    <div class="qlabel"><span class="qn">Q1.</span> Give one example each of a fixed expense, a variable expense, and a noncurrent asset — from any farm or business you can imagine.</div>
+    ${ta('classify-q1','Fixed: …\nVariable: …\nNoncurrent asset: …')}
+    <div class="qlabel"><span class="qn">Q2.</span> Why is a tractor treated as a "noncurrent asset" instead of just a regular expense? (Hint: think about how long it lasts.)</div>
+    ${ta('classify-q2')}
+    <button class="btn" id="classifyDone" onclick="completeStation('classify')">Finish Activity 3</button>
+  </div>`;
+AFTER.classify=()=>{
+  let i=S.catIdx||0;
+  if(S.done.classify) i=CAT_SCEN.length;
+  const card=document.getElementById('catCard');
+  function draw(){
+    if(i>=CAT_SCEN.length){
+      card.classList.add('hide');
+      document.getElementById('classifyQs').classList.remove('hide');
+      wireAnswers(['classify-q1','classify-q2'],'classifyDone');
+      return;
+    }
+    const sc=CAT_SCEN[i];
+    const opts=Object.keys(CAT_NAMES).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="tiny">Expense ${i+1} of ${CAT_SCEN.length}</div>
+      <p style="font-size:15.5px">${sc.t}</p>
+      ${opts.map(k=>`<button class="opt" data-k="${k}" onclick="catPick('${k}',this)">${CAT_NAMES[k]}</button>`).join('')}
+      <div class="mcq-feed" id="catFeed"></div>`;
+  }
+  window.catPick=(k,el)=>{
+    const sc=CAT_SCEN[i], feed=document.getElementById('catFeed');
+    if(k===sc.a){
+      el.classList.add('picked-ok'); feed.textContent='✓ '+CAT_NAMES[sc.a]+' — exactly.'; feed.className='mcq-feed ok';
+      card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+      i++; S.catIdx=i; save(); setTimeout(draw,1500);
+    }else{
+      el.classList.add('picked-no'); feed.textContent='Not quite — hint: '+sc.hint; feed.className='mcq-feed no';
+      setTimeout(()=>el.classList.remove('picked-no'),900);
+    }
+  };
+  draw();
+};
 
-<h2>✅ Quick self-check</h2>
-<div class="card">
-  <ol>
-    <li>What is the formula for net income?</li>
-    <li>Give one example of a fixed expense and one variable expense.</li>
-    <li>What makes something a "noncurrent asset"?</li>
-  </ol>
-</div>
+/* ── cash records / ledger (checklist) ── */
+const LEDGER_CHECKS=[
+  ['lg1','Choose where you\'ll record: a paper ledger, a spreadsheet, or an app — pick one and stick with it'],
+  ['lg2','Make your columns: Date · Description · Income · Expense · Category · Running balance'],
+  ['lg3','Write down EVERY transaction the day it happens — never trust your memory later'],
+  ['lg4','Label each entry with a category (sales, feed, fuel, rent, wages…) so you can total by type'],
+  ['lg5','Keep every receipt and match it to the entry you wrote'],
+  ['lg6','At the end of each week, total your Income column and your Expense column'],
+  ['lg7','Update the running balance so you always know how much cash is on hand'],
+];
+RENDER.ledger=()=>`
+  <h2>📒 Activity 2.1.4 — Cash Records & the Ledger</h2>
+  <p><b>Recordkeeping</b> means writing down and organizing every transaction. A <b>ledger</b> is the running list where you do it — the single place every sale and every purchase gets recorded. A <b>cash record</b> tracks the money that actually changes hands: cash in when you sell, cash out when you buy.</p>
+  <p>Here's the honest truth about records: it is far easier to write a transaction down the moment it happens than to reconstruct a whole month from a shoebox of crumpled receipts. Businesses that keep clean records can answer "did we make money, and where did it go?" in minutes. Businesses that don't are guessing — and guessing with money is how good ideas go broke.</p>
+  <div class="callout"><b>Cash vs. non-cash:</b> a <b>cash transaction</b> is when money physically changes hands now — you sell eggs and get paid. A <b>non-cash</b> change is when value shifts without cash moving right now, like a tractor slowly wearing out over years. Your cash record focuses on the money that actually moves.</div>
+  <p>A simple ledger has a row for each transaction and columns like this:</p>
+  <div class="term"><b>Date · Description · Income · Expense · Category · Balance</b><span>One row per transaction. Fill the Income OR the Expense column, tag the category, and update your running balance. That's it — but do it every time.</span></div>
+  <div class="callout sun"><b>Heads up:</b> the power isn't the notebook — it's the <b>categories</b>. Because every entry is tagged (feed, fuel, sales…), you can total each type and see exactly where your money comes from and where it leaks out.</div>
+  <h3>Set-up checklist</h3>
+  <p class="muted">Build your own cash record. Tap each step as you finish it.</p>
+  <div id="ledgerChecks"></div>
+  <h3>Answer in your own words</h3>
+  <div class="qlabel"><span class="qn">Q1.</span> Give a real example of a decision a clear cash record could help you make about a business. (For instance: what it tells you when one category keeps growing.)</div>
+  ${ta('ledger-q1')}
+  <div class="qlabel"><span class="qn">Q2.</span> What could go wrong if a business only ever checks its bank balance and never categorizes its transactions?</div>
+  ${ta('ledger-q2')}
+  <button class="btn" id="ledgerDone" onclick="completeStation('ledger')">Finish Activity 4</button>
+  <p class="tiny" style="text-align:center">Check every box and answer both questions to unlock.</p>`;
+AFTER.ledger=()=>{
+  const wrap=document.getElementById('ledgerChecks');
+  function draw(){
+    wrap.innerHTML=LEDGER_CHECKS.map(([id,t])=>`
+      <button class="ck ${S.checks[id]?'on':''}" onclick="toggleCk('${id}')">
+        <div class="box">${S.checks[id]?'✓':''}</div><div class="t">${t}</div></button>`).join('');
+    gate();
+  }
+  function gate(){
+    const all=LEDGER_CHECKS.every(([id])=>S.checks[id]);
+    const b=document.getElementById('ledgerDone');
+    b.disabled=!(all && answered(['ledger-q1','ledger-q2']));
+  }
+  window.toggleCk=(id)=>{ S.checks[id]=!S.checks[id]; save(); draw(); };
+  ['ledger-q1','ledger-q2'].forEach(i=>{
+    const el=document.getElementById('ta-'+i); if(el) el.addEventListener('input',gate);
+  });
+  draw();
+};
 
-<div class="turn">📤 <b>Turn in your work:</b> your Activity 2.1.1 answers, your Activity 2.1.2 table, and your Project 2.1.3 lists — through Google Classroom, the way your teacher showed you.</div>
-</div></body></html>
+/* ── final quiz + turn-in ── */
+const QUIZ=[
+  {q:'A transaction is best described as…',
+   o:['A yearly tax form','Any single exchange of money — one sale or one purchase','Only a purchase, never a sale','The money left in the bank'],a:1},
+  {q:'Income is…',
+   o:['Money the business spends to operate','Money coming into the business, usually from a sale or service','Only cash you keep at home','The same thing as an expense'],a:1},
+  {q:'An expense is…',
+   o:['Money the business spends to operate','Money the business earns from a sale','A profit','A type of asset that lasts for years'],a:0},
+  {q:'The formula for net income is…',
+   o:['Income + Expenses','Expenses − Income','Income − Expenses','Income × Expenses'],a:2},
+  {q:'If a business has $900 of income and $1,100 of expenses, its net income is…',
+   o:['+$200, a profit','−$200, a loss','$0, break even','+$2,000, a profit'],a:1},
+  {q:'A positive net income means the business…',
+   o:['Took a loss','Made a profit','Broke even','Has no records'],a:1},
+  {q:'A FIXED expense is one that…',
+   o:['Changes every month with how much you produce','Stays the same no matter how much you produce, like rent','Only happens once ever','Is really an asset'],a:1},
+  {q:'A VARIABLE expense is one that…',
+   o:['Never changes','Changes based on your level of activity, like feed for more animals','Is always the largest cost','Lasts more than a year'],a:1},
+  {q:'A tractor you\'ll use for many years is best categorized as a…',
+   o:['Variable expense','Fixed expense','Noncurrent asset','Piece of income'],a:2},
+  {q:'Why do businesses categorize every transaction instead of just watching the bank balance?',
+   o:['To make more work for themselves','So they can total each type and truly know their profit, loss, and where money goes','Because the bank requires colored folders','Categories have no real purpose'],a:1},
+];
+const PASS=80;
+RENDER.final=()=>`
+  <h2>✅ Final Self-Check</h2>
+  <p class="muted">10 questions from the whole lesson. You need <b>${PASS}%</b> to finish — you can retry as many times as you want, and the questions reshuffle. This is practice: the graded <b>Check for Understanding</b> comes from Mr. Beltran in class.</p>
+  <div class="card" id="quizCard"></div>
+  <div id="turnin" class="hide">
+    <div class="bigscore" id="scoreBig"></div>
+    <p class="muted" style="text-align:center" id="scoreMsg"></p>
+    <h3>📤 Turn in your work</h3>
+    <p class="muted">This gathers every answer you typed into one block. Copy it, then paste it into the <b>Google Classroom assignment</b> (private comment or the attached doc) — or show this screen to Mr. Beltran.</p>
+    <pre id="compiled"></pre>
+    <button class="btn" onclick="copyWork(this)">📋 Copy my work</button>
+    <button class="btn ghost" onclick="completeStation('final')">Done — back to map</button>
+  </div>`;
+AFTER.final=()=>{
+  let qs=[], qi=0, right=0;
+  const card=document.getElementById('quizCard');
+  function start(){
+    qs=[...QUIZ].sort(()=>Math.random()-.5).slice(0,10);
+    qi=0; right=0;
+    card.classList.remove('hide');
+    document.getElementById('turnin').classList.add('hide');
+    draw();
+  }
+  function draw(){
+    if(qi>=qs.length) return finish();
+    const q=qs[qi];
+    const idx=q.o.map((_,k)=>k).sort(()=>Math.random()-.5);
+    card.innerHTML=`<div class="mcq-top"><span>Question ${qi+1} of ${qs.length}</span><span>Score: ${right}</span></div>
+      <div class="mcq-q">${q.q}</div>
+      ${idx.map(k=>`<button class="opt" onclick="qPick(${k},this)">${q.o[k]}</button>`).join('')}
+      <div class="mcq-feed" id="qFeed"></div>`;
+  }
+  window.qPick=(k,el)=>{
+    const q=qs[qi], feed=document.getElementById('qFeed');
+    card.querySelectorAll('.opt').forEach(o=>o.onclick=null);
+    if(k===q.a){ right++; el.classList.add('picked-ok'); feed.textContent='✓ Correct'; feed.className='mcq-feed ok'; }
+    else{
+      el.classList.add('picked-no');
+      card.querySelectorAll('.opt').forEach(o=>{ if(o.textContent===q.o[q.a]) o.classList.add('reveal'); });
+      feed.textContent='✗ The answer: '+q.o[q.a]; feed.className='mcq-feed no';
+    }
+    qi++; setTimeout(draw, k===q.a?900:2400);
+  };
+  function finish(){
+    const pct=Math.round(right/qs.length*100);
+    S.scores.final=Math.max(S.scores.final||0,pct); save();
+    if(pct<PASS){
+      card.innerHTML=`<div class="bigscore" style="color:var(--sun)">${pct}%</div>
+        <p class="muted" style="text-align:center">Almost — you need ${PASS}%. Skim the stations you're shaky on (they stay open on the map), then try again. New shuffle every time.</p>
+        <button class="btn" id="retryBtn">Try again</button>`;
+      document.getElementById('retryBtn').onclick=start;
+      return;
+    }
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=pct+'%';
+    document.getElementById('scoreMsg').textContent=pct===100?'Perfect score. Outstanding.':'Passed — nice work.';
+    document.getElementById('compiled').textContent=compile(pct); cloudSubmit();
+    window.scrollTo(0,0);
+  }
+  if(S.done.final && (S.scores.final||0)>=PASS){
+    // reviewing after completion: show turn-in immediately with best score
+    card.classList.add('hide');
+    document.getElementById('turnin').classList.remove('hide');
+    document.getElementById('scoreBig').textContent=(S.scores.final||0)+'%';
+    document.getElementById('scoreMsg').textContent='Best score (already passed).';
+    document.getElementById('compiled').textContent=compile(S.scores.final||0); cloudSubmit();
+  } else start();
+};
+
+/* ── cloud turn-in: save the student's compiled work to the teacher dashboard ── */
+var SUBMIT_DB='https://verde-animation-25368-default-rtdb.firebaseio.com/submissions';
+var LESSON_ID='agb-2-1';
+function subSlug(s){return String(s||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'student';}
+function cloudSubmit(){
+  try{
+    var work=(document.getElementById('compiled')||{}).textContent||'';
+    var se=document.getElementById('scoreBig');
+    var score=se?(parseInt(se.textContent,10)||0):0;
+    var name=(typeof S!=='undefined'&&S.name)?S.name:'';
+    if(!work) return;
+    fetch(SUBMIT_DB+'/'+LESSON_ID+'/'+subSlug(name)+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,lesson:LESSON_ID,score:score,work:work,updated:Date.now()})}).catch(function(){});
+  }catch(e){}
+}
+
+function compile(pct){
+  const L=[], A=(id)=> (S.text[id]||'—').trim();
+  L.push('ABF LESSON 2.1 — CATEGORIZING TRANSACTIONS · SELF-PACED WORK');
+  L.push('Student: '+(S.name||'?'));
+  L.push('Date: '+new Date().toLocaleDateString());
+  L.push('Final self-check score: '+pct+'%');
+  L.push('');
+  L.push('— Activity 2.1.1 Income or Expense? —');
+  L.push('Sorting game: completed (all 10 transactions sorted)');
+  L.push('Q1 (income vs expense + examples): '+A('inout-q1'));
+  L.push('Q2 ($500 income − $350 expenses): '+A('inout-q2'));
+  L.push('Q3 (why sort every transaction): '+A('inout-q3'));
+  L.push('');
+  L.push('— Activity 2.1.2 Net Income —');
+  L.push('Step ordering: completed (6 steps in order)');
+  L.push('Q1 ($1,200 − $800 − $150 net income): '+A('netincome-q1'));
+  L.push('Q2 (net income vs bank balance): '+A('netincome-q2'));
+  L.push('Q3 (high income but negative net): '+A('netincome-q3'));
+  L.push('');
+  L.push('— Activity 2.1.3 Sorting Expenses —');
+  L.push('Practice: all 6 expenses categorized correctly (required to advance)');
+  L.push('Q1 (fixed / variable / noncurrent examples): '+A('classify-q1'));
+  L.push('Q2 (why a tractor is a noncurrent asset): '+A('classify-q2'));
+  L.push('');
+  L.push('— Activity 2.1.4 Cash Records & the Ledger —');
+  L.push('Set-up checklist: '+LEDGER_CHECKS.filter(([id])=>S.checks[id]).length+' of '+LEDGER_CHECKS.length+' steps done');
+  L.push('Q1 (a decision records help make): '+A('ledger-q1'));
+  L.push('Q2 (risk of never categorizing): '+A('ledger-q2'));
+  return L.join('\n');
+}
+function copyWork(btn){
+  const t=document.getElementById('compiled').textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+    .then(()=>{ btn.textContent='✓ Copied — paste it into Classroom'; })
+    .catch(()=>{ // fallback: select the block
+      const r=document.createRange(); r.selectNode(document.getElementById('compiled'));
+      getSelection().removeAllRanges(); getSelection().addRange(r);
+      btn.textContent='Select + copy the highlighted text above';
+    });
+}
+
+/* ── glossary ── */
+const GLOSS=[
+['Asset','Physical or financial property that has value and is owned by a business or individual.'],
+['Balance','How much cash a business has on hand at a given moment; the "running balance" is updated after each transaction.'],
+['Break even','When net income is exactly zero — income and expenses are equal, so the business neither made nor lost money.'],
+['Capital purchase','Buying a long-lasting item (equipment, a building) that serves the business for many years — treated as a noncurrent asset, not a routine expense.'],
+['Cash record','A record of the money that actually changes hands — cash in from sales, cash out for purchases.'],
+['Cash transaction','An exchange where money physically changes hands now, such as selling eggs and being paid on the spot.'],
+['Category','The label placed on a transaction (sales, feed, fuel, rent…) so that entries can be totaled by type.'],
+['Current asset','Something owned that is used up or turned into cash within a year, such as this season\'s feed or the crop in the field.'],
+['Expense','Money a business spends to operate — feed, fuel, rent, wages, supplies, bills.'],
+['Fixed expense','A cost that stays the same no matter how much the business produces, such as rent or insurance.'],
+['Income','Money coming into a business, usually earned by selling a product or a service.'],
+['Ledger','The running list where every transaction is recorded, one row at a time.'],
+['Liability','A financial obligation (a debt) that must be paid at some future time.'],
+['Loss','A negative net income — the business spent more than it earned.'],
+['Net income','What is left after subtracting total expenses from total income: Net income = Income − Expenses.'],
+['Noncash transaction','A change in value where cash does not move right now, such as equipment wearing out over years.'],
+['Noncurrent asset','Property the business owns that lasts more than a year, such as a tractor, freezer, or building.'],
+['Operating expense','A day-to-day cost of running the business (feed, fuel, wages) as opposed to buying a long-lasting asset.'],
+['Profit','A positive net income — the business earned more than it spent.'],
+['Recordkeeping','Documenting and organizing every transaction in a ledger, journal, spreadsheet, or app.'],
+['Revenue','Another word for the money a business takes in from sales; part of income.'],
+['Transaction','Any single exchange of money — one sale, one purchase, one bill paid.'],
+['Variable expense','A cost that changes with the level of activity, such as buying more feed when raising more animals.'],
+];
+RENDER.gloss=()=>`
+  <h2>📖 Lesson 2.1 Glossary</h2>
+  <p class="muted">Every key term for this lesson.</p>
+  ${GLOSS.map(([t,d])=>`<div class="term"><b>${t}</b><span>${d}</span></div>`).join('')}
+  <button class="btn ghost" onclick="goMap()">Back to map</button>`;
+
+/* ───────── boot ───────── */
+if(S.name) boot();
+</script>
+</body>
+</html>
