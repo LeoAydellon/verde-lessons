@@ -143,6 +143,7 @@
 </style>
 </head>
 <body>
+<script>window.__vclass=function(){try{var u=new URLSearchParams(location.search),c=u.get('c');if(c){localStorage.setItem('verde_class',c);return c;}return localStorage.getItem('verde_class')||'';}catch(e){return '';}};</script>
 <header>
   <div class="hrow">
     <button class="back hide" id="backBtn" onclick="goMap()">‹ Map</button>
@@ -687,7 +688,7 @@ function cloudSubmit(){
     var score=se?(parseInt(se.textContent,10)||0):0;
     var name=(typeof S!=='undefined'&&S.name)?S.name:'';
     if(!work) return;
-    fetch(SUBMIT_DB+'/'+LESSON_ID+'/'+subSlug(name)+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,lesson:LESSON_ID,score:score,work:work,updated:Date.now()})}).catch(function(){});
+    fetch(SUBMIT_DB+'/'+LESSON_ID+'/'+subSlug(name)+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,lesson:LESSON_ID,score:score,work:work,class:window.__vclass(),updated:Date.now()})}).catch(function(){});
   }catch(e){}
 }
 
