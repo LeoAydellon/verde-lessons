@@ -294,6 +294,7 @@ function range(a,b){const o=[];for(let i=a;i<=b;i++)o.push(i);return o;}
 function keyOf(t){ return t.kind==='std' ? 's'+t.id : t.kind==='ck' ? 'ck'+t.ckNo : 'final'; }
 
 /* ================= STATE ================= */
+const APP_VERSION = '1.1';   // bump with: node test/bump-version.js next
 const LS = 'agprep.v1';
 let student = '';
 let P = null;          // progress for the current student
