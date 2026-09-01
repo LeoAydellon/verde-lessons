@@ -204,7 +204,7 @@ check('T12 the start/name controls the student first touches are present', () =>
 check('T13 the version is stamped, and all three copies agree', () => {
   // The version is how Leo knows a change actually reached students. It is
   // useless if the three places can disagree, so this enforces one truth.
-  const t = src.match(/<title>Ag CTE Prep[^<]*— Verde Tech ([0-9]+\.[0-9]+)<\/title>/);
+  const t = src.match(/<title>[^<]*Verde Tech ([0-9]+\.[0-9]+)<\/title>/);
   const h = src.match(/id="appVerTop">([0-9]+\.[0-9]+)</);
   const c = src.match(/const APP_VERSION = '([0-9]+\.[0-9]+)'/);
   if (!t) return 'no version in <title> — the browser tab will not show it';
@@ -246,8 +246,8 @@ async function liveCheck() {
       ? 'the LIVE site traps students at item 1 — the Noah regression is back' : null);
   check('L05 the DEPLOYED version matches the committed version', () => {
     // This is the check that answers "did my change actually go live?"
-    const live = body.match(/<title>Ag CTE Prep[^<]*— Verde Tech ([0-9]+\.[0-9]+)<\/title>/);
-    const here = src.match(/<title>Ag CTE Prep[^<]*— Verde Tech ([0-9]+\.[0-9]+)<\/title>/);
+    const live = body.match(/<title>[^<]*Verde Tech ([0-9]+\.[0-9]+)<\/title>/);
+    const here = src.match(/<title>[^<]*Verde Tech ([0-9]+\.[0-9]+)<\/title>/);
     if (!live) return 'the deployed site has no version in its title';
     console.log('      live version: ' + live[1] + '   committed: ' + (here ? here[1] : '?'));
     if (here && live[1] !== here[1])

@@ -18,7 +18,7 @@ const path = require('path');
 const APP = path.join(__dirname, '..', 'ag-standards.html');
 
 const RX = {
-  title:  /<title>Ag CTE Prep[^<]*— Verde Tech ([0-9]+\.[0-9]+)<\/title>/,
+  title:  /<title>[^<]*Verde Tech ([0-9]+\.[0-9]+)<\/title>/,
   header: /id="appVerTop">([0-9]+\.[0-9]+)</,
   script: /const APP_VERSION = '([0-9]+\.[0-9]+)'/,
 };
