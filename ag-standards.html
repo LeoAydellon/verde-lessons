@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Ag CTE Prep — Verde Tech</title>
+<title>Ag CTE Prep — Verde Tech 1.1</title>
 <meta name="theme-color" content="#2f6b3f">
 <style>
   :root{
@@ -153,13 +153,20 @@
 </style>
 </head>
 <body>
+<script>
+/* Cache buster: GitHub Pages sends cache-control max-age=600, so a browser
+ * serves a ten-minute-old copy and the refresh button obeys it. Stamp the URL
+ * once so the cache cannot answer, then stop. */
+(function(){try{var u=new URL(location.href);if(!u.searchParams.get('t')){u.searchParams.set('t',Date.now());location.replace(u.toString());}}catch(e){}})();
+</script>
+
 <script>window.__vclass=function(){try{var u=new URLSearchParams(location.search),c=u.get('c');if(c){localStorage.setItem('verde_class',c);return c;}return localStorage.getItem('verde_class')||'';}catch(e){return '';}};</script>
 
 <header>
   <div class="hrow">
     <button class="back hide" id="backBtn">‹ Back</button>
     <div style="flex:1;min-width:0">
-      <div class="htitle" id="hTitle">Ag CTE Prep</div>
+      <div class="htitle" id="hTitle">Ag CTE Prep <span id="appVerTop">1.1</span></div>
       <div class="hsub" id="hSub">Arizona AgriScience · 01.0000.00</div>
     </div>
     <button class="who hide" id="whoBtn"></button>
@@ -171,7 +178,7 @@
   <!-- ============ NAME GATE ============ -->
   <section id="gate">
     <div class="card">
-      <h2>Ag CTE Prep</h2>
+      <h2>Ag CTE Prep <span id="appVerGate">1.1</span></h2>
       <div class="muted">Learn it, then prove it. Sixteen standards — the same ones on the
         state Technical Skills Assessment.</div>
       <input id="nameIn" placeholder="Type your name" autocomplete="off"
@@ -366,7 +373,7 @@ function renderMap(){
 
   let h = '', group = -1;
   TRACK.forEach((t, i) => {
-    const k = keyOf(t), done = !!P.passed[k], locked = i > upto, next = i === upto;
+    const k = keyOf(t), done = !!P.passed[k], locked = false /* open-all: a student whose progress resets must still reach where they actually are */, next = i === upto;
     if (t.kind === 'std'){
       const g = Math.floor(t.idx / CK_EVERY);
       if (g !== group){
