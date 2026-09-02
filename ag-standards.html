@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 — Verde Tech 1.7</title>
+<title>🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 — Verde Tech 1.8</title>
 <meta name="theme-color" content="#2f6b3f">
 <style>
   :root{
@@ -167,6 +167,27 @@
   .streak{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:12px;
     color:#c8892b;background:#fdf3e2;border:1px solid #e9d9b6;border-radius:999px;padding:3px 10px}
   @media (prefers-reduced-motion:reduce){ #conf,#banner{display:none} .qart.spin .badge{animation:none} }
+  /* --- Kobe's Cricket Hunt: the reward for clearing two standards --------- */
+  .gcard{padding:14px}
+  .ghead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+  .gtitle{font-weight:900;font-size:18px}
+  .gsub{font-size:12.5px;color:var(--mut);margin-top:2px}
+  .gstats{text-align:right;line-height:1.15}
+  .gscore{font-weight:900;font-size:26px;color:#2e9e5b}
+  .gtime{font-size:12px;font-weight:800;color:var(--mut)}
+  .gfield{position:relative;height:340px;border-radius:14px;overflow:hidden;
+    background:linear-gradient(#fdf6e6,#f6e7c6);border:1.5px solid #e9d9b6;touch-action:none;user-select:none}
+  .gkobe{position:absolute;bottom:6px;font-size:40px;line-height:1;transform:translateX(-50%);
+    transition:left .05s linear;will-change:left}
+  .gfall{position:absolute;font-size:28px;line-height:1;transform:translateX(-50%);will-change:top}
+  .gpop{position:absolute;font-size:20px;font-weight:900;pointer-events:none;
+    animation:floatUp .9s ease-out forwards}
+  .gstart{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:10px;
+    background:rgba(255,251,242,.94);text-align:center;padding:20px}
+  .gbig{font-size:64px;line-height:1}
+  .gmsg{font-weight:700;font-size:15px}
+  .gstart .btn{width:auto;padding:12px 34px;margin:0}
+  .ghint{font-size:12px;color:var(--mut);text-align:center;margin-top:9px}
   /* --- answer feedback: a beat of celebration, then out of the way ------- */
   @keyframes popIn{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
   @keyframes nope{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
@@ -206,7 +227,7 @@
   <div class="hrow">
     <button class="back hide" id="backBtn">‹ Back</button>
     <div style="flex:1;min-width:0">
-      <div class="htitle" id="hTitle">🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 <span id="appVerTop">1.7</span></div>
+      <div class="htitle" id="hTitle">🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 <span id="appVerTop">1.8</span></div>
       <div class="hsub" id="hSub">Arizona AgriScience · 01.0000.00</div>
     </div>
     <button class="who hide" id="whoBtn"></button>
@@ -218,7 +239,7 @@
   <!-- ============ NAME GATE ============ -->
   <section id="gate">
     <div class="card">
-      <h2>🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 <span id="appVerGate">1.7</span></h2>
+      <h2>🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 <span id="appVerGate">1.8</span></h2>
       <div class="muted">Learn it, then prove it. Sixteen standards — the same ones on the
         state Technical Skills Assessment.</div>
       <input id="nameIn" placeholder="Type your name" autocomplete="off"
@@ -267,6 +288,32 @@
       <div id="qWhy"></div>
     </div>
     <button class="btn hide" id="nextBtn">Next</button>
+  </section>
+
+  <!-- ============ GAME — earned by passing two standards ============ -->
+  <section id="game" class="hide">
+    <div class="card gcard">
+      <div class="ghead">
+        <div>
+          <div class="gtitle">🦎 Kobe's Cricket Hunt</div>
+          <div class="gsub" id="gSub">Catch the crickets. Skip the chillies.</div>
+        </div>
+        <div class="gstats">
+          <div class="gscore" id="gScore">0</div>
+          <div class="gtime" id="gTime">30</div>
+        </div>
+      </div>
+      <div id="gField" class="gfield">
+        <div id="gKobe" class="gkobe">🦎</div>
+        <div id="gStart" class="gstart">
+          <div class="gbig">🦎</div>
+          <div class="gmsg" id="gMsg">You passed two standards.<br>Kobe is hungry.</div>
+          <button class="btn" id="gGo">Play</button>
+        </div>
+      </div>
+      <div class="ghint">Drag, or use ← → — on a Chromebook the arrow keys work.</div>
+    </div>
+    <button class="btn quiet" id="gDone">Back to my standards</button>
   </section>
 
   <!-- ============ RESULT ============ -->
@@ -334,7 +381,7 @@ function range(a,b){const o=[];for(let i=a;i<=b;i++)o.push(i);return o;}
 function keyOf(t){ return t.kind==='std' ? 's'+t.id : t.kind==='ck' ? 'ck'+t.ckNo : 'final'; }
 
 /* ================= STATE ================= */
-const APP_VERSION = '1.7';   // bump with: node test/bump-version.js next
+const APP_VERSION = '1.8';   // bump with: node test/bump-version.js next
 const LS = 'agprep.v1';
 let student = '';
 let P = null;          // progress for the current student
@@ -358,7 +405,7 @@ function save(){
 const $ = id => document.getElementById(id);
 function show(v){
   view = v;
-  ['gate','map','lesson','test','result','report'].forEach(s =>
+  ['gate','map','lesson','test','result','report','game'].forEach(s =>
     $(s).classList.toggle('hide', s !== v));
   $('backBtn').classList.toggle('hide', v === 'gate' || v === 'map');
   $('whoBtn').classList.toggle('hide', v === 'gate');
@@ -671,6 +718,10 @@ function finish(){
       '<div class="ma"><b>' + esc(m.right) + '</b> — ' + esc(m.why) + '</div></div>').join('');
   } else $('rMissedWrap').classList.add('hide');
 
+  /* Two standards cleared -- the game is the reward, offered from the score
+     screen rather than forced, so a student mid-lesson is never hijacked. */
+  const gKey = passed ? gameUnlockedFor(STANDARDS.filter(x => P.passed['s'+x.id]).length) : null;
+
   const main = $('rMainBtn'), alt = $('rAltBtn');
   alt.classList.add('hide');
   if (passed){
@@ -692,6 +743,12 @@ function finish(){
       alt.onclick = () => openLesson(t);
     }
   }
+  if (gKey){
+    alt.classList.remove('hide');
+    alt.textContent = '🦎 You earned a game — play it';
+    alt.onclick = () => openGame(gKey);
+  }
+
   $('hTitle').textContent = passed ? 'Passed' : 'Try again';
   $('hSub').textContent = S.right + ' of ' + S.n + ' correct';
   show('result');
@@ -846,6 +903,141 @@ $('switchBtn').onclick = () => {
       .catch(function(){});
   } catch(e){}
 })();
+
+/* ================= KOBE'S CRICKET HUNT =================
+   The reward for clearing two standards. Deliberately small: no library, no
+   canvas, no assets -- emoji and absolute positioning, so it loads instantly on
+   a school Chromebook and cannot break the study app if it fails. */
+var G = null;
+
+function gameUnlockedFor(passedCount){
+  /* Every second standard. The milestone is stored so re-passing an old
+     standard cannot farm the same reward twice. */
+  if (passedCount < 2 || passedCount % 2 !== 0) return null;
+  var key = 'g' + passedCount;
+  return (P.games && P.games[key]) ? null : key;
+}
+
+function openGame(key){
+  P.games = P.games || {};
+  if (key) { P.games[key] = true; save(); }
+  $('gScore').textContent = '0';
+  $('gTime').textContent = '30';
+  $('gStart').style.display = 'grid';
+  $('gMsg').innerHTML = 'You passed two standards.<br>Kobe is hungry.';
+  $('gGo').textContent = 'Play';
+  $('hTitle').textContent = 'Reward unlocked';
+  $('hSub').textContent = 'Kobe\'s Cricket Hunt';
+  show('game');
+}
+
+function gameStop(){
+  if (!G) return;
+  clearInterval(G.tick); clearInterval(G.clock); clearInterval(G.spawn);
+  G.items.forEach(function(o){ if (o.el && o.el.parentNode) o.el.remove(); });
+  G = null;
+}
+
+function gameStart(){
+  gameStop();
+  var field = $('gField'), kobe = $('gKobe');
+  $('gStart').style.display = 'none';
+  G = { score:0, left:50, items:[], time:30, w:field.clientWidth, h:field.clientHeight };
+  kobe.style.left = '50%';
+
+  function move(pct){ G.left = Math.max(6, Math.min(94, pct)); kobe.style.left = G.left + '%'; }
+  G.onKey = function(e){
+    if (!G) return;
+    if (e.key === 'ArrowLeft')  { move(G.left - 7); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { move(G.left + 7); e.preventDefault(); }
+  };
+  document.addEventListener('keydown', G.onKey);
+
+  function fromPoint(clientX){
+    var r = field.getBoundingClientRect();
+    move((clientX - r.left) / r.width * 100);
+  }
+  G.onPointer = function(e){
+    if (!G) return;
+    var x = e.touches ? e.touches[0].clientX : e.clientX;
+    if (x != null) { fromPoint(x); e.preventDefault(); }
+  };
+  field.addEventListener('pointermove', G.onPointer);
+  field.addEventListener('touchmove', G.onPointer, {passive:false});
+  field.addEventListener('pointerdown', G.onPointer);
+
+  function pop(xPct, y, text, colour){
+    var e = document.createElement('div');
+    e.className = 'gpop'; e.textContent = text; e.style.color = colour;
+    e.style.left = xPct + '%'; e.style.top = y + 'px';
+    e.style.setProperty('--spin','0deg');
+    field.appendChild(e); setTimeout(function(){ e.remove(); }, 1000);
+  }
+
+  G.spawn = setInterval(function(){
+    if (!G) return;
+    /* One in five is a chilli. A game you cannot lose is not a game, but this
+       is a reward, so a miss only costs points -- it never ends the run. */
+    var bad = Math.random() < 0.2;
+    var el = document.createElement('div');
+    el.className = 'gfall';
+    el.textContent = bad ? '🌶️' : '🦗';
+    var x = 8 + Math.random() * 84;
+    el.style.left = x + '%'; el.style.top = '-30px';
+    field.appendChild(el);
+    G.items.push({ el:el, x:x, y:-30, bad:bad, speed: 2.2 + Math.random() * 1.9 });
+  }, 620);
+
+  G.tick = setInterval(function(){
+    if (!G) return;
+    var h = field.clientHeight;
+    for (var i = G.items.length - 1; i >= 0; i--){
+      var o = G.items[i];
+      o.y += o.speed; o.el.style.top = o.y + 'px';
+      var caught = o.y > h - 62 && o.y < h - 8 && Math.abs(o.x - G.left) < 9;
+      if (caught){
+        if (o.bad){ G.score = Math.max(0, G.score - 2); pop(o.x, h - 70, '-2', '#d0342c'); }
+        else      { G.score += 1;                        pop(o.x, h - 70, '+1', '#2e9e5b'); }
+        $('gScore').textContent = G.score;
+        o.el.remove(); G.items.splice(i,1);
+      } else if (o.y > h + 30){
+        o.el.remove(); G.items.splice(i,1);
+      }
+    }
+  }, 32);
+
+  G.clock = setInterval(function(){
+    if (!G) return;
+    G.time--;
+    $('gTime').textContent = G.time;
+    if (G.time <= 0) gameOver();
+  }, 1000);
+}
+
+function gameOver(){
+  var score = G ? G.score : 0;
+  var field = $('gField');
+  if (G){
+    document.removeEventListener('keydown', G.onKey);
+    field.removeEventListener('pointermove', G.onPointer);
+    field.removeEventListener('touchmove', G.onPointer);
+    field.removeEventListener('pointerdown', G.onPointer);
+  }
+  gameStop();
+  var best = P.gameBest || 0;
+  var isBest = score > best;
+  if (isBest){ P.gameBest = score; save(); }
+  if (score > 0) { confetti(isBest ? 60 : 24); }
+  if (isBest && score > 0) banner('🦎 NEW BEST', score + ' crickets');
+  $('gMsg').innerHTML = '<b style="font-size:30px">' + score + '</b><br>crickets caught' +
+    (isBest && score > 0 ? '<br><span style="color:#2e9e5b">a new best!</span>'
+                         : '<br><span style="color:#6b7686">best: ' + (P.gameBest || 0) + '</span>');
+  $('gGo').textContent = 'Play again';
+  $('gStart').style.display = 'grid';
+}
+
+$('gGo').onclick = gameStart;
+$('gDone').onclick = function(){ gameStop(); renderMap(); show('map'); };
 
 /* Last student on this device comes straight back in. */
 (function boot(){
