@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 — Verde Tech 1.5</title>
+<title>🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 — Verde Tech 1.6</title>
 <meta name="theme-color" content="#2f6b3f">
 <style>
   :root{
@@ -186,7 +186,7 @@
   <div class="hrow">
     <button class="back hide" id="backBtn">‹ Back</button>
     <div style="flex:1;min-width:0">
-      <div class="htitle" id="hTitle">🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 <span id="appVerTop">1.5</span></div>
+      <div class="htitle" id="hTitle">🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 <span id="appVerTop">1.6</span></div>
       <div class="hsub" id="hSub">Arizona AgriScience · 01.0000.00</div>
     </div>
     <button class="who hide" id="whoBtn"></button>
@@ -198,7 +198,7 @@
   <!-- ============ NAME GATE ============ -->
   <section id="gate">
     <div class="card">
-      <h2>🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 <span id="appVerGate">1.5</span></h2>
+      <h2>🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 <span id="appVerGate">1.6</span></h2>
       <div class="muted">Learn it, then prove it. Sixteen standards — the same ones on the
         state Technical Skills Assessment.</div>
       <input id="nameIn" placeholder="Type your name" autocomplete="off"
@@ -314,7 +314,7 @@ function range(a,b){const o=[];for(let i=a;i<=b;i++)o.push(i);return o;}
 function keyOf(t){ return t.kind==='std' ? 's'+t.id : t.kind==='ck' ? 'ck'+t.ckNo : 'final'; }
 
 /* ================= STATE ================= */
-const APP_VERSION = '1.5';   // bump with: node test/bump-version.js next
+const APP_VERSION = '1.6';   // bump with: node test/bump-version.js next
 const LS = 'agprep.v1';
 let student = '';
 let P = null;          // progress for the current student
@@ -467,8 +467,12 @@ function startTest(t){
   P.attempts[k] = (P.attempts[k] || 0) + 1;
   save();
 
-  const graded = qs.filter(x => !(x.q && x.q.bonus)).length;
-  session = { step:t, key:k, items:qs, i:0, right:0, need, n:qs.length, graded,
+  /* The bonus is a reward, not part of the test: it is held back here and only
+     unlocked by finish() once the student has actually passed. */
+  const bonusItems = qs.filter(x =>  (x.q && x.q.bonus));
+  const items      = qs.filter(x => !(x.q && x.q.bonus));
+  session = { step:t, key:k, items, bonusItems, bonusDone:false, bonusRound:false,
+              i:0, right:0, need, n:items.length, graded:items.length,
               marks:[], missed:[], locked:false };
   $('hTitle').textContent = isStd ? 'Standard ' + STANDARDS[t.idx].id + ' test'
                  : t.kind === 'final' ? 'Final exam' : 'Checkpoint ' + t.ckNo;
@@ -482,7 +486,8 @@ function renderQ(){
   /* Shuffle the options so a memorised position never carries a retry. */
   const order = q.noShuffle ? [0,1,2,3] : shuffle([0,1,2,3]);
   S.order = order;
-  $('qCount').textContent = 'Question ' + (S.i + 1) + ' of ' + S.n;
+  $('qCount').textContent = S.bonusRound ? '🔥 Bonus — just for fun'
+                          : 'Question ' + (S.i + 1) + ' of ' + S.n;
   $('qPips').innerHTML = S.items.map((_, i) =>
     '<span class="pip ' + (S.marks[i] === true ? 'r' : S.marks[i] === false ? 'w'
       : i === S.i ? 'cur' : '') + '"></span>').join('');
@@ -551,7 +556,10 @@ function answer(oi, btn){
     esc(q.why) + '</div>';
   $('qPips').children[S.i].className = 'pip ' + (ok ? 'r' : 'w');
   const btnEl = $('nextBtn');
-  btnEl.textContent = S.i === S.n - 1 ? 'See my score' : 'Next question';
+  btnEl.textContent = S.i < S.n - 1 ? 'Next question'
+                    : S.bonusRound ? 'See my score'
+                    : (S.right >= S.need && S.bonusItems && S.bonusItems.length)
+                        ? 'Unlock the bonus 🔥' : 'See my score';
   btnEl.classList.remove('hide');
   btnEl.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
@@ -568,6 +576,20 @@ function finish(){
   const passed = S.right >= S.need;
   const pct = Math.round(S.right / (S.graded || S.n) * 100);
   if (passed) P.passed[k] = true;
+
+  /* Earned it -- take the bonus round first, then come back here for the score.
+     A student who did not pass never sees it; that is the point of it. */
+  if (passed && S.bonusItems.length && !S.bonusDone){
+    S.bonusDone = true; S.bonusRound = true;
+    S.items = S.bonusItems; S.i = 0; S.n = S.items.length;
+    S.marks = []; S.locked = false;
+    $('hTitle').textContent = 'Bonus unlocked';
+    $('hSub').textContent = 'You passed — this one is just for fun';
+    renderQ();
+    celebrate(true, true);
+    show('test');
+    return;
+  }
   if (P.best[k] == null || S.right > P.best[k]) P.best[k] = S.right;
   save();
 
