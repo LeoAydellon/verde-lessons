@@ -44,8 +44,8 @@
 
 <header>
   <h1>🔥 Bonus Question Builder</h1>
-  <p>Write a bonus question, save it, and it shows up in the student app straight away.
-     No deploy, no version number, no waiting.</p>
+  <p>Write a bonus question here and copy it. Send it to Pam and it goes into
+     the app on the next deploy.</p>
 </header>
 
 <div class="wrap">
@@ -79,7 +79,7 @@
       <input id="art" value="🔥" maxlength="4" style="width:90px;font-size:22px;text-align:center">
     </div>
 
-    <button id="save">Save it to the app</button>
+    <button id="save">Copy it, ready to send to Pam</button>
     <div id="msg"></div>
   </div>
 
@@ -89,7 +89,7 @@
   </div>
 
   <div class="card">
-    <label>Bonus questions already live</label>
+    <label>Extra questions in the shared store</label>
     <div class="list" id="live">Loading…</div>
     <button class="ghost" id="reload" style="margin-top:10px">Refresh the list</button>
   </div>
@@ -97,9 +97,10 @@
 </div>
 
 <script>
-/* The same store the student app reads. Writing here is the whole point of the
-   page: Leo adds a question, the app picks it up on the next open. Nothing is
-   deployed and no version changes, because nothing in the app's code changed. */
+/* READ ONLY. The student app can read extra questions from this store, but the
+   database only accepts writes on the submissions path -- everything else
+   answers 401. This page therefore composes a question and hands it over; it
+   does not, and cannot, write one. */
 var DB = 'https://verde-animation-25368-default-rtdb.firebaseio.com/content/ag';
 
 var STANDARDS = [
@@ -164,25 +165,35 @@ function say(text, cls){ var m = $('msg'); m.textContent = text; m.className = c
 
 $('save').onclick = function(){
   var d = readForm();
-  /* Check before sending, not after. A half-written question that reaches the
-     store would show up in front of students exactly as typed. */
-  if (!d.q)                              return say('The question is empty.', 'err');
+  /* Check before copying, not after. */
+  if (!d.q)                                 return say('The question is empty.', 'err');
   if (d.options.filter(Boolean).length < 2) return say('Write at least two answers.', 'err');
-  if (!d.options[d.answer])              return say('The answer you marked correct is blank.', 'err');
+  if (!d.options[d.answer])                 return say('The answer you marked correct is blank.', 'err');
 
-  $('save').disabled = true; say('Saving…', 'ok');
-  fetch(DB + '.json', {
-    method: 'POST', headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(d)
-  }).then(function(r){
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    say('Saved. Open the student app and pass ' + d.standard + ' to see it.', 'ok');
-    $('q').value = ''; $('why').value = '';
-    [].forEach.call(document.querySelectorAll('.oi'), function(el){ el.value = ''; });
-    preview(); loadLive();
-  }).catch(function(e){
-    say('Could not save (' + e.message + '). Nothing was changed — try again.', 'err');
-  }).then(function(){ $('save').disabled = false; });
+  /* This page used to POST straight into the question store. It could never
+     have worked: the database accepts writes only on the submissions path and
+     answers 401 everywhere else, so every save would have failed in Leo's
+     hands. Rather than leave a button that lies, the page now produces the
+     finished question for him to send, which Pam puts into the app. */
+  var name = (STANDARDS.filter(function(s){ return s[0] === d.standard; })[0] || ['',''])[1];
+  var txt = 'BONUS QUESTION for ' + d.standard + ' ' + name + '\n'
+          + d.art + '  ' + d.q + '\n'
+          + d.options.map(function(o,i){
+              return '  ' + 'ABCD'[i] + ') ' + o + (i === d.answer ? '   <-- correct' : '');
+            }).join('\n')
+          + (d.why ? '\nAfter they answer: ' + d.why : '');
+
+  function done(){ say('Copied. Paste it to Pam and it goes in the app.', 'ok'); }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done, function(){ fallback(); });
+  } else fallback();
+
+  function fallback(){
+    var t = document.createElement('textarea');
+    t.value = txt; t.style.width='100%'; t.style.height='150px';
+    var m = $('msg'); m.className='ok'; m.textContent='Copy this and send it to Pam:';
+    m.appendChild(document.createElement('br')); m.appendChild(t); t.select();
+  }
 };
 
 function loadLive(){
@@ -196,7 +207,8 @@ function loadLive(){
         if (it && it.bonus && it.active !== false) items.push(it);
       });
       if (!items.length){ $('live').innerHTML =
-        '<span style="color:#6b7686">None saved here yet. The Soil Management one is built into the app itself.</span>'; return; }
+        '<span style="color:#6b7686">Empty — and that is expected. All 16 bonus questions live inside the app itself, ' +
+        'one per standard. This store is only for extras added later.</span>'; return; }
       items.sort(function(a,b){ return parseFloat(a.standard) - parseFloat(b.standard); });
       $('live').innerHTML = items.map(function(it){
         var name = (STANDARDS.filter(function(s){ return s[0] === it.standard; })[0] || ['',''])[1];
