@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 — Verde Tech 1.6</title>
+<title>🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 — Verde Tech 1.7</title>
 <meta name="theme-color" content="#2f6b3f">
 <style>
   :root{
@@ -147,6 +147,26 @@
     background:#f0f3f1;border:1px dashed var(--line);border-radius:10px;
     padding:12px;margin-top:12px;word-break:break-all;text-align:center;letter-spacing:.5px}
   @media print{header,.btn,.noprint{display:none !important}body{background:#fff}}
+  @keyframes confFall{0%{transform:translateY(-12vh) rotate(0);opacity:1}
+                      100%{transform:translateY(105vh) rotate(var(--spin,720deg));opacity:.9}}
+  @keyframes bannerIn{0%{transform:translate(-50%,-24px) scale(.8);opacity:0}
+                      18%{transform:translate(-50%,0) scale(1.06);opacity:1}
+                      30%{transform:translate(-50%,0) scale(1)}
+                      82%{opacity:1}100%{opacity:0}}
+  @keyframes badgeSpin{0%{transform:rotate(0) scale(1)}55%{transform:rotate(380deg) scale(1.3)}100%{transform:rotate(360deg) scale(1)}}
+  #conf{position:fixed;inset:0;pointer-events:none;z-index:59;overflow:hidden}
+  #conf i{position:absolute;top:0;width:10px;height:16px;border-radius:2px;animation:confFall 1.9s linear forwards}
+  #banner{position:fixed;left:50%;top:16%;z-index:61;pointer-events:none;
+    font-weight:900;font-size:30px;letter-spacing:.02em;text-align:center;
+    padding:14px 26px;border-radius:16px;color:#fff;white-space:nowrap;
+    background:linear-gradient(135deg,#f0821e,#e0451f);
+    box-shadow:0 12px 34px rgba(224,69,31,.45);animation:bannerIn 1.9s ease-out forwards}
+  #banner small{display:block;font-size:13px;font-weight:700;opacity:.95;letter-spacing:.06em;margin-top:3px}
+  .qart.spin .badge{animation:badgeSpin .85s ease-out}
+  /* Streak: only worth showing once it means something. */
+  .streak{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:12px;
+    color:#c8892b;background:#fdf3e2;border:1px solid #e9d9b6;border-radius:999px;padding:3px 10px}
+  @media (prefers-reduced-motion:reduce){ #conf,#banner{display:none} .qart.spin .badge{animation:none} }
   /* --- answer feedback: a beat of celebration, then out of the way ------- */
   @keyframes popIn{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
   @keyframes nope{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
@@ -186,7 +206,7 @@
   <div class="hrow">
     <button class="back hide" id="backBtn">‹ Back</button>
     <div style="flex:1;min-width:0">
-      <div class="htitle" id="hTitle">🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 <span id="appVerTop">1.6</span></div>
+      <div class="htitle" id="hTitle">🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 <span id="appVerTop">1.7</span></div>
       <div class="hsub" id="hSub">Arizona AgriScience · 01.0000.00</div>
     </div>
     <button class="who hide" id="whoBtn"></button>
@@ -198,7 +218,7 @@
   <!-- ============ NAME GATE ============ -->
   <section id="gate">
     <div class="card">
-      <h2>🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 <span id="appVerGate">1.6</span></h2>
+      <h2>🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 Ag CTE Prep 🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔🐔 <span id="appVerGate">1.7</span></h2>
       <div class="muted">Learn it, then prove it. Sixteen standards — the same ones on the
         state Technical Skills Assessment.</div>
       <input id="nameIn" placeholder="Type your name" autocomplete="off"
@@ -314,14 +334,15 @@ function range(a,b){const o=[];for(let i=a;i<=b;i++)o.push(i);return o;}
 function keyOf(t){ return t.kind==='std' ? 's'+t.id : t.kind==='ck' ? 'ck'+t.ckNo : 'final'; }
 
 /* ================= STATE ================= */
-const APP_VERSION = '1.6';   // bump with: node test/bump-version.js next
+const APP_VERSION = '1.7';   // bump with: node test/bump-version.js next
 const LS = 'agprep.v1';
 let student = '';
 let P = null;          // progress for the current student
 let view = 'gate';
 let session = null;    // live test
 
-function blank(){ return { passed:{}, best:{}, seen:{}, attempts:{}, started:Date.now() }; }
+function blank(){ return { passed:{}, best:{}, seen:{}, attempts:{}, started:Date.now(),
+                          bonusStreak:0, bonusBest:0 }; }
 function load(){
   let all = {};
   try { all = JSON.parse(localStorage.getItem(LS) || '{}'); } catch(e){ all = {}; }
@@ -390,7 +411,8 @@ function renderMap(){
   const pct = Math.round(passedStds / STANDARDS.length * 100);
   $('progFill').style.width = pct + '%';
   $('progLeft').innerHTML = '<b>' + passedStds + '</b> of ' + STANDARDS.length + ' standards passed';
-  $('progRight').textContent = P.passed['final'] ? 'Exam ready ✓' : (STANDARDS.length - passedStds) + ' to go';
+  $('progRight').innerHTML = (P.passed['final'] ? 'Exam ready ✓' : (STANDARDS.length - passedStds) + ' to go')
+    + ((P.bonusStreak || 0) > 1 ? ' <span class="streak">🔥 ' + P.bonusStreak + ' bonus streak</span>' : '');
 
   let h = '', group = -1;
   TRACK.forEach((t, i) => {
@@ -510,6 +532,31 @@ function renderQ(){
 
 /* A short burst of emoji. Purely decoration: it draws nothing from the quiz
    state, so if it ever fails the question still grades correctly. */
+function confetti(n){
+  const cols = ['#f0821e','#e0451f','#2e9e5b','#3b7dd8','#f2c14e','#8e44ad'];
+  let host = document.getElementById('conf');
+  if (!host){ host = document.createElement('div'); host.id='conf'; document.body.appendChild(host); }
+  for (let i=0;i<n;i++){
+    const c = document.createElement('i');
+    c.style.left = Math.random()*100 + '%';
+    c.style.background = cols[Math.floor(Math.random()*cols.length)];
+    c.style.setProperty('--spin', (360+Math.random()*720) + 'deg');
+    c.style.animationDelay = (Math.random()*0.5)+'s';
+    c.style.animationDuration = (1.5+Math.random()*0.9)+'s';
+    host.appendChild(c);
+    setTimeout(()=>c.remove(), 2600);
+  }
+}
+
+function banner(text, sub){
+  const old = document.getElementById('banner'); if (old) old.remove();
+  const b = document.createElement('div'); b.id='banner';
+  b.textContent = text;
+  if (sub){ const sm=document.createElement('small'); sm.textContent=sub; b.appendChild(sm); }
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(), 2000);
+}
+
 function celebrate(ok, isBonus){
   try{
     if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -519,6 +566,14 @@ function celebrate(ok, isBonus){
     const count = ok ? (isBonus ? 22 : 8) : (isBonus ? 8 : 4);
     let host = document.getElementById('burst');
     if (!host){ host = document.createElement('div'); host.id = 'burst'; document.body.appendChild(host); }
+    if (isBonus && ok){
+      confetti(70);
+      const qa = document.getElementById('qArt');
+      if (qa){ qa.classList.remove('spin'); void qa.offsetWidth; qa.classList.add('spin'); }
+      const st = (P && P.bonusStreak) || 0;
+      banner(st > 1 ? '🔥 ' + st + ' IN A ROW' : '🔥 NAILED IT',
+             st > 1 ? 'bonus streak' : 'bonus question');
+    }
     for (let i = 0; i < count; i++){
       const e = document.createElement('span');
       e.textContent = set[Math.floor(Math.random() * set.length)];
@@ -548,6 +603,11 @@ function answer(oi, btn){
     if (ok) S.right++;
     else S.missed.push({ q: q.q, right: q.options[q.answer], why: q.why,
                          std: STANDARDS[S.items[S.i].si].short });
+  }
+  if (q.bonus){
+    P.bonusStreak = ok ? (P.bonusStreak || 0) + 1 : 0;
+    if (P.bonusStreak > (P.bonusBest || 0)) P.bonusBest = P.bonusStreak;
+    save();
   }
   celebrate(ok, !!q.bonus);
   $('qWhy').innerHTML = '<div class="why ' + (ok?'r':'w') + '"><b>' +

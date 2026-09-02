@@ -1,0 +1,211 @@
+<title>Bonus Question Builder — Verde Tech</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root{--ink:#1d2430;--mut:#6b7686;--line:#e3e7ee;--bg:#f6f7f9;--card:#fff;
+        --fire:#f0821e;--fire2:#e0451f;--ok:#2e9e5b;--no:#d0342c}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  header{background:linear-gradient(135deg,var(--fire),var(--fire2));color:#fff;padding:20px 16px}
+  header h1{margin:0;font-size:21px;letter-spacing:.01em}
+  header p{margin:6px 0 0;font-size:13px;opacity:.95}
+  .wrap{max-width:660px;margin:0 auto;padding:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+  label{display:block;font-weight:700;font-size:12px;letter-spacing:.06em;
+        text-transform:uppercase;color:var(--mut);margin:0 0 6px}
+  input,select,textarea{width:100%;padding:11px 12px;border:1.5px solid var(--line);
+        border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--fire)}
+  .row{margin-bottom:14px}
+  .opt{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .opt input[type=radio]{width:22px;height:22px;flex:0 0 auto;accent-color:var(--ok)}
+  .opt .ltr{flex:0 0 26px;height:26px;display:grid;place-items:center;border-radius:7px;
+        background:#eef1f6;font-weight:800;font-size:13px;color:var(--mut)}
+  .hint{font-size:12.5px;color:var(--mut);margin:6px 0 0}
+  button{width:100%;padding:14px;border:0;border-radius:12px;font:inherit;font-weight:800;
+        font-size:16px;color:#fff;background:linear-gradient(135deg,var(--fire),var(--fire2));cursor:pointer}
+  button:disabled{opacity:.5;cursor:default}
+  button.ghost{background:#eef1f6;color:var(--ink);font-weight:700;font-size:14px;padding:10px}
+  #msg{margin-top:12px;padding:12px;border-radius:10px;font-weight:600;display:none}
+  #msg.ok{display:block;background:#eaf7ef;color:#1d6b3f;border:1px solid #b9e3c9}
+  #msg.err{display:block;background:#fdecea;color:#9a2820;border:1px solid #f3c2bd}
+  .prev{background:#fff8ef;border:1px dashed #e9c79a;border-radius:12px;padding:14px;margin-top:6px}
+  .prev .badge{display:inline-grid;place-items:center;width:64px;height:64px;border-radius:50%;
+        background:#fff3e0;border:2px solid var(--fire);font-size:34px;margin:0 auto 8px}
+  .prev .c{text-align:center}
+  .prev .q{font-weight:700;margin:6px 0 10px}
+  .prev .o{border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;margin-bottom:6px;font-size:14px}
+  .prev .o.right{border-color:var(--ok);background:#f2faf4}
+  .list{font-size:14px}
+  .list .it{border-bottom:1px solid var(--line);padding:9px 0}
+  .list .it:last-child{border:0}
+  .list .s{font-size:11.5px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+</style>
+
+<header>
+  <h1>🔥 Bonus Question Builder</h1>
+  <p>Write a bonus question, save it, and it shows up in the student app straight away.
+     No deploy, no version number, no waiting.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <div class="row">
+      <label for="std">Which standard is it the bonus for?</label>
+      <select id="std"></select>
+      <p class="hint">Students only see it after they <b>pass</b> that standard's test.</p>
+    </div>
+
+    <div class="row">
+      <label for="q">The question</label>
+      <textarea id="q" rows="2" placeholder="How amazing is Mr. Beltran?"></textarea>
+    </div>
+
+    <div class="row">
+      <label>The four answers — tap the circle next to the right one</label>
+      <div id="opts"></div>
+      <p class="hint">Bonus answers stay in the order you type them, so if you want the
+         answer to be C, put it third.</p>
+    </div>
+
+    <div class="row">
+      <label for="why">What it says after they answer</label>
+      <input id="why" placeholder="C. Obviously. Now get back to your soil horizons.">
+    </div>
+
+    <div class="row">
+      <label for="art">Emoji for the badge</label>
+      <input id="art" value="🔥" maxlength="4" style="width:90px;font-size:22px;text-align:center">
+    </div>
+
+    <button id="save">Save it to the app</button>
+    <div id="msg"></div>
+  </div>
+
+  <div class="card">
+    <label>What students will see</label>
+    <div class="prev" id="prev"></div>
+  </div>
+
+  <div class="card">
+    <label>Bonus questions already live</label>
+    <div class="list" id="live">Loading…</div>
+    <button class="ghost" id="reload" style="margin-top:10px">Refresh the list</button>
+  </div>
+
+</div>
+
+<script>
+/* The same store the student app reads. Writing here is the whole point of the
+   page: Leo adds a question, the app picks it up on the next open. Nothing is
+   deployed and no version changes, because nothing in the app's code changed. */
+var DB = 'https://verde-animation-25368-default-rtdb.firebaseio.com/content/ag';
+
+var STANDARDS = [
+  ['1.0','Agriculture in Society'],   ['2.0','Trends, Tech & Policy'],
+  ['3.0','Scientific Process in Ag'], ['4.0','Environment & Sustainability'],
+  ['5.0','Soil Management'],          ['6.0','Cells and Genetics'],
+  ['7.0','Plant Science'],            ['8.0','Plant Management'],
+  ['9.0','Animal Science'],           ['10.0','Animal Management'],
+  ['11.0','Pest Management (IPM)'],   ['12.0','Food Safety & Processing'],
+  ['13.0','Structures & Land'],       ['14.0','Tools, Welding & Engines'],
+  ['15.0','Agribusiness & Money'],    ['16.0','Ag Tech & Data']
+];
+
+var $ = function(id){ return document.getElementById(id); };
+
+$('std').innerHTML = STANDARDS.map(function(s){
+  return '<option value="' + s[0] + '">' + s[0] + '  ' + s[1] + '</option>';
+}).join('');
+
+$('opts').innerHTML = ['A','B','C','D'].map(function(L,i){
+  return '<div class="opt">' +
+    '<input type="radio" name="ans" value="' + i + '"' + (i===2?' checked':'') + '>' +
+    '<span class="ltr">' + L + '</span>' +
+    '<input class="oi" data-i="' + i + '" placeholder="Answer ' + L + '">' +
+  '</div>';
+}).join('');
+
+function esc(t){ return String(t==null?'':t).replace(/[&<>"]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+function readForm(){
+  var opts = [].map.call(document.querySelectorAll('.oi'), function(el){ return el.value.trim(); });
+  var ansEl = document.querySelector('input[name=ans]:checked');
+  return {
+    standard: $('std').value,
+    q: $('q').value.trim(),
+    options: opts,
+    answer: ansEl ? parseInt(ansEl.value,10) : 0,
+    why: $('why').value.trim(),
+    art: $('art').value.trim() || '🔥',
+    bonus: true,
+    noShuffle: true,   /* a bonus answer stays where it was typed */
+    active: true
+  };
+}
+
+function preview(){
+  var d = readForm();
+  $('prev').innerHTML =
+    '<div class="c"><div class="badge">' + esc(d.art) + '</div></div>' +
+    '<div class="q">' + (esc(d.q) || '<span style="color:#9aa4b2">your question…</span>') + '</div>' +
+    d.options.map(function(o,i){
+      return '<div class="o' + (i===d.answer?' right':'') + '"><b>' + 'ABCD'[i] + ')</b> ' +
+             (esc(o) || '<span style="color:#9aa4b2">answer ' + 'ABCD'[i] + '</span>') + '</div>';
+    }).join('');
+}
+document.addEventListener('input', preview);
+document.addEventListener('change', preview);
+preview();
+
+function say(text, cls){ var m = $('msg'); m.textContent = text; m.className = cls; }
+
+$('save').onclick = function(){
+  var d = readForm();
+  /* Check before sending, not after. A half-written question that reaches the
+     store would show up in front of students exactly as typed. */
+  if (!d.q)                              return say('The question is empty.', 'err');
+  if (d.options.filter(Boolean).length < 2) return say('Write at least two answers.', 'err');
+  if (!d.options[d.answer])              return say('The answer you marked correct is blank.', 'err');
+
+  $('save').disabled = true; say('Saving…', 'ok');
+  fetch(DB + '.json', {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(d)
+  }).then(function(r){
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    say('Saved. Open the student app and pass ' + d.standard + ' to see it.', 'ok');
+    $('q').value = ''; $('why').value = '';
+    [].forEach.call(document.querySelectorAll('.oi'), function(el){ el.value = ''; });
+    preview(); loadLive();
+  }).catch(function(e){
+    say('Could not save (' + e.message + '). Nothing was changed — try again.', 'err');
+  }).then(function(){ $('save').disabled = false; });
+};
+
+function loadLive(){
+  $('live').textContent = 'Loading…';
+  fetch(DB + '.json?_=' + Date.now(), {cache:'no-store'})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(obj){
+      var items = [];
+      Object.keys(obj || {}).forEach(function(k){
+        var it = obj[k];
+        if (it && it.bonus && it.active !== false) items.push(it);
+      });
+      if (!items.length){ $('live').innerHTML =
+        '<span style="color:#6b7686">None saved here yet. The Soil Management one is built into the app itself.</span>'; return; }
+      items.sort(function(a,b){ return parseFloat(a.standard) - parseFloat(b.standard); });
+      $('live').innerHTML = items.map(function(it){
+        var name = (STANDARDS.filter(function(s){ return s[0] === it.standard; })[0] || ['',''])[1];
+        return '<div class="it"><div class="s">' + esc(it.standard) + ' · ' + esc(name) + '</div>' +
+               esc(it.art || '') + ' ' + esc(it.q) + '</div>';
+      }).join('');
+    })
+    .catch(function(){ $('live').textContent = 'Could not read the list right now.'; });
+}
+$('reload').onclick = loadLive;
+loadLive();
+</script>
