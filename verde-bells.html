@@ -1,0 +1,210 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Verde Bells — Room 506</title>
+<!--
+  Verde Tech bell clock — standalone.
+
+  WHY THIS EXISTS
+    2026-09-17, in class: Leo OS showed P2 Agribusiness at 8:20. The times were
+    wrong (an overnight run had guessed a half-day grid), and the corrected file
+    could not reach him: Leo OS is served from Athena One at his house, and the
+    school's Fortinet blocks Tailscale. The page he was reading was stale and
+    unreachable from the building he was standing in.
+
+    This page has no such dependency. It is one file on ordinary web hosting --
+    the same hosting his student apps already load from at school every day.
+    No server, no home LAN, no Tailscale, no login. Once open it works offline.
+
+  THE RULE THIS PAGE KEEPS
+    It never asserts a schedule it cannot verify. A date known to be unusual but
+    whose real bell times nobody has confirmed shows a WARNING, not invented
+    times. Wrong times with confidence are worse than no times.
+-->
+<style>
+  :root{
+    --bg:#12100e; --card:#1c1917; --line:#2e2825;
+    --ink:#f5efe6; --dim:#b8aa9a; --faint:#7d7268;
+    --now:#e8a33d; --ok:#4fa46a; --warn:#d9534f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+       padding:18px 16px 40px;max-width:560px;margin:0 auto}
+  h1{font-size:19px;margin:0}
+  .sub{color:var(--dim);font-size:13.5px;margin:3px 0 16px}
+
+  .now{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--now);
+       border-radius:14px;padding:16px 17px;margin-bottom:8px}
+  .now .lbl{color:var(--faint);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase}
+  .now .name{font-size:25px;font-weight:800;margin:3px 0 2px;line-height:1.2}
+  .now .left{font-size:15px;color:var(--now);font-weight:700;font-variant-numeric:tabular-nums}
+  .now .next{color:var(--dim);font-size:14px;margin-top:7px}
+
+  .banner{border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:14px;line-height:1.45}
+  .banner.warn{background:#2a1614;border:1px solid #5c2b27;color:#f0c9c5}
+  .banner b{color:#fff}
+
+  .sec{color:var(--faint);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;
+       margin:20px 0 8px}
+  table{width:100%;border-collapse:collapse;background:var(--card);
+        border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  td{padding:11px 13px;border-bottom:1px solid var(--line);font-size:15px}
+  tr:last-child td{border-bottom:0}
+  td.t{color:var(--dim);white-space:nowrap;width:1%;font-variant-numeric:tabular-nums}
+  tr.on td{background:#251f18;color:#fff;font-weight:700}
+  tr.on td.t{color:var(--now)}
+  tr.done td{color:var(--faint)}
+  .foot{color:var(--faint);font-size:12px;margin-top:22px;line-height:1.6}
+</style>
+
+<h1>Verde Bells · Room 506</h1>
+<div class="sub" id="sub">—</div>
+
+<div id="banner"></div>
+
+<div class="now">
+  <div class="lbl" id="lbl">Now</div>
+  <div class="name" id="name">—</div>
+  <div class="left" id="left"></div>
+  <div class="next" id="next"></div>
+</div>
+
+<div class="sec">Today</div>
+<table id="grid"><tr><td>Loading…</td></tr></table>
+
+<p class="foot" id="foot"></p>
+
+<script>
+(function(){
+  const hm=(h,m)=>h*60+m;
+
+  // Bell grids, [startMin, endMin, label]. Arizona time, no DST.
+  const REG=[ // Mon · Tue · Thu
+    [hm(7,30),hm(8,30),'P1 · Learning Lab'],
+    [hm(8,35),hm(9,35),'P2 · Agribusiness'],
+    [hm(9,40),hm(10,40),'P3 · Agriscience III'],
+    [hm(10,45),hm(11,45),'P4 · Digital Animation III'],
+    [hm(11,50),hm(12,20),'Lunch'],
+    [hm(12,25),hm(13,25),'P6 · Digital Animation I'],
+    [hm(13,30),hm(14,30),'P7 · Learning Lab'],
+  ];
+  const WED=[ // Wednesday · early release
+    [hm(7,30),hm(8,15),'P1 · Learning Lab'],
+    [hm(8,20),hm(9,5),'P2 · Agribusiness'],
+    [hm(9,10),hm(9,55),'P3 · Agriscience III'],
+    [hm(10,0),hm(10,45),'P4 · Digital Animation III'],
+    [hm(10,50),hm(11,35),'P6 · Digital Animation I'],
+    [hm(11,35),hm(12,5),'Lunch'],
+    [hm(12,5),hm(12,45),'P7 · Learning Lab'],
+  ];
+
+  const NO_SCHOOL=["2026-09-07","2026-10-12","2026-10-13","2026-10-14","2026-10-15",
+    "2026-10-16","2026-11-11","2026-11-25","2026-11-26","2026-11-27","2026-12-21",
+    "2026-12-22","2026-12-23","2026-12-24","2026-12-25","2026-12-28","2026-12-29",
+    "2026-12-30","2026-12-31","2027-01-01","2027-01-04","2027-01-18","2027-02-15",
+    "2027-03-15","2027-03-16","2027-03-17","2027-03-18","2027-03-19","2027-03-26",
+    "2027-03-29","2027-04-30","2027-05-31"];
+
+  // Dates the district calendar marks unusual but whose REAL Verde Tech bell times
+  // nobody has confirmed with the office. These do NOT change the times shown --
+  // they raise a warning. Confirm with the office, then give them a real grid.
+  const UNCONFIRMED={
+    "2026-11-17":"district calendar marks this a half-day release",
+    "2026-11-18":"district calendar marks this a half-day release",
+    "2027-02-11":"district calendar marks this a half-day release",
+    "2027-02-12":"district calendar marks this a half-day release"
+  };
+
+  const pad=n=>String(n).padStart(2,'0');
+  const t12=m=>{const h=Math.floor(m/60),x=m%60;const ap=h<12?'AM':'PM';
+    const hh=h%12===0?12:h%12;return hh+':'+pad(x)+' '+ap;};
+
+  function az(){
+    const now=new Date();
+    const date=now.toLocaleDateString('en-CA',{timeZone:'America/Phoenix'});
+    const s=now.toLocaleString('en-US',{timeZone:'America/Phoenix',hour12:false,
+      weekday:'short',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    const m=s.match(/(\w{3}),?\s+(\d{2}):(\d{2}):(\d{2})/);
+    const wd={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[m[1]];
+    return {date, wd, min:(+m[2])*60+(+m[3]), sec:+m[4],
+            pretty:now.toLocaleDateString('en-US',{weekday:'long',month:'long',
+              day:'numeric',year:'numeric',timeZone:'America/Phoenix'})};
+  }
+
+  function gridFor(d){
+    if(NO_SCHOOL.includes(d.date)) return {grid:null, why:'No school today.'};
+    if(d.wd===0||d.wd===6) return {grid:null, why:'Weekend — no classes.'};
+    if(d.wd===5) return {grid:null, why:'Friday — Verde Tech has no Friday classes.'};
+    if(d.wd===3) return {grid:WED, why:'Wednesday — early release.'};
+    return {grid:REG, why:''};
+  }
+
+  const $=id=>document.getElementById(id);
+
+  function tick(){
+    const d=az(), g=gridFor(d);
+    $('sub').textContent=d.pretty;
+
+    const warn=UNCONFIRMED[d.date];
+    $('banner').innerHTML = warn
+      ? '<div class="banner warn"><b>Check the office before trusting these times.</b><br>'
+        + warn.charAt(0).toUpperCase()+warn.slice(1)
+        + ', but the real bell times for Verde Tech were never confirmed. '
+        + 'The times below are the ordinary ones and may be wrong today.</div>'
+      : '';
+
+    if(!g.grid){
+      $('lbl').textContent='Today';
+      $('name').textContent=g.why;
+      $('left').textContent=''; $('next').textContent='';
+      $('grid').innerHTML='<tr><td>'+g.why+'</td></tr>';
+      stamp(); return;
+    }
+
+    const G=g.grid, m=d.min, s=d.sec;
+    let cur=null, nxt=null;
+    for(let i=0;i<G.length;i++){
+      if(m>=G[i][0] && m<G[i][1]){ cur=i; nxt=i+1<G.length?i+1:null; break; }
+      if(m<G[i][0]){ nxt=i; break; }
+    }
+
+    if(cur!==null){
+      const endsIn=(G[cur][1]-m)*60-s;
+      $('lbl').textContent='In class now';
+      $('name').textContent=G[cur][2];
+      $('left').textContent=Math.floor(endsIn/60)+':'+pad(endsIn%60)+' left';
+      $('next').textContent=nxt!==null
+        ? 'then → '+G[nxt][2]+' at '+t12(G[nxt][0])
+        : 'then → dismissal at '+t12(G[cur][1]);
+    } else if(nxt!==null){
+      const startsIn=(G[nxt][0]-m)*60-s;
+      $('lbl').textContent=m<G[0][0]?'Before school':'Between classes';
+      $('name').textContent='Passing — next is '+G[nxt][2];
+      $('left').textContent=Math.floor(startsIn/60)+':'+pad(startsIn%60)+' to the bell';
+      $('next').textContent=G[nxt][2]+' starts '+t12(G[nxt][0]);
+    } else {
+      $('lbl').textContent='Today';
+      $('name').textContent='Day complete.';
+      $('left').textContent='';
+      $('next').textContent='Dismissed at '+t12(G[G.length-1][1]);
+    }
+
+    $('grid').innerHTML=G.map(function(p){
+      const on=(m>=p[0]&&m<p[1]), done=(m>=p[1]);
+      return '<tr class="'+(on?'on':done?'done':'')+'">'
+        +'<td class="t">'+t12(p[0])+'</td><td>'+p[2]+'</td></tr>';
+    }).join('');
+
+    stamp();
+  }
+
+  function stamp(){
+    $('foot').innerHTML='Times are Arizona (no DST) and come from this page alone — '
+      +'no server, no home network, nothing to reach. Works with the Wi-Fi off once open.<br>'
+      +'If a bell here ever disagrees with the building, the building is right. Tell Pam and it gets fixed here.';
+  }
+
+  tick(); setInterval(tick,1000);
+})();
+</script>
